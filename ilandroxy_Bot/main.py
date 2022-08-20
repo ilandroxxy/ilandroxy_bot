@@ -101,8 +101,9 @@ def start(message):
     btn1 = types.KeyboardButton('Контакты')
     btn2 = types.KeyboardButton('Репетитор')
     btn3 = types.KeyboardButton('Мои проекты')
-    btn4 = types.KeyboardButton('Создать бота под заказ')
-    markup.add(btn1, btn2, btn3, btn4)
+    btn4 = types.KeyboardButton('Записаться на урок')
+    btn5 = types.KeyboardButton('Получить файл с урока')
+    markup.add(btn1, btn2, btn3, btn4, btn5)
     send_mess = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
                 f'*Меня зовут Андрианов Илья*. \nЯ программист developer Telegram ботов.\n' \
                 f'А также репетитор Программирования на языке Python 🐍 и подготовке к ЕГЭ по Информатике 👨‍🏫\n\n' \
@@ -355,39 +356,26 @@ def mess(message):
 
 
 
-    if get_message_bot == "Создать бота под заказ":
+    if get_message_bot == "Записаться на урок":
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(types.InlineKeyboardButton("calendly.com", url="calendly.com/ilandroxxy/tutor"))
+        message_text = f"Воспользуйтесь удобным сервисом *для записи на пробник* или выбора графика занятий. \n\n" \
+                       f"Просто выберете подходящее время и *напишите пару слов о себе*. \n\n" \
+                       f"❗Ваша карточка отобразится в моем календаре, но чтобы было комфортнее держать связь - прошу написать еще и в [Telegram](t.me/ilandroxy). "
+        bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+        pic = open("photo/calendly.jpg", 'rb')
+        bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        btn1 = types.KeyboardButton('🔮 Хочу вернуться назад')
-        markup.add(btn1)
 
-        send_message0 = "Здесь я собираю заявки на создание ботов под заказ. Все, что мне нужно - это описание Вашей идеи и немножечко времени, чтобы ее переварить 😅 \n\n" \
-                        " ✍️ Просто опишите свою идею в одном сообщение (критично важно)."
-        bot.send_message(message.chat.id, send_message0, parse_mode='Markdown', reply_markup=markup)
-
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            user_id = message.chat.id
-            user_name = message.from_user.username
-
-            if message.text != "🔮 Хочу вернуться назад":
-                text_message = "Пришла новая заявка на создание бота: \n*user:* @" + user_name + "\n\n_Письмо:_\n" + message.text
-                bot.send_message(438879394, text_message, parse_mode='Markdown')
-
-                bot.send_message(message.chat.id, "❗Заявка улетела ко мне (@ilandroxxy), постараюсь связаться с Вами в ближайшее время 🙏")
-            if message.text == "🔮 Хочу вернуться назад":
-                bot.send_message(message.chat.id, "Поздравляю, вы нашли уязвимость, просто тапните по клавише второй раз ✊", parse_mode='Markdown')
-
-        bot.register_next_step_handler(message, message_input)
 
     if get_message_bot == "🔮 Хочу вернуться назад":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
         btn3 = types.KeyboardButton('Мои проекты')
-        btn4 = types.KeyboardButton('Создать бота под заказ')
-        markup.add(btn1, btn2, btn3, btn4)
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
         send_mess = '👇 Вернул в начало, не благодарите'
 
         bot.send_message(message.chat.id, send_mess, parse_mode='Markdown', reply_markup=markup)
