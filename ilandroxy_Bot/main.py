@@ -366,6 +366,36 @@ def mess(message):
         pic = open("photo/calendly.jpg", 'rb')
         bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
+    if get_message_bot == "Получить файл с урока":
+        if message.chat.id == 438879394:  # Я
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("ilandroxy_bot", url="https://github.com/ilandroxxy/ilandroxy_bot"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        if message.chat.id == 683943897:  # Таня
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Tanya.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Tanya.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        if message.chat.id == 1314375732:  # Василий
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Vasiliy.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Vasiliy.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        if message.chat.id == 1537718492:  # Александр
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Aleksandr.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Aleksandr.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+            
+        else:
+            message_text = 'Извините, по-моему вас нет в системе! Ожидайте...'
+            bot.send_message(message.chat.id, message_text)
+            sti = open('photo/WaitSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti)
 
 
     if get_message_bot == "🔮 Хочу вернуться назад":
