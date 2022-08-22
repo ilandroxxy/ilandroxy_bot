@@ -7,9 +7,9 @@ import emoji
 from time import sleep
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯
-bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
+bot = telebot.TeleBot('5441155715:AAECB2FwzKK1LhRYLYPsrjrjXHKAErC3gwE')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
-
+# test 5441155715:AAECB2FwzKK1LhRYLYPsrjrjXHKAErC3gwE
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
