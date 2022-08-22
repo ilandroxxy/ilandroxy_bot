@@ -6,8 +6,9 @@ import csv
 import emoji
 from time import sleep
 
+
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯
-bot = telebot.TeleBot('5441155715:AAECB2FwzKK1LhRYLYPsrjrjXHKAErC3gwE')
+bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
 # test 5441155715:AAECB2FwzKK1LhRYLYPsrjrjXHKAErC3gwE
 
@@ -15,6 +16,7 @@ bot = telebot.TeleBot('5441155715:AAECB2FwzKK1LhRYLYPsrjrjXHKAErC3gwE')
 /statistics - выводит статистику и файлы db напрямую в боте
 /voice - способ отправить сообщение всем пользователям 
 /voicehard - способ отправить сложное сообщение всем пользователям используя ссылки, картинки и тд
+/notice - команда при запуске которой приходят напоминания раз в 24 часа по поводу GitHub
 '''
 
 '''# публичные команды
@@ -314,6 +316,15 @@ def voice(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
+# NOTICE
+@bot.message_handler(commands=['notice'])
+def notice(message):
+    if message.chat.id == 1891281816:
+        while True:
+            bot.send_message(1891281816, "Напоминание: залить изменения на GitHub.")
+            sleep(86400)
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
 
