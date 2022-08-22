@@ -321,7 +321,11 @@ def voice(message):
 def notice(message):
     if message.chat.id == 1891281816:
         while True:
-            bot.send_message(1891281816, "Напоминание: залить изменения на GitHub.")
+            bot.send_message(1891281816, "Напоминание: залить изменения на GitHub.\n\n"
+                                         "cd PycharmProjects/ilandroxy_bot/ilandroxy_Bot/\n\n"
+                                         "git add .\n\n"
+                                         "git commit -m ''\n\n"
+                                         "git push")
             sleep(86400)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
@@ -407,6 +411,7 @@ def mess(message):
         pic = open("photo/calendly.jpg", 'rb')
         bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
+
     if get_message_bot == "Получить файл с урока":
         if message.chat.id == 438879394 or message.chat.id == 1891281816:  # Я
             markup = types.InlineKeyboardMarkup(row_width=1)
@@ -431,16 +436,19 @@ def mess(message):
             markup.add(types.InlineKeyboardButton("Aleksandr.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Aleksandr.py"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
         elif message.chat.id == 871237277:  # Владек
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton("Vladek.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Vladek.py"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
         elif message.chat.id == 826004697:  # Никита
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton("Nikita.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Nikita.py"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
         elif message.chat.id == 1208542295:  # Саша Казакова
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton("Sasha.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Sasha.py"))
