@@ -614,8 +614,8 @@ def calendly(message):
     bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
 # HOMEWORK
-Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова']
-stidents = [683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295]
+Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
+stidents = [683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439]
 @bot.message_handler(commands=['homework'])
 def homework(message):
     if message.chat.id in stidents or message.chat.id == 1891281816 or message.chat.id == 438879394:
@@ -978,10 +978,30 @@ def mess(message):
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
         elif message.chat.id == 1208542295:  # Саша Казакова
+            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, messgae_text)
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton("Твой файл: Sasha.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Sasha.py"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+
+        elif message.chat.id == 811476623:  # Георгий
+            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, messgae_text)
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Твой файл: Georgie.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Georgie.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        elif message.chat.id == 1477701439:  # Валерия
+            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, messgae_text)
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Твой файл: Valeria.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Valeria.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
 
         else:
             message_text = 'Извините, по-моему вас нет в системе! Ожидайте...'
