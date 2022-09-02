@@ -8,7 +8,7 @@ import emoji
 import time
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  `
-bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
+bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
@@ -678,34 +678,27 @@ def homework(message):
 
 ''' #приватные команды
 /statistics - выводит статистику и файлы db напрямую в боте
-/voice - способ отправить сообщение всем пользователям 
-/voicehard - способ отправить сложное сообщение всем пользователям используя ссылки, картинки и тд
+/voice - способ отправить сообщение всем пользователям (с ссылками)
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
 '''
 
 # Getting STATISTICS
 def analytics(func: callable):
     total_users = 0
-    users = [['total_users', 'user_id', 'username', 'contact', 'tutor', 'myproject', 'clandly', 'getfile']]
+    users = [['user_id', 'username']]
     username = ""
 
 
     def anlytics_wrapper(message):
-        nonlocal users, total_users, username
+        nonlocal users, username
 
         # Считаем кол-во нажатий на клавишу-----------------------------------
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
 
         cursor.execute("""CREATE TABLE IF NOT EXISTS active(
-                                total_users INTEGER,
                                 id INTEGER,
-                                UserName TEXT,
-                                Contact BOOLEAN,
-                                Tutor BOOLEAN,
-                                Myproject BOOLEAN,
-                                Calendly BOOLEAN,
-                                Getfile BOOLEAN
+                                UserName TEXT
                             )""")
         sql.commit()
 
@@ -715,31 +708,19 @@ def analytics(func: callable):
 
         if data is None:
             user_id = message.chat.id
-            total_users += 1
             username = message.from_user.username
 
-            cursor.execute(f"INSERT INTO active VALUES(?, ?, ?, ?, ?, ?, ?, ?);", (total_users, user_id, username, False, False, False, False, False))
+            cursor.execute(f"INSERT INTO active VALUES(?, ?);", (user_id, username))
             sql.commit()
         else:
             cursor.execute(f"DELETE FROM active WHERE id = {people_id}")
             user_id = message.chat.id
             username = message.from_user.username
-            users.append([total_users, user_id, username, False, False, False, False, False])
-
-            if message.text == "Контакты":
-                users[total_users][3] = True
-            if message.text == "Репетитор":
-                users[total_users][4] = True
-            if message.text == "Мои проекты":
-                users[total_users][5] = True
-            if message.text == "Записаться на урок":
-                users[total_users][6] = True
-            if message.text == "Получить файл с урока":
-                users[total_users][7] = True
+            users.append([user_id, username])
 
 
 
-            cursor.execute(f"INSERT INTO active VALUES(?, ?, ?, ?, ?, ?, ?, ?);", (total_users, user_id, username, users[total_users][3], users[total_users][4], users[total_users][5], users[total_users][6], users[total_users][7]))
+            cursor.execute(f"INSERT INTO active VALUES(?, ?);", (user_id, username))
             sql.commit()
 
             cursor.close()
@@ -761,23 +742,8 @@ def statistics(message):
         cursor.execute(sqlite_select_query)
         records = cursor.fetchall()
 
-        bot.send_message(message.chat.id, "Всего пользователей:  " + str(len(records)) + "\nВывод статистики по кнопкам:")
-        count3 = count4 = count5 = count6 = count7 = 0
-        for row in records:
-            if row[3] == True:
-                count3 += 1
-            if row[4] == True:
-                count4 += 1
-            if row[5] == True:
-                count5 += 1
-            if row[6] == True:
-                count6 += 1
-            if row[7] == True:
-                count7 += 1
+        bot.send_message(message.chat.id, "Всего пользователей:  " + str(len(records)))
 
-        statistics_message = 'Нажатий на клавиши: \n1. Контакты:  *{}*\n2. Репетитор:  *{}*\n' \
-                             '3. Мои проекты:  *{}*\n4. Записаться на урок:  *{}*\n5. Получить файл с урока: *{}*'.format(count3, count4, count5, count6, count7)
-        bot.send_message(message.chat.id, statistics_message, parse_mode="Markdown")
 
         db = open("analytics.db", 'rb')
         bot.send_document(message.chat.id, db)
@@ -793,7 +759,6 @@ def statistics(message):
         CSV = open("ForExcel.csv", 'rb')
         bot.send_document(message.chat.id, CSV)
 
-
         cursor.close()
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
@@ -801,10 +766,9 @@ def statistics(message):
 # VOICE
 @bot.message_handler(commands=['voice'])
 def voice(message):
-
     if message.chat.id == 438879394 or message.chat.id == 1891281816:
-        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит всем пользователям: \n\n")
-
+        bot.send_message(message.chat.id,
+                         "Введите сообщение, которое бот отправит всем пользователям (поддерживаются только классические ссылки):")
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
@@ -818,39 +782,13 @@ def voice(message):
             users_id = cursor.fetchall()
 
             for i in range(0, len(users_id)):
-                bot.send_message(users_id[i][0], text_message)
+                bot.send_message(users_id[i][0], text_message, disable_web_page_preview=True)
 
         bot.register_next_step_handler(message, message_input)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
-# VOICEHARD
-@bot.message_handler(commands=['voicehard'])
-def voicehard(message):
-    if message.chat.id == 438879394 or message.chat.id == 1891281816:
-        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит всем пользователям. \n\n(Напоминаю, что ссылку надо добавить в коде программы)\n")
 
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            text_message = message.text
-
-            sql = sqlite3.connect('analytics.db')
-            cursor = sql.cursor()
-
-            sqlite_select_query = """SELECT id from active"""
-            cursor.execute(sqlite_select_query)
-            users_id = cursor.fetchall()
-
-            for i in range(0, len(users_id)):
-                markup = types.InlineKeyboardMarkup(row_width=1)
-                # Тут добавляем ссылку которую будем отправлять
-                markup.add(types.InlineKeyboardButton("Ссылка", url="https://inf-ege.sdamgia.ru/test?id=11274364&nt=True&pub=False"))
-                bot.send_message(users_id[i][0], text_message, reply_markup=markup)
-
-        bot.register_next_step_handler(message, message_input)
-    else:
-        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 # GIT
 @bot.message_handler(commands=['git'])
