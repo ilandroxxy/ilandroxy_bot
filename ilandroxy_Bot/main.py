@@ -635,6 +635,7 @@ def calendly(message):
 
     bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
+
 # HOMEWORK
 Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
 stidents = [683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439]
@@ -941,6 +942,14 @@ def mess(message):
         bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
         pic = open("photo/calendly.jpg", 'rb')
         bot.send_photo(message.chat.id, pic, reply_markup=markup)
+
+        user_id = message.chat.id
+        user_name = message.from_user.username
+
+        text_message = f"*Возможно кто-то оставил заявку на урок, надо проверить!* \n\nПользователь *{message.from_user.first_name}*\n*id:* " + str(
+            user_id) + "\n*user:* @" + user_name + f"\n*Ссылка* : tg://user?id={user_id}" + "\n\nОткрыть [Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
+
+        bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 # Добавляем учеников к системе бота
