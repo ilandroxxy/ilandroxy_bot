@@ -7,10 +7,10 @@ import csv
 import emoji
 import time
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯
-bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  `
+bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
-# test 5441155715:AAECB2FwzKK1LhRYLYPsrjrjXHKAErC3gwE
+# test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -509,6 +509,7 @@ calendly - форма записи на урок
 links - полезные ссылки для подготовки к экзамену
 getmyid - бот покажет ваш id пользователя Telegram
 myprojects - список моих актуальных проектов
+download - список программ необходимых для уроков
 start - перезапуск бота, на стартовую позицию
 help - справка по всем командам в боте
 '''
@@ -543,7 +544,7 @@ def start(message):
 def help(message):
     send_message = "I can help you create and manage Telegram bots. If you're new to the Bot API, please see the manual.\n\n" \
                    "You can control me by sending these commands:\n\n*Commands*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
-                   '/myprojects - список моих актуальных проектов\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/links - полезные ссылки для подготовки к экзамену' \
+                   '/myprojects - список моих актуальных проектов\ndownload - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/links - полезные ссылки для подготовки к экзамену' \
                    '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
@@ -566,6 +567,18 @@ def myprojects(message):
                    "На сегодняшний день курс еще находится в разработке, но уже можно понять, что он из себя будет представлять по [описанию проекта](https://stepik.org/lesson/770711/step/1) и черновому [примеру урока](https://stepik.org/lesson/770602/step/1).\n\n"
 
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown", disable_web_page_preview=True)
+
+# DOWNLOAD
+@bot.message_handler(commands=['download'])
+def download(message):
+    message_text = f"*Перечень необходимых программ:*\n\n" \
+                   f"1. Python [скачать](www.python.org/downloads/)\n\n" \
+                   f"2. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/#section=mac)\n\n" \
+                   f"3. Discord [скачать](discord.com/download)\n\n" \
+                   f"4. Telegram Desktop [скачать](telegram.org/)"
+
+    bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
 
 # TASKS
 @bot.message_handler(commands=['tasks'])
@@ -613,6 +626,15 @@ def calendly(message):
     pic = open("photo/calendly.jpg", 'rb')
     bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
+
+    user_id = message.chat.id
+    user_name = message.from_user.username
+
+    text_message = f"*Возможно кто-то оставил заявку на урок, надо проверить!* \n\nПользователь *{message.from_user.first_name}*\n*id:* " + str(
+        user_id) + "\n*user:* @" + user_name + f"\n*Ссылка* : tg://user?id={user_id}" + "\n\nОткрыть [Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
+
+    bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
+
 # HOMEWORK
 Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
 stidents = [683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439]
@@ -657,7 +679,7 @@ def homework(message):
 /statistics - выводит статистику и файлы db напрямую в боте
 /voice - способ отправить сообщение всем пользователям 
 /voicehard - способ отправить сложное сообщение всем пользователям используя ссылки, картинки и тд
-/notice - команда при запуске которой приходят напоминания раз в 24 часа по поводу GitHub
+/git - команда при запуске которой приходят команды для залива репазитория на GitHub
 '''
 
 # Getting STATISTICS
@@ -804,7 +826,6 @@ def voice(message):
 # VOICEHARD
 @bot.message_handler(commands=['voicehard'])
 def voicehard(message):
-
     if message.chat.id == 438879394 or message.chat.id == 1891281816:
         bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит всем пользователям. \n\n(Напоминаю, что ссылку надо добавить в коде программы)\n")
 
@@ -830,21 +851,16 @@ def voicehard(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
-# NOTICE
-@bot.message_handler(commands=['notice'])
-def notice(message):
-    if message.chat.id == 1891281816:
-        bot.send_message(1891281816, "Напоминание запущено!")
-        while True:
-            hour = time.strftime('%H')
-            minutes = time.strftime('%M')
-            if hour == '23' and minutes == '00':
-                bot.send_message(1891281816, "Напоминание: залить изменения на GitHub.\n\n"
-                                             "cd PycharmProjects/ilandroxy_bot/ilandroxy_Bot/\n\n"
-                                             "git add .\n\n"
-                                             "git commit -m ''\n\n"
-                                             "git push")
-            time.sleep(1000)
+# GIT
+@bot.message_handler(commands=['git'])
+def git(message):
+    if message.chat.id == 1891281816 or message.chat.id == 438879394:
+        message_text = "Залей изменения на GitHub.\n\n" \
+                       "`cd PycharmProjects/ilandroxy_bot/ilandroxy_Bot/`\n\n" \
+                       "`git add .`\n\n" \
+                       "`git commit -m ''`\n\n" \
+                       "`git push`"
+        bot.send_message(1891281816, message_text, parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
