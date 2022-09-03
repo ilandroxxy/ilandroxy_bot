@@ -7,11 +7,16 @@ import csv
 import emoji
 import time
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  `
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅
 bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
+''' Функции используюзие id учеников 
+Homework
+Notice
+Кнопка получить файл
+'''
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
@@ -501,6 +506,18 @@ def step(call):
                                f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
     # Homework ------------------------------------------------------------------------
 
+    # Notice --------------------------------------------------------------------------
+    elif call.data == 'LessonsYes':
+        name = str(call.from_user.first_name)
+        user = str(call.message.chat.id)
+        msg = bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️✅ Урок будет")
+
+    elif call.data == 'LessonsNo':
+        name = str(call.from_user.first_name)
+        user = str(call.message.chat.id)
+        msg = bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n⛔ Урока не будет!")
+    # Notice --------------------------------------------------------------------------
+
 
 '''# публичные команды
 tasks - наборы задач для отработки решений ЕГЭ по Информатике
@@ -533,7 +550,8 @@ def start(message):
                 f'А также репетитор Программирования на языке Python 🐍 и подготовке к ЕГЭ по Информатике 👨‍🏫\n\n' \
                 f'*Рад Вас приветствовать* у себя на _"страничке"_, здесь я постараюсь коротко ' \
                 f'рассказать о себе и, надеюсь, нам удастся найти общий язык 🙏 \n\n' \
-                f'Используйте команду 👉 /help , чтобы подробнее узнать о всех доступных командах или вызовите *Меню команд* - большая синяя кнопка на семь часов.'
+                f'Используйте команду 👉 /getmyid, чтобы бот показал ваше ID пользователя. После чего скиньте его мне @ilandroxy, я добавлю вас в систему!\n\n' \
+                f'Используйте команду 👉 /help, чтобы подробнее узнать о всех доступных командах или вызовите *Меню команд* - большая синяя кнопка на семь часов.'
 
     bot.send_message(message.chat.id, send_mess, parse_mode='Markdown', reply_markup=markup)
     pic_2 = open("photo/menu.jpg", 'rb')
@@ -637,8 +655,8 @@ def calendly(message):
 
 
 # HOMEWORK
-Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
-stidents = [683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439]
+Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия', 'Стася']
+stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439, 644645774}
 @bot.message_handler(commands=['homework'])
 def homework(message):
     if message.chat.id in stidents or message.chat.id == 1891281816 or message.chat.id == 438879394:
@@ -680,6 +698,7 @@ def homework(message):
 /statistics - выводит статистику и файлы db напрямую в боте
 /voice - способ отправить сообщение всем пользователям (с ссылками)
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
+/notice - опрос учеников - будет ли урок сегодня (по дням)
 '''
 
 # Getting STATISTICS
@@ -803,6 +822,64 @@ def git(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
+
+# NOTICE
+@bot.message_handler(commands=['notice'])
+def notice(message):
+    if message.chat.id == 1891281816:
+        day = time.strftime('%A')
+
+        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
+        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439, 644645774}
+        monday = [1891281816, 683943897, 1314375732, 1537718492, 826004697, 811476623]
+        if day == 'Monday':
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
+                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
+            for i in monday:
+                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
+        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
+        tuesday = [1891281816, 1208542295]
+        if day == 'Tuesday':
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
+                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
+            for i in tuesday:
+                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
+        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
+        thursday = [1891281816, 1477701439, 1537718492,  811476623]
+        if day == 'Thursday':
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
+                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
+            for i in thursday:
+                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
+        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
+        friday = [1891281816]
+        if day == 'Friday':
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
+                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
+            for i in friday:
+                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
+        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
+        saturday = [1891281816]
+        if day == 'Saturday':
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
+                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
+            for i in saturday:
+                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
 @bot.message_handler(content_types=['text'])
@@ -962,6 +1039,14 @@ def mess(message):
             bot.send_message(message.chat.id, messgae_text)
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton("Твой файл: Valeria.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Valeria.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        elif message.chat.id == 644645774:  # Стася
+            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, messgae_text)
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Твой файл: Stasya.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Stasya.py"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
