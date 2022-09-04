@@ -14,8 +14,8 @@ bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
 
 # Синхронно моему расписанию в Google Календаре
 Students = ('*', 683943897, 1314375732, 0, 1891281816, 0, 1537718492, 811476623, 0, 826004697,  # Понедельник 10
-            '*', 0, 0, 0, 1891281816, 0, 1208542295, 0, 0, 0,   # Вторник 10
-            '*', 0, 0, 1477701439, 1891281816, 0, 1537718492, 811476623, 0, 0,  # Четверг 10
+            1949653479, 0, 0, 0, 1891281816, 0, 1208542295, 0, 0, 0,   # Вторник 10
+            1949653479, 0, 0, 1477701439, 1891281816, 0, 1537718492, 811476623, 0, 0,  # Четверг 10
             '*', 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Пятница
             '*', 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота
             644645774, 438879394, 1891281816)  # Без расписания
@@ -511,6 +511,7 @@ def step(call):
 
 
 '''# публичные команды
+help - справка по всем командам в боте
 tasks - наборы задач для отработки решений ЕГЭ по Информатике
 homework - конструктор домашних заданий для моих учеников
 calendly - форма записи на урок
@@ -519,7 +520,6 @@ getmyid - бот покажет ваш id пользователя Telegram
 myprojects - список моих актуальных проектов
 download - список программ необходимых для уроков
 start - перезапуск бота, на стартовую позицию
-help - справка по всем командам в боте
 '''
 
 # START
@@ -551,9 +551,8 @@ def start(message):
 # HELP
 @bot.message_handler(commands=['help'])
 def help(message):
-    send_message = "I can help you create and manage Telegram bots. If you're new to the Bot API, please see the manual.\n\n" \
-                   "You can control me by sending these commands:\n\n*Commands*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
-                   '/myprojects - список моих актуальных проектов\ndownload - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/links - полезные ссылки для подготовки к экзамену' \
+    send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
+                   '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/links - полезные ссылки для подготовки к экзамену' \
                    '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
@@ -1059,6 +1058,14 @@ def mess(message):
             bot.send_message(message.chat.id, messgae_text)
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton("Твой файл: Stasya.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Stasya.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        elif message.chat.id == 1949653479:  # Янина
+            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, messgae_text)
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Твой файл: Yanina.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Yanina.py"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
