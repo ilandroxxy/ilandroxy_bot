@@ -12,16 +12,17 @@ bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
-''' Функции используюзие id учеников 
-Homework
-Notice
-Кнопка получить файл
-'''
+# Синхронно моему расписанию в Google Календаре
+Students = ('*', 683943897, 1314375732, 0, 1891281816, 0, 1537718492, 811476623, 0, 826004697,  # Понедельник 10
+            '*', 0, 0, 0, 1891281816, 0, 1208542295, 0, 0, 0,   # Вторник 10
+            '*', 0, 0, 1477701439, 1891281816, 0, 1537718492, 811476623, 0, 0,  # Четверг 10
+            '*', 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Пятница
+            '*', 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота
+            644645774, 438879394, 1891281816)  # Без расписания
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
     markup = telebot.types.InlineKeyboardMarkup(row_width=1)
-
 
     # Репетитор -----------------------------------------------------------------------
     if call.data == 'price':
@@ -506,17 +507,7 @@ def step(call):
                                f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
     # Homework ------------------------------------------------------------------------
 
-    # Notice --------------------------------------------------------------------------
-    elif call.data == 'LessonsYes':
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️✅ Урок будет")
 
-    elif call.data == 'LessonsNo':
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n⛔ Урока не будет!")
-    # Notice --------------------------------------------------------------------------
 
 
 '''# публичные команды
@@ -655,11 +646,9 @@ def calendly(message):
 
 
 # HOMEWORK
-Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия', 'Стася']
-stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439, 644645774}
 @bot.message_handler(commands=['homework'])
 def homework(message):
-    if message.chat.id in stidents or message.chat.id == 1891281816 or message.chat.id == 438879394:
+    if message.chat.id in Students:
         message_text = "Эта команда просто выдает рандомное задание с Решу ЕГЭ\n\nПомимо этого, мне приходит уведомление с номерами выпавших задач.\n\nПроявите самостоятельность в выборе, а на уроке мы разбрем возникшие вопросы!\n\n[Читать правила оформления домашки](https://www.notion.so/ilandroxxy/8234ee61967a4cbe8a232b745cff0b9a)"
         markup = types.InlineKeyboardMarkup(row_width=5)
         markup.add(types.InlineKeyboardButton("1", callback_data="hw1"),
@@ -808,7 +797,6 @@ def voice(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
-
 # GIT
 @bot.message_handler(commands=['git'])
 def git(message):
@@ -829,55 +817,62 @@ def notice(message):
     if message.chat.id == 1891281816:
         day = time.strftime('%A')
 
-        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
-        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439, 644645774}
-        monday = [1891281816, 683943897, 1314375732, 1537718492, 826004697, 811476623]
         if day == 'Monday':
-            markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
-                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
-            for i in monday:
-                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            btn1 = types.KeyboardButton('Да, все получается ✅')
+            btn2 = types.KeyboardButton('Нет, не получится ⛔')
+            btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
+            markup.add(btn1, btn2, btn3)
+            for i in range(0, 10):
+                if Students[i] != 0 and Students[i] != '*':
+                    bot.send_message(Students[i], f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
-        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
-        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
-        tuesday = [1891281816, 1208542295]
         if day == 'Tuesday':
-            markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
-                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
-            for i in tuesday:
-                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            btn1 = types.KeyboardButton('Да, все получается ✅')
+            btn2 = types.KeyboardButton('Нет, не получится ⛔')
+            btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
+            markup.add(btn1, btn2, btn3)
+            for i in range(10, 20):
+                if Students[i] != 0 and Students[i] != '*':
+                    bot.send_message(Students[i], f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
-        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
-        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
-        thursday = [1891281816, 1477701439, 1537718492,  811476623]
+        if day == 'Wednesday':
+            bot.send_message(1891281816, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
         if day == 'Thursday':
-            markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
-                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
-            for i in thursday:
-                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            btn1 = types.KeyboardButton('Да, все получается ✅')
+            btn2 = types.KeyboardButton('Нет, не получится ⛔')
+            btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
+            markup.add(btn1, btn2, btn3)
+            for i in range(20, 30):
+                if Students[i] != 0 and Students[i] != '*':
+                    bot.send_message(Students[i], f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
-        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
-        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
-        friday = [1891281816]
         if day == 'Friday':
-            markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
-                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
-            for i in friday:
-                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            btn1 = types.KeyboardButton('Да, все получается ✅')
+            btn2 = types.KeyboardButton('Нет, не получится ⛔')
+            btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
+            markup.add(btn1, btn2, btn3)
+            for i in range(30, 40):
+                if Students[i] != 0 and Students[i] != '*':
+                    bot.send_message(Students[i], f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
-        # Students = ['Таня',  'Василий', 'Александр', 'Владек', 'Никита', 'Саша Казакова', "Георгий", 'Валерия']
-        # stidents = {683943897, 1314375732, 1537718492, 871237277, 826004697, 1208542295, 811476623, 1477701439}
-        saturday = [1891281816]
         if day == 'Saturday':
-            markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton("️✅ Да, все получается", callback_data="LessonsYes"),
-                       types.InlineKeyboardButton("⛔ Нет, не получится", callback_data="LessonsNo"))
-            for i in saturday:
-                bot.send_message(i, f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            btn1 = types.KeyboardButton('Да, все получается ✅')
+            btn2 = types.KeyboardButton('Нет, не получится ⛔')
+            btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
+            markup.add(btn1, btn2, btn3)
+            for i in range(40, 50):
+                if Students[i] != 0 and Students[i] != '*':
+                    bot.send_message(Students[i], f" 🤖 Привет, {message.from_user.first_name}!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+        if day == 'Sunday':
+            bot.send_message(1891281816, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
@@ -886,6 +881,24 @@ def notice(message):
 @analytics
 def mess(message):
     get_message_bot = message.text.strip()
+
+    if get_message_bot == 'Да, все получается ✅':
+        name = str(message.from_user.first_name)
+        user = str(message.chat.id)  # ReplyKeyboardRemove()
+        bot.send_message(message.chat.id, f"Cпасибо, отправил ответ 🤖")
+        bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️✅ Урок будет")
+
+    if get_message_bot == 'Нет, не получится ⛔':
+        name = str(message.from_user.first_name)
+        user = str(message.chat.id)  # ReplyKeyboardRemove()
+        bot.send_message(message.chat.id, f"Cпасибо, отправил ответ 🤖")
+        bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️⛔ Урока не будет")
+
+    if get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
+        name = str(message.from_user.first_name)
+        user = str(message.chat.id)
+        bot.send_message(message.chat.id, f"Sorry, возможно 🤖 напутал с расписанием... Пробую исправить!")
+        bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️️‼️ Что-то не так с расписанием, надо проверить.")
 
     if get_message_bot == "Репетитор":
 
@@ -1025,7 +1038,6 @@ def mess(message):
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
-
         elif message.chat.id == 811476623:  # Георгий
             messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
             bot.send_message(message.chat.id, messgae_text)
@@ -1049,7 +1061,6 @@ def mess(message):
             markup.add(types.InlineKeyboardButton("Твой файл: Stasya.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Stasya.py"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
-
 
         else:
             message_text = 'Извините, по-моему вас нет в системе! Ожидайте...'
