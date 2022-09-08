@@ -12,13 +12,15 @@ bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
-# Синхронно моему расписанию в Google Календаре # Булат 799740089
-Students = ('*', 0, 0, 0, 1891281816, 0, 1537718492, 811476623, 1314375732, 826004697,  # Понедельник 10
-            1949653479, 0, 0, 0, 1891281816, 0, 1208542295, 0, 0, 0,   # Вторник 10
-            1949653479, 0, 0, 1477701439, 1891281816, 0, 1537718492, 811476623, 0, 0,  # Четверг 10
-            '*', 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Пятница
-            '*', 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота
-            644645774, 438879394, 1891281816)  # Без расписания
+# Синхронно моему расписанию в Google Календаре
+Students = (0, 0, 683943897, 0, 1891281816, 0, 0, 811476623, 1314375732, 826004697,  # Понедельник 10
+            1949653479, 0, 0, 0, 1891281816, 0, 1208542295, 0, 0, 1537718492,   # Вторник 10
+            1949653479, 0, 0, 1477701439, 1891281816, 0, 0, 811476623, 799740089, 1537718492,  # Четверг 10
+            0, 0, 0, 644645774, 1891281816, 0, 0, 0, 0, 0,  # Пятница 10
+            0, 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота 10
+            0, 438879394, 1891281816, 0, 0, 0, 0, 0, 0, 0)  # Без расписания и для тестировния
+
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
@@ -29,7 +31,7 @@ def step(call):
         pic_2 = open("photo/price.PNG", "rb")
         msg = bot.send_photo(call.message.chat.id, pic_2)
 
-        send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент.\n\n_Работаю официально по чекам через НПД (Самозанятый)._\n\n"
+        send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!\n\nРаботаю официально по чекам через НПД (`Самозанятый`).\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
                    types.InlineKeyboardButton("⬇️ Программы", callback_data="download"),
@@ -78,10 +80,10 @@ def step(call):
 
     elif call.data == "wallet":
 
-        send_message = f"Перевод по номеру телефона: \n+7 (913) 468-35-34\nСБЕР или Тинькофф, есть СБП.\n\n" \
-                       f"Или по номеру карты\nТинькоф: 5536 9140 2240 5801\nСБЕР: 5469 4400 2244 1977\nТинькоф МИР: 2200 7004 1864 5957\nПолучатель: _Андрианов Илья Алексеевич_\n\n" \
-                       f"После оплаты скидываю вам чек, работаю официально через НПД (Самозанятый).\n\n" \
-                       f"[Оставить чаевые](https://www.tinkoff.ru/cf/9f3vcMecD9w)"
+        send_message = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n`+7 (913) 468-35-34`\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
+                   f"*Или по номеру карты:*\nТинькоф: `5536 9140 2240 5801`\nСБЕР: `5469 4400 2244 1977`\nТинькоф МИР: `2200 7004 1864 5957`\nПолучатель: `Андрианов Илья Алексеевич`\n\n" \
+                   f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
+                   f"[Оставить чаевые](https://www.tinkoff.ru/cf/9f3vcMecD9w)"
 
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
@@ -520,6 +522,7 @@ getmyid - бот покажет ваш id пользователя Telegram
 myprojects - список моих актуальных проектов
 download - список программ необходимых для уроков
 start - перезапуск бота, на стартовую позицию
+price - получить информацию о ценах и реквизиты
 '''
 
 # START
@@ -552,7 +555,7 @@ def start(message):
 @bot.message_handler(commands=['help'])
 def help(message):
     send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
-                   '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/links - полезные ссылки для подготовки к экзамену' \
+                   '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/price - получить информацию о ценах и реквизиты\n/links - полезные ссылки для подготовки к экзамену' \
                    '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
@@ -587,23 +590,49 @@ def download(message):
 
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
+#PRICE
+@bot.message_handler(commands=['price'])
+def price(message):
+    message_text_1 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
+    bot.send_message(message.chat.id, message_text_1, parse_mode="Markdown", disable_web_page_preview=True)
+
+    pic_2 = open("photo/price.PNG", "rb")
+    bot.send_photo(message.chat.id, pic_2)
+
+    message_text_2 = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n`+7 (913) 468-35-34`\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
+                   f"*Или по номеру карты:*\nТинькоф: `5536 9140 2240 5801`\nСБЕР: `5469 4400 2244 1977`\nТинькоф МИР: `2200 7004 1864 5957`\nПолучатель: `Андрианов Илья Алексеевич`\n\n" \
+                   f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
+                   f"[Оставить чаевые](https://www.tinkoff.ru/cf/9f3vcMecD9w)"
+    bot.send_message(message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True)
 
 # TASKS
 @bot.message_handler(commands=['tasks'])
 def tasks(message):
-    message_text1 = "*Наборы разных типов задач с* [Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n\n[1.](https://clck.ru/ebsmq)   [2.](https://clck.ru/ebsnV)   [3.](https://clck.ru/ebsnt)   " \
-                   "[4.](https://clck.ru/ebsoN)   [5.](https://clck.ru/ebsp8)   [6.](https://clck.ru/ebspK)   [7.](https://clck.ru/ebspX)    " \
-                   "[8.](https://clck.ru/ebsq2)    [9.](https://clck.ru/ebsqH)\n\n[10.](https://clck.ru/ebsqc)   [11.](https://clck.ru/ebsrf)   " \
-                   "[12.](https://clck.ru/ebsrr)   [13.](https://clck.ru/ebssH)   [14.](https://clck.ru/ebssi)   [15.](https://clck.ru/ebst4)   " \
-                   "[16.](https://clck.ru/ebstT)   [17.](https://clck.ru/ebsuA)   [18.](https://clck.ru/ebsuf)\n\n[19-21.](https://clck.ru/ebsvw)   " \
-                   "[22.](https://clck.ru/ebsxf)   [23.](https://clck.ru/ebsxo)   [24.](https://clck.ru/ebsyM)   [25.](https://clck.ru/ebszu)   " \
-                   "[26.](https://clck.ru/ebt22)   [27.](https://clck.ru/ebt3a)\n\n" \
-                    "При желании попробовать более сложные задачи воспользуйтесь конструктором [КЕГЭ](https://kompege.ru/task)"
+    message_text1 = "*Наборы разных типов задач с* [Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n`new 2022-2023 года`\n\n" \
+                    "[1.](https://inf-ege.sdamgia.ru/test?id=11297175&nt=True&pub=False)   [2.](https://inf-ege.sdamgia.ru/test?id=11297177&nt=True&pub=False)   [3.](https://inf-ege.sdamgia.ru/test?id=11297178&nt=True&pub=False)   " \
+                   "[4.](https://inf-ege.sdamgia.ru/test?id=11297180&nt=True&pub=False)   [5.](https://inf-ege.sdamgia.ru/test?id=11297181&nt=True&pub=False)   [6.](https://inf-ege.sdamgia.ru/test?id=11297181&nt=True&pub=False)   [7.](https://inf-ege.sdamgia.ru/test?id=11297184&nt=True&pub=False)    " \
+                   "[8.](https://inf-ege.sdamgia.ru/test?id=11297185&nt=True&pub=False)    [9.](https://inf-ege.sdamgia.ru/test?id=11297189&nt=True&pub=False)    [10.](https://inf-ege.sdamgia.ru/test?id=11297190&nt=True&pub=False)\n\n[11.](https://inf-ege.sdamgia.ru/test?id=11297191&nt=True&pub=False)   " \
+                   "[12.](https://inf-ege.sdamgia.ru/test?id=11297194&nt=True&pub=False)   [13.](https://inf-ege.sdamgia.ru/test?id=11297198&nt=True&pub=False)   [14.](https://inf-ege.sdamgia.ru/test?id=11297200&nt=True&pub=False)   [15.](https://inf-ege.sdamgia.ru/test?id=11297201&nt=True&pub=False)   " \
+                   "[16.](https://inf-ege.sdamgia.ru/test?id=11297204&nt=True&pub=False)   [17.](https://inf-ege.sdamgia.ru/test?id=11297205&nt=True&pub=False)   [18.](https://inf-ege.sdamgia.ru/test?id=11297208&nt=True&pub=False)\n\n[19-21.](https://inf-ege.sdamgia.ru/test?id=11297216&nt=True&pub=False)   " \
+                   "[22.](https://inf-ege.sdamgia.ru/test?id=11297217&nt=True&pub=False)   [23.](https://inf-ege.sdamgia.ru/test?id=11297224&nt=True&pub=False)   [24.](https://inf-ege.sdamgia.ru/test?id=11297227&nt=True&pub=False)   [25.](https://inf-ege.sdamgia.ru/test?id=11297232&nt=True&pub=False)   " \
+                   "[26.](https://inf-ege.sdamgia.ru/test?id=11297237&nt=True&pub=False)   [27.](https://inf-ege.sdamgia.ru/test?id=11297240&nt=True&pub=False)\n\n" \
+                    "*Обратите внимание*, что наборы задач разного года могут отличаться!"
     bot.send_message(message.chat.id, message_text1, parse_mode="Markdown", disable_web_page_preview=True)
 
-    message_text2 = "Частичные наборы задач и их разборы из [моего курса](https://stepik.org/course/122969) на Stepik:\n\n[1.]()   [2.]()   [3.]()   " \
+    message_text_old = "*Наборы разных типов задач с* [Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n`old 2021-2022 года`\n\n" \
+                       "[1.](https://clck.ru/ebsmq)   [2.](https://clck.ru/ebsnV)   [3.](https://clck.ru/ebsnt)   " \
+                    "[4.](https://clck.ru/ebsoN)   [5.](https://clck.ru/ebsp8)   [6.](https://clck.ru/ebspK)   [7.](https://clck.ru/ebspX)    " \
+                    "[8.](https://clck.ru/ebsq2)    [9.](https://clck.ru/ebsqH)   [10.](https://clck.ru/ebsqc)\n\n[11.](https://clck.ru/ebsrf)   " \
+                    "[12.](https://clck.ru/ebsrr)   [13.](https://clck.ru/ebssH)   [14.](https://clck.ru/ebssi)   [15.](https://clck.ru/ebst4)   " \
+                    "[16.](https://clck.ru/ebstT)   [17.](https://clck.ru/ebsuA)   [18.](https://clck.ru/ebsuf)\n\n[19-21.](https://clck.ru/ebsvw)   " \
+                    "[22.](https://clck.ru/ebsxf)   [23.](https://clck.ru/ebsxo)   [24.](https://clck.ru/ebsyM)   [25.](https://clck.ru/ebszu)   " \
+                    "[26.](https://clck.ru/ebt22)   [27.](https://clck.ru/ebt3a)\n\n" \
+                    "При желании попробовать более сложные задачи воспользуйтесь конструктором [КЕГЭ](https://kompege.ru/task)"
+    bot.send_message(message.chat.id, message_text_old, parse_mode="Markdown", disable_web_page_preview=True)
+
+    message_text2 = "Частичные наборы задач и их разборы из [моего курса](https://stepik.org/course/122969) на *Stepik*:\n\n[1.]()   [2.]()   [3.]()   " \
                    "[4.]()   [5.]()   [6.](https://stepik.org/lesson/770602/step/1)   [7.]()    " \
-                   "[8.]()    [9.]()\n\n[10.]()   [11.]()   " \
+                   "[8.]()    [9.]()    [10.]()\n\n[11.]()   " \
                    "[12.]()   [13.]()   [14.]()   [15.]()   " \
                    "[16.]()   [17.]()   [18.]()\n\n[19-21.]()   " \
                    "[22.](https://stepik.org/lesson/770602/step/7)   [23.]()   [24.]()   [25.]()   " \
@@ -799,7 +828,7 @@ def voice(message):
 # GIT
 @bot.message_handler(commands=['git'])
 def git(message):
-    if message.chat.id == 1891281816 or message.chat.id == 438879394:
+    if message.chat.id == 1891281816:
         message_text = "Залей изменения на GitHub.\n\n" \
                        "`cd PycharmProjects/ilandroxy_bot/ilandroxy_Bot/`\n\n" \
                        "`git add .`\n\n" \
@@ -807,8 +836,17 @@ def git(message):
                        "`git push`\n\n" \
                        "Открыть несколько окон Telegram: `open -n /Applications/Telegram.app/`"
         bot.send_message(1891281816, message_text, parse_mode='Markdown')
+    elif message.chat.id == 438879394:
+        message_text = "Залей изменения на GitHub.\n\n" \
+                       "`cd PycharmProjects/ilandroxy_bot/ilandroxy_Bot/`\n\n" \
+                       "`git add .`\n\n" \
+                       "`git commit -m ''`\n\n" \
+                       "`git push`\n\n" \
+                       "Открыть несколько окон Telegram: `open -n /Applications/Telegram.app/`"
+        bot.send_message(438879394, message_text, parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
 
 
 # NOTICE
@@ -824,7 +862,9 @@ def notice(message):
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
             for i in range(0, 10):
-                if Students[i] != 0 and Students[i] != '*':
+                if Students[i] == 1891281816:
+                    bot.send_message(Students[i], f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                elif Students[i] != 0:
                     bot.send_message(Students[i], f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
         if day == 'Tuesday':
@@ -834,7 +874,9 @@ def notice(message):
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
             for i in range(10, 20):
-                if Students[i] != 0 and Students[i] != '*':
+                if Students[i] == 1891281816:
+                    bot.send_message(Students[i], f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                elif Students[i] != 0:
                     bot.send_message(Students[i], f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
         if day == 'Wednesday':
@@ -847,7 +889,9 @@ def notice(message):
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
             for i in range(20, 30):
-                if Students[i] != 0 and Students[i] != '*':
+                if Students[i] == 1891281816:
+                    bot.send_message(Students[i], f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                elif Students[i] != 0:
                     bot.send_message(Students[i], f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
         if day == 'Friday':
@@ -857,7 +901,9 @@ def notice(message):
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
             for i in range(30, 40):
-                if Students[i] != 0 and Students[i] != '*':
+                if Students[i] == 1891281816:
+                    bot.send_message(Students[i], f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                elif Students[i] != 0:
                     bot.send_message(Students[i], f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
         if day == 'Saturday':
@@ -867,12 +913,13 @@ def notice(message):
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
             for i in range(40, 50):
-                if Students[i] != 0 and Students[i] != '*':
+                if Students[i] == 1891281816:
+                    bot.send_message(Students[i], f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                elif Students[i] != 0:
                     bot.send_message(Students[i], f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
         if day == 'Sunday':
             bot.send_message(1891281816, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
-
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
@@ -907,7 +954,7 @@ def mess(message):
 
         name = str(message.from_user.first_name)
         user = str(message.chat.id)
-        bot.send_message(message.chat.id, f"Cпасибо, отправил ответ 🤖", reply_markup=markup)
+        bot.send_message(message.chat.id, f"🤖 Если нужно перенести урок, то можно написать мне @ilandroxy или воспользоваться командой /calendly", reply_markup=markup)
         bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️⛔ Урока не будет")
 
     if get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
