@@ -509,6 +509,24 @@ def step(call):
                                f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
     # Homework ------------------------------------------------------------------------
 
+    # Useful ------------------------------------------------------------------------
+    elif call.data == 'py01':
+        py01 = open('files/py01.pdf', 'rb')
+        msg = bot.send_document(call.message.chat.id, py01)
+
+    elif call.data == 'py02':
+        py02 = open('files/py02.pdf', 'rb')
+        msg = bot.send_document(call.message.chat.id, py02)
+
+    elif call.data == 'py03':
+        py03 = open('files/py03.pdf', 'rb')
+        msg = bot.send_document(call.message.chat.id, py03)
+
+    elif call.data == 'py04':
+        py04 = open('files/py04.pdf', 'rb')
+        msg = bot.send_document(call.message.chat.id, py04)
+    # Useful ------------------------------------------------------------------------
+
 
 
 
@@ -671,6 +689,23 @@ def calendly(message):
         user_id) + "\n*user:* @" + user_name + f"\n*Ссылка* : tg://user?id={user_id}" + "\n\nОткрыть [Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
 
     bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
+
+# USEFUL
+@bot.message_handler(commands=['useful'])
+def useful(message):
+    if message.chat.id in Students:
+        message_text = 'Для своих студентов я решил поделиться шпаргалками от *Яндекс Практикума*, в котором сейчас прохожу обучение по специальности `Python developer`.\n\n' \
+                       'Постепенно список файлов будет пополняться:'
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(types.InlineKeyboardButton("1. Знакомство с Python: Типы данных, Списки.", callback_data="py01"),
+                   types.InlineKeyboardButton("2. Циклы, Ветвления, Логические выражения.", callback_data="py02"),
+                   types.InlineKeyboardButton("3. Функции: Вызов, Аргументы, Возврат значений.", callback_data="py03"),
+                   types.InlineKeyboardButton("4. Коллекции: Словари и Множества.", callback_data="py04"))
+        bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
+
+    else:
+        bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, *запишитесь на урок /calendly*", parse_mode="Markdown")
+
 
 
 # HOMEWORK
@@ -1057,7 +1092,7 @@ def mess(message):
             messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
             bot.send_message(message.chat.id, messgae_text)
             markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton("Твой файл: ilandroxy_bot", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/__example__.py"))
+            markup.add(types.InlineKeyboardButton("Папка: lessons", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
