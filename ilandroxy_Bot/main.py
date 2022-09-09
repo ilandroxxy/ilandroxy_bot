@@ -8,7 +8,7 @@ import emoji
 import time
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅
-bot = telebot.TeleBot('5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738')
+bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
 # real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
@@ -34,7 +34,7 @@ def step(call):
         send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!\n\nРаботаю официально по чекам через НПД (`Самозанятый`).\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
-                   types.InlineKeyboardButton("⬇️ Программы", callback_data="download"),
+                   types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🧮 Реквизиты", callback_data="wallet"))
         msg = bot.send_message(call.message.chat.id, send_message2, parse_mode="Markdown", reply_markup=markup)
 
@@ -51,7 +51,7 @@ def step(call):
         msg = bot.send_photo(call.message.chat.id, pic_3)
 
         markup2 = types.InlineKeyboardMarkup(row_width=1)
-        markup2.add(types.InlineKeyboardButton("⬇️ Программы", callback_data="download"),
+        markup2.add(types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"),
                    types.InlineKeyboardButton("🧮 Реквизиты", callback_data="wallet"))
 
@@ -64,10 +64,10 @@ def step(call):
         pic_5 = open("photo/kids1.JPG", "rb")
         msg = bot.send_photo(call.message.chat.id, pic_5,  reply_markup=markup2)
 
-    elif call.data == "download":
+    elif call.data == "downloads":
         send_message = f"*Перечень необходимых программ:*\n\n" \
                        f"1. Python [скачать](www.python.org/downloads/)\n\n" \
-                       f"2. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/#section=mac)\n\n" \
+                       f"2. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
                        f"3. Discord [скачать](discord.com/download)\n\n" \
                        f"4. Telegram Desktop [скачать](telegram.org/)"
 
@@ -87,11 +87,14 @@ def step(call):
 
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
-                   types.InlineKeyboardButton("⬇️ Программы", callback_data="download"),
+                   types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"))
 
         msg = bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
     # Репетитор -----------------------------------------------------------------------
+
+
+
 
     # Homework ------------------------------------------------------------------------
     elif call.data == "hw1":
@@ -528,8 +531,6 @@ def step(call):
     # Useful ------------------------------------------------------------------------
 
 
-
-
 '''# публичные команды
 help - справка по всем командам в боте
 tasks - наборы задач для отработки решений ЕГЭ по Информатике
@@ -541,6 +542,7 @@ myprojects - список моих актуальных проектов
 download - список программ необходимых для уроков
 start - перезапуск бота, на стартовую позицию
 price - получить информацию о ценах и реквизиты
+useful - шпаргалки от Яндекс практикума по Python
 '''
 
 # START
@@ -574,7 +576,7 @@ def start(message):
 def help(message):
     send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
                    '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/price - получить информацию о ценах и реквизиты\n/links - полезные ссылки для подготовки к экзамену' \
-                   '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram'
+                   '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram\n/useful - получите шпаргалки от `Яндекс практикума` по Python'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
 # GETMYID
@@ -602,7 +604,7 @@ def myprojects(message):
 def download(message):
     message_text = f"*Перечень необходимых программ:*\n\n" \
                    f"1. Python [скачать](www.python.org/downloads/)\n\n" \
-                   f"2. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/#section=mac)\n\n" \
+                   f"2. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
                    f"3. Discord [скачать](discord.com/download)\n\n" \
                    f"4. Telegram Desktop [скачать](telegram.org/)"
 
@@ -695,7 +697,7 @@ def calendly(message):
 def useful(message):
     if message.chat.id in Students:
         message_text = 'Для своих студентов я решил поделиться шпаргалками от *Яндекс Практикума*, в котором сейчас прохожу обучение по специальности `Python developer`.\n\n' \
-                       'Постепенно список файлов будет пополняться:'
+                       'Постепенно список файлов будет пополняться, но *хочу отметить, что для успешной сдачи экзамена ЕГЭ по Информатике хватит первых 3-х файлов*:'
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("1. Знакомство с Python: Типы данных, Списки.", callback_data="py01"),
                    types.InlineKeyboardButton("2. Циклы, Ветвления, Логические выражения.", callback_data="py02"),
@@ -1039,7 +1041,7 @@ def mess(message):
                         f"Научу ПРОГРАММИРОВАТЬ на Python с нуля."
         markup2 = types.InlineKeyboardMarkup(row_width=1)
         markup2.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
-                   types.InlineKeyboardButton("⬇️ Программы", callback_data="download"),
+                   types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"),
                    types.InlineKeyboardButton("🧮 Реквизиты", callback_data="wallet"))
 
