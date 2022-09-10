@@ -8,8 +8,8 @@ import emoji
 import time
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅
-bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
-# real 5640042697:AAE5kvgBf31LJJgiTrhIZB0hqOA1_tPA738
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+# real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
 # Синхронно моему расписанию в Google Календаре
@@ -17,9 +17,8 @@ Students = (0, 0, 683943897, 0, 1891281816, 0, 0, 811476623, 1314375732, 8260046
             1949653479, 0, 0, 0, 1891281816, 0, 1208542295, 0, 0, 1537718492,   # Вторник 10
             1949653479, 0, 0, 1477701439, 1891281816, 0, 0, 811476623, 799740089, 1537718492,  # Четверг 10
             0, 0, 0, 644645774, 1891281816, 0, 0, 0, 0, 0,  # Пятница 10
-            0, 0, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота 10
-            0, 438879394, 1891281816, 0, 0, 0, 0, 0, 0, 0)  # Без расписания и для тестировния
-
+            0, 438879394, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота 10
+            0, 438879394, 1891281816, 0, 0, 0, 0, 0, 0, 0)  # Без расписания и для тестирования
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -65,18 +64,19 @@ def step(call):
         msg = bot.send_photo(call.message.chat.id, pic_5,  reply_markup=markup2)
 
     elif call.data == "downloads":
-        send_message = f"*Перечень необходимых программ:*\n\n" \
+        message_text = f"*Перечень необходимых программ:*\n\n" \
                        f"1. Python [скачать](www.python.org/downloads/)\n\n" \
-                       f"2. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
+                       f"2. Telegram Desktop [скачать](telegram.org/)\n\n" \
                        f"3. Discord [скачать](discord.com/download)\n\n" \
-                       f"4. Telegram Desktop [скачать](telegram.org/)"
+                       f"4. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
+                       f"В случае необходимости, воспользуйтесь [видео инструкцией](https://www.youtube.com/watch?v=wquEFeQAjPQ&t=303s) по установке PyCharm" \
 
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"),
                    types.InlineKeyboardButton("🧮 Реквизиты", callback_data="wallet"))
 
-        msg = bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
+        msg = bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
 
     elif call.data == "wallet":
 
@@ -112,7 +112,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw2":
         type = '2'
@@ -128,7 +128,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw3":
         type = '3'
@@ -143,7 +143,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw4":
         type = '4'
@@ -159,7 +159,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw5":
         type = '5'
@@ -175,7 +175,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw6":
         type = '6'
@@ -190,7 +190,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw7":
         type = '7'
@@ -206,7 +206,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw8":
         type = '8'
@@ -222,7 +222,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw9":
         type = '9'
@@ -238,7 +238,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816, f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw10":
         type = '10'
@@ -254,8 +254,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw11":
         type = '11'
@@ -271,8 +270,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw12":
         type = '12'
@@ -288,8 +286,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw13":
         type = '13'
@@ -305,8 +302,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw14":
         type = '14'
@@ -322,8 +318,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw15":
         type = '15'
@@ -339,8 +334,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw16":
         type = '16'
@@ -355,8 +349,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw17":
         type = '17'
@@ -371,8 +364,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw18":
         type = '18'
@@ -388,8 +380,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw19-21":
         type = '19-21'
@@ -407,8 +398,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + str(M[x]) +", "+ str(M[x]+1) +", "+ str(M[x]+2))
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + str(M[x]) +", "+ str(M[x]+1) +", "+ str(M[x]+2))
 
     elif call.data == "hw22":
         type = '22'
@@ -424,8 +414,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw23":
         type = '23'
@@ -441,8 +430,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw24":
         type = '24'
@@ -458,8 +446,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw25":
         type = '25'
@@ -475,8 +462,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw26":
         type = '26'
@@ -492,8 +478,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
 
     elif call.data == "hw27":
         type = '27'
@@ -508,8 +493,7 @@ def step(call):
 
         name = str(call.from_user.first_name)
         user = str(call.message.chat.id)
-        msg = bot.send_message(1891281816,
-                               f"Ученик " + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
     # Homework ------------------------------------------------------------------------
 
     # Useful ------------------------------------------------------------------------
@@ -529,6 +513,37 @@ def step(call):
         py04 = open('files/py04.pdf', 'rb')
         msg = bot.send_document(call.message.chat.id, py04)
     # Useful ------------------------------------------------------------------------
+
+    # Lessons ------------------------------------------------------------------------
+    elif call.data == 'lesson':
+        day = time.strftime('%A')
+        date = time.strftime('%x')
+        textik = date + '  ' + day
+        msg = bot.send_message(call.message.chat.id, "Введите сообщение к уроку в форма:\n[#Name] [Описание урока]")
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = textik + '\n' + message.text
+            msg = bot.send_message(-647660626, text_message, disable_web_page_preview=True)
+        bot.register_next_step_handler(call.message, message_input)
+
+    elif call.data == 'pay':
+        date = time.strftime('%x')
+        textik = ' ️✅ ' + date + ' Оплачен абонемент:'
+        msg = bot.send_message(call.message.chat.id, "Введите данные по абонементу:\n[#Name] [Тип абонемента] [Цена]")
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = textik + '\n' + message.text
+            msg = bot.send_message(-647660626, text_message, disable_web_page_preview=True)
+        bot.register_next_step_handler(call.message, message_input)
+    # Lessons ------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 '''# публичные команды
@@ -604,9 +619,11 @@ def myprojects(message):
 def download(message):
     message_text = f"*Перечень необходимых программ:*\n\n" \
                    f"1. Python [скачать](www.python.org/downloads/)\n\n" \
-                   f"2. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
+                   f"2. Telegram Desktop [скачать](telegram.org/)\n\n" \
                    f"3. Discord [скачать](discord.com/download)\n\n" \
-                   f"4. Telegram Desktop [скачать](telegram.org/)"
+                   f"4. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
+                   f"В случае необходимости, воспользуйтесь [видео инструкцией](https://www.youtube.com/watch?v=wquEFeQAjPQ&t=303s) по установке PyCharm" \
+
 
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
@@ -690,7 +707,7 @@ def calendly(message):
     text_message = f"*Возможно кто-то оставил заявку на урок, надо проверить!* \n\nПользователь *{message.from_user.first_name}*\n*id:* " + str(
         user_id) + "\n*user:* @" + user_name + f"\n*Ссылка* : tg://user?id={user_id}" + "\n\nОткрыть [Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
 
-    bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
+    bot.send_message(-726393257, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 # USEFUL
 @bot.message_handler(commands=['useful'])
@@ -753,7 +770,21 @@ def homework(message):
 /voice - способ отправить сообщение всем пользователям (с ссылками)
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
 /notice - опрос учеников - будет ли урок сегодня (по дням)
+/less - чек проведенного урока и принятия оплат по абонементам
 '''
+
+@bot.message_handler(commands=['less'])
+def less(message):
+        if message.chat.id == 1891281816:
+            markup = types.InlineKeyboardMarkup()
+            markup.add(types.InlineKeyboardButton("Проведен урок", callback_data='lesson'),
+                       types.InlineKeyboardButton("Оплата", callback_data='pay'))
+            bot.send_dice(message.chat.id, reply_markup=markup)
+        else:
+            bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
+
 
 # Getting STATISTICS
 def analytics(func: callable):
@@ -978,7 +1009,10 @@ def mess(message):
         name = str(message.from_user.first_name)
         user = str(message.chat.id)
         bot.send_message(message.chat.id, f"Cпасибо, отправил ответ 🤖", reply_markup=markup)
-        bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️✅ Урок будет")
+
+        markup2 = types.InlineKeyboardMarkup(row_width=3)
+        markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
+        bot.send_message(1891281816, name + f": tg://user?id={user} \n️✅ Урок будет\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
 
     if get_message_bot == 'Нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -992,7 +1026,7 @@ def mess(message):
         name = str(message.from_user.first_name)
         user = str(message.chat.id)
         bot.send_message(message.chat.id, f"🤖 Если нужно перенести урок, то можно написать мне @ilandroxy или воспользоваться командой /calendly", reply_markup=markup)
-        bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️⛔ Урока не будет")
+        bot.send_message(1891281816, name + f": tg://user?id={user} \n️⛔ Урока не будет")
 
     if get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1006,7 +1040,7 @@ def mess(message):
         name = str(message.from_user.first_name)
         user = str(message.chat.id)
         bot.send_message(message.chat.id, f"Sorry, возможно 🤖 напутал с расписанием... Пробую исправить!", reply_markup=markup)
-        bot.send_message(1891281816, f"Ученик " + name + f"\nСсылка: tg://user?id={user} \n️️‼️ Что-то не так с расписанием, надо проверить.")
+        bot.send_message(1891281816, name + f": tg://user?id={user} \n️️‼️ Что-то не так с расписанием, надо проверить.")
 
     if get_message_bot == "Репетитор":
 
@@ -1085,7 +1119,7 @@ def mess(message):
         text_message = f"*Возможно кто-то оставил заявку на урок, надо проверить!* \n\nПользователь *{message.from_user.first_name}*\n*id:* " + str(
             user_id) + "\n*user:* @" + user_name + f"\n*Ссылка* : tg://user?id={user_id}" + "\n\nОткрыть [Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
 
-        bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
+        bot.send_message(-726393257, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 # Добавляем учеников к системе бота
