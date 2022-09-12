@@ -512,6 +512,18 @@ def step(call):
     elif call.data == 'py04':
         py04 = open('files/py04.pdf', 'rb')
         msg = bot.send_document(call.message.chat.id, py04)
+
+    elif call.data == 'py05':
+        py05 = open('files/py05.pdf', 'rb')
+        msg = bot.send_document(call.message.chat.id, py05)
+
+    elif call.data == 'py06':
+        py06 = open('files/py06.pdf', 'rb')
+        msg = bot.send_document(call.message.chat.id, py06)
+
+    elif call.data == 'py07':
+        py07 = open('files/py07.pdf', 'rb')
+        msg = bot.send_document(call.message.chat.id, py07)
     # Useful ------------------------------------------------------------------------
 
     # Lessons ------------------------------------------------------------------------
@@ -719,7 +731,10 @@ def useful(message):
         markup.add(types.InlineKeyboardButton("1. Знакомство с Python: Типы данных, Списки.", callback_data="py01"),
                    types.InlineKeyboardButton("2. Циклы, Ветвления, Логические выражения.", callback_data="py02"),
                    types.InlineKeyboardButton("3. Функции: Вызов, Аргументы, Возврат значений.", callback_data="py03"),
-                   types.InlineKeyboardButton("4. Коллекции: Словари и Множества.", callback_data="py04"))
+                   types.InlineKeyboardButton("4. Коллекции: Словари и Множества.", callback_data="py04"),
+                   types.InlineKeyboardButton("5. Строки: Метод split() и f-string.", callback_data="py05"),
+                   types.InlineKeyboardButton("6. Библиотеки: datetime, math, random..", callback_data="py06"),
+                   types.InlineKeyboardButton("7. Сетевые запросы: Библиотека requests.", callback_data="py07"))
         bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
 
     else:
