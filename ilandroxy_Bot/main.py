@@ -785,7 +785,6 @@ def less(message):
 
 
 
-
 # Getting STATISTICS
 def analytics(func: callable):
     total_users = 0
@@ -1225,7 +1224,6 @@ def mess(message):
             bot.send_message(message.chat.id, message_text)
             sti = open('photo/WaitSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti)
-
 
 bot.polling(none_stop=True)
 
