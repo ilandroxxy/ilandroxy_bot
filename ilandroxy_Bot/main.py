@@ -6,9 +6,11 @@ import sqlite3
 import csv
 import emoji
 import time
+import datetime as dt
+import requests
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
+bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
@@ -528,25 +530,29 @@ def step(call):
 
     # Lessons ------------------------------------------------------------------------
     elif call.data == 'lesson':
-        day = time.strftime('%A')
-        date = time.strftime('%x')
-        textik = date + '  ' + day
+        now = dt.datetime.utcnow()
+        nsk_now = now + dt.timedelta(hours=7)
+        timer = nsk_now.strftime('%d #%A%B%Y #%B%Y')
+
         msg = bot.send_message(call.message.chat.id, "Введите сообщение к уроку в форма:\n[#Name] [Описание урока]")
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            text_message = textik + '\n' + message.text
+            text_message = timer + '\n\n' + message.text
             msg = bot.send_message(-647660626, text_message, disable_web_page_preview=True)
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'pay':
-        date = time.strftime('%x')
-        textik = ' ️✅ ' + date + ' Оплачен абонемент:'
+        now = dt.datetime.utcnow()
+        nsk_now = now + dt.timedelta(hours=7)
+        timer = nsk_now.strftime('%d %A #%B%Y')
+
+        textik = '✅ #Оплачен Абонемент:\n' + timer
         msg = bot.send_message(call.message.chat.id, "Введите данные по абонементу:\n[#Name] [Тип абонемента] [Цена]")
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            text_message = textik + '\n' + message.text
+            text_message = textik + '\n\n' + message.text
             msg = bot.send_message(-647660626, text_message, disable_web_page_preview=True)
         bot.register_next_step_handler(call.message, message_input)
     # Lessons ------------------------------------------------------------------------
@@ -575,7 +581,6 @@ useful - шпаргалки от Яндекс практикума по Python
 # START
 @bot.message_handler(commands=['start'])
 def start(message):
-
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
     btn1 = types.KeyboardButton('Контакты')
     btn2 = types.KeyboardButton('Репетитор')
@@ -639,7 +644,7 @@ def download(message):
 
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
-#PRICE
+# PRICE
 @bot.message_handler(commands=['price'])
 def price(message):
     message_text_1 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
@@ -779,6 +784,32 @@ def homework(message):
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, *запишитесь на урок /calendly*", parse_mode="Markdown")
 
 
+# WEATHER
+@bot.message_handler(commands=['weather'])
+def weather(message):
+    url = 'https://wttr.in'
+
+    weather_parameters = {
+        '0': '',
+        'T': '',
+        'M': '',
+    }
+
+    weather_string = {
+        'M': '',
+        'format': 2
+    }
+
+    request_headers = {
+        'Accept-Language': 'ru'  # заполните словарь с заголовками
+    }
+
+
+    response = requests.get(url, params=weather_parameters, headers=request_headers)
+    response2 = requests.get(url, params=weather_string, headers=request_headers)
+    message_text = "🤖 " +  response.text + '\n' + response2.text
+    bot.send_message(message.chat.id, message_text, parse_mode='HTML')
+
 
 ''' #приватные команды
 /statistics - выводит статистику и файлы db напрямую в боте
@@ -790,11 +821,11 @@ def homework(message):
 
 @bot.message_handler(commands=['less'])
 def less(message):
-        if message.chat.id == 1891281816:
+        if message.chat.id == 1891281816 or message.chat.id == -647660626:
             markup = types.InlineKeyboardMarkup()
             markup.add(types.InlineKeyboardButton("Проведен урок", callback_data='lesson'),
                        types.InlineKeyboardButton("Оплата", callback_data='pay'))
-            bot.send_dice(message.chat.id, reply_markup=markup)
+            bot.send_message(message.chat.id, 'Отчетность – это зер гуд 📊📈🧮', reply_markup=markup)
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
@@ -910,24 +941,46 @@ def voice(message):
 # GIT
 @bot.message_handler(commands=['git'])
 def git(message):
-    if message.chat.id == 1891281816:
+    user = message.chat.id
+    if message.chat.id == 1891281816 or message.chat.id == 438879394:
         message_text = "Залей изменения на GitHub.\n\n" \
                        "`cd PycharmProjects/ilandroxy_bot/ilandroxy_Bot/`\n\n" \
                        "`git add .`\n\n" \
                        "`git commit -m ''`\n\n" \
                        "`git push`\n\n" \
                        "Открыть несколько окон Telegram: `open -n /Applications/Telegram.app/`"
-        bot.send_message(1891281816, message_text, parse_mode='Markdown')
-    elif message.chat.id == 438879394:
-        message_text = "Залей изменения на GitHub.\n\n" \
-                       "`cd PycharmProjects/ilandroxy_bot/ilandroxy_Bot/`\n\n" \
-                       "`git add .`\n\n" \
-                       "`git commit -m ''`\n\n" \
-                       "`git push`\n\n" \
-                       "Открыть несколько окон Telegram: `open -n /Applications/Telegram.app/`"
-        bot.send_message(438879394, message_text, parse_mode='Markdown')
+        bot.send_message(user, message_text, parse_mode='Markdown')
+
+        day = time.strftime('%A')
+        if day == 'Monday':
+            for i in range(0, 10):
+                if Students[i] != 0:
+                    bot.send_message(Students[i], f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+
+        if day == 'Tuesday':
+            for i in range(10, 20):
+                if Students[i] != 0:
+                    bot.send_message(Students[i], f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+
+        if day == 'Thursday':
+            for i in range(20, 30):
+                if Students[i] != 0:
+                    bot.send_message(Students[i], f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+
+        if day == 'Friday':
+            for i in range(30, 40):
+                if Students[i] != 0:
+                    bot.send_message(Students[i], f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+
+        if day == 'Saturday':
+            for i in range(40, 50):
+                if Students[i] != 0:
+                    bot.send_message(Students[i], f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
 
 
 
