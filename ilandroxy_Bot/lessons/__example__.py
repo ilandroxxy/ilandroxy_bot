@@ -37,18 +37,21 @@ request_headers = {
 response = requests.get(url, params = weather_parameters,headers=request_headers)
 print(response.text)
 '''
-
-f = open('24.txt', 'r')
-s = f.readline()
-
-count = 1
-maxi = 0
-for i in range(0, len(s)-1):
-    if (s[i] == 'K' and s[i+1] == 'L') or (s[i] == 'L' and s[i+1] == 'K'):
-        count = 1
-    else:
-        count += 1
-        if count > maxi:
-            maxi = count
-print(maxi)
-
+while True:
+    print("case 1: Введите два катита\ncase 2: Введите катет и гипотенузу\ncase 0: exit\ncase = ")
+    case = int(input())
+    if case == 1:
+        print('Введите два катита: ')
+        a = int(input())
+        b = int(input())
+        c = (a ** 2 + b ** 2) ** (1/2)
+        print(f'Гипотенуза = {c}')
+    elif case == 2:
+        print("Введите катет")
+        a = int(input())
+        print("Введите гипотенузу")
+        c = int(input())
+        b = (c ** 2 - a ** 2) ** (1 / 2)
+        print('Катет =', b)
+    elif case == 0:
+        break
