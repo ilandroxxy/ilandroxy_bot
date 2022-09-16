@@ -1,3 +1,18 @@
-my_dict = {1.12: 'aa', 67.9: 45, 3.11: 'ccc', 7.9: 'dd', 9.2: 'ee', 7.1: 'ff', 0.12: 'qq', 1.91: 'aa', 10.12: [1, 2, 3], 99.0: {9, 0, 1}}
+'''
+letters = [c for c in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ']
+morse = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..', '-----', '.----', '..---', '...--', '....-', '.....', '-....', '--...', '---..', '----.',' ']
 
-print(min(my_dict) + max(my_dict))
+s = input()
+s = s.upper()
+print(s)
+res = []
+for i in s:
+    ind = letters.index(i)
+
+    res.append(morse[ind])
+R = ' '.join(res)
+print(R)
+'''
+
+x = True # bool - boolean 
+print(type(x))

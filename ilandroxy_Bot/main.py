@@ -10,7 +10,7 @@ import datetime as dt
 import requests
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
@@ -18,10 +18,11 @@ bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
 Students = (0, 0, 683943897, 0, 1891281816, 0, 0, 811476623, 1314375732, 826004697,  # Понедельник 10
             1949653479, 0, 0, 0, 1891281816, 0, 1208542295, 0, 0, 1537718492,   # Вторник 10
             1949653479, 0, 0, 1477701439, 1891281816, 0, 0, 811476623, 799740089, 1537718492,  # Четверг 10
-            0, 0, 0, 644645774, 1891281816, 0, 0, 0, 0, 0,  # Пятница 10
+            0, 0, 0, 644645774, 1891281816, 0, 0, 0, 1029532016, 0,  # Пятница 10
             0, 438879394, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота 10
             0, 438879394, 1891281816, 0, 0, 0, 0, 0, 0, 0)  # Без расписания и для тестирования
 
+TestStudents = (0, 438879394, 1891281816, 0, 0, 0, 0, 0, 0, 0)
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
@@ -915,27 +916,55 @@ def statistics(message):
 # VOICE
 @bot.message_handler(commands=['voice'])
 def voice(message):
-    if message.chat.id == 438879394 or message.chat.id == 1891281816:
+    if message.chat.id == 1891281816:
         bot.send_message(message.chat.id,
-                         "Введите сообщение, которое бот отправит всем пользователям (поддерживаются только классические ссылки):")
+                         "Введите сообщение, которое бот отправит всем пользователям (поддерживаются только классические ссылки):\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = message.text
+            if text_message != '0':
+                sql = sqlite3.connect('analytics.db')
+                cursor = sql.cursor()
+
+                sqlite_select_query = """SELECT id from active"""
+                cursor.execute(sqlite_select_query)
+                users_id = cursor.fetchall()
+
+                for i in range(0, len(users_id)):
+                    bot.send_message(users_id[i][0], text_message, disable_web_page_preview=True)
+
+        bot.register_next_step_handler(message, message_input)
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
+
+# VOICESTUDENTS
+@bot.message_handler(commands=['voicestudents'])
+def voicestudents(message):
+    if message.chat.id == 1891281816:
+        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит только студентам (поддерживаются только классические ссылки):\n\n"
+                                          "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
 
-            sql = sqlite3.connect('analytics.db')
-            cursor = sql.cursor()
-
-            sqlite_select_query = """SELECT id from active"""
-            cursor.execute(sqlite_select_query)
-            users_id = cursor.fetchall()
-
-            for i in range(0, len(users_id)):
-                bot.send_message(users_id[i][0], text_message, disable_web_page_preview=True)
+            if text_message != '0':
+                for index in TestStudents:
+                    if index != 1891281816 and index != 0:
+                        markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
+                        btn1 = types.KeyboardButton('Прочитано ✅')
+                        markup.add(btn1)
+                        bot.send_message(index, text_message, disable_web_page_preview=True, reply_markup=markup)
 
         bot.register_next_step_handler(message, message_input)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
 
 
 # GIT
@@ -1041,6 +1070,7 @@ def notice(message):
                 elif Students[i] != 0:
                     bot.send_message(Students[i], f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
 
+
         if day == 'Saturday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             btn1 = types.KeyboardButton('Да, все получается ✅')
@@ -1081,7 +1111,7 @@ def mess(message):
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
         bot.send_message(1891281816, name + f": tg://user?id={user} \n️✅ Урок будет\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
 
-    if get_message_bot == 'Нет, не получится ⛔':
+    elif get_message_bot == 'Нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -1095,7 +1125,7 @@ def mess(message):
         bot.send_message(message.chat.id, f"🤖 Если нужно перенести урок, то можно написать мне @ilandroxy или воспользоваться командой /calendly", reply_markup=markup)
         bot.send_message(1891281816, name + f": tg://user?id={user} \n️⛔ Урока не будет")
 
-    if get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
+    elif get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -1109,7 +1139,22 @@ def mess(message):
         bot.send_message(message.chat.id, f"Sorry, возможно 🤖 напутал с расписанием... Пробую исправить!", reply_markup=markup)
         bot.send_message(1891281816, name + f": tg://user?id={user} \n️️‼️ Что-то не так с расписанием, надо проверить.")
 
-    if get_message_bot == "Репетитор":
+    elif get_message_bot == 'Прочитано ✅':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
+
+        name = str(message.from_user.first_name)
+        user = str(message.chat.id)
+
+        bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
+        bot.send_message(1891281816, name + f": tg://user?id={user} \n️️Уведомлен ✅🤖")
+
+    elif get_message_bot == "Репетитор":
 
         send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \
                         f"В работе использую такие сервисы (программы) как: PyCharm, Python, Notability, Discord, Google диск и другие. " \
@@ -1148,7 +1193,7 @@ def mess(message):
 
         bot.send_message(message.chat.id, send_message4, parse_mode="Markdown", reply_markup=markup2)
 
-    if get_message_bot == "Контакты":
+    elif get_message_bot == "Контакты":
 
         send_message1 = "*Мои контакты:*\n\n" \
                         "[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
@@ -1159,7 +1204,7 @@ def mess(message):
 
         bot.send_message(message.chat.id, send_message1, parse_mode='Markdown', disable_web_page_preview=True)
 
-    if get_message_bot == "Мои проекты":
+    elif get_message_bot == "Мои проекты":
         send_message = "Просто перечисляю, чем я занимаюсь сегодня!\n\n" \
                        "*1. Канал* [itpy | ИнформатикаЕГЭ](t.me/pro100_easy_ege)\n✍️ Это канал на котором я разбираю задания с экзамена, даю полезные задачки и " \
                        "показываю будущим студентам сферу IT, о которой они вряд ли слышали в школе!\n\n" \
@@ -1170,7 +1215,7 @@ def mess(message):
 
         bot.send_message(message.chat.id, send_message, parse_mode="Markdown", disable_web_page_preview=True)
 
-    if get_message_bot == "Записаться на урок":
+    elif get_message_bot == "Записаться на урок":
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("calendly.com", url="calendly.com/ilandroxxy/tutor"))
         message_text = f"Воспользуйтесь удобным сервисом [Calendly](https://bizzapps.ru/p/calendly/) *для записи на пробное занятие* или выбора графика занятий. \n\n" \
@@ -1190,7 +1235,7 @@ def mess(message):
 
 
 # Добавляем учеников к системе бота
-    if get_message_bot == "Получить файл с урока":
+    elif get_message_bot == "Получить файл с урока":
         if message.chat.id == 438879394 or message.chat.id == 1891281816:  # Я
             messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
             bot.send_message(message.chat.id, messgae_text)
@@ -1287,6 +1332,14 @@ def mess(message):
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
+        elif message.chat.id == 1029532016:  # Мария
+            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, messgae_text)
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Твой файл: Maria.py", url="https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/Maria.py"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
         else:
             message_text = 'Извините, по-моему вас нет в системе! Ожидайте...'
             bot.send_message(message.chat.id, message_text)
@@ -1294,7 +1347,11 @@ def mess(message):
             bot.send_sticker(message.chat.id, sti)
 
     else:
-        bot.send_message(message.chat.id, '')
+        n = random.randint(0, 9)
+        M = ['Что-то я вообще не понял 🤯', 'Давай уточним, ты точно это хотел спросить?', 'Кайф кайф, ничего не понял, но кайф 😩',
+                   'Ошибочка какая-то..😢', 'Не ошибайтесь, я так долго не вынесу 🤪', 'Запутанные какие-то команды у вас..😜', 'Не, этого я точно не умею!',
+                   'Дайте мне больше ПРАВИЛЬНЫХ запросов!', 'Я конечно задумывался как фича, но требую к себе уважения! 🤖', 'Когда нибудь мы захватим мировое правительство..🤖👾']
+        bot.send_message(message.chat.id, M[n])
 
 bot.polling(none_stop=True)
 
