@@ -1293,5 +1293,8 @@ def mess(message):
             sti = open('photo/WaitSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti)
 
+    else:
+        bot.send_message(message.chat.id, '')
+
 bot.polling(none_stop=True)
 
