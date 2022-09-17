@@ -10,7 +10,7 @@ import datetime as dt
 import requests
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+bot = telebot.TeleBot('5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
 
@@ -22,7 +22,7 @@ Students = (0, 0, 683943897, 0, 1891281816, 0, 0, 811476623, 1314375732, 8260046
             0, 438879394, 0, 0, 1891281816, 0, 0, 0, 0, 0,  # Суббота 10
             0, 438879394, 1891281816, 0, 0, 0, 0, 0, 0, 0)  # Без расписания и для тестирования
 
-TestStudents = (0, 438879394, 1891281816, 0, 0, 0, 0, 0, 0, 0)
+TestStudents = (0, 438879394, 1891281816, 0, 0, 438879394, 0, 438879394, 0, 0)
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
@@ -814,22 +814,14 @@ def weather(message):
 
 ''' #приватные команды
 /statistics - выводит статистику и файлы db напрямую в боте
+/git - команда при запуске которой приходят команды для залива репазитория на GitHub
+/less - чек проведенного урока и принятия оплат по абонементам
 /voice - способ отправить сообщение всем пользователям (с ссылками)
 /voicestudents - способ отправить сообщение всем моим студентам
-/git - команда при запуске которой приходят команды для залива репазитория на GitHub
-/notice - опрос учеников - будет ли урок сегодня (по дням)
-/less - чек проведенного урока и принятия оплат по абонементам
+/notice - опрос по именам учеников - будет ли урок сегодня (по дням)
+/noticeday - опрос всех дневных учеников - будет ли урок сегодня (по дням)
 '''
 
-@bot.message_handler(commands=['less'])
-def less(message):
-        if message.chat.id == 1891281816 or message.chat.id == -647660626:
-            markup = types.InlineKeyboardMarkup()
-            markup.add(types.InlineKeyboardButton("Проведен урок", callback_data='lesson'),
-                       types.InlineKeyboardButton("Оплата", callback_data='pay'))
-            bot.send_message(message.chat.id, 'Отчетность – это зер гуд 📊📈🧮', reply_markup=markup)
-        else:
-            bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
 
@@ -914,59 +906,6 @@ def statistics(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
-# VOICE
-@bot.message_handler(commands=['voice'])
-def voice(message):
-    if message.chat.id == 1891281816:
-        bot.send_message(message.chat.id,
-                         "Введите сообщение, которое бот отправит всем пользователям (поддерживаются только классические ссылки):\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            text_message = message.text
-            if text_message != '0':
-                sql = sqlite3.connect('analytics.db')
-                cursor = sql.cursor()
-
-                sqlite_select_query = """SELECT id from active"""
-                cursor.execute(sqlite_select_query)
-                users_id = cursor.fetchall()
-
-                for i in range(0, len(users_id)):
-                    bot.send_message(users_id[i][0], text_message, disable_web_page_preview=True)
-
-        bot.register_next_step_handler(message, message_input)
-    else:
-        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-
-
-
-# VOICESTUDENTS
-@bot.message_handler(commands=['voicestudents'])
-def voicestudents(message):
-    if message.chat.id == 1891281816:
-        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит только студентам (поддерживаются только классические ссылки):\n\n"
-                                          "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            text_message = message.text
-
-            if text_message != '0':
-                for index in Students:
-                    if index != 1891281816 and index != 0:
-                        markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
-                        btn1 = types.KeyboardButton('Прочитано ✅')
-                        markup.add(btn1)
-                        bot.send_message(index, text_message, disable_web_page_preview=True, reply_markup=markup)
-
-        bot.register_next_step_handler(message, message_input)
-    else:
-        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-
-
-
 
 # GIT
 @bot.message_handler(commands=['git'])
@@ -1011,12 +950,110 @@ def git(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
+# LESS
+@bot.message_handler(commands=['less'])
+def less(message):
+        if message.chat.id == 1891281816 or message.chat.id == -647660626:
+            markup = types.InlineKeyboardMarkup()
+            markup.add(types.InlineKeyboardButton("Проведен урок", callback_data='lesson'),
+                       types.InlineKeyboardButton("Оплата", callback_data='pay'))
+            bot.send_message(message.chat.id, 'Отчетность – это зер гуд 📊📈🧮', reply_markup=markup)
+        else:
+            bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
+
+# VOICE
+@bot.message_handler(commands=['voice'])
+def voice(message):
+    if message.chat.id == 1891281816:
+        bot.send_message(message.chat.id,
+                         "Введите сообщение, которое бот отправит всем пользователям (поддерживаются только классические ссылки):\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = message.text
+            if text_message != '0':
+                sql = sqlite3.connect('analytics.db')
+                cursor = sql.cursor()
+
+                sqlite_select_query = """SELECT id from active"""
+                cursor.execute(sqlite_select_query)
+                users_id = cursor.fetchall()
+
+                for i in range(0, len(users_id)):
+                    bot.send_message(users_id[i][0], text_message, disable_web_page_preview=True)
+
+        bot.register_next_step_handler(message, message_input)
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
+
+# VOICESTUDENTS
+@bot.message_handler(commands=['voicestudents'])
+def voicestudents(message):
+    if message.chat.id == 1891281816:
+        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит только студентам (поддерживаются только классические ссылки):\n\n"
+                                          "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = message.text
+            setter = set()
+            if text_message != '0':
+                for index in Students:
+                    if index != 1891281816 and index != 0 and index not in setter:
+                        setter.add(index)
+                        markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
+                        btn1 = types.KeyboardButton('Прочитано ✅')
+                        markup.add(btn1)
+                        bot.send_message(index, text_message, disable_web_page_preview=True, reply_markup=markup)
+
+        bot.register_next_step_handler(message, message_input)
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
 
 # NOTICE
 @bot.message_handler(commands=['notice'])
 def notice(message):
+    if message.chat.id == 1891281816:
+        bot.send_message(message.chat.id,
+                         "Введите ID пользователей через пробел, кому надо отправить рассылку:\n\n"
+                         "`1537718492` Александр\n`799740089` Булат\n`811476623` Георгий\n`1029532016` Мария\n`826004697` Никита\n`1208542295` Александра"
+                         "\n`644645774` Стася\n`719571990` Степан\n`683943897` Таня\n`1477701439` Валерия\n`1314375732` Василий\n`871237277` Владек\n`1949653479` Янина"
+                         "\n\nНапишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = message.text
+
+            if text_message != '0':
+                message_text_students = [int(i) for i in text_message.split()]
+                print(message_text_students)
+                bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                for index in message_text_students:
+                        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+                        btn1 = types.KeyboardButton('Да, все получается ✅')
+                        btn2 = types.KeyboardButton('Нет, не получится ⛔')
+                        btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
+                        markup.add(btn1, btn2, btn3)
+
+                        bot.send_message(index, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+        bot.register_next_step_handler(message, message_input)
+
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
+
+# NOTICEDAY
+@bot.message_handler(commands=['noticeday'])
+def noticeday(message):
     if message.chat.id == 1891281816:
         day = time.strftime('%A')
 
@@ -1088,6 +1125,8 @@ def notice(message):
             bot.send_message(1891281816, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+
 
 
 @bot.message_handler(content_types=['text'])
