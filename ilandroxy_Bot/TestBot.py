@@ -2,20 +2,16 @@ import random
 import telebot
 from telebot import types
 
-
 bot = telebot.TeleBot('5447726623:AAG_EYLjLIFqOz80fZHhZcBiMrVlylUdJcI')
 QUE = []
 wolit = [0]
 GIFT = [0, 100, 1000, 2000, 3000, 5000, 10000, 15000, 25000, 50000, 100000, 200000, 400000, 800000, 1500000, 3000000]
 Balance = [0]
-
-
 n = 3  # диапазон рандома вопросов
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
-    markup = telebot.types.InlineKeyboardMarkup(row_width=1)
-
+    markup = telebot.types.InlineKeyboardMarkup()
 
     if call.data == 'wolit':
         wolit.append(Balance[0])
@@ -171,34 +167,45 @@ def step(call):
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    markup0 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    markup0.add(types.KeyboardButton('Начать игру'))
+    while True:
+        temp = random.randint(1, n)
+        if len(QUE) == n:
+            break
+        elif temp not in QUE:
+            QUE.append(temp)
+            print(QUE)
+            break
+    markup = types.InlineKeyboardMarkup()
+    markup.add(types.InlineKeyboardButton("Начать игру", callback_data='que' + str(temp)))
+    bot.send_message(message.chat.id, 'Добро пожаловать в игру\n *"Кто хочет стать миллионером"!*', parse_mode='Markdown', reply_markup=markup)
 
-    message_text = 'Добро пожаловать в игру "Кто хочет стать миллионером"!'
-    bot.send_message(message.chat.id, message_text, reply_markup=markup0)
+
 
 @bot.message_handler(commands=['show_list'])
 def show_list(message):
-    if message.chat.id == 811476623:
+    if message.chat.id == 811476623 or message.chat.id == 1891281816:
         message_text = 'Вопросы на которые вы ответили правильно: '
-        QUE.sort()
-        for i in range(0, len(QUE)):
-            message_text += str(QUE[i]) + ', '
+        Temp = QUE[:-1]
+        Temp.sort()
+        for i in range(0, len(Temp)):
+            message_text += str(Temp[i]) + ', '
         message_text = message_text[:-2]
         bot.send_message(message.chat.id, message_text)
     else:
-        bot.send_message(message.chat.id, 'вы не можете использовать эту функцию')
+        bot.send_message(message.chat.id, 'Вы не можете использовать эту функцию')
+
+
 
 @bot.message_handler(commands=['show'])
 def show(message):
-    message_text = 'количество правильных ответов: ' + str(len(QUE)) + '\nколичество оставшихся вопросов: ' + str(15-len(QUE))
-    bot.send_message(message.chat.id, message_text)
+    bot.send_message(message.chat.id, f'*Промежуточные результаты:*\nКоличество правильных ответов: {len(QUE)-1}\nКоличество оставшихся вопросов: {16-len(QUE)}', parse_mode='Markdown')
+
 
 @bot.message_handler(content_types=['text'])
 def mess(message):
     get_message_bot = message.text.strip()
 
-    if get_message_bot == 'Начать игру' or get_message_bot == 'Начать заново':
+    if get_message_bot == 'Начать заново':
         while True:
             temp = random.randint(1, n)
             if len(QUE) == n:
@@ -207,85 +214,48 @@ def mess(message):
                 QUE.append(temp)
                 print(QUE)
                 break
-        btn = 'que' + str(temp)
         markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("GO", callback_data=btn))
-        bot.send_message(message.chat.id, "Нажмите GO для того чтобы перейти на 1 вопрос", reply_markup=markup)
-
-
-
-    # que2 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-    if get_message_bot == 'Два':
-        message_text = "Правильный ответ\nВаш выигрыш: " + str(GIFT[len(QUE)]) + ' рублей'
-        Balance[0] = GIFT[len(QUE)]
-        while True:
-            temp = random.randint(1, n)
-            if len(QUE) == n:
-                break
-            elif temp not in QUE:
-                QUE.append(temp)
-                print(QUE)
-                break
-        btn = 'que' + str(temp)
-        markup = types.InlineKeyboardMarkup(row_width=1)
-        markup.add(types.InlineKeyboardButton("GO", callback_data=btn),
-                   types.InlineKeyboardButton("Заглянуть в кошелёк", callback_data='show'),
-                   types.InlineKeyboardButton("Забрать выигрыш", callback_data='wolit'))
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
-
-    if get_message_bot == 'Один':
-        QUE.clear()
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-        markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
-
-    if get_message_bot == 'Четыре':
-        QUE.clear()
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-        markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
-
-    if get_message_bot == 'Три':
-        QUE.clear()
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-        markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
-    # que2 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+        markup.add(types.InlineKeyboardButton("Следующий вопрос", callback_data='que' + str(temp)))
+        bot.send_message(message.chat.id, "Запустите игру заново нажатием клавиши:", reply_markup=markup)
 
     # que1 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
     if get_message_bot == 'Юнг':
-        QUE.clear()
+        QUE.clear()    # Если ответ неправильный, то мы опустошаем список
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-        markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
+        markup.add(types.KeyboardButton("Начать заново"))   # Генерим кнопку для перезапуска игры
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)  # А тут просто в одну строку выводи кол-во денег: Список[кол-во ответов]
 
     if get_message_bot == 'Гегель':
         QUE.clear()
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
 
     if get_message_bot == 'Шопенгауэр':
         QUE.clear()
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
 
     if get_message_bot == 'Ницше':
-        message_text = "Правильный ответ\nВаш выигрыш: " + str(GIFT[len(QUE)]) + ' рублей'
+        Balance[0] = GIFT[len(QUE)]  # В списке Balance, на 0 позиции будет храниться кол-во очков заработанных на данный момент игры
+        while True:
+            temp = random.randint(1, n)  # рандомим вопрос - n символизирует кол-во готовых вопросов (меняется наверху программы)
+            if len(QUE) == n:  # Если длина равна n, то у нас кончились все вопросы. Таким образом мы избегаем зацикливания как у нас было раньше
+                break
+            elif temp not in QUE:  # Если нарандомили вопрос которого нет, до добавляем его в список и выходи из цикла
+                QUE.append(temp)
+                print(QUE)
+                break
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(types.InlineKeyboardButton("Следующий вопрос", callback_data='que' + str(temp)),
+                    types.InlineKeyboardButton("Заглянуть в кошелёк", callback_data='show'),  # тут кол-во денег в кошельке (не равно балансу)
+                    types.InlineKeyboardButton("Забрать выигрыш", callback_data='wolit'))   # тут мы обнулим баланс и перенесем деньги в кошелек
+        bot.send_message(message.chat.id, f"Правильный ответ\nВаш выигрыш: {Balance[0]} рублей", reply_markup=markup)  # Ну и переменную с балансом выводим на экран
+    # que1 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    # que2 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+    if get_message_bot == 'Два':
         Balance[0] = GIFT[len(QUE)]
         while True:
             temp = random.randint(1, n)
@@ -295,17 +265,34 @@ def mess(message):
                 QUE.append(temp)
                 print(QUE)
                 break
-        btn = 'que' + str(temp)
         markup = types.InlineKeyboardMarkup(row_width=1)
-        markup.add(types.InlineKeyboardButton("GO", callback_data=btn),
+        markup.add(types.InlineKeyboardButton("Следующий вопрос", callback_data='que' + str(temp)),
                    types.InlineKeyboardButton("Заглянуть в кошелёк", callback_data='show'),
                    types.InlineKeyboardButton("Забрать выигрыш", callback_data='wolit'))
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
-    # que1 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+        bot.send_message(message.chat.id, f"Правильный ответ\nВаш выигрыш: {Balance[0]} рублей", reply_markup=markup)
+
+    if get_message_bot == 'Один':
+        QUE.clear()
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        markup.add(types.KeyboardButton("Начать заново"))
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
+
+    if get_message_bot == 'Четыре':
+        QUE.clear()
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        markup.add(types.KeyboardButton("Начать заново"))
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
+
+    if get_message_bot == 'Три':
+        QUE.clear()
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        markup.add(types.KeyboardButton("Начать заново"))
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
+    # que2 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
     # que3 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
     if get_message_bot == 'Поэт':
-        message_text = f"Правильный ответ\nВаш выигрыш: {GIFT[len(QUE)]} рублей"
         Balance[0] = GIFT[len(QUE)]
         while True:
             temp = random.randint(1, n)
@@ -315,36 +302,29 @@ def mess(message):
                 QUE.append(temp)
                 print(QUE)
                 break
-        btn = 'que' + str(temp)
         markup = types.InlineKeyboardMarkup(row_width=1)
-        markup.add(types.InlineKeyboardButton("GO", callback_data=btn),
+        markup.add(types.InlineKeyboardButton("Следующий вопрос", callback_data='que' + str(temp)),
                    types.InlineKeyboardButton("Заглянуть в кошелёк", callback_data='show'),
                    types.InlineKeyboardButton("Забрать выигрыш", callback_data='wolit'))
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
+        bot.send_message(message.chat.id, f"Правильный ответ\nВаш выигрыш: {Balance[0]} рублей", reply_markup=markup)
 
     if get_message_bot == 'Романист':
         QUE.clear()
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
 
     if get_message_bot == 'Драматург':
         QUE.clear()
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
 
     if get_message_bot == 'Эссеист':
         QUE.clear()
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         markup.add(types.KeyboardButton("Начать заново"))
-
-        message_text = f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей'
-        bot.send_message(message.chat.id, message_text, reply_markup=markup)
+        bot.send_message(message.chat.id, f'Вы проиграли:(\nВаш выигрыш: {GIFT[len(QUE)]} рублей', reply_markup=markup)
     # que3 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 bot.polling(none_stop=True)

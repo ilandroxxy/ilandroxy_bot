@@ -14,12 +14,12 @@ bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 
 # Синхронно моему расписанию в Google Календаре
 MondayStudents = {683943897: "Tanya.py", 811476623: "Georgie.py", 826004697: 'Nikita.py'}
-TuesdayStudents = {1949653479: "Yanina.py", 1208542295: "Sasha.py", 1537718492: "Aleksandr.py"}
+TuesdayStudents = {1949653479: 'Yanina.py', 1208542295: 'Sasha.py', 1537718492: 'Aleksandr.py', 789322200: 'Katya.py'}
 ThursdayStudents = {1949653479: "Yanina.py", 1477701439: "Valeria.py", 811476623: "Georgie.py", 799740089: "Bulat.py", 1537718492: "Aleksandr.py"}
 FridayStudents = {1314375732: "Vasiliy.py", 644645774: "Stasya.py", 719571990: "Stepan.py", 1029532016: 'Maria.py'}
 SaturdayStudents = {871237277: "Vladek.py"}
 
-Students = MondayStudents | ThursdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
+Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
 
 Me = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"}
 Testing = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy'}
@@ -845,7 +845,7 @@ def useful(message):
 # HOMEWORK
 @bot.message_handler(commands=['homework'])
 def homework(message):
-    if message.chat.id in Students or message.chat.id in Me:
+    if message.chat.id in Me or message.chat.id in Students:
         message_text = "Эта команда просто выдает рандомное задание с Решу ЕГЭ\n\nПомимо этого, мне приходит уведомление с номерами выпавших задач.\n\nПроявите самостоятельность в выборе, а на уроке мы разбрем возникшие вопросы!\n\n[Читать правила оформления домашки](https://www.notion.so/ilandroxxy/8234ee61967a4cbe8a232b745cff0b9a)"
         markup = types.InlineKeyboardMarkup(row_width=5)
         markup.add(types.InlineKeyboardButton("1", callback_data="hw1"),
@@ -874,7 +874,7 @@ def homework(message):
                    types.InlineKeyboardButton("26", callback_data="hw26"),
                    types.InlineKeyboardButton("27", callback_data="hw27"))
         bot.send_message(message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
-        bot.send_message(message.chat.id, "В случае ошибочной ссылки, просьба [скинуть мне скриншот](http://t.me/ilandroxy) @ilandroxy", parse_mode="Markdown", disable_web_page_preview=True)
+        bot.send_message(message.chat.id, "В случае ошибочной ссылки, просьба скинуть мне скриншот @ilandroxy", parse_mode="Markdown", disable_web_page_preview=True)
     else:
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, *запишитесь на урок /calendly*", parse_mode="Markdown")
 
@@ -1368,7 +1368,6 @@ def mess(message):
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
         elif message.chat.id in Me:
-            key = message.chat.id
             message_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
             bot.send_message(message.chat.id, message_text)
             markup = types.InlineKeyboardMarkup(row_width=1)

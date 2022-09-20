@@ -15,11 +15,16 @@ FridayStudents = {1314375732: "Vasiliy.py", 644645774: "Stasya.py", 719571990: "
 SaturdayStudents = {871237277: "Vladek.py"}
 
 Students = MondayStudents | ThursdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
-print(len(Students), Students)
+print(Students)
+
+for i in Students:
+    print(type(i))
+
+print(Students[1029532016])
 
 
-x = 5
-y = 7
+
+
 
 
 
