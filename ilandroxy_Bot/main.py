@@ -913,8 +913,8 @@ def weather(message):
 /less - чек проведенного урока и принятия оплат по абонементам
 /voiceall - способ отправить сообщение всем пользователям (с ссылками)
 /voicestudents - способ отправить сообщение всем моим студентам
-/notice - опрос по именам учеников - будет ли урок сегодня (по дням)
-/noticeday - опрос всех дневных учеников - будет ли урок сегодня (по дням)
+/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)
+/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)
 '''
 
 
@@ -1106,15 +1106,25 @@ def voicestudents(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
-# NOTICE
-@bot.message_handler(commands=['notice'])
-def notice(message):
+# NOTICESTUDENTS
+@bot.message_handler(commands=['noticestudents'])
+def noticestudents(message):
     if message.chat.id == 1891281816:
+
+        message_text = f"*MondayStudents:*\n{MondayStudents}\n\n" \
+                       f"*TuesdayStudents:*\n{TuesdayStudents}\n\n" \
+                       f"*ThursdayStudents:*\n{ThursdayStudents}\n\n" \
+                       f"*FridayStudents:*\n{FridayStudents}\n\n" \
+                       f"*SaturdayStudents:*\n{SaturdayStudents}\n\nНапишите `0`, чтобы отменить команду!"
+        bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        '''
         bot.send_message(message.chat.id,
                          "Введите ID пользователей через пробел, кому надо отправить рассылку:\n\n"
                          "`1537718492` Александр\n`799740089` Булат\n`811476623` Георгий\n`1029532016` Мария\n`826004697` Никита\n`1208542295` Александра"
                          "\n`644645774` Стася\n`719571990` Степан\n`683943897` Таня\n`1477701439` Валерия\n`1314375732` Василий\n`871237277` Владек\n`1949653479` Янина"
-                         "\n\n`1891281816` ilandroxy\n`438879394` ilandroxxy\n\nНапишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+                         "\n\n`1891281816` ilandroxy\n`438879394` ilandroxxy", parse_mode='Markdown')
+        '''
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
@@ -1139,9 +1149,9 @@ def notice(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
-# NOTICEDAY
-@bot.message_handler(commands=['noticeday'])
-def noticeday(message):
+# NOTICE
+@bot.message_handler(commands=['notice'])
+def notice(message):
     if message.chat.id in Me:
         day = time.strftime('%A')
 

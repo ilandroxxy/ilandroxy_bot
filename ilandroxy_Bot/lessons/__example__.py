@@ -18,6 +18,15 @@ Students = MondayStudents | ThursdayStudents | ThursdayStudents | FridayStudents
 print(len(Students), Students)
 
 
+x = 5
+y = 7
+
+
+
+
+
+
+
 # Тип 15 № 34506
 '''
 # Обозначим через m&n поразрядную конъюнкцию неотрицательных целых чисел m и n.
