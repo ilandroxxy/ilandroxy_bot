@@ -1,10 +1,35 @@
 '''
 text = 'orange strawberry barley gooseberry apple apricot barley currant orange melon pomegranate banana banana orange barley apricot plum grapefruit banana quince strawberry barley grapefruit banana grapes melon strawberry apricot currant currant gooseberry raspberry apricot currant orange lime quince grapefruit barley banana melon pomegranate barley banana orange barley apricot plum banana quince lime grapefruit strawberry gooseberry apple barley apricot currant orange melon pomegranate banana banana orange apricot barley plum banana grapefruit banana quince currant orange melon pomegranate barley plum banana quince barley lime grapefruit pomegranate barley'
 s = [i for i in text. split()]
-result = {}
+base = {}
 for i in s:
-    result[i] = result.get(i, 0) + 1
+    base[i] = base.get(i, 0) + 1
+print(base)
+
+for i in base:
+    if base[i] == max(base.values()):
+        base[i] = base[i]
+
+res = sorted(base)
+print(res)
+result = {0: res[0]}
 print(result)
+'''
+
+'''
+s=int(input())
+s1= s//1000
+s2= (s//100) % 10
+s3= (s%100)//10
+s4= (s%10)
+print("Цифра в позиции тысяч равна ",s1)
+print("Цифра в позиции сотен равна ",s2)
+print("Цифра в позиции десятков равна ",s3)
+print("Цифра в позиции единиц равна ",s4)
+
+# Тут можно рассказать про исключения, вопрос: почему во 2 номере d, а тут s ?) 
+'''
+
 '''
 
 
@@ -21,6 +46,7 @@ for i in Students:
     print(type(i))
 
 print(Students[1029532016])
+'''
 
 
 

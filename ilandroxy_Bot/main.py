@@ -16,7 +16,7 @@ bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 MondayStudents = {683943897: "Tanya.py", 811476623: "Georgie.py", 826004697: 'Nikita.py'}
 TuesdayStudents = {1949653479: 'Yanina.py', 1208542295: 'Sasha.py', 1537718492: 'Aleksandr.py', 789322200: 'Katya.py'}
 ThursdayStudents = {1949653479: "Yanina.py", 1477701439: "Valeria.py", 811476623: "Georgie.py", 799740089: "Bulat.py", 1537718492: "Aleksandr.py"}
-FridayStudents = {1314375732: "Vasiliy.py", 644645774: "Stasya.py", 719571990: "Stepan.py", 1029532016: 'Maria.py'}
+FridayStudents = {1314375732: 'Vasiliy.py', 644645774: 'Stasya.py', 719571990: 'Stepan.py', 1029532016: 'Maria.py', 1649389148: 'Slava.py'}
 SaturdayStudents = {871237277: "Vladek.py"}
 
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
