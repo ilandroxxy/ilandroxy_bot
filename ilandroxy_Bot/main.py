@@ -8,9 +8,9 @@ import datetime as dt
 import requests
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
-# test 5543492408:AAFKGXowK8CV5Q4IFOGzDTCTR4OAaL_tU2I
+# test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
 # Синхронно моему расписанию в Google Календаре
 MondayStudents = {683943897: "Tanya.py", 811476623: "Georgie.py", 826004697: 'Nikita.py'}
@@ -1094,7 +1094,6 @@ def voicestudents(message):
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
-            setter = set()
             if text_message != '0':
                 for key in Students:
                     markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
@@ -1221,6 +1220,7 @@ def notice(message):
 @analytics
 def mess(message):
     get_message_bot = message.text.strip()
+    # get_message_bot = message.text.lower()
 
     if get_message_bot == 'Да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
