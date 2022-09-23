@@ -25,7 +25,7 @@
 # Сколько цифр 2 будет в строке, которая получится после выполнения данной программы?
 
 '''
-line = '0' + '1' * 12 + '2' * 15 + '3' * 17
+line = '0' + '3' * 17 + '1' * 12 + '2' * 15
 while '01' in line or '02' in line or '03' in line:
     line = line.replace('01', '103', 1)
     line = line.replace('02', '10', 1)
@@ -79,5 +79,6 @@ for i in range(len(line)):
             if maximum < line[i] + line[j]:
                 maximum = line[i] + line[j]
 print(counter, maximum)
+
 
 # Ответ: 7142586 19992

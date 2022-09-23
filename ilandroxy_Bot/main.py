@@ -490,6 +490,7 @@ def step(call):
         print("Кол-во заданий (" + type + '): ', len(M))
         task = str(M[x])
         link = 'Задача ' + task + ' (' + type + '):\n' + s + task
+        link = f'Задача {task} ({type}):\n{s}{task}'
         msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
 
         name = str(call.from_user.first_name)
