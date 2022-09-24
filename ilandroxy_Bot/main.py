@@ -33,7 +33,8 @@ def step(call):
         pic_2 = open("photo/price.PNG", "rb")
         msg = bot.send_photo(call.message.chat.id, pic_2)
 
-        send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!\n\nРаботаю официально по чекам через НПД (`Самозанятый`).\n\n"
+        send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!\n\n" \
+                        f"Работаю официально по чекам через НПД (`Самозанятый`).\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
                    types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
@@ -100,402 +101,331 @@ def step(call):
     # Homework ------------------------------------------------------------------------
     elif call.data == "hw1":
         type = '1'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 29)
-        M = [13479, 23901, 38446, 11259, 26946, 18782, 5697, 15098,
-             16030, 5793, 29188, 26975, 18705, 7981, 38935, 4707,
-             40717, 28678, 17367, 5196, 25833, 3828, 36856, 15971,
-             7777, 37136, 38446, 13506, 7355, 11232]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        M = [13479, 23901, 38446, 11259, 26946, 18782, 5697, 15098, 16030, 5793, 29188, 26975, 18705, 7981, 38935, 4707,
+             40717, 28678, 17367, 5196, 25833, 3828, 36856, 15971, 7777, 37136, 38446, 13506, 7355, 11232]
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw2":
         type = '2'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 41)
         M = [29650, 33174, 18483, 27287, 46999, 26974, 35891, 36857, 15124, 40718, 28538, 27399, 15912, 18430,
              27260, 33472, 15970, 37137, 15787, 16878, 46960, 45236, 27531, 18781, 35460, 27371, 18071, 15097,
              35976, 16431, 18578, 39231, 15814, 33504, 36015, 16805, 33081, 29109, 18614, 38936, 16029, 19051]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
+
 
     elif call.data == "hw3":
         type = '3'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 21)
         M = [37494, 39232, 37481, 38937, 47000, 37491, 37492, 37493, 45237, 40719, 37417, 37479, 37508, 37488, 37507, 37489,
              37415, 46961, 40978, 37480, 37485, 37490]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw4":
         type = '4'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [18617, 14691, 17323, 13351, 19054, 15942, 10499, 16808, 37139, 16881, 27290, 18553, 9791, 45238, 16380, 18581,
              47001, 15915, 10379, 16434, 26948, 17369, 13562, 15817, 26977, 11234, 15790, 36017, 18486, 28680, 18811, 18074,
              15621, 13616, 27263, 14220, 11341, 46962, 7685, 18433]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw5":
         type = '5'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [7454, 26978, 13617, 29653, 18075, 11235, 18785, 10380, 15791, 7917, 9792, 16033, 17370, 11342, 18487, 14692, 18618, 7690,
              15101, 15622, 35894, 13590, 16435, 13536, 9190, 18582, 7751, 47002, 16809, 10407, 14767, 27375, 45239, 11262, 14265, 15818,
              27264, 10309, 26949, 13563]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw6":
         type = '6'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 20)
         M = [47003, 36861, 33178, 35895, 46964, 33508, 29654, 33476, 38940, 33751, 35464, 30692, 45240, 39235, 33085,
              36019, 35980, 37141, 40722, 27403, 40981]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw7":
         type = '7'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [18078, 8097, 23907, 16438, 25839, 13355, 11110, 29194, 15821, 13620, 19058, 13593, 17327, 45241, 27538,
              16812, 28684, 9759, 15977, 26981, 18585, 11345, 9795, 14695, 17373, 38941, 10497, 33477, 10470, 35465,
              15946, 16036, 36862, 15131, 28545, 29655, 13736, 36020, 18711, 33509]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw8":
         type = '8'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [9361, 15822, 10473, 15795, 16037, 10500, 7986, 35897, 3568, 27009, 8658, 11266, 3230, 26953, 23908, 3569, 36021, 3692,
              3515, 33753, 36863, 3811, 13459, 3233, 7370, 27236, 5055, 7338, 16439, 9162, 10384, 3517,
              7694, 19059, 3227, 18622, 13567, 15947, 14696, 27295]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw9":
         type = '9'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 34)
         M = [33754, 27529, 35898, 33088, 27524, 27524, 36022, 27406, 27525, 33181, 35467, 27518, 46967, 28117, 38588, 39238, 27517, 36864,
              27526, 29657, 27523, 27519, 45243, 40725, 27528, 38943, 27522, 35983, 40984, 33511, 47006, 37144, 33479,
              27520, 27527]
-        print("Кол-во заданий (" + type +'): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw10":
         type = '10'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 33)
         M = [36865, 27582, 33480, 46968, 27590, 27589, 35899, 27588, 38944, 36023, 29658, 27580, 40726, 27586,
              37145, 27577, 40985, 27581, 33512, 45244, 27407, 27579, 27585, 33089, 33182, 35468, 27587, 27584,
              39239, 27591, 33755, 47007, 27583, 35984]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw11":
         type = '11'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [9364, 6885, 40986, 36024, 33481, 7924, 11309, 7989, 16889, 4684, 33183, 6415, 10476, 6181, 18792,
              9305, 5081, 5237, 15629, 4716, 36866, 45245, 23911, 6298, 5270, 6917, 16442, 9165, 6330, 14272,
              16816, 7785, 29198, 7758, 15853, 9197, 15825, 7670, 9763, 6451]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw12":
         type = '12'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [13571, 23912, 16890, 26986, 10290, 33514, 29660, 40987, 10317, 13517, 15630, 11350, 15854, 15951,
              15799, 13544, 28550, 45246, 35470, 33757, 10415, 18562, 18820, 27299, 27272, 47009, 38946, 9764,
              39241, 18626, 10504, 16443, 35986, 33482, 35901, 14229, 18793, 14775, 17332, 18716]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw13":
         type = '13'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [5365, 13361, 10505, 16818, 5429, 33092, 10478, 18627, 11271, 29122, 33758, 17333, 18591,
              5941, 16891, 15631, 15800, 6237, 40988, 11244, 33515, 40729, 17379, 3746, 15855, 28690,
              18496, 6269, 18563, 27300, 28551, 18084, 27544, 6309, 46971, 27273, 3285, 39242, 3294, 15110]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw14":
         type = '14'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [15801, 15828, 8664, 9766, 18718, 33093, 16892, 17380, 16391, 27301, 16819, 29123, 36027,
              38589, 29201, 9697, 36869, 18444, 15953, 18497, 27274, 33484, 46972, 15632, 13362, 47011, 18085,
              15984, 13743, 33186, 26988, 18795, 16043, 27015, 18628, 25846, 45248, 23914, 15926, 27545]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw15":
         type = '15'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 37)
         M = [13745, 8106, 35989, 34539, 34547, 18720, 33760, 34516, 8666, 33517, 34509, 15955, 34518, 27303, 11119, 33094, 34511,
              35904, 13364, 16894, 46973, 17382, 36870, 27547, 34506, 45249, 15928, 34510, 34535, 29633, 34537, 39244, 18566, 33187,
              34542, 37150, 35473, 34513]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw16":
         type = '16'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 37)
         M = [4937, 5970, 37151, 35990, 38591, 5310, 4644, 4651, 36871, 4692, 35474, 45250, 7340, 4647, 7270, 5458, 4978, 27413, 6990,
              4646, 4642, 5650, 4643, 7273, 5586, 4657, 4658, 5554, 4724, 33518, 6423, 6189, 4849, 35905, 5938, 4656, 33095, 5278]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw17":
         type = '17'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 33)
         M = [37356, 39763, 39764, 37344, 37348, 37354, 37345, 39246, 37350, 47014, 37360, 37355, 37347, 37337, 37359, 37358, 37371, 37349,
              45251, 40733, 37370, 37372, 38951, 37340, 46975, 37369, 40992, 37341, 37336, 39762, 37357, 37373, 37362, 37361]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw18":
         type = '18'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [27681, 27673, 35992, 46976, 27669, 27676, 27677, 39247, 27685, 27683, 29666, 40993, 27679, 33763, 33097, 33488, 37153,
              33520, 45252, 35907, 27682, 40734, 27670, 27671, 27680, 38593, 27675, 27678, 36873, 27415, 27672, 36031, 33190, 38952, 47015,
              27667, 27666, 35476, 27668, 27674]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
+
 
     elif call.data == "hw19-21":
         type = '19-21'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 19)
         M = [28096, 27832, 33764, 28001, 28035, 28099, 40994, 39248, 27771, 28090, 29667, 27797, 27932, 28077, 28102, 38597,
              27802, 28158, 27780, 27826, ]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        link = 'Задача ' + str(M[x]) + ' (19):\n' + s + str(M[x])
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
-        link = 'Задача ' + str(M[x]+1) + ' (20):\n' + s + str(M[x]+1)
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
-        link = 'Задача ' + str(M[x]+2) + ' (21):\n' + s + str(M[x]+2)
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + str(M[x]) +", "+ str(M[x]+1) +", "+ str(M[x]+2))
+        link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        link = f'Задача типа (20): [{M[x]+1}]({s}{M[x]+1})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        link = f'Задача типа (21): [{M[x]+2}]({s}{M[x]+2})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]}), [{M[x]+1}]({s}{M[x]+1}), [{M[x]+2}]({s}{M[x]+2})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw22":
         type = '22'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [5524, 26992, 10483, 6813, 35996, 13366, 15860, 14279, 18568, 13469, 9770, 15957, 3849, 38956, 5280, 15930,
              23918, 5492, 13550, 36877, 6960, 40738, 15988, 15636, 15805, 3280, 45256, 3279, 4694, 16047, 11249, 13416,
              27419, 5091, 6781, 27305, 13577, 6006, 3273, 5215]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
+
 
     elif call.data == "hw23":
         type = '23'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [28697, 18450, 3631, 16898, 27551, 14783, 5913, 13418, 11123, 15638, 38957, 16451, 15932, 7379, 13471, 15990, 8670,
              16825, 17340, 13633, 18570, 7315, 11318, 18828, 33195, 27391, 45257, 7347, 13552, 14237, 29207, 23920, 13525, 14281,
              7998, 39252, 18634, 13579, 18598, 13368]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
+
 
     elif call.data == "hw24":
         type = '24'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 35)
         M = [27692, 33526, 33494, 35913, 27698, 33103, 37131, 40740, 27689, 40999, 35482, 27695, 27686, 27697, 27688, 27694, 33196,
              36879, 27696, 37159, 27421, 38958, 46982, 45258, 35998, 38602, 39253, 33769, 47021, 27699, 36037, 27691, 27690, 29672,
              27693, 27687]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw25":
         type = '25'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 35)
         M = [33527, 27852, 33104, 28120, 39254, 27854, 37160, 28122, 37130, 27857, 27422, 41000, 36038, 29673, 35999, 46983, 47022,
              33495, 33197, 33770, 28124, 38959, 45259, 35914, 28123, 27853, 28121, 27858, 36880, 35483, 27851, 38603, 27850, 40741,
              27856, 27855]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
+
 
     elif call.data == "hw26":
         type = '26'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 33)
         M = [46984, 28132, 33528, 40742, 28141, 39255, 33771, 27884, 38960, 27888, 28140, 27886, 35915, 36881, 27423, 29674,
              36000, 35484, 36039, 28139, 27883, 41001, 47023, 27881, 27882, 33198, 27887, 27880, 33105, 28138, 33496, 37161,
              45260, 27885]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw27":
         type = '27'
-        s = 'https://inf-ege.sdamgia.ru/problem?id='
+        s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 30)
         M = [28133, 33529, 35485, 27424, 33497, 28131, 27891, 27991, 37162, 47024, 46985, 35916, 33106, 38961, 27889, 38604,
              36001, 39256, 28130, 40743, 27990, 41002, 36882, 28129, 29675, 27890, 27989, 33772, 36040, 45261, 33199]
-        print("Кол-во заданий (" + type + '): ', len(M))
-        task = str(M[x])
-        link = 'Задача ' + task + ' (' + type + '):\n' + s + task
-        link = f'Задача {task} ({type}):\n{s}{task}'
-        msg = bot.send_message(call.message.chat.id, link, disable_web_page_preview=True)
+        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
+        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        name = str(call.from_user.first_name)
-        user = str(call.message.chat.id)
-        msg = bot.send_message(-726393257, f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + task)
+        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
+                               parse_mode='Markdown', disable_web_page_preview=True)
     # Homework ------------------------------------------------------------------------
 
 
@@ -813,13 +743,10 @@ def calendly(message):
     pic = open("photo/calendly.jpg", 'rb')
     bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
-
-    user_id = message.chat.id
-    user_name = message.from_user.username
-
-    text_message = f"*Возможно кто-то оставил заявку на урок, надо проверить!* \n\nПользователь *{message.from_user.first_name}*\n*id:* " + str(
-        user_id) + "\n*user:* @" + user_name + f"\n*Ссылка* : tg://user?id={user_id}" + "\n\nОткрыть [Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
-
+    text_message = f"Пользователь *{message.from_user.first_name}* оставил заявку\n*ID:* {message.chat.id}\n" \
+                   f"*Username:* @{message.from_user.username}\n\n" \
+                   f"[Написать сообщение](tg://user?id={message.chat.id})\n\n" \
+                   f"[Открыть Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
     bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
@@ -899,7 +826,6 @@ def weather(message):
     request_headers = {
         'Accept-Language': 'ru'  # заполните словарь с заголовками
     }
-
 
     response = requests.get(url, params=weather_parameters, headers=request_headers)
     response2 = requests.get(url, params=weather_string, headers=request_headers)
@@ -986,7 +912,7 @@ def statistics(message):
                        f"*FridayStudents*={FridayStudents}\n\n" \
                        f"*SaturdayStudents*={SaturdayStudents}"
         bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-        bot.send_message(message.chat.id, f"Всего пользователей в db: {str(len(records))}")
+        bot.send_message(message.chat.id, f"Всего пользователей в db: {len(records)}")
 
 
         db = open("analytics.db", 'rb')
@@ -1070,6 +996,8 @@ def voiceall(message):
         def message_input(message):
             text_message = message.text
             if text_message != '0':
+                bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+
                 sql = sqlite3.connect('analytics.db')
                 cursor = sql.cursor()
 
@@ -1096,6 +1024,7 @@ def voicestudents(message):
         def message_input(message):
             text_message = message.text
             if text_message != '0':
+                bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
                 for key in Students:
                     markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
                     btn1 = types.KeyboardButton('Прочитано ✅')
@@ -1122,7 +1051,8 @@ def noticestudents(message):
         bot.send_message(message.chat.id,
                          "Введите ID пользователей через пробел, кому надо отправить рассылку:\n\n"
                          "`1537718492` Александр\n`799740089` Булат\n`811476623` Георгий\n`1029532016` Мария\n`826004697` Никита\n`1208542295` Александра"
-                         "\n`644645774` Стася\n`719571990` Степан\n`683943897` Таня\n`1477701439` Валерия\n`1314375732` Василий\n`871237277` Владек\n`1949653479` Янина"
+                         "\n`644645774` Стася\n`719571990` Степан\n`683943897` Таня\n`1477701439` Валерия\n`1314375732` Василий\n`871237277` Владек\n`1649389148` Слава
+                         \n`1949653479` Янина\n`1029532016` Мария"
                          "\n\n`1891281816` ilandroxy\n`438879394` ilandroxxy", parse_mode='Markdown')
         '''
 
@@ -1132,7 +1062,6 @@ def noticestudents(message):
 
             if text_message != '0':
                 message_text_students = [int(i) for i in text_message.split()]
-                print(message_text_students)
                 bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
                 for key in message_text_students:
                         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1231,14 +1160,11 @@ def mess(message):
         btn4 = types.KeyboardButton('Записаться на урок')
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
-
-        name = str(message.from_user.first_name)
-        user = str(message.chat.id)
         bot.send_message(message.chat.id, f"Cпасибо, отправил ответ 🤖", reply_markup=markup)
 
         markup2 = types.InlineKeyboardMarkup(row_width=3)
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
-        bot.send_message(1891281816, name + f": tg://user?id={user} \n️✅ Урок будет\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
+        bot.send_message(1891281816, f"{message.from_user.first_name} ✅ Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
 
     elif get_message_bot == 'Нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1249,10 +1175,9 @@ def mess(message):
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
-        name = str(message.from_user.first_name)
-        user = str(message.chat.id)
         bot.send_message(message.chat.id, f"🤖 Если нужно перенести урок, то можно написать мне @ilandroxy или воспользоваться командой /calendly", reply_markup=markup)
-        bot.send_message(1891281816, name + f": tg://user?id={user} \n️⛔ Урока не будет")
+        bot.send_message(1891281816, f"{message.from_user.first_name} ⛔ Урока не будет\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
+
 
     elif get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1263,10 +1188,8 @@ def mess(message):
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
-        name = str(message.from_user.first_name)
-        user = str(message.chat.id)
         bot.send_message(message.chat.id, f"Sorry, возможно 🤖 напутал с расписанием... Пробую исправить!", reply_markup=markup)
-        bot.send_message(1891281816, name + f": tg://user?id={user} \n️️‼️ Что-то не так с расписанием, надо проверить.")
+        bot.send_message(1891281816, f"{message.from_user.first_name} ‼️ Что-то не так с расписанием, надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
 
     elif get_message_bot == 'Прочитано ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1277,11 +1200,9 @@ def mess(message):
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
-        name = str(message.from_user.first_name)
-        user = str(message.chat.id)
 
         bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
-        bot.send_message(1891281816, name + f": tg://user?id={user} \n️️Уведомлен ✅🤖")
+        bot.send_message(1891281816, f"{message.from_user.first_name} Уведомлен ✅🤖\n\n[Написать сообщение](tg://user?id={message.chat.id}) ️️")
 
     elif get_message_bot == "Репетитор":
         send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \
@@ -1348,11 +1269,10 @@ def mess(message):
         pic = open("photo/calendly.jpg", 'rb')
         bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
-        user_id = message.chat.id
-        user_name = message.from_user.username
-
-        text_message = f"*Возможно кто-то оставил заявку на урок, надо проверить!* \n\nПользователь *{message.from_user.first_name}*\n*id:* " + str(
-            user_id) + "\n*user:* @" + user_name + f"\n*Ссылка* : tg://user?id={user_id}" + "\n\nОткрыть [Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
+        text_message = f"Пользователь *{message.from_user.first_name}* оставил заявку\n*ID:* {message.chat.id}\n" \
+                       f"*Username:* @{message.from_user.username}\n\n" \
+                       f"[Написать сообщение](tg://user?id={message.chat.id})\n\n" \
+                       f"[Открыть Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
         bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 

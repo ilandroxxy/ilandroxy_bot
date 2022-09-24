@@ -1,125 +1,178 @@
 
-# Понятие переменной
-# Чтобы взаимодействовать с каким-то значением, нам нужно знать как к нему обращаться. Проще всего это делать по индивидуальному имени
-x = 5  # пример переменной x со значением 5
-print(x * 2)
 
+# Условные операторы (ветвление)
+# Ключевые слова: if, elif, else, каскадные условия, логические связки and, or, >, <, <=, ==, != ...
 
-# Типы данных переменных
 '''
-#M = [1, 2.5, '3', True, 3+4, 7/2, '3'*4, 4<10]  # Питон определяет тип данных автоматически от входных значений
-#for i in M:
-#    print(i,'    ',type(i))
+x = int(input('x: '))
+y = int(input('y: '))
 
-a = 4  # int (integer) - целочисленный значения
-
-b = 4.0  # float (число с плавающей точкой) - всевозможные дроби
-
-c = '4'  # str (string) - любые буквы, символы, слова, знаки, цифры ... в одинарных или двойных ковычках
-
-d1 = True  # bool (boolean) - Джон Буль - Булева алгебра. В России: Математическая логика
-d2 = False
-
-
-print(f'a * {4} = {a * 3}\nb * {4} = {b * 3}\nc * {4} = {c * 3}')
-
-s = 'hello '
-print(s * 10)
-
-s1 = 'hello'
-s2 = ' world'
-print(s1 + s2)  # конкатинация строк - склеивание
+if x > 0 and y > 0:  # если
+    print('1 half')
+elif x < 0 and y < 0:  # иначе если
+    print('3 half')
+elif x < 0 and y > 0:
+    print('2 half')
+elif x > 0 and y < 0:
+    print('4 half')
+else:  # иначе
+    print('Точка лежит на осях')
 '''
+print()
 
-
-
-# Про красивый консольный вывод и .format() и f-строки
+# функция модуля числа
 '''
-# Хотим вывести строку: Привет, сегодня облачно, температура 24
-weather = 'облачно'
-temperature = 24
-print(str(temperature) * 10)  # перевели int-овое значение в строку str()
+number = int(input('number: '))
 
-print('Привет, сегодня', weather, ', температура', temperature)
-print('Привет, сегодня ' + weather + ', температура ' + str(temperature))
-print('Привет, сегодня {}, температура {}'.format(weather, temperature))
-print(f'Привет, сегодня {weather}, температура {temperature}')
+
+if number > 0:
+    print(number)
+elif number < 0:
+    print(-number)
+else:
+    print('Равен нулю')
 '''
 
 
-
-
-# Базовую арифметику
+# Каскадные условия
 '''
-a = 7
-b = 2
-print(f'a = {a}, b = {b}')
-print(f'a + b = {a + b}\na - b = {a - b}\na * b = {a * b}')
+x = int(input('x: '))
+y = int(input('y: '))
 
-print(f'Возведение числа {a} в степень {b}: {a ** b}')
-print(f'Получить квадратный корень от числа 16: {16 ** (1/2)}')
-print(f'Получить кубический корень от числа 27: {27 ** (1/3)}')
-
-import math
-print(math.pow(7, 2))
-
-print(f'\na = {a}, b = {b}')
-print(f'a / b = {a / b}\na // b = {a // b}\na % b = {a % b}\n\n')
-
-
-
-x = 765
-
-x1 = x // 100
-x2 = (x // 10) % 10
-x3 = x % 10
-summ = x1 + x2 + x3
-print(x1, x2, x3, summ)
-
-
-x = 23289472
-summ1 = 0
-while x > 0:
-    summ1 += x % 10
-    print(x)
-    x //= 10  # x = x // 10
-print(f'Привет, я посчитаю сумму числа {x}, summ1 = {summ1}')
+if x > 0:
+    if y > 0:  # x > 0, y > 0
+        print('1 half')
+    elif y == 0:  # x > 0, y == 0
+        print('Лежит на оси')
+    else:  # x > 0, y < 0
+        print('4 half')
+elif x == 0:
+    print('Лежит на осях')
+else:
+    if y > 0:  # x < 0, y > 0
+        print('2 half')
+    elif y == 0:
+        print('Лежит на осях')
+    else:  # x < 0, y < 0
+        print('3 half')
 '''
 
 
-
-# Тип 25 № 27857
+# Задача ход Ладьи
 '''
-# Напишите программу, которая ищет среди целых чисел, принадлежащих числовому отрезку [84052;84130], число,
-# имеющее максимальное количество различных натуральных делителей, если таких чисел несколько — найдите минимальное из них.
-# Выведите на экран количество делителей такого числа и само число.
-#
-# Например, в диапазоне [2;48] максимальное количество различных натуральных делителей имеет число 48,
-# поэтому для этого диапазона вывод на экране должна содержать следующие значения:
-#
-# 10 48
+x1 = int(input('x1: '))
+y1 = int(input('y1: '))
 
-countMax = 0
-res = 0
-for x in range(84052, 84130+1):
-    count = 0
-    for i in range(1, x+1):
-        if x % i == 0:  # если x делится на i
-            count += 1
-    if countMax < count:
-        countMax = count
-        res = x
+x2 = int(input('x2: '))
+y2 = int(input('y2: '))
 
-print(countMax, res)
+if x1 == x2 and y1 == y2:
+    print("Стоять на месте нельзя!")
+elif x1 == x2 or y1 == y2:
+    print('YES')
+else:
+    print("NO")
 '''
-# Ответ 72 84084
 
 
+# Задача ход Короля
+'''
+x1 = int(input('x1: '))
+y1 = int(input('y1: '))
 
-# Продолжить: Ввод с клавиатуры, перевод в разные типы данных
+x2 = int(input('x2: '))
+y2 = int(input('y2: '))
+
+if x1 == x2 and y1 == y2:
+    print("Стоять на месте нельзя!")
+elif (x1+1 == x2 and y1 == y2):
+    print('YES')
+elif (x1-1 == x2 and y1 == y2):
+    print('YES')
+elif (x1 == x2 and y1+1 == y2):
+    print('YES')
+elif (x1 == x2 and y1-1 == y2):
+    print('YES')
+elif (x1+1 == x2 and y1+1 == y2):
+    print('YES')
+elif (x1-1 == x2 and y1-1 == y2):
+    print('YES')
+elif (x1-1 == x2 and y1+1 == y2):
+    print('YES')
+elif (x1+1 == x2 and y1-1 == y2):
+    print('YES')
+else:
+    print("NO")
+'''
 
 
+'''
+x = int(input('x: '))
+if x > -30 and x <= -2:
+    print('YES')
+elif x > 7 and x <= 25:
+    print("YES")
+else:
+    print("NO")
+'''
+
+'''
+x = int(input('x: '))
+if -30 < x <= -2:
+    print('YES')
+elif 7 < x <= 25:
+    print("YES")
+else:
+    print("NO")
+'''
+
+'''
+x = int(input('x: '))
+if -30 < x <= -2 or 7 < x <= 25:
+    print("YES")
+else:
+    print("NO")
+'''
+
+# Простейший самописный калькулятор
+'''
+x = int(input('x: '))
+s = input('s: ')
+y = int(input('y: '))
+
+if s == '+':
+    print(f'{x} {s} {y} = {x + y}')
+elif s == '-':
+    print(f'{x} {s} {y} = {x - y}')
+elif s == '*':
+    print(f'{x} {s} {y} = {x * y}')
+elif s == '/' and y == 0:
+    print('Делить на ноль нельзя!')
+elif s == '/':
+    print(f'{x} {s} {y} = {x / y}')
+'''
 
 
+'''
+x = int(input('x: '))
+s = input('s: ')
+y = int(input('y: '))
 
+try:
+    if s == '/':
+        print(f'{x} {s} {y} = {x / y}')
+except ZeroDivisionError:
+    print('Делить на ноль нельзя!')
+'''
+import random
 
+type = '9'
+s = 'https://inf-ege.sdamgia.ru/problem?id='
+x = random.randint(0, 34)
+M = [33754, 27529, 35898, 33088, 27524, 27524, 36022, 27406, 27525, 33181, 35467, 27518, 46967, 28117, 38588, 39238, 27517, 36864,
+             27526, 29657, 27523, 27519, 45243, 40725, 27528, 38943, 27522, 35983, 40984, 33511, 47006, 37144, 33479,
+             27520, 27527]
+print(f"Кол-во заданий ({type}): {len(M)}")
+task = M[x]
+link = f'Задача {task} ({type}):\n{s}{task}'
+print(link)

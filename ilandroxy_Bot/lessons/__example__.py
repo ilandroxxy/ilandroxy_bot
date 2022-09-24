@@ -269,6 +269,13 @@ for i in range(0, len(s)-1):
 print(Maxcount)
 '''
 # Ответ: 19
+type = '1'
+task = 34523
+name = 'ilya'
+user = 124142
+print(f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + str(task))
+print(f"#{name}: tg://user?id={user} \nполучил домашку: ({type}) {M[x]}")
+
 
 
 
