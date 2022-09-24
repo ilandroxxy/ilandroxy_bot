@@ -1316,5 +1316,10 @@ def mess(message):
              'Когда–нибудь мы захватим мировое правительство..🤖👾']
         bot.send_message(message.chat.id, M[n])
 
-bot.polling(none_stop=True)
-
+if __name__ == '__main__':
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except Exception as e:
+            time.sleep(3)
+            print(e)
