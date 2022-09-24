@@ -40,9 +40,14 @@ print(Students[1029532016])
 '''
 
 
+NumberFroSimple = 0
+import math
 
+M = []
+M.append(4)
+print(M)
 
-
+print(NumberFroSimple)
 
 
 
