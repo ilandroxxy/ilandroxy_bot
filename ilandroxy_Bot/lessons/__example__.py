@@ -269,12 +269,27 @@ for i in range(0, len(s)-1):
 print(Maxcount)
 '''
 # Ответ: 19
-type = '1'
-task = 34523
-name = 'ilya'
-user = 124142
-print(f"#" + name + f": tg://user?id={user} \nполучил домашку: (" + type + ") " + str(task))
-print(f"#{name}: tg://user?id={user} \nполучил домашку: ({type}) {M[x]}")
+
+
+
+
+'''
+
+weather = 'облачно'
+temperature = 24
+# Привет, сегодня облачно, но жарко, температура 24
+print('Привет, сегодня', weather, ', но жарко, температура', temperature)
+print('Привет, сегодня ' + weather + ', но жарко, температура ' + str(temperature))
+print('Привет, сегодня {}, но жарко, температура {}'.format(weather, temperature))
+print('Привет, сегодня %s, но жарко, температура %d'%(weather, temperature))
+print(f'Привет, сегодня {weather}, но жарко, температура {temperature}')
+'''
+
+
+N = [0,0,0,1,0,1,0,1]
+while N[0] == 0:
+    del N[0]
+print(N)
 
 
 
