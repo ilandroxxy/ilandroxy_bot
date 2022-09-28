@@ -40,15 +40,6 @@ print(Students[1029532016])
 '''
 
 
-NumberFroSimple = 0
-import math
-
-M = []
-M.append(4)
-print(M)
-
-print(NumberFroSimple)
-
 
 
 
@@ -285,11 +276,54 @@ print('Привет, сегодня %s, но жарко, температура 
 print(f'Привет, сегодня {weather}, но жарко, температура {temperature}')
 '''
 
-
+'''
 N = [0,0,0,1,0,1,0,1]
 while N[0] == 0:
     del N[0]
 print(N)
+'''
+
+text = input()
+M1 = [i for i in text]
+
+symbols = '.,!?:;-, '
+M2 = []
+for i in M1:
+    if i not in symbols:
+        M2.append(i.lower())
+
+s1 = "".join(M2)
+
+text = input()
+M1 = [i for i in text]
+
+symbols = '.,!?:;-, '
+M2 = []
+for i in M1:
+    if i not in symbols:
+        M2.append(i.lower())
+
+s2 = "".join(M2)
+
+
+s = [i for i in s1]
+base1 = {}
+for i in s:
+    base1[i] = base1.get(i, 0) + 1
+print(base1)
+
+s = [i for i in s2]
+base2 = {}
+for i in s:
+    base2[i] = base2.get(i, 0) + 1
+print(base2)
+
+if base2 == base1:
+    print('YES')
+else:
+    print('NO')
+
+
 
 
 
