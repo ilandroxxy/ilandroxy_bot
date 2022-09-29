@@ -8,7 +8,7 @@ import datetime as dt
 import requests
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
@@ -806,6 +806,23 @@ def homework(message):
     else:
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, *запишитесь на урок /calendly*", parse_mode="Markdown")
 
+#GETORDER
+@bot.message_handler(commands=['getorder'])
+def getorder(message):
+    bot.send_message(message.chat.id, "Просто опишите в одном сообщении какой функциональностью должен обладать Ваш бот, [я свяжусь с вами](https://t.me/ilandroxy) в ближайшее время!\n\n"
+                                        "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown', disable_web_page_preview=True)
+
+    @bot.message_handler(content_types=['text'])
+    def message_input(message):
+        text_message = message.text
+        if text_message != '0':
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ожидайте ответа.", parse_mode='Markdown')
+            order_message = f'✅ Новый заказ\nUser: {message.from_user.first_name}\n[Написать сообщение](tg://user?id={message.chat.id})\n\nMessage:\n{text_message}'
+            bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
+        else:
+            bot.send_message(message.chat.id, 'Команда `0` сработала.', parse_mode='Markdown', disable_web_page_preview=True)
+    bot.register_next_step_handler(message, message_input)
+
 
 # WEATHER
 @bot.message_handler(commands=['weather'])
@@ -1202,7 +1219,7 @@ def mess(message):
 
 
         bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
-        bot.send_message(1891281816, f"{message.from_user.first_name} Уведомлен ✅🤖\n\n[Написать сообщение](tg://user?id={message.chat.id})")
+        bot.send_message(1891281816, f"{message.from_user.first_name} Уведомлен ✅🤖\n\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
     elif get_message_bot == "Репетитор":
         send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \

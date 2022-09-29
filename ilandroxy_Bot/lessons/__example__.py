@@ -283,51 +283,52 @@ while N[0] == 0:
 print(N)
 '''
 
-text = input()
-M1 = [i for i in text]
+'''
+*!*!*?
+3
+а: 3
+н: 2
+с: 1
+'''
 
-symbols = '.,!?:;-, '
-M2 = []
-for i in M1:
-    if i not in symbols:
-        M2.append(i.lower())
+# ПИНЧУК ЕГОР ПЕТРОВИЧ	2.9.1994	ОБЛ. НОВОСИБИРСКАЯ, Г. НОВОСИБИРСК, ПЕР. САДОВЫЙ, ДОМ 3	5014316390	ОУФМС РОССИИ ПО НОВОСИБИРСКОЙ ОБЛ. В СОВЕТСКОМ Р-НЕ
 
-s1 = "".join(M2)
+f = open('Priziv1volna.txt', 'r')
+s = f.readlines()
 
-text = input()
-M1 = [i for i in text]
-
-symbols = '.,!?:;-, '
-M2 = []
-for i in M1:
-    if i not in symbols:
-        M2.append(i.lower())
-
-s2 = "".join(M2)
-
-
-s = [i for i in s1]
-base1 = {}
 for i in s:
-    base1[i] = base1.get(i, 0) + 1
-print(base1)
 
-s = [i for i in s2]
-base2 = {}
-for i in s:
-    base2[i] = base2.get(i, 0) + 1
-print(base2)
+    if 'ДИНИЯР' in i:
+        print(i)
+        
+    """
+    if 'ОБЛ. НОВОСИБИРСКАЯ, Г. НОВОСИБИРСК' in i:
+        #if 'ОУФМС РОССИИ ПО НОВОСИБИРСКОЙ ОБЛ. В СОВЕТСКОМ Р-НЕ' in i:
+            #print(i)
+        if 'ЕРМАКОВ' in i:
+            print(i)
+    """
 
-if base2 == base1:
-    print('YES')
-else:
-    print('NO')
+print(len(s))
+'''
+
+student_ids = ['S001', 'S002', 'S003', 'S004', 'S005', 'S006', 'S007', 'S008', 'S009', 'S010', 'S011', 'S012', 'S013']
+student_names = ['Camila Rodriguez', 'Juan Cruz', 'Dan Richards', 'Sam Boyle', 'Batista Cesare', 'Francesco Totti', 'Khalid Hussain', 'Ethan Hawke', 'David Bowman', 'James Milner', 'Michael Owen', 'Gary Oldman', 'Tom Hardy']
+student_grades = [86, 98, 89, 92, 45, 67, 89, 90, 100, 98, 10, 96, 93]
 
 
 
+result = []
 
 
-
+for i in range(0, len(student_names)):
+    M = {}
+    temp = {}
+    temp[student_names[i]] = student_grades[i]
+    M[student_ids[i]] = temp
+    result.append(M)
+print(result)
+'''
 
 
 
