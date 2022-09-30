@@ -1,171 +1,231 @@
+# Разбираемся с 6, 22, 2 номерами
+# Домашка: решить задачку Все вместе
 
 
-# Разбираем ДЗ
+# Последовательность чисел
+'''
+m = int(input())
+n = int(input())
+if m < n:
+    for i in range(m, n+1):
+        print(i)
+else:
+    for i in range(m, n-1, -1):
+        print(i)
+'''
+
+
+# Все вместе
+'''
+a = int(input())
+summ = 0
+count = 0
+mult = 1
+flag = True
+while a != 0:
+    if flag == True:
+        last = a % 10
+        flag = False
+    count += 1
+    summ = summ + (a % 10)
+    mult = mult * (a % 10)
+    first = a % 10
+    a = a // 10
+
+print(f'summ = {summ}, mult = {mult}, count = {count}, sred = {summ / count}, first = {first}, {first}+{last} = {last + first}')
+'''
+
+# Простые числа
+'''
+a = int(input())
+b = int(input())
+if a == 1:
+    a += 1
+for i in range(a, b+1):
+    for c in range(2, i):
+        if i % c == 0:
+            break
+    else:
+        print(i)
+'''
 
 '''
 a = int(input())
 b = int(input())
-c = int(input())
+if a == 1:
+    a += 1
 
-# if a < b < c or c < b < a:
-#     print(b)
-# elif b < a < c or c < a < b:
-#     print(b)
-# elif a < c < b or b < c < a:
-#     print(b)
-# else:
-#     print('Ошибка')
-
-# max() min() sum()
-
-sred = (a + b + c) - max(a, b, c) - min(a, b, c)  # полезная формула поиска среднего изх трех чисел
-print(sred)
-'''
-
-'''
-a=int(input())
-if a%2!=0:
-    print('YES')
-elif a%2==0 and 2<=a<=5:
-    print('NO')
-elif a%2==0 and 6<=a<=20:
-    print('YES')
-if a%2==0 and a>20:
-    print('NO')
-'''
-
-
-# Циклы в Пайтон
-# Ключевые слова: while, for, range, in, break, continue, flag
-# Есть две технологии циклов: while, for
-# Типы циклов:
-# 1. Повтори n раз
-# 2. Повтори от а до б раз
-# 3. Повторяй пока условие истинно
-# ...
-
-
-# Цикло for - это цикл повтори n раз
-
-
-# for-индексный
-'''
-for i in range(5):  # i - переменная по которой движется цикл, в диапазоне range -> [0, 5)
-    print(i)  # повторили действие 5 раз
-
-for i in range(1, 5):  # [1, 5)
-    print(i)
-
-for i in range(0, 10, 2):
-    print(i)
-
-
-for i in range(10, 0, -1):
-    print(i)
-
-M = [45, 123, "weiurfgh", True, 5]
-#    0    1        2        3   4
-print(M[0])
-len(M) # длина списка - это кол-во элемнетов в нем
-for i in range(0, len(M)):  # [0, 5)
-    print(M[i], end=' ')  # просто вывели все элементы списка по индексам
-'''
-
-# for который пробегает по элементам
-'''
-M = [1, 2, 3, 4, 5]
-
-for x in M:
-    print(x, end=' ')
-'''
-
-# while это цикл с условием (пока условие будет истинно - выполняем тело цикла)
-for i in range(0, 10+1, 2):
-    print(i, end=" ")
-print()
-
-
-i = 0
-while i <= 10:  # stop  <=  ---> +1
-    print(i, end=" ")
-    i += 2  # step
-
-# Бесконечный цикл
-# count = 0
-# while True:
-#     print(count)
-#     count += 1
-print()
-
-'''
-import random
-
-password = 'qwerty'
-count = 0
-while True:
-    pas = input("Введите Ваш пароль: ")
-    if pas == password:
-        break
-    print("Попробуйте еще раз! Неверный пароль.")
-    count += 1
-    if count == 3:
-        a = random.randint(1, 100)
-        b = random.randint(1, 100)
-        print(f"Пройдите проверку на робота:\n{a} + {b} = \nОтвет: ")
-        res = int(input())
-        if a + b == res:
-            count = 0
-            print("Окей, продолжайте попытки!")
-        else:
-            print("Неверно")
-            break   
-print('Welcome')
-'''
-
-'''
-for i in range(1, 20):
-    if i == 5:
-        break  # полностью прерывает любой цикл
-    print(i)
-'''
-
-'''
-for i in range(1, 11):
-    if i == 5 or i == 7 or i == 9:
-        continue  # прерывает итерацию и переходит на следующую +1
-    print(i)
-'''
-
-
-# flag
-
-# Задача 17 (Количество и максимальное значение)
-# Рассматривается множество целых чисел, принадлежащих числовому отрезку [4668; 10414],
-# которые делятся на 4 и не делятся на 7, 17. Найдите количество таких чисел и максимальное из них.
-# В ответе запишите два целых числа: сначала количество, затем максимальное число.
-
-count = 0
-maxi = 0
-mini = 0
-summ = 0
-flag = True
-
-for i in range(4668, 10414+1):
-    if i % 4 == 0 and i % 7 != 0 and i % 17 != 0:
-        count += 1
-        summ += i
-        maxi = i
-        if flag == True:
-            mini = i
+for i in range(a, b + 1):
+    flag = True
+    for c in range(2, i):
+        if i % c == 0:
             flag = False
+            break
+    if flag == True:
+        print(i)
+'''
 
 
-print(f'count = {count}, summ = {summ}, maxi = {maxi}, min = {mini}')
+# Тип 6 № 33508
+# Определите, при каком наименьшем введённом значении переменной s программа выведет число 60.
+# Для Вашего удобства программа представлена на четырёх языках программирования.
+
+'''
+for i in range(6, 1000000):
+    s = i
+    s = (s + 1) // 7
+    n = 36
+    while s < 2050:
+        s = s * 2
+        n = n + 3
+    if n == 60:
+        print(f's = {i}, n = {n}')  # n == 60
+        break
+'''
+
+"""
+M = []
+for i in range(6, 1000000):
+    s = i
+    s = (s + 1) // 7
+    n = 36
+    while s < 2050:
+        s = s * 2
+        n = n + 3
+    if n == 60:
+        M.append(i)
+print(min(M))
+"""
+# Ответ: 62
 
 
 
 
+# Тип 6 № 40981
+'''
+# Определите, при каком наибольшем введённом значении переменной s данная программа выведет число 121.
+# Для Вашего удобства программа представлена на четырёх языках программирования.
+
+# Вариант 1
+for i in range(0, 100000):
+    s = i
+    s = s // 10
+    n = 1
+    while s < 221:
+        if n % 2 == 0:
+            s = s + 13
+        n = n + 5
+    if n == 121:
+        print('Вариант 1', i, n)
+# Ответ: 779
+
+# Вариант 2
+for i in range(100000, 1, -1):
+    s = i
+    s = s // 10
+    n = 1
+    while s < 221:
+        if n % 2 == 0:
+            s = s + 13
+        n = n + 5
+    if n == 121:
+        print('Вариант 2', i)
+        break
+
+# Вариант 3
+M = []
+for i in range(0, 100000):
+    s = i
+    s = s // 10
+    n = 1
+    while s < 221:
+        if n % 2 == 0:
+            s = s + 13
+        n = n + 5
+    if n == 121:
+        M.append(i)
+print('Вариант 3', max(M))
+'''
+
+
+# Тип 22 № 11249
+'''
+# Получив на вход число x, этот алгоритм печатает число M. Известно, что x > 200.
+# Укажите наименьшее такое (т.е. большее 200) число x, при вводе которого алгоритм печатает 60.
+
+for i in range(201, 10000):
+    x = i
+    L = x - 30
+    M = x + 30
+    while L != M:
+        if L > M:
+            L = L - M
+        else:
+            M = M - L
+    if M == 60:
+        print(i, M)
+        break
+'''
+# Ответ: 210
 
 
 
 
+# Тип 22 № 3273
+'''
+# Получив на вход число x, эта программа печатает два числа, L и M.
+# Укажите наибольшее из таких чисел x, при вводе которых алгоритм печатает сначала 3, а потом 10.
+
+# Вариант 1
+for i in range(0, 10000):
+    x = i
+    L = 0
+    M = 0
+    while x > 0:
+        L = L + 1
+        if M < x and x % 2 == 1:
+            M = (x % 10)*2
+        x = x // 10
+    if L == 3 and M == 10:
+        print('Вариант 1', i, L, M)
+
+# Вариант 2
+for i in range(10000, 1, -1):
+    x = i
+    L = 0
+    M = 0
+    while x > 0:
+        L = L + 1
+        if M < x and x % 2 == 1:
+            M = (x % 10)*2
+        x = x // 10
+    if L == 3 and M == 10:
+        print('Вариант 2', i, L, M)
+        break
+'''
+# Ответ: 985
+
+
+# Тип 2 № 26974
+# Логическая функция F задаётся выражением (x ∨ y) ∧ ¬(y ≡ z) ∧ ¬w.
+# На рисунке приведён частично заполненный фрагмент таблицы истинности функции F, содержащий неповторяющиеся строки.
+# Определите, какому столбцу таблицы истинности функции F соответствует каждая из переменных x, y, z, w.
+
+# Кол-во строк в таблице: 2 * 2 * 2 * 2 (x*y*z*w) = 16 строк
+
+# Функции в математической логике
+# Инверсия (отрицание)     ¬w   <---->   (not(w))
+# Конъюнкция (логическое умножение)    x ∧ y  <---->   x and y
+# Дизъюнкция (логическое сложение)    x ∨ y   <--->   x or y
+# Импликация    x → y   <---->   x <= y
+# Тождество   x ≡ y   <---->  x == y
+
+
+print('x y z w')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x or y) and (not(y == z)) and (not(w))  # (x ∨ y) ∧ ¬(y ≡ z) ∧ ¬w.
+                if F == True:
+                    print(x, y, z, w, F)

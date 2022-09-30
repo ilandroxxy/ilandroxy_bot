@@ -1,129 +1,158 @@
-# Типы данных
+# Домашка: Проговорить про оформление домашних заданий
+
+# четырехзначное число
 '''
-x = 5  # переменная нужна для доступа к данным (5) по имени (x)
-
-a = 4  # int (integer) - целочисленные данные
-b = 4.0  # float (число с плавающей точкой)
-c = '4'  # str (string)
-d1 = True  # bool (boolean)
-d2 = False
-
-M = [1, 2.0, '3', True, 3+4, 7/2, '3'*4, 1 < 10, [1, 2, 3], (1, 2, 3), {1, 2, 3}, {1: 'один', 2: 'два', 3: 'три'}]
-for i in M:
-    print(i, '  <---->  ', type(i))
-'''
-
-
-# Можно менять типы данных
-'''
-x = '4'
-print(x * 4)
-
-x = int(x)
-print(x * 4)
-
-x = float(x)
-print(x * 4)
-
+x = int(input('x: '))
 x = str(x)
-print(f'x = {x},  x * 4 = {x * 4}')
-
-# Из int и float переводим свободно в любой тип данных
-# Из str мы можем переводить в другие, только цифры: ValueError: invalid literal for int() with base 10: '4igj'
-print()
-
-M = [1, 2, 3]
-print(M, type(M))
-
-M = tuple(M)
-print(M, type(M))
-
-M = set(M)
-print(M, type(M))
-
-M = list(M)
-print(M, type(M))
+print('цифра в позиции тысяч равна ', int(x[0]))
+print('цифра в позиции сотен равна ' + x[1])
+print('цифра в позиции десятков равна ' + x[2])
+print('цифра в позиции единиц равна ' + x[3])
 '''
 
-# Ввод с клавиатуры
+
+# сумма квадратов VS квадрат суммы
+'''
+a = int(input('a: '))
+b = int(input('b: '))
+c = (a + b)**2
+print(f'квадрат суммы {a} и {b} равен = {c}')
+print(f'сумма квадратов {a} и {b} равен = {a**2 + b**2} ')
+'''
+
+#пересчет временного интервала
+'''
+x = 150
+a = x // 60
+b = x - a * 60
+print(f'{x} мин - это {a} час {b} минут')
+
+x = int(input('x: '))
+a = x // 60
+b = x % 60
+print(f'{x} мин - это {a} час {b} минут')
+'''
+
+
+# Условные операторы (Ветвления)
 '''
 x = input('x: ')
-print(x * 3)  # input() - принимает только str()
+print(type(x))
 
+if x == 'green':  # если
+    print("Можно идти")
+elif x == 'yellow':   # иначе если
+    print('Wait')
+elif x == 'red':
+    print('Стой')
+else:  # иначе
+    print('Это не светафор')
+'''
+
+
+# логические связки > < >= <=
+# != - сравнение (неравно)
+# = - присваивание данных
+# == - сравнение (равно)
+# print(4 != 10) # True
+
+# Задача на координатную плоскость
+'''
+x = int(input('x: '))
 y = int(input('y: '))
-print(y * 3)
 
-M = [int(i) for i in input("Введите числа через пробел: ").split()]
-print(M)
+if x > 0 and y > 0:
+    print(1)
+elif x > 0 and y < 0:
+    print(4)
+elif x < 0 and y > 0:
+    print(2)
+elif x < 0 and y < 0:
+    print(3)
+else:
+    print('Лежит на осях')
 '''
 
 
-# Консольный вывод
+# Каскадные условные операторы
 '''
-weather = 'облачно'
-temperature = 24
-# Привет, сегодня облачно и температура 24
-print('Привет, сегодня', weather, 'и температура', temperature)
-print('Привет, сегодня ' + weather + ' и температура ' + str(temperature))
-print('Привет, сегодня {} и температура {}'.format(weather, temperature))
-print(f'Привет, сегодня {weather} и температура {temperature}')  # f-строки
+x = int(input('x: '))
+y = int(input('y: '))
 
-import random
-type = '27'
-s = 'https://inf-ege.sdamgia.ru/problem?id='
-x = random.randint(0, 30)
-M = [28133, 33529, 35485, 27424, 33497, 28131, 27891, 27991, 37162, 47024, 46985, 35916, 33106, 38961, 27889, 38604,
-     36001, 39256, 28130, 40743, 27990, 41002, 36882, 28129, 29675, 27890, 27989, 33772, 36040, 45261, 33199]
-print(f"Кол-во заданий ({type}): ", len(M))
-link = f'Задача {M[x]} ({type}):\n{s}{M[x]}'
-print(link)
+if x > 0:
+    if y > 0:  # x > 0, y > 0
+        print(1)
+    else:  # x > 0, y <= 0
+        print(4)
+else:
+    if y > 0:  # x <= 0, y > 0
+        print(2)
+    else:  # x <= 0, y < 0 or y == 0
+        print(3)
 '''
 
-
-# Базовая арифметика
+# Логические связки: and, or
 '''
-a = 7
-b = 2
+a = 4
+b = 5
+c = 0
 
-print(f'a + b = {a + b}\na - b = {a - b}\na * b = {a * b}')
-print()
-print(f'Возведение в степень a ** b = {a ** b}')
-print(f'Квадратный корень от 16 = {16 ** (1/2)}')
-print(f'Кубический корень от 27 = {27 ** (1/3)}')
-print()
-print(f'Вещественное деление: a / b = {a / b}\n'
-      f'Целочисленное деление (без округлений): a // b = {a // b}\n'
-      f'Остаток от делений (но в обыкновенной дроби): a % b = {a % b}')
-'''
+if (a > 0 and b < 0) or c == 0:
+    print(True)
+else:
+    print(False)
 
-# Задача №1
-'''
-x = 456
-summ = 0
-x1 = x // 100
-x2 = (x // 10) % 10
-x3 = x % 10
-summ = x1 + x2 + x3
-print(f'x1 = {x1}\nx2 = {x2}\nx3 = {x3}\nsumm = {summ}')
+# if a > 0 and b < 0 and c == 0:
+#     print(True)
+# else:
+#     print(False)
 '''
 
-# Задача №2
+# Самописный калькулятор
 '''
-x = int(input())  # x = 12345
-#x = 12345
-summ = 0
-while x > 0:
-    print(x)
-    summ += x % 10 # summ = summ + (x % 10)
-    x //= 10
-print(x)
-print(f'summ = {summ}')
+a = int(input('a: '))
+s = input('s: ')
+b = int(input('b: '))
+
+if s == '+':
+    print(f'{a} {s} {b} = {a + b}')
+elif s == '-':
+    print(f'{a} {s} {b} = {a - b}')
+elif s == '*':
+    print(f'{a} {s} {b} = {a * b}')
+elif s == '/' and b == 0:
+    print(f'Делить на нуль нельзя!')
+elif s == '/':
+    print(f'{a} {s} {b} = {a / b}')
+else:
+    print('Нет операции')
 '''
 
-# Задача №3
-M = [int(i) for i in input()]
-print(M)
-print(sum(M), max(M), min(M), len(M))
 
 
 
+# ZeroDivisionError: division by zero
+'''
+a = int(input('a: '))
+s = input('s: ')
+b = int(input('b: '))
+
+try:
+    if s == '/':
+        print(f'{a} {s} {b} = {a / b}')
+except ZeroDivisionError:
+    print('На ноль делить нельзя!')
+'''
+
+x1 = int(input('x1: '))
+y1 = int(input('y1: '))
+
+x2 = int(input('x2: '))
+y2 = int(input('y2: '))
+
+if x1 == x2 and y1 == y2:
+    print("Надо походить фигурой!")
+elif x1 == x2 or y1 == y2:
+    print('YES')
+else:
+    print('NO')
