@@ -967,22 +967,27 @@ def git(message):
         if day == 'Monday':
             for key in MondayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Tuesday':
             for key in TuesdayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Thursday':
             for key in ThursdayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Friday':
             for key in FridayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Saturday':
             for key in SaturdayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
+                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
