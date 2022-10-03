@@ -8,7 +8,7 @@ import datetime as dt
 import requests
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
@@ -24,7 +24,7 @@ MondayStudents = {811476623: ["Georgie.py", "20:00"], 826004697: ['Nikita.py', '
 TuesdayStudents = {1949653479: ['Yanina.py', '10:00'], 789322200: ['Katya.py', "16:00"], 1208542295: ['Sasha.py', '19:00'], 804184353: ['Islam.py', '21:00'], 1537718492: ['Aleksandr.py', '22;00']}
 ThursdayStudents = {1949653479: ['Yanina.py', '10:00'], 1477701439: ["Valeria.py", '16:00'], 1454117859: ['Diana', "19:00"], 811476623:  ["Georgie.py", "20:00"], 799740089: ["Bulat.py", "21:00"], 1537718492: ["Aleksandr.py", "22:00"]}
 FridayStudents = {1314375732: ['Vasiliy.py', "15:00"], 644645774: ['Stasya.py', "16:00"], 719571990: ['Stepan.py', "17:00"], 1029532016: ['Maria.py', "21:00"], 1649389148: ['Slava.py', "22:00"]}
-SaturdayStudents = {1454117859: ['Diana', "19:00"], 5148819382: ['Tatyana.py', "19:00"], 871237277: ['Vladek.py', "22:00"]}
+SaturdayStudents = {1454117859: ['Diana', "17:00"], 5148819382: ['Tatyana.py', "19:00"], 871237277: ['Vladek.py', "22:00"]}
 
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
 
@@ -915,13 +915,45 @@ def statistics(message):
         sqlite_select_query = """SELECT * from active"""
         cursor.execute(sqlite_select_query)
         records = cursor.fetchall()
-        message_text = f"Общее кол-во студентов в Students: {len(Students)}\n\n" \
-                       f"*MondayStudents*={MondayStudents}\n\n" \
-                       f"*TuesdayStudents*={TuesdayStudents}\n\n" \
-                       f"*ThursdayStudents*={ThursdayStudents}\n\n" \
-                       f"*FridayStudents*={FridayStudents}\n\n" \
-                       f"*SaturdayStudents*={SaturdayStudents}"
-        bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        bot.send_message(message.chat.id, f"Общее кол-во студентов в Students: {len(Students)}", parse_mode='Markdown')
+
+        day = 'Понедельник: *'
+        for key in MondayStudents:
+            day += f'[{MondayStudents[key][0]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
+
+        day = 'Вторник: *'
+        for key in TuesdayStudents:
+            day += f'{TuesdayStudents[key][0]} время урока: {TuesdayStudents[key][1]} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
+
+        day = 'Четверг: *'
+        for key in ThursdayStudents:
+            day += f'{ThursdayStudents[key][0]} время урока: {ThursdayStudents[key][1]} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
+
+        day = 'Пятница: *'
+        for key in FridayStudents:
+            day += f'{FridayStudents[key][0]} время урока: {FridayStudents[key][1]} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
+
+        day = 'Суббота: *'
+        for key in SaturdayStudents:
+            day += f'{SaturdayStudents[key][0]} время урока: {SaturdayStudents[key][1]} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
+
+
         bot.send_message(message.chat.id, f"Всего пользователей в db: {len(records)}")
 
 
