@@ -12,19 +12,13 @@ bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
-"""
-MondayStudents = {811476623: "Georgie.py", 826004697: 'Nikita.py'}
-TuesdayStudents = {1949653479: 'Yanina.py', 1208542295: 'Sasha.py', 1537718492: 'Aleksandr.py', 789322200: 'Katya.py', 804184353: 'Islam.py'}
-ThursdayStudents = {1949653479: "Yanina.py", 1477701439: "Valeria.py", 811476623: "Georgie.py", 799740089: "Bulat.py", 1537718492: "Aleksandr.py", 1454117859: 'Diana'}
-FridayStudents = {1314375732: 'Vasiliy.py', 644645774: 'Stasya.py', 719571990: 'Stepan.py', 1029532016: 'Maria.py', 1649389148: 'Slava.py'}
-SaturdayStudents = {871237277: 'Vladek.py', 5148819382: 'Tatyana.py', 1454117859: 'Diana'}
-"""
+
 # Синхронно моему расписанию в Google Календаре
-MondayStudents = {811476623: ["Georgie.py", "20:00"], 826004697: ['Nikita.py', '22:00']}
-TuesdayStudents = {1949653479: ['Yanina.py', '10:00'], 789322200: ['Katya.py', "16:00"], 1208542295: ['Sasha.py', '19:00'], 804184353: ['Islam.py', '21:00'], 1537718492: ['Aleksandr.py', '22;00']}
-ThursdayStudents = {1949653479: ['Yanina.py', '10:00'], 1477701439: ["Valeria.py", '16:00'], 1454117859: ['Diana', "19:00"], 811476623:  ["Georgie.py", "20:00"], 799740089: ["Bulat.py", "21:00"], 1537718492: ["Aleksandr.py", "22:00"]}
-FridayStudents = {1314375732: ['Vasiliy.py', "15:00"], 644645774: ['Stasya.py', "16:00"], 719571990: ['Stepan.py', "17:00"], 1029532016: ['Maria.py', "21:00"], 1649389148: ['Slava.py', "22:00"]}
-SaturdayStudents = {1454117859: ['Diana', "17:00"], 5148819382: ['Tatyana.py', "19:00"], 871237277: ['Vladek.py', "22:00"]}
+MondayStudents = {811476623: ["Georgie.py", "20:00", 3040//4], 826004697: ['Nikita.py', '22:00', 3040//4]}
+TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 789322200: ['Katya.py', "16:00", 1000], 1208542295: ['Sasha.py', '19:00', 4000//8], 804184353: ['Islam.py', '21:00', 3600//4],  1537718492: ['Aleksandr.py', '22:00', 5760//8]}
+ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 1477701439: ["Valeria.py", '16:00', 800], 1454117859: ['Diana', "19:00", 4320//8], 811476623:  ["Georgie.py", "20:00", 3040//4], 799740089: ["Bulat.py", "21:00", 2280//4], 1537718492: ["Aleksandr.py", "22:00", 5760//8]}
+FridayStudents = {1314375732: ['Vasiliy.py', "15:00", 6800//8], 644645774: ['Stasya.py', "16:00", 5760//8], 719571990: ['Stepan.py', "17:00", 6800//8], 1029532016: ['Maria.py', "21:00", 3600//4], 1649389148: ['Slava.py', "22:00", 6800//8]}
+SaturdayStudents = {1454117859: ['Diana', "17:00", 4320//8], 5148819382: ['Tatyana.py', "19:00", 3600//4], 871237277: ['Vladek.py', "22:00", 6800//8]}
 
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
 
@@ -496,7 +490,7 @@ def step(call):
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'add':
-        msg = bot.send_message(call.message.chat.id, "Введите данные нового студента:\n[#Day] [ID] [Name.py]\n\n*Напишите `0`, чтобы отменить команду!*\n\n"
+        msg = bot.send_message(call.message.chat.id, "Введите данные нового студента:\n[#Day] [ID] [Name.py] [TimeLessons]\n\n*Напишите `0`, чтобы отменить команду!*\n\n"
                                                      "#Monday\n#Tuesday\n#Thursday\n#Friday\n#Saturday")
         @bot.message_handler(content_types=['text'])
         def message_input(message):
@@ -504,31 +498,30 @@ def step(call):
                 M = [i for i in message.text.split()]
 
                 if M[0] == '#Monday':
-                    MondayStudents[int(M[1])] = M[2]
+                    MondayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"MondayStudents={MondayStudents}")
 
                 elif M[0] == '#Tuesday':
-                    TuesdayStudents[int(M[1])] = M[2]
+                    TuesdayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"TuesdayStudents={TuesdayStudents}")
 
                 elif M[0] == '#Thursday':
-                    ThursdayStudents[int(M[1])] = M[2]
+                    ThursdayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"ThursdayStudents={ThursdayStudents}")
 
                 elif M[0] == '#Friday':
-                    FridayStudents[int(M[1])] = M[2]
+                    FridayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"FridayStudents={FridayStudents}")
 
                 elif M[0] == '#Saturday':
-                    SaturdayStudents[int(M[1])] = M[2]
+                    SaturdayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"SaturdayStudents={SaturdayStudents}")
-
 
                 msg = bot.send_message(1891281816, "Добавил нового студента в систему 🤖\n\n*Не забудьте перенести этот словарь в код программы!*", parse_mode='Markdown', disable_web_page_preview=True)
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'del':
-        msg = bot.send_message(call.message.chat.id, "Заполните форму:\n[#OldDay] [ID] [Name.py] [#NewDay]\n\n*Напишите `0`, чтобы отменить команду!*\n\n"
+        msg = bot.send_message(call.message.chat.id, "Заполните форму:\n[#OldDay] [ID] [Name.py] [TimeLessons] [#NewDay]\n\n*Напишите `0`, чтобы отменить команду!*\n\n"
                                                      "#OldMonday    #NewMonday\n#OldTuesday    #NewTuesday\n#OldThursday    #NewThursday"
                                                      "\n#OldFriday    #NewFriday\n#OldSaturday    #NewSaturday")
 
@@ -559,23 +552,23 @@ def step(call):
                     msg = bot.send_message(1891281816, f"Old: SaturdayStudents={SaturdayStudents}")
 
                 if M[3] == '#NewMonday':
-                    MondayStudents[int(M[1])] = M[2]
+                    MondayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"New: MondayStudents={MondayStudents}")
 
                 elif M[3] == '#NewTuesday':
-                    TuesdayStudents[int(M[1])] = M[2]
+                    TuesdayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"New: TuesdayStudents={MondayStudents}")
 
                 elif M[3] == '#NewThursday':
-                    ThursdayStudents[int(M[1])] = M[2]
+                    ThursdayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"New: ThursdayStudents={ThursdayStudents}")
 
                 elif M[3] == '#NewFriday':
-                    FridayStudents[int(M[1])] = M[2]
+                    FridayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"New: FridayStudents={FridayStudents}")
 
                 elif M[3] == '#NewSaturday':
-                    SaturdayStudents[int(M[1])] = M[2]
+                    SaturdayStudents[int(M[1])] = [M[2], M[3]]
                     msg = bot.send_message(1891281816, f"New: SaturdayStudents={SaturdayStudents}")
 
                 msg = bot.send_message(1891281816, "Изменения в расписании: перенесли дату уроков 🤖\n\n*Не забудьте перенести этот словарь в код программы!*", parse_mode='Markdown', disable_web_page_preview=True)
@@ -602,6 +595,7 @@ def step(call):
 /price - получить информацию о ценах и реквизиты
 /useful - шпаргалки от Яндекс практикума по Python
 /getorder - команда для желающих оставить заявку на разработку бота.
+/today - выводит персональное расписание уроков
 '''
 
 # START
@@ -642,7 +636,7 @@ def help(message):
     send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
                    '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/price - получить информацию о ценах и реквизиты\n/links - полезные ссылки для подготовки к экзамену' \
                    '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram\n/useful - получите шпаргалки от `Яндекс практикума` по Python\n' \
-                   '/getorder - обсудить разработку Вашего чат бота под заказ'
+                   '/getorder - обсудить разработку Вашего чат бота под заказ\n/today - выводит персональное расписание уроков'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
 
@@ -916,45 +910,57 @@ def statistics(message):
         cursor.execute(sqlite_select_query)
         records = cursor.fetchall()
 
-        bot.send_message(message.chat.id, f"Общее кол-во студентов в Students: {len(Students)}", parse_mode='Markdown')
-
+        classes = 0
+        summ = 0
         day = 'Понедельник: *'
         for key in MondayStudents:
             day += f'[{MondayStudents[key][0]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
+            classes += 1
+            summ += MondayStudents[key][2]
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
 
         day = 'Вторник: *'
         for key in TuesdayStudents:
-            day += f'{TuesdayStudents[key][0]} время урока: {TuesdayStudents[key][1]} *'
+            day += f'[{TuesdayStudents[key][0]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
+            classes += 1
+            summ += TuesdayStudents[key][2]
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
 
         day = 'Четверг: *'
         for key in ThursdayStudents:
-            day += f'{ThursdayStudents[key][0]} время урока: {ThursdayStudents[key][1]} *'
+            day += f'[{ThursdayStudents[key][0]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
+            classes += 1
+            summ += ThursdayStudents[key][2]
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
 
         day = 'Пятница: *'
         for key in FridayStudents:
-            day += f'{FridayStudents[key][0]} время урока: {FridayStudents[key][1]} *'
+            day += f'[{FridayStudents[key][0]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
+            classes += 1
+            summ += FridayStudents[key][2]
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
 
         day = 'Суббота: *'
         for key in SaturdayStudents:
-            day += f'{SaturdayStudents[key][0]} время урока: {SaturdayStudents[key][1]} *'
+            day += f'[{SaturdayStudents[key][0]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
+            classes += 1
+            summ += SaturdayStudents[key][2]
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
 
-
-        bot.send_message(message.chat.id, f"Всего пользователей в db: {len(records)}")
+        bot.send_message(message.chat.id, f"*Общее кол-во студентов:* {len(Students)}\n\n"
+                                          f"*Количество уроков:*\nВ неделю {classes}\nВ месяц {classes * 4}\n\n"
+                                          f"*Доходы:*\nВ неделю ~ {summ} руб\nВ месяц ~ {summ * 4} руб\nЗа урок ~ {summ//classes} руб\n\n"
+                                          f"*Всего пользователей в db:* {len(records)}", parse_mode='Markdown')
 
 
         db = open("analytics.db", 'rb')
@@ -1087,21 +1093,15 @@ def voicestudents(message):
 def noticestudents(message):
     if message.chat.id == 1891281816:
 
-        message_text = f"*MondayStudents:*\n{MondayStudents}\n\n" \
-                       f"*TuesdayStudents:*\n{TuesdayStudents}\n\n" \
-                       f"*ThursdayStudents:*\n{ThursdayStudents}\n\n" \
-                       f"*FridayStudents:*\n{FridayStudents}\n\n" \
-                       f"*SaturdayStudents:*\n{SaturdayStudents}\n\nНапишите `0`, чтобы отменить команду!"
-        bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
-        '''
-        bot.send_message(message.chat.id,
-                         "Введите ID пользователей через пробел, кому надо отправить рассылку:\n\n"
-                         "`1537718492` Александр\n`799740089` Булат\n`811476623` Георгий\n`1029532016` Мария\n`826004697` Никита\n`1208542295` Александра"
-                         "\n`644645774` Стася\n`719571990` Степан\n`683943897` Таня\n`1477701439` Валерия\n`1314375732` Василий\n`871237277` Владек\n`1649389148` Слава
-                         \n`1949653479` Янина\n`1029532016` Мария"
-                         "\n\n`1891281816` ilandroxy\n`438879394` ilandroxxy", parse_mode='Markdown')
-        '''
+        day = 'Все студенты: *'
+        for key in Students:
+            day += f'[{Students[key][0]}](tg://user?id={key}): {key} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
+
+
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
@@ -1131,17 +1131,24 @@ def notice(message):
     if message.chat.id in Me:
         day = time.strftime('%A')
 
+
+
         if day == 'Monday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             btn1 = types.KeyboardButton('Да, все получается ✅')
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in MondayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            temp = 'Список студентов: *'
             for key in MondayStudents:
-                bot.send_message(message.chat.id, f" {MondayStudents[key][0]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
+                temp += f'[{MondayStudents[key][0]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
 
 
@@ -1151,11 +1158,17 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in TuesdayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+            temp = 'Список студентов: *'
             for key in TuesdayStudents:
-                bot.send_message(message.chat.id, f" {TuesdayStudents[key][0]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
+                temp += f'[{TuesdayStudents[key][0]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Wednesday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
@@ -1166,11 +1179,17 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in ThursdayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+            temp = 'Список студентов: *'
             for key in ThursdayStudents:
-                bot.send_message(message.chat.id, f" {ThursdayStudents[key][0]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
+                temp += f'[{ThursdayStudents[key][0]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Friday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1178,11 +1197,16 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in FridayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            temp = 'Список студентов: *'
             for key in FridayStudents:
-                bot.send_message(message.chat.id, f" {FridayStudents[key][0]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
+                temp += f'[{FridayStudents[key][0]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
 
         if day == 'Saturday':
@@ -1191,11 +1215,17 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in SaturdayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+
+            temp = 'Список студентов: *'
             for key in SaturdayStudents:
-                bot.send_message(message.chat.id, f" {SaturdayStudents[key][0]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
+                temp += f'[{SaturdayStudents[key][0]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Sunday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
@@ -1208,32 +1238,89 @@ def notice(message):
 def today(message):
     if message.chat.id in Me:
         day = time.strftime('%A')
+        now = dt.datetime.utcnow()
+        nsk_now = now + dt.timedelta(hours=7)
+        timer = nsk_now.strftime('%d %B')
 
         if day == 'Monday':
+            temp = f'Понедельник {timer}: *'
             for key in MondayStudents:
-                bot.send_message(message.chat.id, f"  Урок в {MondayStudents[key][1]}  {MondayStudents[key][0]}\n[Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+                temp += f'[{MondayStudents[key][0]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Tuesday':
+            temp = f'Вторник {timer}: *'
             for key in TuesdayStudents:
-                bot.send_message(message.chat.id, f"  Урок в {TuesdayStudents[key][1]}  {TuesdayStudents[key][0]}\n[Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+                temp += f'[{TuesdayStudents[key][0]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Wednesday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
 
         if day == 'Thursday':
+            temp = f'Четверг {timer}: *'
             for key in ThursdayStudents:
-                bot.send_message(message.chat.id, f"  Урок в {ThursdayStudents[key][1]}  {ThursdayStudents[key][0]}\n[Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+                temp += f'[{ThursdayStudents[key][0]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Friday':
+            temp = f'Пятница {timer}: *'
             for key in FridayStudents:
-                bot.send_message(message.chat.id, f"  Урок в {FridayStudents[key][1]}  {FridayStudents[key][0]}\n[Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+                temp += f'[{FridayStudents[key][0]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Saturday':
+            temp = f'Суббота {timer}: *'
             for key in SaturdayStudents:
-                bot.send_message(message.chat.id, f"  Урок в {SaturdayStudents[key][1]}  {SaturdayStudents[key][0]}\n[Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+                temp += f'[{SaturdayStudents[key][0]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Sunday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
+
+    elif message.chat.id in Students:
+        bot.send_message(message.chat.id, "Поглядим на Ваше расписание 🤖 ", parse_mode='Markdown')
+
+        for key in MondayStudents:
+            if message.chat.id == key:
+                message_text = f'Понедельник:\n{MondayStudents[key][0]} время урока: {MondayStudents[key][1]}'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in TuesdayStudents:
+            if message.chat.id == key:
+                message_text = f'Вторник:\n{TuesdayStudents[key][0]} время урока: {TuesdayStudents[key][1]}'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in ThursdayStudents:
+            if message.chat.id == key:
+                message_text = f'Четверг:\n{ThursdayStudents[key][0]} время урока: {ThursdayStudents[key][1]}'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in FridayStudents:
+            if message.chat.id == key:
+                message_text = f'Пятница:\n{FridayStudents[key][0]} время урока: {FridayStudents[key][1]}'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in SaturdayStudents:
+            if message.chat.id == key:
+                message_text = f'Суббота:\n{SaturdayStudents[key][0]} время урока: {SaturdayStudents[key][1]}'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
@@ -1382,7 +1469,7 @@ def mess(message):
             messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
             bot.send_message(message.chat.id, messgae_text)
             markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton(f"Твой файл: {Students[key]}", url=f"https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/{Students[key]}"))
+            markup.add(types.InlineKeyboardButton(f"Твой файл: {Students[key][0]}", url=f"https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/{Students[key][0]}"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 

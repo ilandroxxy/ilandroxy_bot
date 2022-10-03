@@ -594,6 +594,10 @@ MondayStudents = {811476623: ["Georgie.py", '20:00'], 826004697: ['Nikita.py', '
 
 print(f"{MondayStudents[826004697][0]} время урока: {MondayStudents[826004697][1]}")
 
+Students = {}
+M = [1,2,3,4 ]
+Students[int(M[1])] = [M[2], M[3]]
+print(Students)
 
 
 
