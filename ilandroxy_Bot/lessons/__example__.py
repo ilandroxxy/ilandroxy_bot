@@ -590,19 +590,9 @@ def generate_passwords(count, length):
 generate_passwords(n, m)
 '''
 
+MondayStudents = {811476623: ["Georgie.py", '20:00'], 826004697: ['Nikita.py', '22:00']}
 
-def triangle(side):
-    import turtle
-
-    for i in range(3):
-        turtle.forward(side)
-        turtle.left(120)
-
-
-n = int(input('Введите длину стороны = '))
-
-triangle(n)
-
+print(f"{MondayStudents[826004697][0]} время урока: {MondayStudents[826004697][1]}")
 
 
 
