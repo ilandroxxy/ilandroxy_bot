@@ -13,11 +13,11 @@ bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
 # Синхронно моему расписанию в Google Календаре
-MondayStudents = {683943897: "Tanya.py", 811476623: "Georgie.py", 826004697: 'Nikita.py'}
+MondayStudents = {811476623: "Georgie.py", 826004697: 'Nikita.py'}
 TuesdayStudents = {1949653479: 'Yanina.py', 1208542295: 'Sasha.py', 1537718492: 'Aleksandr.py', 789322200: 'Katya.py', 804184353: 'Islam.py'}
-ThursdayStudents = {1949653479: "Yanina.py", 1477701439: "Valeria.py", 811476623: "Georgie.py", 799740089: "Bulat.py", 1537718492: "Aleksandr.py"}
+ThursdayStudents = {1949653479: "Yanina.py", 1477701439: "Valeria.py", 811476623: "Georgie.py", 799740089: "Bulat.py", 1537718492: "Aleksandr.py", 1454117859: 'Diana'}
 FridayStudents = {1314375732: 'Vasiliy.py', 644645774: 'Stasya.py', 719571990: 'Stepan.py', 1029532016: 'Maria.py', 1649389148: 'Slava.py'}
-SaturdayStudents = {871237277: 'Vladek.py', 5148819382: 'Tatyana.py'}
+SaturdayStudents = {871237277: 'Vladek.py', 5148819382: 'Tatyana.py', 1454117859: 'Diana'}
 
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
 
@@ -582,18 +582,19 @@ def step(call):
 
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-'''# публичные команды
-help - справка по всем командам в боте
-tasks - наборы задач для отработки решений ЕГЭ по Информатике
-homework - конструктор домашних заданий для моих учеников
-calendly - форма записи на урок
-links - полезные ссылки для подготовки к экзамену
-getmyid - бот покажет ваш id пользователя Telegram
-myprojects - список моих актуальных проектов
-download - список программ необходимых для уроков
-start - перезапуск бота, на стартовую позицию
-price - получить информацию о ценах и реквизиты
-useful - шпаргалки от Яндекс практикума по Python
+'''# Публичные команды:
+/help - справка по всем командам в боте
+/tasks - наборы задач для отработки решений ЕГЭ по Информатике
+/homework - конструктор домашних заданий для моих учеников
+/calendly - форма записи на урок
+/links - полезные ссылки для подготовки к экзамену
+/getmyid - бот покажет ваш id пользователя Telegram
+/myprojects - список моих актуальных проектов
+/download - список программ необходимых для уроков
+/start - перезапуск бота, на стартовую позицию
+/price - получить информацию о ценах и реквизиты
+/useful - шпаргалки от Яндекс практикума по Python
+/getorder - команда для желающих оставить заявку на разработку бота.
 '''
 
 # START
@@ -609,17 +610,23 @@ def start(message):
     bot.send_photo(message.chat.id, pic_1)
 
     markup.add(btn1, btn2, btn3, btn4, btn5)
-    send_mess = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
-                f'*Меня зовут Андрианов Илья*. \nЯ программист developer Telegram ботов.\n' \
-                f'А также репетитор Программирования на языке Python 🐍 и подготовке к ЕГЭ по Информатике 👨‍🏫\n\n' \
-                f'*Рад Вас приветствовать* у себя на _"страничке"_, здесь я постараюсь коротко ' \
-                f'рассказать о себе и, надеюсь, нам удастся найти общий язык 🙏 \n\n' \
-                f'Используйте команду 👉 /getmyid, чтобы бот показал ваше ID пользователя. После чего скиньте его мне @ilandroxy, я добавлю вас в систему!\n\n' \
-                f'Используйте команду 👉 /help, чтобы подробнее узнать о всех доступных командах или вызовите *Меню команд* - большая синяя кнопка на семь часов.'
+    message_text1 = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
+                f'*Меня зовут Андрианов Илья*. \nЯ программист – `Python developer`.\n' \
+                f'А также репетитор подготовки к `ЕГЭ по Информатике` и программированию на языке `Python` 🐍\n\n' \
+                f'*Рад Вас приветствовать* у себя на `"страничке"`, здесь я постараюсь коротко ' \
+                f'рассказать о себе и, надеюсь, нам удастся найти общий язык 🙏 \n\n'
+    bot.send_message(message.chat.id, message_text1, parse_mode='Markdown')
 
-    bot.send_message(message.chat.id, send_mess, parse_mode='Markdown', reply_markup=markup)
+    message_text2 = f'Если вы мой студент, то воспользуйтесь командой 👉 /getmyid, чтобы бот 🤖 показал ваш ID пользователя. Он необходим, чтобы [я смог добавить](t.me/@ilandroxy) Вас в систему!\n\n' \
+                f'Воспользуйтесь командой 👉 /getorder, если хотите обсудить вопросы сотрудничества или разработку Вашего `Telegram бота` под заказ.\n\n' \
+                f'Воспользуйтесь командой 👉 /help, чтобы подробнее узнать о всех доступных командах.\nИли вызовите *Меню команд* – большая синяя кнопка на семь часов.'
+    bot.send_message(message.chat.id, message_text2, parse_mode='Markdown', reply_markup=markup)
+
     pic_2 = open("photo/menu.jpg", 'rb')
     bot.send_photo(message.chat.id, pic_2)
+
+    order_message = f'✅ Новый пользователь\nName: {message.from_user.first_name}\nUsername: @{message.from_user.username}\nUser ID: {message.chat.id}\n[Написать сообщение](tg://user?id={message.chat.id})'
+    bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 # HELP
@@ -627,7 +634,8 @@ def start(message):
 def help(message):
     send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
                    '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/price - получить информацию о ценах и реквизиты\n/links - полезные ссылки для подготовки к экзамену' \
-                   '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram\n/useful - получите шпаргалки от `Яндекс практикума` по Python'
+                   '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram\n/useful - получите шпаргалки от `Яндекс практикума` по Python\n' \
+                   '/getorder - обсудить разработку Вашего чат бота под заказ'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
 
@@ -637,6 +645,7 @@ def getmyid(message):
     user = str(message.chat.id)
     send_message = "*Ваш user ID: *" + user
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
+
 
 
 # MYPROJECT
@@ -743,10 +752,10 @@ def calendly(message):
     pic = open("photo/calendly.jpg", 'rb')
     bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
-    text_message = f"Пользователь *{message.from_user.first_name}* оставил заявку\n*ID:* {message.chat.id}\n" \
-                   f"*Username:* @{message.from_user.username}\n\n" \
+    text_message = f"🤖 `Calendly`\n*{message.from_user.first_name}* открыл(а) календарь\n*User ID*: `{message.chat.id}`\n" \
+                   f"*Username*: @{message.from_user.username}\n" \
                    f"[Написать сообщение](tg://user?id={message.chat.id})\n\n" \
-                   f"[Открыть Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
+                   f"[Открыть мой Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
     bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
@@ -809,7 +818,7 @@ def homework(message):
 #GETORDER
 @bot.message_handler(commands=['getorder'])
 def getorder(message):
-    bot.send_message(message.chat.id, "Просто опишите в одном сообщении какой функциональностью должен обладать Ваш бот, [я свяжусь с вами](https://t.me/ilandroxy) в ближайшее время!\n\n"
+    bot.send_message(message.chat.id, "Просто опишите в одном сообщении какой функциональностью должен обладать Ваш бот, а [я свяжусь с вами](https://t.me/ilandroxy) в ближайшее время!\n\n"
                                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown', disable_web_page_preview=True)
 
     @bot.message_handler(content_types=['text'])
@@ -820,45 +829,22 @@ def getorder(message):
             order_message = f'✅ Новый заказ\nUser: {message.from_user.first_name}\n[Написать сообщение](tg://user?id={message.chat.id})\n\nMessage:\n{text_message}'
             bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
         else:
-            bot.send_message(message.chat.id, 'Команда `0` сработала.', parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(message.chat.id, 'Команда отменена, ждем вас с нетерпением обратно 🤖', parse_mode='Markdown', disable_web_page_preview=True)
     bot.register_next_step_handler(message, message_input)
 
 
-# WEATHER
-@bot.message_handler(commands=['weather'])
-def weather(message):
-    url = 'https://wttr.in'
-
-    weather_parameters = {
-        '0': '',
-        'T': '',
-        'M': '',
-    }
-
-    weather_string = {
-        'M': '',
-        'format': 2
-    }
-
-    request_headers = {
-        'Accept-Language': 'ru'  # заполните словарь с заголовками
-    }
-
-    response = requests.get(url, params=weather_parameters, headers=request_headers)
-    response2 = requests.get(url, params=weather_string, headers=request_headers)
-    message_text = "🤖 " +  response.text + '\n' + response2.text
-    bot.send_message(message.chat.id, message_text, parse_mode='HTML')
 
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-''' #приватные команды
+''' # Приватные команды:
 /statistics - выводит статистику и файлы db напрямую в боте
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
-/less - чек проведенного урока и принятия оплат по абонементам
+/less - чек проведенного урока и принятия оплат по абонементам, добавление ученика в систему.
 /voiceall - способ отправить сообщение всем пользователям (с ссылками)
 /voicestudents - способ отправить сообщение всем моим студентам
 /noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)
 /notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)
+/today - выводит список учеников по дням занятий
 '''
 
 
@@ -1112,9 +1098,13 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
             for key in MondayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            for key in MondayStudents:
+                bot.send_message(message.chat.id, f" {MondayStudents[key]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
+
+
 
         if day == 'Tuesday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1122,9 +1112,11 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
             for key in TuesdayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            for key in TuesdayStudents:
+                bot.send_message(message.chat.id, f" {TuesdayStudents[key]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
 
         if day == 'Wednesday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
@@ -1135,9 +1127,11 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
             for key in ThursdayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            for key in ThursdayStudents:
+                bot.send_message(message.chat.id, f" {ThursdayStudents[key]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
 
         if day == 'Friday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1145,9 +1139,11 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
             for key in FridayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            for key in FridayStudents:
+                bot.send_message(message.chat.id, f" {FridayStudents[key]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
 
 
         if day == 'Saturday':
@@ -1156,9 +1152,46 @@ def notice(message):
             btn2 = types.KeyboardButton('Нет, не получится ⛔')
             btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
             markup.add(btn1, btn2, btn3)
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.\n\nСписок студентов: ", parse_mode='Markdown')
             for key in SaturdayStudents:
                 bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+            for key in SaturdayStudents:
+                bot.send_message(message.chat.id, f" {SaturdayStudents[key]}: [Написать сообщение](tg://user?id={key}", parse_mode='Markdown')
+
+        if day == 'Sunday':
+            bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+
+#TODAY
+@bot.message_handler(commands=['today'])
+def today(message):
+    if message.chat.id in Me:
+        day = time.strftime('%A')
+
+        if day == 'Monday':
+            for key in MondayStudents:
+                bot.send_message(message.chat.id, f" {MondayStudents[key]}: [Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+
+        if day == 'Tuesday':
+            for key in TuesdayStudents:
+                bot.send_message(message.chat.id, f" {TuesdayStudents[key]}: [Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+
+        if day == 'Wednesday':
+            bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
+        if day == 'Thursday':
+            for key in ThursdayStudents:
+                bot.send_message(message.chat.id, f" {ThursdayStudents[key]}: [Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+
+        if day == 'Friday':
+            for key in FridayStudents:
+                bot.send_message(message.chat.id, f" {FridayStudents[key]}: [Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
+
+        if day == 'Saturday':
+            for key in SaturdayStudents:
+                bot.send_message(message.chat.id, f" {SaturdayStudents[key]}: [Написать сообщение](tg://user?id={key})", parse_mode='Markdown')
 
         if day == 'Sunday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
@@ -1167,12 +1200,10 @@ def notice(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
-
 @bot.message_handler(content_types=['text'])
 @analytics
 def mess(message):
     get_message_bot = message.text.strip()
-    # get_message_bot = message.text.lower()
 
     if get_message_bot == 'Да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1291,17 +1322,23 @@ def mess(message):
         pic = open("photo/calendly.jpg", 'rb')
         bot.send_photo(message.chat.id, pic, reply_markup=markup)
 
-        text_message = f"Пользователь *{message.from_user.first_name}* оставил заявку\n*ID:* {message.chat.id}\n" \
-                       f"*Username:* @{message.from_user.username}\n\n" \
+        text_message = f"🤖 `Calendly`\n*{message.from_user.first_name}* открыл(а) календарь\n*User ID*: `{message.chat.id}`\n" \
+                       f"*Username*: @{message.from_user.username}\n" \
                        f"[Написать сообщение](tg://user?id={message.chat.id})\n\n" \
-                       f"[Открыть Google Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
+                       f"[Открыть мой Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
         bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
 # Добавляем файлы учеников
     elif get_message_bot == "Получить файл с урока":
 
-        if message.chat.id in Students:
+        if message.chat.id == 1454117859:
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton(f"Ссылка на Miro", url=f"https://miro.com/app/board/uXjVODix7KA=/"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        elif message.chat.id in Students:
             key = message.chat.id
             messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
             bot.send_message(message.chat.id, messgae_text)

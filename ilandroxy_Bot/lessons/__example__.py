@@ -490,7 +490,122 @@ for i in range(n):
     print(res)
 '''
 
+"""
+Students = {1208542295: ['Sasha.py', 3200/2],
+            799740089: ["Bulat.py", 2280],
+            811476623: ["Georgie.py", 3040],  # 2
+            1949653479: ['Yanina.py', 4080],  # 2
+            826004697: ['Nikita.py', 3040],
+            1537718492: ['Aleksandr.py', 5760], # 2
+            1314375732: ['Vasiliy.py', 6800/2],
+            683943897: ["Tanya.py", 3600],
+            871237277: ['Vladek.py', 6800/2],
+            1477701439: ["Valeria.py", 3200],
+            644645774: ['Stasya.py', 5760/2],
+            719571990: ['Stepan.py', 6800/2],
+            1029532016: ['Maria.py', 3600],
+            1649389148: ['Slava.py', 6800/2],
+            789322200: ['Katya.py', 6800/2],
+            824782347: ['Daniel', 3600],
+            804184353: ['Islam.py', 3600],
+            5148819382: ['Tatyana.py', 3600],
+            1000000001: ['_______.py', 3600],
+            1000000002: ['_______.py', 3600],
+            1000000003: ['_______.py', 3600],
+            1000000004: ['_______.py', 3600],
+            1000000005: ['_______.py', 3600],
+            1000000006: ['_______.py', 3600],
+            1000000007: ['_______.py', 3600],
+            1000000008: ['_______.py', 3600],
+            1000000009: ['_______.py', 3600],
+            1000000010: ['_______.py', 3600],
+            1000000011: ['_______.py', 3600],
+            1000000012: ['_______.py', 3600],
+            1000000013: ['_______.py', 3600],
+            1000000014: ['_______.py', 3600],
+            1000000015: ['_______.py', 3600],
+            1000000016: ['_______.py', 3600]}
 
-print(1600 + 2280 + 3040 + 4080 + 3040 + 5760 + 3400 + 3600 + 3400 + 3400 + 2880 + 3400 + 3600 + 3400 + 3400 + 3400 + 3600 + 3600 + 0 + 3600 + 3600 + 3600) # 22 урока в неделю
-print(3600 * 8)
+
+n = len(Students)+3
+summ1 = 0
+summ2 = 0
+for key in Students:
+    if Students[key][0] != '_______.py':
+        summ1 += Students[key][1]
+    summ2 += Students[key][1]
+print(summ1, summ2)
+
+
+print(8*5*3600, 8*5-n)
+print(7*5*3600, 7*5-n)
+print(6*5*3600, 6*5-n)
+"""
+
+
+'''
+import random
+import string
+
+n, m = int(input()), int(input())
+
+def generate_password(length):
+
+    flag1 = False
+    flag2 = False
+    flag3 = False
+
+    numbers = '23456789'
+    n = [i for i in numbers]
+    letters = 'abcdefghjkmnpqrstuvwxyz'
+    l = [i for i in letters]
+    LETTERS = 'ABCDEFGHJKMNPQRSTUVWXYZ'
+    L = [i for i in LETTERS]
+
+    BadSymbols = 'iIlL0oO1'
+    password = ''
+
+    while len(password) != length:
+        x = random.randint(1,3)
+        if x == 1:
+            flag1 = True
+            password += random.choice(n)
+        if x == 2:
+            flag2 = True
+            password += random.choice(l)
+        if x == 3:
+            flag3 = True
+            password += random.choice(L)
+
+    if flag1 == True and flag2 == True and flag3 == True:
+        print(password)
+    else:
+        generate_password(length)
+
+
+def generate_passwords(count, length):
+    for i in range(count):
+        generate_password(length)
+
+generate_passwords(n, m)
+'''
+
+
+def triangle(side):
+    import turtle
+
+    for i in range(3):
+        turtle.forward(side)
+        turtle.left(120)
+
+
+n = int(input('Введите длину стороны = '))
+
+triangle(n)
+
+
+
+
+
+
 
