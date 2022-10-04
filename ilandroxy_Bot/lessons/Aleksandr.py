@@ -1,111 +1,225 @@
-# Самопроверка по номерам 5, 8, 12, 17, 17, 24, 24
-
-
 '''
-# Тип 12 № 33757
-# Дана программа для редактора:
-# НАЧАЛO
-# ПОКА нашлось (01) ИЛИ нашлось (02) ИЛИ нашлось (03)
-# заменить (01, 30)
-# заменить (02, 101)
-# заменить (03, 202)
-# КОНЕЦ ПОКА
-# КОНЕЦ
-# Известно, что исходная строка начиналась с нуля, а далее содержала только единицы, двойки и тройки.
-# После выполнения данной программы получилась строка, содержащая 20 единиц, 10 двоек и 70 троек. Сколько единиц было в исходной строке?
+import string
 
-for i in range(60):
-    for d in range(50):
-        for f in range(80):
-            s = "0" + i * "1" + d * "2" + f * "3"
-            temp = s
-            while "01" in s or "02" in s or "03" in s:
-                s = s.replace("01", "30", 1)
-                s = s.replace("02", "101", 1)
-                s = s.replace("03", "202", 1)
-            if s.count("1") == 20 and s.count("2") == 10 and s.count("3") == 70:
-                print(temp.count('1'))
-'''
-'''
-# Тип 5 № 13590
-# Автомат получает на вход трёхзначное число. По этому числу строится новое число по следующим правилам.
-# 1.Перемножаются отдельно первая и вторая цифры, а также вторая и третья цифры.
-# 2.Полученные два числа записываются друг за другом в порядке невозрастания без разделителей.
-# Пример. Исходное число: 179. Произведения: 1*7 = 7; 7*9 = 63. Результат: 637. Укажите наименьшее число,
-# при обработке которого автомат выдаёт результат 205.
-
-for i in range(100, 1000):
-    temp = i
-
-    M = []
-    while i > 0:
-
-        M.append(i % 10)
-        i //= 10
-    M.reverse()
-
-    M = [int(i) for i in str(i)]
-    a = M[0] * M[1]
-    b = M[1] * M[2]
-    if a > b:
-        q = str(a) + str(b)
-    else:
-        q = str(b) + str(a)
-    if int(q) == 205:
-        print(temp)
-'''
-'''
-# Тип 8 № 18622
-# Демьян составляет 6-буквенные коды из букв Д, Е, М, Ь, Я, Н. Каждую букву нужно использовать ровно 1 раз,
-# при этом Ь нельзя ставить первым и нельзя ставить после гласной. Сколько различных кодов может составить Демьян?
-
-s = "ДЕМЬЯН"
-count = 0
-for a in "ДЕМЯН":
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        temp = a + b + c + d + e + f
-                        if "Д" in temp and "Е" in temp and "М" in temp and "Ь" in temp and "Я" in temp and "Н" in temp:
-                            # print(temp)
-                            if "ЯЬ" not in temp and "ЕЬ" not in temp:
-                                count += 1
-                                print(temp, count)
-'''
-'''
-# Тип 24 № 35913
-# Текстовый файл содержит строки различной длины. Общий объём файла не превышает 1 Мбайт.
-# Строки содержат только заглавные буквы латинского алфавита (ABC…Z). Необходимо найти строку, содержащую наименьшее количество букв N
-# (если таких строк несколько, надо взять ту, которая находится в файле раньше), и определить, какая буква встречается в этой строке чаще всего.
-# Если таких букв несколько, надо взять ту, которая позже стоит в алфавите.
-s = open('24.txt', "r")
-M = s.readlines()
-mini = 999999
-d = ''
-Alph = "QWERTYUIOPASDFGHJKLZXCVBNM"
-for i in M:
-    if i.count("N") < mini:
-        mini = i.count("N")
-        d = i
-maxi = 0
-print(mini, d)
-for q in Alph:
-    if maxi < d.count(q):
-        maxi = d.count(q)
-        print(maxi, q)
-
+print(string.ascii_letters)
+print(string.ascii_lowercase)
+print(string.digits)
+print(string.punctuation)
 '''
 
 
-f = open('Priziv1volna.txt', "r")
-M = f.readlines()
+# Тип 24 № 33526
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите символ, который чаще всего встречается в файле между двумя одинаковыми символами.
+#
+# Для выполнения этого задания следует написать программу.
+# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
+
+'''
+import string
+f = open('24.txt', 'r')
+s = f.readline()
+
+M = []
+for i in range(len(s)-2):
+    if s[i] == s[i+2]:
+        M.append(s[i+1])
 print(len(M))
 
-count = 0
-for i in M:
-    if ' Г. СЕВЕРОДВИНСК,' in i:
-        count += 1
-        print(i)
-print(count)
+Alphabet = string.ascii_uppercase
+maxi = 0
+for i in Alphabet:
+    if maxi < M.count(i):
+        print(i, M.count(i))
+        maxi = M.count(i)
+'''
+
+'''
+import string
+f = open('24.txt', 'r')
+s = f.readline()
+
+M = []
+for i in range(len(s)-2):
+    if s[i] == s[i+2]:
+        M.append(s[i+1])
+print(len(M))
+
+Alphabet = string.ascii_uppercase
+res = {}  # словарь - тип коллекции dict()
+for i in Alphabet:
+    res[i] = M.count(i)
+print(res)
+
+print(max(res.values()))
+for key in res:
+    if res[key] == 1517:
+        print(key)
+'''
+
+'''
+import  turtle
+
+while True:
+    turtle.getshapes()
+    turtle.forward(100)
+    turtle.right(60)
+    turtle.forward(100)
+    turtle.right(120)
+'''
+
+# Метод Монте-карло
+'''
+import random
+
+n = 1000000
+k = 0
+s0 = 16
+for i in range(n):
+    x = random.uniform(-2, 2)
+    y = random.uniform(-2, 2)
+
+    if y**3 - 2*x**2 <= -1 and 2*y + x*83 <= 3:
+        k += 1
+
+S = (k/n) * s0  # Площадь фигуры
+print(S)
+'''
+
+# Тип 15 № 34541
+'''
+# На числовой прямой даны два отрезка: Р = [3, 38] и Q = [21, 57].
+# Какова наибольшая возможная длина интервала A, что логическое выражение
+#
+# ((х ∈ Q) → (х ∈ Р)) → ¬(х ∈ A)
+#
+# тождественно истинно, то есть принимает значение 1 при любом значении переменной х.
+
+def F(a1, a2, x):
+    return ((21 <= x <= 57) <= (3 <= x <= 38)) <= (not(a1 <= x <= a2))
+
+M = []
+for a1 in range(0, 100):
+    for a2 in range(a1+1, 100):
+        flag = True
+        for x in range(0, 100):
+            if F(a1, a2, x) == False:
+                flag = False
+                break
+        if flag == True:
+            M.append(a2-a1)
+            print(max(M))
+print(max(M)+1)
+'''
+# Ответ: 19
+
+
+# Тип 15 № 15803  # Разобрать
+'''
+# На числовой прямой задан отрезок A. Известно, что формула
+#
+# ((x ∈ A) → (x**2 ≤ 100)) ∧ ((x**2 ≤ 64) → (x ∈ A))
+#
+# тождественно истинна при любом вещественном x. Какую наибольшую длину может иметь отрезок A?
+
+
+def f(x, a):
+    return ((x in a) <= (x ** 2 <= 100)) and ((x ** 2 <= 64) <= (x in a))
+
+
+a = set([i for i in range(-1000, 1000)])
+
+for x in range(-1000, 1000):
+    if f(x, a) == False:
+        a.remove(x)
+print(len(a) - 1)
+print(a)
+M = []
+for a1 in range(-1000, 1000):
+    for a2 in range(a1+1, 1000):
+        flag = True
+        for x in range(0, 100):
+            if F(a1, a2, x) == False:
+                flag = False
+                break
+        if flag == True:
+            M.append(a2-a1)
+print(max(M)+1)
+'''
+
+# Тип 15 № 34512
+# Обозначим через m & n поразрядную конъюнкцию неотрицательных целых чисел m и n.
+#
+# Например, 14 & 5 = 1110_2 & 0101_2 = 0100_2 = 4.
+#
+# Для какого наименьшего неотрицательного целого числа А формула
+#
+# x&77 ≠ 0 → (x&12 = 0 → x&А ≠ 0)
+#
+# тождественно истинна (т.е. принимает значение 1 при любом неотрицательном целом значении переменной х)?
+
+'''
+def Conunctioun(m, n):
+    M = bin(m)
+    N = bin(n)
+    M = M[2:]
+    N = N[2:]
+
+
+    M = [int(i) for i in M]
+    N = [int(i) for i in N]
+
+
+    while len(M) != len(N):
+        if len(M) < len(N):
+            M.reverse()
+            M.append(0)
+            M.reverse()
+        else:
+            N.reverse()
+            N.append(0)
+            N.reverse()
+
+    A = []
+    for i in range(len(M)):
+        if M[i] == 1 and N[i] == 1:
+            A.append(1)
+        else:
+            A.append(0)
+
+
+    res = 0
+    A.reverse()
+    for i in range(0, len(A)):
+        res += A[i] * 2 ** i
+    return res
+
+# x&77 ≠ 0 → (x&12 = 0 → x&А ≠ 0)
+def F(x, A):
+    return ((Conunctioun(x, 77) == 0) or ((Conunctioun(x, 12) != 0) or (Conunctioun(x, A) != 0)))
+
+M = []
+for A in range(1, 100):
+    flag = True
+    for x in range(1, 100):
+        print(F(x, A))
+        if F(x, A) == False:
+            flag = False
+            break
+    if flag == True:
+        M.append(A)
+print(max(A))
+
+'''
+for A in range(128):
+    B = True
+    for x in range(128):
+        # x&77 ≠ 0 → (x&12 = 0 → x&А ≠ 0)
+        if ((x&77==0) or (x&12!=0) or (x&A!=0))==0:
+            B=False
+    if B:
+        print(A)
+        break
+
+
+
