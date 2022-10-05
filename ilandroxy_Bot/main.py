@@ -7,7 +7,7 @@ import time
 import datetime as dt
 import requests
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮
 bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
@@ -16,7 +16,7 @@ bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # Синхронно моему расписанию в Google Календаре
 MondayStudents = {811476623: ["Georgie.py", "20:00", 3040//4], 826004697: ['Nikita.py', '22:00', 3040//4]}
 TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 789322200: ['Katya.py', "16:00", 3600//4], 1208542295: ['Sasha.py', '19:00', 4000//8], 804184353: ['Islam.py', '21:00', 3600//4],  1537718492: ['Aleksandr.py', '22:00', 5760//8]}
-ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 1477701439: ["Valeria.py", '16:00', 800], 1454117859: ['Diana', "19:00", 4320//8], 811476623:  ["Georgie.py", "20:00", 3040//4], 799740089: ["Bulat.py", "21:00", 2280//4], 1537718492: ["Aleksandr.py", "22:00", 5760//8]}
+ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 1477701439: ["Valeria.py", '16:00', 800], 1187852992: ['Aleksandr_2.py', "17:00", 6800//8], 1454117859: ['Diana', "19:00", 4320//8], 811476623:  ["Georgie.py", "20:00", 3040//4], 799740089: ["Bulat.py", "21:00", 2280//4], 1537718492: ["Aleksandr.py", "22:00", 5760//8]}
 FridayStudents = {1314375732: ['Vasiliy.py', "15:00", 6800//8], 644645774: ['Stasya.py', "16:00", 5760//8], 719571990: ['Stepan.py', "17:00", 6800//8], 1029532016: ['Maria.py', "21:00", 3600//4], 1649389148: ['Slava.py', "22:00", 6800//8]}
 SaturdayStudents = {1454117859: ['Diana', "17:00", 4320//8], 5148819382: ['Tatyana.py', "19:00", 3600//4], 871237277: ['Vladek.py', "22:00", 6800//8]}
 
@@ -24,6 +24,7 @@ Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents 
 
 Me = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"}
 Testing = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy'}
+NewStudents = {659796558: ['Ivan.py', ' ', 3600//4]}
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
@@ -46,10 +47,15 @@ def step(call):
         send_message1 = f"*О себе:*\n" \
                         f"Выпускник *СибГУТИ* факультета _«Информатики и Вычислительной техники»_.\n\n" \
                         f"По основной специальности *developer Telegram ботов* и других чат ботов, но нашел свое призвание в репетиторской деятельности." \
-                        f"\n\nНа данный момент прохожу обучение в *НГПУ*, по направлению: _«Педагогическое образование для специалистов с высшим непедагогическим образованием»_." \
-                        f" \n\n🎯 Цель открыть свою школу программирования для детей и подростков!\n\n" \
+                        f"\n\nНа данный момент прохожу обучение в *НГПУ*, по направлению: `«Педагогическое образование для специалистов с высшим непедагогическим образованием»`."
+        bot.send_message(call.message.chat.id, send_message1, parse_mode="Markdown", disable_web_page_preview=True)
+
+        pic = open("photo/diploma.png", "rb")
+        msg = bot.send_photo(call.message.chat.id, pic)
+
+        send_message2 = f" \n\n🎯 Цель открыть свою школу программирования для детей и подростков!\n\n" \
                         f"Общий стаж репетиторской деятельности больше 3 лет, в моем профиле можно ознакомиться с [отзывами](https://www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing) довольных учеников и родителей."
-        msg = bot.send_message(call.message.chat.id, send_message1, parse_mode="Markdown", disable_web_page_preview=True)
+        bot.send_message(call.message.chat.id, send_message2, parse_mode="Markdown", disable_web_page_preview=True)
 
         pic_3 = open("photo/otzivy.PNG", "rb")
         msg = bot.send_photo(call.message.chat.id, pic_3)
@@ -167,9 +173,9 @@ def step(call):
     elif call.data == "hw6":
         type = '6'
         s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 20)
-        M = [47003, 36861, 33178, 35895, 46964, 33508, 29654, 33476, 38940, 33751, 35464, 30692, 45240, 39235, 33085,
-             36019, 35980, 37141, 40722, 27403, 40981]
+        x = random.randint(0, 28)
+        M = [47246, 47404, 47245, 47390, 47247, 47308, 47249, 47315, 47305, 47249, 47304, 47306, 47403, 47313, 47311, 47307, 47310, 47312, 47314, 47393, 47316, 47391, 47406,
+             47309, 47248, 47392, 47301, 47303, 47405]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
         msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
@@ -351,10 +357,10 @@ def step(call):
     elif call.data == "hw22":
         type = '22'
         s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [5524, 26992, 10483, 6813, 35996, 13366, 15860, 14279, 18568, 13469, 9770, 15957, 3849, 38956, 5280, 15930,
-             23918, 5492, 13550, 36877, 6960, 40738, 15988, 15636, 15805, 3280, 45256, 3279, 4694, 16047, 11249, 13416,
-             27419, 5091, 6781, 27305, 13577, 6006, 3273, 5215]
+        x = random.randint(0, 33)
+        M = [47588, 47589, 47601, 47605, 47598, 47593, 47602, 47595, 47603, 47600, 47610, 47590, 47609, 47608, 47616,
+             47586, 47607, 47549, 47614, 47596, 47613, 47611, 47582, 47591, 47606, 47584, 47594, 47592, 47587, 47615,
+             47604, 47599, 47583, 47612]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
         msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
@@ -698,22 +704,22 @@ def price(message):
 def tasks(message):
     message_text1 = "*Наборы разных типов задач с* [Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n`new 2022-2023 года`\n\n" \
                     "[1.](https://inf-ege.sdamgia.ru/test?id=11297175&nt=True&pub=False)   [2.](https://inf-ege.sdamgia.ru/test?id=11297177&nt=True&pub=False)   [3.](https://inf-ege.sdamgia.ru/test?id=11297178&nt=True&pub=False)   " \
-                   "[4.](https://inf-ege.sdamgia.ru/test?id=11297180&nt=True&pub=False)   [5.](https://inf-ege.sdamgia.ru/test?id=11297181&nt=True&pub=False)   [6.](https://inf-ege.sdamgia.ru/test?id=11297181&nt=True&pub=False)   [7.](https://inf-ege.sdamgia.ru/test?id=11297184&nt=True&pub=False)    " \
+                   "[4.](https://inf-ege.sdamgia.ru/test?id=11297180&nt=True&pub=False)   [5.](https://inf-ege.sdamgia.ru/test?id=11297181&nt=True&pub=False)   [6.](https://inf-ege.sdamgia.ru/test?id=11481799&nt=True&pub=False)   [7.](https://inf-ege.sdamgia.ru/test?id=11297184&nt=True&pub=False)    " \
                    "[8.](https://inf-ege.sdamgia.ru/test?id=11297185&nt=True&pub=False)    [9.](https://inf-ege.sdamgia.ru/test?id=11297189&nt=True&pub=False)    [10.](https://inf-ege.sdamgia.ru/test?id=11297190&nt=True&pub=False)\n\n[11.](https://inf-ege.sdamgia.ru/test?id=11297191&nt=True&pub=False)   " \
                    "[12.](https://inf-ege.sdamgia.ru/test?id=11297194&nt=True&pub=False)   [13.](https://inf-ege.sdamgia.ru/test?id=11297198&nt=True&pub=False)   [14.](https://inf-ege.sdamgia.ru/test?id=11297200&nt=True&pub=False)   [15.](https://inf-ege.sdamgia.ru/test?id=11297201&nt=True&pub=False)   " \
                    "[16.](https://inf-ege.sdamgia.ru/test?id=11297204&nt=True&pub=False)   [17.](https://inf-ege.sdamgia.ru/test?id=11297205&nt=True&pub=False)   [18.](https://inf-ege.sdamgia.ru/test?id=11297208&nt=True&pub=False)\n\n[19-21.](https://inf-ege.sdamgia.ru/test?id=11297216&nt=True&pub=False)   " \
-                   "[22.](https://inf-ege.sdamgia.ru/test?id=11297217&nt=True&pub=False)   [23.](https://inf-ege.sdamgia.ru/test?id=11297224&nt=True&pub=False)   [24.](https://inf-ege.sdamgia.ru/test?id=11297227&nt=True&pub=False)   [25.](https://inf-ege.sdamgia.ru/test?id=11297232&nt=True&pub=False)   " \
+                   "[22.](https://inf-ege.sdamgia.ru/test?id=11481790&nt=True&pub=False)   [23.](https://inf-ege.sdamgia.ru/test?id=11297224&nt=True&pub=False)   [24.](https://inf-ege.sdamgia.ru/test?id=11297227&nt=True&pub=False)   [25.](https://inf-ege.sdamgia.ru/test?id=11297232&nt=True&pub=False)   " \
                    "[26.](https://inf-ege.sdamgia.ru/test?id=11297237&nt=True&pub=False)   [27.](https://inf-ege.sdamgia.ru/test?id=11297240&nt=True&pub=False)\n\n" \
                     "*Обратите внимание*, что наборы задач разного года могут отличаться!"
     bot.send_message(message.chat.id, message_text1, parse_mode="Markdown", disable_web_page_preview=True)
 
     message_text_old = "*Наборы разных типов задач с* [Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n`old 2021-2022 года`\n\n" \
                        "[1.](https://clck.ru/ebsmq)   [2.](https://clck.ru/ebsnV)   [3.](https://clck.ru/ebsnt)   " \
-                    "[4.](https://clck.ru/ebsoN)   [5.](https://clck.ru/ebsp8)   [6.](https://clck.ru/ebspK)   [7.](https://clck.ru/ebspX)    " \
+                    "[4.](https://clck.ru/ebsoN)   [5.](https://clck.ru/ebsp8)   [6.](https://inf-ege.sdamgia.ru/test?id=11297181&nt=True&pub=False)   [7.](https://clck.ru/ebspX)    " \
                     "[8.](https://clck.ru/ebsq2)    [9.](https://clck.ru/ebsqH)   [10.](https://clck.ru/ebsqc)\n\n[11.](https://clck.ru/ebsrf)   " \
                     "[12.](https://clck.ru/ebsrr)   [13.](https://clck.ru/ebssH)   [14.](https://clck.ru/ebssi)   [15.](https://clck.ru/ebst4)   " \
                     "[16.](https://clck.ru/ebstT)   [17.](https://clck.ru/ebsuA)   [18.](https://clck.ru/ebsuf)\n\n[19-21.](https://clck.ru/ebsvw)   " \
-                    "[22.](https://clck.ru/ebsxf)   [23.](https://clck.ru/ebsxo)   [24.](https://clck.ru/ebsyM)   [25.](https://clck.ru/ebszu)   " \
+                    "[22.](https://inf-ege.sdamgia.ru/test?id=11297217&nt=True&pub=False)   [23.](https://clck.ru/ebsxo)   [24.](https://clck.ru/ebsyM)   [25.](https://clck.ru/ebszu)   " \
                     "[26.](https://clck.ru/ebt22)   [27.](https://clck.ru/ebt3a)\n\n" \
                     "При желании попробовать более сложные задачи воспользуйтесь конструктором [КЕГЭ](https://kompege.ru/task)"
     bot.send_message(message.chat.id, message_text_old, parse_mode="Markdown", disable_web_page_preview=True)
@@ -737,6 +743,7 @@ def links(message):
                    "*3.* Возможно кому-то будет полезен экспресс обзор почти всей необходимой теории на [YouTube](https://www.youtube.com/watch?v=fp5-XQFr_nk&t=965s);\n\n" \
                    "*4.* Некоторые разборы и варианты решений можно посмотреть на [YouTube](https://www.youtube.com/c/IoanPlugar_inf) канале Ивана, не все понятно с первого раза, " \
                    "но это лучший вариант из предложенных. А может быть даже из возможных.\n\n" \
+                   "*5.* Всем кто намеревается сдавать ЕГЭ по Информатике настоятельно рекомендую [прочитать статью](https://habr.com/ru/post/573580/) про опыт студента, сдающего первый компьютерный экзамен!\n\n" \
                    "\n*Для отработки теории на практике воспользуйтесь командой /tasks *"
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
@@ -816,7 +823,7 @@ def homework(message):
     else:
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, *запишитесь на урок /calendly*", parse_mode="Markdown")
 
-#GETORDER
+# GETORDER
 @bot.message_handler(commands=['getorder'])
 def getorder(message):
     bot.send_message(message.chat.id, "Просто опишите в одном сообщении какой функциональностью должен обладать Ваш бот, а [я свяжусь с вами](https://t.me/ilandroxy) в ближайшее время!\n\n"
@@ -998,27 +1005,27 @@ def git(message):
         if day == 'Monday':
             for key in MondayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+            bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Tuesday':
             for key in TuesdayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+            bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Thursday':
             for key in ThursdayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+            bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Friday':
             for key in FridayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+            bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
 
         elif day == 'Saturday':
             for key in SaturdayStudents:
                 bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+            bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
@@ -1117,7 +1124,7 @@ def noticestudents(message):
                         btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
                         markup.add(btn1, btn2, btn3)
 
-                        bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+                        bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
         bot.register_next_step_handler(message, message_input)
 
@@ -1141,7 +1148,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in MondayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
             temp = 'Список студентов: *'
             for key in MondayStudents:
                 temp += f'[{MondayStudents[key][0]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
@@ -1160,7 +1167,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in TuesdayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
             temp = 'Список студентов: *'
             for key in TuesdayStudents:
@@ -1181,7 +1188,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in ThursdayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
             temp = 'Список студентов: *'
             for key in ThursdayStudents:
@@ -1199,7 +1206,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in FridayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
             temp = 'Список студентов: *'
             for key in FridayStudents:
                 temp += f'[{FridayStudents[key][0]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
@@ -1217,7 +1224,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in SaturdayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
             temp = 'Список студентов: *'
             for key in SaturdayStudents:
@@ -1238,12 +1245,9 @@ def notice(message):
 def today(message):
     if message.chat.id in Me:
         day = time.strftime('%A')
-        now = dt.datetime.utcnow()
-        nsk_now = now + dt.timedelta(hours=7)
-        timer = nsk_now.strftime('%d %B')
 
         if day == 'Monday':
-            temp = f'Понедельник {timer}: *'
+            temp = f'Понедельник: *'
             for key in MondayStudents:
                 temp += f'[{MondayStudents[key][0]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
 
@@ -1252,7 +1256,7 @@ def today(message):
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Tuesday':
-            temp = f'Вторник {timer}: *'
+            temp = f'Вторник: *'
             for key in TuesdayStudents:
                 temp += f'[{TuesdayStudents[key][0]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
 
@@ -1264,7 +1268,7 @@ def today(message):
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
 
         if day == 'Thursday':
-            temp = f'Четверг {timer}: *'
+            temp = f'Четверг: *'
             for key in ThursdayStudents:
                 temp += f'[{ThursdayStudents[key][0]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
 
@@ -1273,7 +1277,7 @@ def today(message):
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Friday':
-            temp = f'Пятница {timer}: *'
+            temp = f'Пятница: *'
             for key in FridayStudents:
                 temp += f'[{FridayStudents[key][0]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
 
@@ -1282,7 +1286,7 @@ def today(message):
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Saturday':
-            temp = f'Суббота {timer}: *'
+            temp = f'Суббота: *'
             for key in SaturdayStudents:
                 temp += f'[{SaturdayStudents[key][0]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
 
@@ -1299,27 +1303,27 @@ def today(message):
 
         for key in MondayStudents:
             if message.chat.id == key:
-                message_text = f'Понедельник:\n{MondayStudents[key][0]} время урока: {MondayStudents[key][1]}'
+                message_text = f'Понедельник:\n{MondayStudents[key][0]} время урока: {MondayStudents[key][1]} (по Нск)'
                 bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         for key in TuesdayStudents:
             if message.chat.id == key:
-                message_text = f'Вторник:\n{TuesdayStudents[key][0]} время урока: {TuesdayStudents[key][1]}'
+                message_text = f'Вторник:\n{TuesdayStudents[key][0]} время урока: {TuesdayStudents[key][1]} (по Нск)'
                 bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         for key in ThursdayStudents:
             if message.chat.id == key:
-                message_text = f'Четверг:\n{ThursdayStudents[key][0]} время урока: {ThursdayStudents[key][1]}'
+                message_text = f'Четверг:\n{ThursdayStudents[key][0]} время урока: {ThursdayStudents[key][1]} (по Нск)'
                 bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         for key in FridayStudents:
             if message.chat.id == key:
-                message_text = f'Пятница:\n{FridayStudents[key][0]} время урока: {FridayStudents[key][1]}'
+                message_text = f'Пятница:\n{FridayStudents[key][0]} время урока: {FridayStudents[key][1]} (по Нск)'
                 bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         for key in SaturdayStudents:
             if message.chat.id == key:
-                message_text = f'Суббота:\n{SaturdayStudents[key][0]} время урока: {SaturdayStudents[key][1]}'
+                message_text = f'Суббота:\n{SaturdayStudents[key][0]} время урока: {SaturdayStudents[key][1]} (по Нск)'
                 bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
     else:
@@ -1468,14 +1472,29 @@ def mess(message):
             key = message.chat.id
             messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
             bot.send_message(message.chat.id, messgae_text)
+
+            pic = open('photo/history.jpeg', 'rb')
+            bot.send_photo(message.chat.id, pic)
+
+            bot.send_message(message.chat.id,
+                             "Перейдя по ссылке на сервис [GitHub](https://github.com/ilandroxxy/ilandroxy_bot/commits/main/ilandroxy_Bot/lessons) можно обнаружить кнопку History, "
+                             "которая дает доступ к истории изменения ваших файлов.", parse_mode='Markdown', disable_web_page_preview=True)
+
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton(f"Твой файл: {Students[key][0]}", url=f"https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/{Students[key][0]}"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
         elif message.chat.id in Me:
-            message_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
-            bot.send_message(message.chat.id, message_text)
+            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, messgae_text)
+
+            pic = open('photo/history.jpeg', 'rb')
+            bot.send_photo(message.chat.id, pic)
+
+            bot.send_message(message.chat.id, "Перейдя по ссылке на сервис [GitHub](https://github.com/ilandroxxy/ilandroxy_bot/commits/main/ilandroxy_Bot/lessons) можно обнаружить кнопку History, "
+                           "которая дает доступ к истории изменения ваших файлов.", parse_mode='Markdown', disable_web_page_preview=True)
+
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton(f"Папка: lessons", url=f"https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons"))
             sti = open('photo/SendFileSticker.tgs', 'rb')
