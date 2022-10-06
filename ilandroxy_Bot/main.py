@@ -7,7 +7,7 @@ import time
 import datetime as dt
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
@@ -1123,7 +1123,7 @@ def noticestudents(message):
                         btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока')
                         markup.add(btn1, btn2, btn3)
 
-                        bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+                        bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {Students[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
         bot.register_next_step_handler(message, message_input)
 
@@ -1147,7 +1147,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in MondayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
             temp = 'Список студентов: *'
             for key in MondayStudents:
                 temp += f'[{MondayStudents[key][0]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
@@ -1166,7 +1166,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in TuesdayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {TuesdayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
             temp = 'Список студентов: *'
             for key in TuesdayStudents:
@@ -1187,7 +1187,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in ThursdayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {ThursdayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
             temp = 'Список студентов: *'
             for key in ThursdayStudents:
@@ -1205,7 +1205,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in FridayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {FridayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
             temp = 'Список студентов: *'
             for key in FridayStudents:
                 temp += f'[{FridayStudents[key][0]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
@@ -1223,7 +1223,7 @@ def notice(message):
             markup.add(btn1, btn2, btn3)
             bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
             for key in SaturdayStudents:
-                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся? Урок в {MondayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {SaturdayStudents[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
 
             temp = 'Список студентов: *'
             for key in SaturdayStudents:
@@ -1458,7 +1458,7 @@ def mess(message):
         bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
-# Добавляем файлы учеников
+
     elif get_message_bot == "Получить файл с урока":
 
         if message.chat.id == 1454117859:
