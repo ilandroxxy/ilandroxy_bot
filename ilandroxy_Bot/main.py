@@ -7,7 +7,7 @@ import time
 import datetime as dt
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
@@ -23,7 +23,7 @@ Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents 
 
 Me = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"}
 Testing = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy'}
-NewStudents = {659796558: ['Ivan.py', ' ', 3600//4]}
+NewStudents = {659796558: ['Ivan.py', ' ', 3600//4], }
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
