@@ -1,207 +1,349 @@
-
-# Тип 22 № 40997 Добавить в вариант
-# Ниже записана программа, которая вводит натуральное число x, выполняет преобразования, а затем выводит два числа.
-# Укажите наибольшее возможное значение x, при вводе которого программа выведет числа 14 и 8.
+# Тип 24 № 33769
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите символ, который чаще всего встречается в файле после двух одинаковых символов.
+# Например, в тексте CCCBBABAABCC есть комбинации CCC, CCB, BBA и AAB.
 
 '''
-x = int(input())
-a = 1
-b = 0
-while x > 0:
-    d = x%9
-    a *= d
-    if d < 5:
-        b += d
-    x //= 9
-print(a, b)
+file = open('24 (1).txt', 'r')
+f = file.readline()
+# f = "CCCBBABAABCC"
+letters = []
+maxim = 0
+outcome_ind = 0
+for i in range(len(f)-2):
+    if f[i] == f[i+1]:
+        letters.append(f[i+2])
+for j in range(len(letters)):
+    l = letters.count(letters[j])
+    if maxim < l:
+        maxim = l
+        outcome_ind = j
+print(letters[outcome_ind])
 '''
 
-# Решение:
+# Ответ: K
+
+# Тип 24 № 33494 Добавить в вариант
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите символ, который чаще всего встречается в файле сразу после буквы E.
+# Например, в тексте EBCEEBEDDD после буквы E два раза стоит B, по одному разу — E и D.
+# Для этого текста ответом будет B.
+
 '''
-for i in range(50000000, -1, -1):
-    x = i
-    a = 1
-    b = 0
-    while x > 0:
-        d = x % 9
-        a *= d
-        if d < 5:
-            b += d
-        x //= 9
-
-    if a == 14 and b == 8:
-        print(i)
-        break
+file = open('24 (2).txt', 'r')
+f = file.readline()
+# f = "EBCEEBEDDD"
+letters = []
+maxim = 0
+outcome_ind = 0
+for i in range(len(f)-1):
+    if f[i] == "E":
+        letters.append(f[i+1])
+for j in range(len(letters)):
+    l = letters.count(letters[j])
+    if maxim < l:
+        maxim = l
+        outcome_ind = j
+print(letters[outcome_ind])
 '''
-# Ответ: вышло 8628535, но должно быть 34610095 (нужно было добавить ещё один нолик)
-# Я бы попросил найти наименьшее.
-# Ноутбук довольно долго искал ответ как с проверкой от 1 до 100000000, так и в обратную сторону.
 
+# Ответ: Y
 
-# Тип 8 № 27379
+# Тип 24 № 35913
+# Текстовый файл содержит строки различной длины.
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+# Необходимо найти строку, содержащую наименьшее количество букв N
+# (если таких строк несколько, надо взять ту, которая находится в файле раньше)
+# и определить, какая буква встречается в этой строке чаще всего.
+# Если таких букв несколько, надо взять ту, которая позже стоит в алфавите.
+
+# Пример. Исходный файл:
+# NINA
+# NABLAB
+# ANAAA
+
+# В этом примере в первой строке две буквы N, во второй и третьей — по одной.
+# Берём вторую строку, т.к. она находится в файле раньше.
+# В этой строке чаще других встречаются буквы A и B (по два раза), выбираем букву B, т.к. она позже стоит в алфавите.
+# В ответе для этого примера надо записать B.
+
 '''
-# Виктор составляет 4-буквенные коды из букв В, И, К, Т, О, Р.
-# Каждую букву можно использовать не более одного раза, при этом нельзя ставить рядом две гласные и две согласные.
-# Сколько различных кодов может составить Виктор?
-
-#A = [1,4,6,4,2,34,25,123,41,3,4,2,2,1,3,21,414]
-#A = set(A)
-#print(A)
-
-name = 'ВИКТОР'
-gl = 'ИО'
-sgl = 'ВКТР'
-
-counter = 0
-for a in gl:
-    for b in sgl:
-        for c in gl:
-            for d in sgl:
-                temp = a + b + c + d
-                M = [i for i in temp]
-                A = set(M)
-                if len(A) == 4:
-                    print(M)
-                    counter += 1
-
-for a in sgl:
-    for b in gl:
-        for c in sgl:
-            for d in gl:
-                temp = a + b + c + d
-                M = [i for i in temp]
-                A = set(M)
-                if len(A) == 4:
-                    print(M)
-                    counter += 1
-
-print(counter)
+file = open('24 (3).txt', 'r')
+f = file.readlines()
+# f = ['NINA', 'NABLAB', 'ANAAA']
+minim = 1000
+minim_ind = 1000
+maxim = 0
+maxim_ind = 0
+for i in range(len(f)):
+    temp_N = []
+    temp_N.extend(f[i])
+    N_count = temp_N.count('N')
+    if minim > N_count:
+        minim = N_count
+        minim_ind = i
+for i in range(len(f[minim_ind])):
+    temp = []
+    temp.extend(f[minim_ind])
+    l = temp.count(temp[i])
+    if maxim < l:
+        maxim = l
+        maxim_ind = i
+    elif maxim == l:
+        maxim_ind = i
+print(temp[maxim_ind])
 '''
-# Ответ: Должно быть 48, но пока выходит 768
+# Ответ: Y
 
-
-# Тип 24 № 40999
 '''
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC...Z).
-# Определите максимальное количество идущих подряд символов, среди которых нет ни одной буквы E и при этом не менее трёх букв A.
+s = '1213141'
+print(s.index('1'), s.rindex('1'))
+
+import string
+ALphabet = string.ascii_uppercase
+print(ALphabet, type(ALphabet))
+
+M = [i for i in ALphabet]
+print(M)
+'''
+
+
+# Тип 24 № 35913
+# Текстовый файл содержит строки различной длины. Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+# Необходимо найти строку, содержащую наименьшее количество букв N (если таких строк несколько, надо взять ту, которая находится в файле раньше)
+# и определить, какая буква встречается в этой строке чаще всего.
+# Если таких букв несколько, надо взять ту, которая позже стоит в алфавите.
+
+# Пример. Исходный файл:
+# NINA
+# NABLAB
+# ANAAA
+
+# В этом примере в первой строке две буквы N, во второй и третьей — по одной.
+# Берём вторую строку, т.к. она находится в файле раньше.
+# В этой строке чаще других встречаются буквы A и B (по два раза), выбираем букву B, т.к. она позже стоит в алфавите.
+# В ответе для этого примера надо записать B.
+
+'''
+import string
+ALphabet = string.ascii_uppercase
+
+file = open('24.txt', 'r')
+f = file.readlines()
+#f = ['NINA', 'NABLAB', 'ANAAA']
+
+mini = 99999
+S = ''
+for STR in f:
+    if mini > STR.count('N'):
+        mini = STR.count('N')
+        S = STR
+print(S)
+
+maxi = -9999
+for i in ALphabet:
+    if maxi <= S.count(i):
+        maxi = S.count(i)
+        print(S.count(i), i)
+'''
+
+"""
+import string
+ALphabet = string.ascii_uppercase
+
+file = open('24.txt', 'r')
+f = file.readlines()
+#f = ['NINA', 'NABLAB', 'ANAAA']
+
+mini = 99999
+S = ''
+for STR in f:
+    if mini > STR.count('N'):
+        mini = STR.count('N')
+        S = STR
+print(S)
+
+# SET = set()
+DICT = {}
+for i in ALphabet:
+    DICT[S.count(i)] = i
+print(DICT)
+
+
+print(max(DICT), DICT[max(DICT)])
+"""
+
+
+# Тип 24 № 33526
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите символ, который чаще всего встречается в файле между двумя одинаковыми символами.
+#
+# Например, в тексте CBCABABACCC есть комбинации CBC, ABA (два раза), BAB и CCC.
+# Чаще всего — 3 раза — между двумя одинаковыми символами стоит B, в ответе для этого случая надо написать B.
+#
+# Для выполнения этого задания следует написать программу. Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
+
+'''
+f = open('24.txt', 'r')
+s = f.readline()
+
+M = []
+for i in range(0, len(s)-2):
+    if s[i] == s[i+2]:
+        M.append(s[i+1])
+
+import string
+Alphabet = string.ascii_uppercase
+
+DICT = {}
+for i in Alphabet:
+    DICT[M.count(i)] = i
+print(DICT[max(DICT)])
+'''
+
+
+
+
+
+
+
+
+
+# Тип 24 № 35998
+'''
+# Текстовый файл содержит строки различной длины. Общий объём файла не превышает 1 Мбайт.
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+# В строках, содержащих менее 25 букв A, нужно определить и вывести максимальное расстояние между
+# одинаковыми буквами в одной строке.
+#
+# Пример. Исходный файл:
+# GIGA
+# GABLAB
+# NOTEBOOK
+# AGAAA
+#
+# В этом примере во всех строках меньше 25 букв A.
+# Самое большое расстояние между одинаковыми буквами – в третьей строке между буквами O, расположенными
+# в строке на 2-й и 7-й позициях.
+# В ответе для данного примера нужно вывести число 5.
 #
 # Для выполнения этого задания следует написать программу.
 # Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
 
 f = open('24.txt', 'r')
-s = f.readline()
+s = f.readlines()
+
+import string
+Alphabet = string.ascii_uppercase
 print(len(s))
 
-# s = 'ABDBABABDBADBADBADEABABBDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDE'
-count = 0
-MaxCount = 0
 M = []
-for i in range(0, len(s)):
-    if s[i] == 'E':
-        if M.count("A") >= 3:
-            if MaxCount < count:
-                MaxCount = count
-        count = 0
-        M = []
-    else:
-        count += 1
-        M.append(s[i])
+for i in s:
+    if i.count('A') < 25:
+        M.append(i)
+print(len(M))
 
-print(MaxCount)
+for i in M:
+    maxi = -9999
+    for j in Alphabet:
+        if maxi < i.rindex(j) - i.index(j):
+            maxi = i.rindex(j) - i.index(j)
+    print(maxi)
 '''
-# Ответ: 275
 
 
 
 
-# Тип 24 № 27687
-'''
-# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
-# Определите длину самой длинной последовательности, состоящей из символов Y.
-# Хотя бы один символ Y находится в последовательности.
-#
-# Для выполнения этого задания следует написать программу.
-# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
 
 
 
-f = open('24.txt', 'r')
-s = f.readline()
 
-# s = 'YYYYYY'
-count = 1
-MaxCount = 0
-
-for i in range(0, len(s)-1):
-    if s[i] == 'Y' and s[i+1] == 'Y':
-        count += 1
-        if MaxCount < count:
-            MaxCount = count
-    else:
-        count = 1
-print(MaxCount)
-'''
-# Ответ: 10
-
-
-
-# Тип 24 № 27694
-'''
-# Текстовый файл состоит не более чем из 106 символов A, B и C.
-# Определите максимальную длину цепочки вида ABABAB...
-# (составленной из фрагментов AB, последний фрагмент может быть неполным).
-#
-# Для выполнения этого задания следует написать программу.
-# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
-
-
-f = open('24.txt', 'r')
-s = f.readline()
-
-#s = 'BABABABA'
-count = 1
-MaxCount = 0
-
-for i in range(0, len(s)-1):
-    if (s[i] == 'A' and s[i+1] == 'B') or (s[i] == 'B' and s[i+1] == 'A'):
-        if count == 1 and s[i] == 'B':
-            continue
-        else:
-            count += 1
-            if MaxCount < count:
-                MaxCount = count
-    else:
-        count = 1
-print(MaxCount)
-'''
-# Ответ: 24
 
 
 
 # Тип 24 № 47228
+'''
 # Текстовый файл состоит из символов A, C, D, F и O.
+
 # Определите максимальное количество идущих подряд пар символов вида
+#
 # согласная + гласная.
+#
 # Для выполнения этого задания следует написать программу.
 
+import random
+M = ['A', 'O', 'C', "D", "F"]
+N = 'AOCDF'
+s = ''
+for i in range(0, 1000000):
+    s += random.choice(N)
 
-f = open('24.txt', 'r')
-s = f.readline()
 
+#f = open('24.txt', 'r')
+#s = f.readline()
+print(s)
+
+s1 = 'AO'
+s2 = 'CDF'
 count = 0
 MaxCount = 0
-
-gl = 'AO'
-sgl = 'CDF'
-
-s = 'ACACACCCCACACACACACACCCACACAC'
 for i in range(0, len(s)-1):
-    if (s[i] in gl and s[i+1] in sgl) or (s[i] in sgl and s[i+1] in gl):
+    if (s[i] in s1 and s[i+1] in s2) or (s[i] in s2 and s[i+1] in s1):
         count += 1
         if MaxCount < count:
             MaxCount = count
     else:
         count = 0
 print(MaxCount)
+'''
 
 
+
+# Тип 24 № 36037
+'''
+# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
+# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
+# Для выполнения этого задания следует написать программу.
+# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
+
+f = open('24.txt', 'r')
+s = f.readline()
+# s =  FHX ZZYJDOWDKXZZ Y
+s = s.replace('XZZY', "*")
+M = [len(i) for i in s.split('*')]
+print(max(M) + 6)
+'''
+# Ответ 1713
+
+
+# Тип 24 № 27689
+
+# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+# Определите максимальную длину цепочки вида XYZXYZXYZ... (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
+#
+# Для выполнения этого задания следует написать программу.
+# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
+
+f = open('24.txt', 'r')
+s = f.readline()
+s = s.replace('XYZ', '*')
+s = s.replace('*XY', '+')
+s = s.replace('*X', '-')
+s = s.replace('X', ' ')
+s = s.replace('Y', ' ')
+s = s.replace('Z', ' ')
+
+M = [i for i in s.split()]
+A = []
+res = 0
+for i in M:
+    for j in i:
+        if j == '*':
+            res += 3
+        if j == '+':
+            res += 5
+        if j == '-':
+            res += 4
+    A.append(res)
+print(A)
+print(max(A))

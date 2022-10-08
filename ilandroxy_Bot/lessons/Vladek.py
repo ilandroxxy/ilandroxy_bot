@@ -1,283 +1,164 @@
 
-# Домашка
 '''
-x = int(input())
-a = x // 1000
-b = (x // 100) % 10
-c = (x // 10) % 10
-d = x % 10
-print('Цифра в позиции тысяч равна', a)
-print('Цифра в позиции сотен равна', b)
-print('Цифра в позиции десятков равна', c)
-print('Цифра в позиции единиц равна', d)
-
-# Вариант решения через строки:
-x = int(input())
-x = str(x)
-# 2345  ->  '2345'
-print('Цифра в позиции тысяч равна', x[0])
-print('Цифра в позиции сотен равна', x[1])
-print('Цифра в позиции десятков равна', x[2])
-print('Цифра в позиции единиц равна', x[3])
+m = int(input())
+n = int(input())
+if m > n:
+    for i in range(n, m+1):
+        print(i)
+else:
+    for i in range(n, m-1, -1):
+        print(i)
 '''
 
 '''
 
-name = input()
-print('Привет,', name)
+a = int(input())
+b = int(input())
+c = 0
+if a < b:
+    for i in range (a, b+1):
+        if (a, b % i == 0):
+            c = c+1
+    if (c <= 0):
+        print(i)
 '''
 
 '''
 a = int(input())
 b = int(input())
-c = int(input())
-if a < b < c or a > b > c:
-    print(b)
-elif b < c < a or b > c > a:
-    print(c)
-else:
-    print(a)
+c = 0
+if a < b:
+    for i in range (a, b+1):
+        if i != 1:
+            print(i)  
+            
 '''
 
 
-
 '''
-x = int(input())
-a = x <= 60
-b = 60 < x <= 64
-c = 64 < x <= 69
-print('Легкий вес', a, type(a))
-print('Первый полусредний вес', b)
-print('Полусредний вес', c)
-'''
+a = int(input())
+b = int(input())
 
-'''
-x = int(input())
-if x < 60:
-    print('Легкий вес')
-elif x < 64:
-    print('Первый полусредний вес')
-elif x < 69:
-    print('Полусредний вес')
-'''
+for i in range(a, b+1):
+    KolDel = 0
+    for j in range(1, i+1):
+        if i % j == 0:
+            KolDel += 1
+    if KolDel == 2:
+        print(i)
 
-
-
-# Ход коня
-'''
-x1 = int(input('x1: '))
-y1 = int(input('y1: '))
-x2 = int(input('x2: '))
-y2 = int(input('y2: '))
-if x1 == x2 and y1 == y2:
-    print("Стоять на месте нельзя!")
-elif (x1+1 == x2 and y1+2 == y2):
-    print('YES')
-elif (x1+1 == x2 or y1-2 == y2):
-    print('YES')
-elif (x1+2 == x2 or y1+1 == y2):
-    print('YES')
-elif (x1-2 == x2 or y1+1 == y2):
-    print('YES')
-elif (x1+2 == x2 or y1-1 == y2):
-    print('YES')
-elif (x1-2 == x2 or y1-1 == y2):
-    print('YES')
-elif (x1-1 == x2 or y1+2 == y2):
-    print('YES')
-elif (x1-1 == x2 or y1-2 == y2):
-    print('YES')
-else:
-    print("NO")
+for i in range(a, b+1):
+    flag = True
+    for j in range(2, i):
+        if i % j == 0:
+            flag = False
+            break
+    if flag == True:
+        print(i)
 '''
 
-
-# Ход короля
+# Все вместе
 '''
-x1 = int(input('x1: '))
-y1 = int(input('y1: '))
-x2 = int(input('x2: '))
-y2 = int(input('y2: '))
-if x1 == x2 and y1 == y2:
-    print("Стоять на месте нельзя!")
-elif (x1+1 == x2 and y1 == y2):
-    print('YES')
-elif (x1-1 == x2 and y1 == y2):
-    print('YES')
-elif (x1 == x2 and y1+1 == y2):
-    print('YES')
-elif (x1 == x2 and y1-1 == y2):
-    print('YES')
-elif (x1+1 == x2 and y1+1 == y2):
-    print('YES')
-elif (x1-1 == x2 and y1-1 == y2):
-    print('YES')
-elif (x1-1 == x2 and y1+1 == y2):
-    print('YES')
-elif (x1+1 == x2 and y1-1 == y2):
-    print('YES')
-else:
-    print("NO")
+x = int(input())   # 5498
+
+summ = 0
+pro = 1
+count = 0
+first = 0
+flag = True
+while x > 0:
+    if flag == True:
+        last = x % 10
+        flag = False
+    first = x % 10
+    count += 1
+    summ += x % 10
+    pro *= x % 10
+    x //= 10
+print(f'summ = {summ}, pro = {pro}, count = {count}, sred = {summ / count}, first = {first}, first +  last = {first + last}')
 '''
 
-
-# Циклы:
-# Ключевые слова: while, for, range, break, continue, flag
+#  ¬x  <---->   (not(x))
 
 
-# Варианты циклов: 1. Повторить n раз, 2. Повторять от a до b раз, 3. Повторять пока условие истинно, 4. Бесконечный цикл
-
-#s = '123 456'
-#print(s, len(s))  # len() - это функция, которая возвращает длину (кол-во элементов в нем): строки, списка, кортежа и тд
-
-# цикл for - помогает перебирать элементы коллекции
+# Тип коллекций - Списки
 '''
-for x in s:  # тут переменная х принимает значение элементов строки
+M = [1, 2, 3]
+print(M, type(M))
+
+M = []  # пустой список
+print(M, len(M))  # len() - Длина списка - кол-во элементов в нем
+
+
+# Списки являются индексируемыми - то есть index - это порядковый номер элемента в списке
+A = [4, 6, 7, 23]  # счет индексов начинается с нуля
+#    0  1  2  3
+
+print(A[0])  # через индексы мы может обращаться к элементам списка
+
+
+# Списки являются изменяемым типом данных
+print(A)
+A[0] = '*'
+print(A)
+
+
+B = [4, 5, 6,7 ,8 ,9, 4 ,2, 4] # 9
+#    0  1  2 3  4  5  6  7  8
+
+# форик пробегает по индексам списка (индексный форик)
+for i in range(0, len(B)):  # [0, 9)
+    B[i] = B[i] ** 2
+print(B)
+
+
+for x in B:
     print(x)
 
-print()
-# цикл for пробегает строку по индексам
-for i in range(0, len(s)):  # [0, len(s) ) or [0, len(s)-1]
-    print(s[i])
-
-n = 10
-# функция range:
-for i in range(n+1):  # [0, n)   n - stop
-    print(i, end=" ")
-print()
-
-for i in range(0, n+1):  # [0, n)   0 - start, n = stop
-    print(i, end=" ")
-print()
-
-for i in range(0, n+1, 2):  # 0 - start, n - stop, 2 - step
-    print(i, end=" ")
-print()
+V = [1, 2, 3, 4]
+print(V[0], V[-1], V[-2])  # элементы списка можно пройти с обратной стороны через отрицательные индексы, начиная с -1
 '''
 
 
-# цикл while - цикл с условием
+# Функции работы со списками:
 '''
-n = 10
+M = [1, 2, 3, 4, 5]
+print(len(M))
+print(sum(M))
+print(max(M))
+print(min(M))
 
-for i in range(0, n+1, 2):  # 0 - start, n - stop, 2 - step
-    print(i, end=" ")
-print()
 
-
-i = 0  # START
-while i <= n:  # пока условие выполняется (истинно) # STOP
-    print(i, end=" ")
-    i += 2  # STEP
-    # i = i + 1  - аналогичная запись
-print()
-
-# Пример: 
-x = int(input())
-summ = 0
-M = []
-while x > 0:
-    summ += x % 10  # summ = summ + (x % 10)
-    M.append(x % 10)  # добавления элемента в конец списка
-    x //= 10  # x = x // 10
-print(summ)
-M.reverse()
-print(f"Сам список: {M}\nСумма элементов списка: {sum(M)}\nМинимальный элемент списка: {min(M)}\n"
-      f"Максимальный элемент списка: {max(M)}\nДлина списка (или кол-во элементов в нем): {len(M)}")
+x1 = int(input())
+x2 = int(input())
+x3 = int(input())
+A = [x1, x2, x3]
+print(sum(A) - max(A) - min(A))
 '''
 
+# Методы работы со списками
+M = [1, 2, 3, 4, 5]
+M.append(0)
+M.append(1)
+M.append(1)  # добавить элемент в конец списка
+print(M)
+
+print(M.count(1))  # кол-во элементов в списке по запросу
 
 
-
-# Бесконечный цикл
-'''  
-import random
-
-password = 'qwerty'
-count = 0
-while True:
-    pas = input('Введите пароль: ')
-    if pas == password:
-        print('Welcome!')
-        break
-    print("Пароль неверный, попробуйте снова!")
-    count += 1
-    if count == 3:
-        a = random.randint(0, 100)
-        b = random.randint(0, 100)
-        print(f'Пройдите капчу, решив пример:')
-        x = int(input(f'{a} + {b} = '))
-        if x == a + b:
-            count = 0
-            continue
-        else:
-            print('Вам бан!')
-            break
-'''
-
-import telebot
-from telebot import types
-import time
+M.sort()  # отсортировали по возрастанию
+print(M)
 
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
-# real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
-# test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
+M.reverse()  # развернули список (получили по убыванию)
+print(M)
 
 
-# START
-@bot.message_handler(commands=['start'])
-def start(message):
-    text = 'Привет, этот бот нужен для перевода в разные системы счисления!'
-    bot.send_message(message.chat.id, text)
+print(M.index(1))  # возвращает индекс первого элемента по запросу
 
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-    btn1 = types.KeyboardButton('Перевод из 10-ной в n-ную')
-    markup.add(btn1)
-    bot.send_message(message.chat.id, f'Твой ID: {message.chat.id}', reply_markup=markup)
-
-@bot.message_handler(content_types=['text'])
-def mess(message):
-    get_message_bot = message.text.strip()
-
-    if get_message_bot == 'Перевод из 10-ной в n-ную':
-        bot.send_message(message.chat.id,
-                         "Просто напишите число и систему, через запитую, а бот переведет его в эту систему.\n\n"
-                         "Число должно быть введено в виде: [Число 10-ное] [n-ная система]\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            text_message = message.text
-            if text_message != '0':
-                M = [int(i) for i in text_message.split()]
-                x = M[0]
-                n = M[1]
-                A = []
-                while x > 0:
-                    A.append(str(x % n))
-                    x //= n
-                A.reverse()
-                res = "".join(A)
-                bot.send_message(message.chat.id, f'Число {x} в десятичной системе счисления, при прееводе в {n}-ную равняется: {res}')
-
-            else:
-                bot.send_message(message.chat.id, 'Команда отменена, ждем вас с нетерпением обратно 🤖',)
-
-        bot.register_next_step_handler(message, message_input)
-
-
-
-if __name__ == '__main__':
-    while True:
-        try:
-            bot.polling(none_stop=True)
-        except Exception as e:
-            time.sleep(3)
-            print(e)
-
-
+x = M.pop(3)  # через индекс забирает элемент из списка в переменную x
+print(M)
+print(x)
 
 
 
