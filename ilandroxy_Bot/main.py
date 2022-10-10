@@ -6,8 +6,8 @@ import csv
 import time
 import datetime as dt
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮
-bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
@@ -17,13 +17,16 @@ MondayStudents = {811476623: ["Georgie.py", "20:00", 3040//4], 659796558: ['Ivan
 TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 1649389148: ['Slava.py', "22:00", 6800//8], 789322200: ['Katya.py', "16:00", 3600//4], 1208542295: ['Sasha.py', '19:00', 4000//8], 986539147: ['Danil.py', '20:00', 6800//8], 804184353: ['Islam.py', '21:00', 3600//4],  1537718492: ['Aleksandr.py', '22:00', 5760//8]}
 ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 1477701439: ["Valeria.py", '16:00', 800], 1187852992: ['Aleksandr_2.py', "17:00", 6800//8], 1454117859: ['Diana', "19:00", 4320//8], 811476623:  ["Georgie.py", "20:00", 3040//4], 799740089: ["Bulat.py", "21:00", 2280//4], 1537718492: ["Aleksandr.py", "22:00", 5760//8]}
 FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8], 719571990: ['Stepan.py', "17:00", 6800//8], 1029532016: ['Maria.py', "21:00", 3600//4], 1649389148: ['Slava.py', "22:00", 6800//8]}
-SaturdayStudents = {1454117859: ['Diana', "17:00", 4320//8], 5148819382: ['Tatyana.py', "19:00", 3600//4], 986539147: ['Danil.py', '20:00', 6800//8], 1314375732: ['Vasiliy.py', "21:00", 6800//8], 871237277: ['Vladek.py', "22:00", 6800//8]}
+SaturdayStudents = {1454117859: ['Diana', "17:00", 4320//8], 5148819382: ['Tatyana.py', "19:00", 3600//4], 986539147: ['Danil.py', '20:00', 6800//8], 1314375732: ['Vasiliy.py', "21:00", 6800//8], 871237277: ['Vladek.py', "22:00", 6800//8], 1173284690: ['Polina.py', '**:**', 1000]}
 
-Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
+
 
 Me = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"}
-Testing = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy'}
+Testing = {1891281816: ['ilandroxy.py', '00:00', 2222], 438879394: ['ilandroxxy.py', '00:00', 44444]}
 NewStudents = {}
+
+
+Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents | Testing
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
@@ -105,30 +108,62 @@ def step(call):
 
 
     # Homework ------------------------------------------------------------------------
+    elif call.data == 'sendhomeworks':
+        bot.send_message(call.message.chat.id, 'Просто скопируйте свой код из PyCharm.\nБот сформирует файл и отправит его за вас 🤖 \n\n'
+                                               'Напишите `0`, чтобы отменить команду!', parse_mode='Markdown')
+
+        file_name = f'homeworks/{Students[call.message.chat.id][0]}_homework.txt'
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != '0':
+                f = open(file_name, 'w')
+                f.write(message.text)
+
+        bot.register_next_step_handler(call.message, message_input)
+
+        time.sleep(300)
+        f = open(file_name, 'r')
+        bot.send_document(-726393257, f)
+        bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
+
+
+
+
     elif call.data == "hw1":
         type = '1'
         s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 29)
         M = [13479, 23901, 38446, 11259, 26946, 18782, 5697, 15098, 16030, 5793, 29188, 26975, 18705, 7981, 38935, 4707,
-             40717, 28678, 17367, 5196, 25833, 3828, 36856, 15971, 7777, 37136, 38446, 13506, 7355, 11232]
+                 40717, 28678, 17367, 5196, 25833, 3828, 36856, 15971, 7777, 37136, 38446, 13506, 7355, 11232]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+
 
     elif call.data == "hw2":
         type = '2'
         s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 41)
         M = [29650, 33174, 18483, 27287, 46999, 26974, 35891, 36857, 15124, 40718, 28538, 27399, 15912, 18430,
-             27260, 33472, 15970, 37137, 15787, 16878, 46960, 45236, 27531, 18781, 35460, 27371, 18071, 15097,
-             35976, 16431, 18578, 39231, 15814, 33504, 36015, 16805, 33081, 29109, 18614, 38936, 16029, 19051]
+                 27260, 33472, 15970, 37137, 15787, 16878, 46960, 45236, 27531, 18781, 35460, 27371, 18071, 15097,
+                 35976, 16431, 18578, 39231, 15814, 33504, 36015, 16805, 33081, 29109, 18614, 38936, 16029, 19051]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
 
 
     elif call.data == "hw3":
@@ -136,50 +171,72 @@ def step(call):
         s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 21)
         M = [37494, 39232, 37481, 38937, 47000, 37491, 37492, 37493, 45237, 40719, 37417, 37479, 37508, 37488, 37507, 37489,
-             37415, 46961, 40978, 37480, 37485, 37490]
+                 37415, 46961, 40978, 37480, 37485, 37490]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
 
     elif call.data == "hw4":
         type = '4'
         s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [18617, 14691, 17323, 13351, 19054, 15942, 10499, 16808, 37139, 16881, 27290, 18553, 9791, 45238, 16380, 18581,
-             47001, 15915, 10379, 16434, 26948, 17369, 13562, 15817, 26977, 11234, 15790, 36017, 18486, 28680, 18811, 18074,
-             15621, 13616, 27263, 14220, 11341, 46962, 7685, 18433]
+                 47001, 15915, 10379, 16434, 26948, 17369, 13562, 15817, 26977, 11234, 15790, 36017, 18486, 28680, 18811, 18074,
+                 15621, 13616, 27263, 14220, 11341, 46962, 7685, 18433]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+
 
     elif call.data == "hw5":
         type = '5'
         s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 39)
         M = [7454, 26978, 13617, 29653, 18075, 11235, 18785, 10380, 15791, 7917, 9792, 16033, 17370, 11342, 18487, 14692, 18618, 7690,
-             15101, 15622, 35894, 13590, 16435, 13536, 9190, 18582, 7751, 47002, 16809, 10407, 14767, 27375, 45239, 11262, 14265, 15818,
-             27264, 10309, 26949, 13563]
+                 15101, 15622, 35894, 13590, 16435, 13536, 9190, 18582, 7751, 47002, 16809, 10407, 14767, 27375, 45239, 11262, 14265, 15818,
+                 27264, 10309, 26949, 13563]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+
 
     elif call.data == "hw6":
         type = '6'
         s = 'inf-ege.sdamgia.ru/problem?id='
         x = random.randint(0, 28)
         M = [47246, 47404, 47245, 47390, 47247, 47308, 47249, 47315, 47305, 47249, 47304, 47306, 47403, 47313, 47311, 47307, 47310, 47312, 47314, 47393, 47316, 47391, 47406,
-             47309, 47248, 47392, 47301, 47303, 47405]
+                 47309, 47248, 47392, 47301, 47303, 47405]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
 
     elif call.data == "hw7":
         type = '7'
@@ -189,10 +246,14 @@ def step(call):
              16812, 28684, 9759, 15977, 26981, 18585, 11345, 9795, 14695, 17373, 38941, 10497, 33477, 10470, 35465,
              15946, 16036, 36862, 15131, 28545, 29655, 13736, 36020, 18711, 33509]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw8":
         type = '8'
@@ -202,10 +263,14 @@ def step(call):
              3515, 33753, 36863, 3811, 13459, 3233, 7370, 27236, 5055, 7338, 16439, 9162, 10384, 3517,
              7694, 19059, 3227, 18622, 13567, 15947, 14696, 27295]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw9":
         type = '9'
@@ -215,10 +280,14 @@ def step(call):
              27526, 29657, 27523, 27519, 45243, 40725, 27528, 38943, 27522, 35983, 40984, 33511, 47006, 37144, 33479,
              27520, 27527]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw10":
         type = '10'
@@ -228,10 +297,14 @@ def step(call):
              37145, 27577, 40985, 27581, 33512, 45244, 27407, 27579, 27585, 33089, 33182, 35468, 27587, 27584,
              39239, 27591, 33755, 47007, 27583, 35984]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw11":
         type = '11'
@@ -241,10 +314,14 @@ def step(call):
              9305, 5081, 5237, 15629, 4716, 36866, 45245, 23911, 6298, 5270, 6917, 16442, 9165, 6330, 14272,
              16816, 7785, 29198, 7758, 15853, 9197, 15825, 7670, 9763, 6451]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw12":
         type = '12'
@@ -254,10 +331,14 @@ def step(call):
              15799, 13544, 28550, 45246, 35470, 33757, 10415, 18562, 18820, 27299, 27272, 47009, 38946, 9764,
              39241, 18626, 10504, 16443, 35986, 33482, 35901, 14229, 18793, 14775, 17332, 18716]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw13":
         type = '13'
@@ -267,10 +348,14 @@ def step(call):
              5941, 16891, 15631, 15800, 6237, 40988, 11244, 33515, 40729, 17379, 3746, 15855, 28690,
              18496, 6269, 18563, 27300, 28551, 18084, 27544, 6309, 46971, 27273, 3285, 39242, 3294, 15110]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw14":
         type = '14'
@@ -280,10 +365,14 @@ def step(call):
              38589, 29201, 9697, 36869, 18444, 15953, 18497, 27274, 33484, 46972, 15632, 13362, 47011, 18085,
              15984, 13743, 33186, 26988, 18795, 16043, 27015, 18628, 25846, 45248, 23914, 15926, 27545]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw15":
         type = '15'
@@ -293,10 +382,14 @@ def step(call):
              35904, 13364, 16894, 46973, 17382, 36870, 27547, 34506, 45249, 15928, 34510, 34535, 29633, 34537, 39244, 18566, 33187,
              34542, 37150, 35473, 34513]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw16":
         type = '16'
@@ -305,10 +398,14 @@ def step(call):
         M = [4937, 5970, 37151, 35990, 38591, 5310, 4644, 4651, 36871, 4692, 35474, 45250, 7340, 4647, 7270, 5458, 4978, 27413, 6990,
              4646, 4642, 5650, 4643, 7273, 5586, 4657, 4658, 5554, 4724, 33518, 6423, 6189, 4849, 35905, 5938, 4656, 33095, 5278]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw17":
         type = '17'
@@ -317,10 +414,14 @@ def step(call):
         M = [37356, 39763, 39764, 37344, 37348, 37354, 37345, 39246, 37350, 47014, 37360, 37355, 37347, 37337, 37359, 37358, 37371, 37349,
              45251, 40733, 37370, 37372, 38951, 37340, 46975, 37369, 40992, 37341, 37336, 39762, 37357, 37373, 37362, 37361]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw18":
         type = '18'
@@ -330,10 +431,14 @@ def step(call):
              33520, 45252, 35907, 27682, 40734, 27670, 27671, 27680, 38593, 27675, 27678, 36873, 27415, 27672, 36031, 33190, 38952, 47015,
              27667, 27666, 35476, 27668, 27674]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
 
     elif call.data == "hw19-21":
@@ -343,15 +448,23 @@ def step(call):
         M = [28096, 27832, 33764, 28001, 28035, 28099, 40994, 39248, 27771, 28090, 29667, 27797, 27932, 28077, 28102, 38597,
              27802, 28158, 27780, 27826, ]
 
-        link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-        link = f'Задача типа (20): [{M[x]+1}]({s}{M[x]+1})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-        link = f'Задача типа (21): [{M[x]+2}]({s}{M[x]+2})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (20): [{M[x]+1}]({s}{M[x]+1})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (21): [{M[x]+2}]({s}{M[x]+2})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]}), [{M[x]+1}]({s}{M[x]+1}), [{M[x]+2}]({s}{M[x]+2})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257, f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]}), [{M[x]+1}]({s}{M[x]+1}), [{M[x]+2}]({s}{M[x]+2})",
+                                   parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (20): [{M[x] + 1}]({s}{M[x] + 1})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (21): [{M[x] + 2}]({s}{M[x] + 2})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw22":
         type = '22'
@@ -361,10 +474,14 @@ def step(call):
              47586, 47607, 47549, 47614, 47596, 47613, 47611, 47582, 47591, 47606, 47584, 47594, 47592, 47587, 47615,
              47604, 47599, 47583, 47612]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
 
     elif call.data == "hw23":
@@ -375,10 +492,14 @@ def step(call):
              16825, 17340, 13633, 18570, 7315, 11318, 18828, 33195, 27391, 45257, 7347, 13552, 14237, 29207, 23920, 13525, 14281,
              7998, 39252, 18634, 13579, 18598, 13368]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
 
     elif call.data == "hw24":
@@ -389,10 +510,14 @@ def step(call):
              36879, 27696, 37159, 27421, 38958, 46982, 45258, 35998, 38602, 39253, 33769, 47021, 27699, 36037, 27691, 27690, 29672,
              27693, 27687]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw25":
         type = '25'
@@ -402,10 +527,14 @@ def step(call):
              33495, 33197, 33770, 28124, 38959, 45259, 35914, 28123, 27853, 28121, 27858, 36880, 35483, 27851, 38603, 27850, 40741,
              27856, 27855]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
 
     elif call.data == "hw26":
@@ -416,10 +545,14 @@ def step(call):
              36000, 35484, 36039, 28139, 27883, 41001, 47023, 27881, 27882, 33198, 27887, 27880, 33105, 28138, 33496, 37161,
              45260, 27885]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
     elif call.data == "hw27":
         type = '27'
@@ -428,25 +561,29 @@ def step(call):
         M = [28133, 33529, 35485, 27424, 33497, 28131, 27891, 27991, 37162, 47024, 46985, 35916, 33106, 38961, 27889, 38604,
              36001, 39256, 28130, 40743, 27990, 41002, 36882, 28129, 29675, 27890, 27989, 33772, 36040, 45261, 33199]
         link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        msg = bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-        msg = bot.send_message(-726393257, f"#{call.from_user.first_name}\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})\n\n[Написать сообщение](tg://user?id={call.message.chat.id})",
-                               parse_mode='Markdown', disable_web_page_preview=True)
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][0]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
     # Homework ------------------------------------------------------------------------
 
 
     # Useful ------------------------------------------------------------------------
     elif call.data == 'py01':
         py01 = open('files/py01.pdf', 'rb')
-        msg = bot.send_document(call.message.chat.id, py01)
+        bot.send_document(call.message.chat.id, py01)
 
     elif call.data == 'py02':
         py02 = open('files/py02.pdf', 'rb')
-        msg = bot.send_document(call.message.chat.id, py02)
+        bot.send_document(call.message.chat.id, py02)
 
     elif call.data == 'py03':
         py03 = open('files/py03.pdf', 'rb')
-        msg = bot.send_document(call.message.chat.id, py03)
+        bot.send_document(call.message.chat.id, py03)
 
     elif call.data == 'py04':
         py04 = open('files/py04.pdf', 'rb')
@@ -454,15 +591,15 @@ def step(call):
 
     elif call.data == 'py05':
         py05 = open('files/py05.pdf', 'rb')
-        msg = bot.send_document(call.message.chat.id, py05)
+        bot.send_document(call.message.chat.id, py05)
 
     elif call.data == 'py06':
         py06 = open('files/py06.pdf', 'rb')
-        msg = bot.send_document(call.message.chat.id, py06)
+        bot.send_document(call.message.chat.id, py06)
 
     elif call.data == 'py07':
         py07 = open('files/py07.pdf', 'rb')
-        msg = bot.send_document(call.message.chat.id, py07)
+        bot.send_document(call.message.chat.id, py07)
     # Useful ------------------------------------------------------------------------
 
 
@@ -472,12 +609,12 @@ def step(call):
         nsk_now = now + dt.timedelta(hours=7)
         timer = nsk_now.strftime('%d #%A%B%Y #%B%Y')
 
-        msg = bot.send_message(call.message.chat.id, "Введите сообщение к уроку в форма:\n[#Name] [Описание урока]")
+        bot.send_message(call.message.chat.id, "Введите сообщение к уроку в форма:\n[#Name] [Описание урока]")
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = timer + '\n\n' + message.text
-            msg = bot.send_message(-647660626, text_message, disable_web_page_preview=True)
+            bot.send_message(-647660626, text_message, disable_web_page_preview=True)
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'pay':
@@ -486,12 +623,12 @@ def step(call):
         timer = nsk_now.strftime('%d %A #%B%Y')
 
         textik = '✅ #Оплачен Абонемент:\n' + timer
-        msg = bot.send_message(call.message.chat.id, "Введите данные по абонементу:\n[#Name] [Тип абонемента] [Цена]")
+        bot.send_message(call.message.chat.id, "Введите данные по абонементу:\n[#Name] [Тип абонемента] [Цена]")
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = textik + '\n\n' + message.text
-            msg = bot.send_message(-647660626, text_message, disable_web_page_preview=True)
+            bot.send_message(-647660626, text_message, disable_web_page_preview=True)
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'add':
@@ -583,6 +720,33 @@ def step(call):
 
 
 
+    # Что умеет этот бот -------------------------------------------------------------------------------------------------
+    elif call.data == 'next1':
+        bot.send_message(call.message.chat.id, 'Бот умеет выдавать домашнюю работу, а с недавних пор еще и проверяет ее!')
+        pic_2 = open("photo/hw_button.jpg", 'rb')
+        markup2 = types.InlineKeyboardMarkup()
+        markup2.add(types.InlineKeyboardButton("Далее", callback_data='next2'))
+        bot.send_photo(call.message.chat.id, pic_2, reply_markup=markup2)
+
+    elif call.data == 'next2':
+        bot.send_message(call.message.chat.id, 'Получите полный список моих контактов, я всегда на связи ✌️ ')
+        pic_3 = open("photo/contact.jpg", 'rb')
+        markup2 = types.InlineKeyboardMarkup()
+        markup2.add(types.InlineKeyboardButton("Далее", callback_data='next3'))
+        bot.send_photo(call.message.chat.id, pic_3, reply_markup=markup2)
+
+    elif call.data == 'next3':
+        bot.send_message(call.message.chat.id, 'Получайте актуальные новости от меня, а бот поможет организовать расписание уроков и оформит учет проведенных занятий по абонементам.')
+        pic_4 = open("photo/abstract.jpg", 'rb')
+        bot.send_photo(call.message.chat.id, pic_4)
+    # Что умеет этот бот -------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
@@ -606,16 +770,13 @@ def step(call):
 # START
 @bot.message_handler(commands=['start'])
 def start(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-    btn1 = types.KeyboardButton('Контакты')
-    btn2 = types.KeyboardButton('Репетитор')
-    btn3 = types.KeyboardButton('Мои проекты')
-    btn4 = types.KeyboardButton('Записаться на урок')
-    btn5 = types.KeyboardButton('Получить файл с урока')
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    markup.add(types.KeyboardButton('Что умеет этот бот 🤖'))
+
     pic_1 = open("photo/hello.jpeg", 'rb')
     bot.send_photo(message.chat.id, pic_1)
 
-    markup.add(btn1, btn2, btn3, btn4, btn5)
+
     message_text1 = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
                 f'*Меня зовут Андрианов Илья*. \nЯ программист – `Python developer`.\n' \
                 f'А также репетитор подготовки к `ЕГЭ по Информатике` и программированию на языке `Python` 🐍\n\n' \
@@ -624,6 +785,7 @@ def start(message):
     bot.send_message(message.chat.id, message_text1, parse_mode='Markdown')
 
     message_text2 = f'Если вы мой студент, то воспользуйтесь командой 👉 /getmyid, чтобы бот 🤖 показал ваш ID пользователя. Он необходим, чтобы [я смог добавить](t.me/@ilandroxy) Вас в систему!\n\n' \
+                f'Воспользуйтесь командой 👉 /download, чтобы получить список необходимых для занятий программ!\n\n' \
                 f'Воспользуйтесь командой 👉 /getorder, если хотите обсудить вопросы сотрудничества или разработку Вашего `Telegram бота` под заказ.\n\n' \
                 f'Воспользуйтесь командой 👉 /help, чтобы подробнее узнать о всех доступных командах.\nИли вызовите *Меню команд* – большая синяя кнопка на семь часов.'
     bot.send_message(message.chat.id, message_text2, parse_mode='Markdown', reply_markup=markup)
@@ -818,7 +980,10 @@ def homework(message):
                    types.InlineKeyboardButton("26", callback_data="hw26"),
                    types.InlineKeyboardButton("27", callback_data="hw27"))
         bot.send_message(message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
-        bot.send_message(message.chat.id, "В случае ошибочной ссылки, просьба скинуть мне скриншот @ilandroxy", parse_mode="Markdown", disable_web_page_preview=True)
+        markup2 = types.InlineKeyboardMarkup(row_width=5)
+        markup2.add(types.InlineKeyboardButton("🗳️ Сдать домашку", callback_data="sendhomeworks"))
+        bot.send_message(message.chat.id, "В случае ошибочной ссылки, просьба скинуть мне скриншот @ilandroxy", parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup2)
+
     else:
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, *запишитесь на урок /calendly*", parse_mode="Markdown")
 
@@ -1105,7 +1270,7 @@ def noticestudents(message):
             day += f'[{Students[key][0]}](tg://user?id={key}): {key} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
-        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown')
+        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!', parse_mode='Markdown')
 
 
 
@@ -1334,7 +1499,28 @@ def today(message):
 def mess(message):
     get_message_bot = message.text.strip()
 
-    if get_message_bot == 'Да, все получается ✅':
+    if get_message_bot == 'Что умеет этот бот 🤖':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
+
+        sti = open("photo/hi.tgs", 'rb')
+        bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+
+        bot.send_message(message.chat.id, 'Бот помогает мне организовывать учебный процесс, например здесь можно увидеть доступ к моему календарю для записи на урок или переноса занятий.')
+        pic_1 = open("photo/appointment.jpg", 'rb')
+        markup2 = types.InlineKeyboardMarkup()
+        markup2.add(types.InlineKeyboardButton("Далее", callback_data='next1'))
+        bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
+
+
+
+
+    elif get_message_bot == 'Да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -1344,9 +1530,14 @@ def mess(message):
         markup.add(btn1, btn2, btn3, btn4, btn5)
         bot.send_message(message.chat.id, f"Cпасибо, отправил ответ 🤖", reply_markup=markup)
 
+        now = dt.datetime.utcnow()
+        nsk_now = now + dt.timedelta(hours=7)
+        timer = nsk_now.strftime('%d #%A%B%Y #%B%Y')
+        bot.send_message(-647660626, f"{timer}\n\n# {Students[message.chat.id][0]}", parse_mode='Markdown')
+
         markup2 = types.InlineKeyboardMarkup(row_width=3)
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
-        bot.send_message(1891281816, f"{message.from_user.first_name} ✅ Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
+        bot.send_message(1891281816, f"{Students[message.chat.id][0]} ✅ Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
 
     elif get_message_bot == 'Нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1385,6 +1576,7 @@ def mess(message):
 
         bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
         bot.send_message(1891281816, f"{message.from_user.first_name} Уведомлен ✅🤖\n\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+
 
     elif get_message_bot == "Репетитор":
         send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \

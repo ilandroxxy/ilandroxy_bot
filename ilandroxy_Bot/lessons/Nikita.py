@@ -474,6 +474,8 @@ for i in range(0, len(s)-1):
 print(MaxCount)
 '''
 
+
+'''
 # Черепахе был дан для исполнения следующий алгоритм:
 # Повтори 4 [Вперёд 12 Направо 90]
 # Направо 30
@@ -486,48 +488,116 @@ print(MaxCount)
 
 
 
+
+
+
+# Функция отрисовки grid сетку для вычислений
+def f_grid(size_cube):
+    step = 10
+    for i in range(2):
+        for j in range(size_cube):
+            if (j % 2 == 0 and i == 0) or (j % 2 != 0 and i == 1):
+                t.forward(size_cube * 10)
+                t.right(90)
+                t.forward(step)
+                t.right(90)
+            elif (j % 2 != 0 and i == 0) or (j % 2 == 0 and i == 1):
+                t.forward(size_cube * 10)
+                t.left(90)
+                t.forward(step)
+                t.left(90)
+        if i == 0:
+            t.forward(size_cube * 10)
+            t.left(90)
+        else:
+            t.forward(size_cube * 10)
+            t.right(90)
+
+
 import turtle as t
 t.shape('turtle')
 t.shapesize(0.5)
-t.color('blue')
 t.left(90)
 
-n = 20
-m = 240
-x = 160
+f_grid(20)   # укажите размер Декартовой поля
 
-for i in range(12+1):
-    if i % 2 == 0:
-        t.forward(m)
-        t.right(90)
-        t.forward(n)
-        t.right(90)
-    if i % 2 != 0:
-        t.forward(m)
-        t.left(90)
-        t.forward(n)
-        t.left(90)
-#t.forward(m)
-
-
-
-'''
-
-
+# Сам алгоритм по условию задачи
 t.color('red')
 for i in range(4):
-    t.forward(n)
+    t.forward(120)
     t.right(90)
 t.right(30)
 t.color('green')
 for i in range(3):
-    t.forward(x)
+    t.forward(80)
     t.right(60)
-    t.forward(x)
+    t.forward(80)
     t.right(120)
-'''
 
 t.getscreen().mainloop()
+'''
+
+
+
+
+
+
+# Функция отрисовки grid сетку для вычислений
+def f_grid(size_cube):
+    step = 10
+    for i in range(2):
+        for j in range(size_cube):
+            if (j % 2 == 0 and i == 0) or (j % 2 != 0 and i == 1):
+                t.forward(size_cube * 10)
+                t.right(90)
+                t.forward(step)
+                t.right(90)
+            elif (j % 2 != 0 and i == 0) or (j % 2 == 0 and i == 1):
+                t.forward(size_cube * 10)
+                t.left(90)
+                t.forward(step)
+                t.left(90)
+        if i == 0:
+            t.forward(size_cube * 10)
+            t.left(90)
+        else:
+            t.forward(size_cube * 10)
+            t.right(90)
+
+
+import turtle as t
+t.shape('turtle')
+t.shapesize(0.5)
+t.left(90)
+
+f_grid(20)
+
+
+# Тип 6 № 47406
+# Исполнитель Черепаха действует на плоскости с декартовой системой координат.
+# В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.
+# При опущенном хвосте Черепаха оставляет на поле след в виде линии.
+# В каждый конкретный момент известно положение исполнителя и направление его движения.
+# У исполнителя существует две команды: Вперёд n (где n — целое число), вызывающая передвижение Черепахи на n единиц в том направлении,
+# куда указывает её голова, и Направо m (где m — целое число), вызывающая изменение направления движения на m градусов по часовой стрелке. Запись
+
+# Черепахе был дан для исполнения следующий алгоритм:
+#
+# Повтори 4 [Вперёд 12 Направо 90]
+# Повтори 3 [Вперёд 12 Направо 120]
+#
+# Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом: Повтори 4 [Вперёд 12 Направо 90]
+# и находиться вне области, ограниченной линией, заданной данным алгоритмом: Повтори 3 [Вперёд 12 Направо 120]. Точки на линии учитывать не следует.
+t.color('red')
+for i in range(4):
+    t.forward(120)
+    t.right(90)
+t.color('green')
+for i in range(3):
+    t.forward(120)
+    t.right(120)
+t.getscreen().mainloop()
+
 
 
 
