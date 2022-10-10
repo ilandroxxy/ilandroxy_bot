@@ -121,8 +121,9 @@ print(max(M)+1)
 # ((x ∈ A) → (x**2 ≤ 100)) ∧ ((x**2 ≤ 64) → (x ∈ A))
 #
 # тождественно истинна при любом вещественном x. Какую наибольшую длину может иметь отрезок A?
+'''
 
-
+"""
 def f(x, a):
     return ((x in a) <= (x ** 2 <= 100)) and ((x ** 2 <= 64) <= (x in a))
 
@@ -134,18 +135,23 @@ for x in range(-1000, 1000):
         a.remove(x)
 print(len(a) - 1)
 print(a)
+"""
+def F(x, a1, a2):
+    return ((a1 <= x <= a2) <= (x ** 2 <= 100)) and ((x ** 2 <= 64) <= (a1 <= x <= a2))
+
 M = []
-for a1 in range(-1000, 1000):
+for a1 in range(1, 1000):
     for a2 in range(a1+1, 1000):
         flag = True
-        for x in range(0, 100):
-            if F(a1, a2, x) == False:
+        for x in range(-100, 100):
+            if F(x, a1, a2) == False:
                 flag = False
                 break
         if flag == True:
             M.append(a2-a1)
-print(max(M)+1)
-'''
+            print(M)
+
+
 
 # Тип 15 № 34512
 # Обозначим через m & n поразрядную конъюнкцию неотрицательных целых чисел m и n.
@@ -210,7 +216,7 @@ for A in range(1, 100):
         M.append(A)
 print(max(A))
 
-'''
+
 for A in range(128):
     B = True
     for x in range(128):
@@ -220,6 +226,7 @@ for A in range(128):
     if B:
         print(A)
         break
+'''
 
 
 
