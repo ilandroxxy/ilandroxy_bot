@@ -7,7 +7,7 @@ import time
 import datetime as dt
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
@@ -19,14 +19,11 @@ ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8], 1477701439: ["V
 FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8], 719571990: ['Stepan.py', "17:00", 6800//8], 1029532016: ['Maria.py', "21:00", 3600//4], 1649389148: ['Slava.py', "22:00", 6800//8]}
 SaturdayStudents = {1454117859: ['Diana', "17:00", 4320//8], 5148819382: ['Tatyana.py', "19:00", 3600//4], 986539147: ['Danil.py', '20:00', 6800//8], 1314375732: ['Vasiliy.py', "21:00", 6800//8], 871237277: ['Vladek.py', "22:00", 6800//8], 1173284690: ['Polina.py', '**:**', 1000]}
 
+Me = {1891281816: ['', '00:00', 2222], 438879394: ['ilandroxxy.py', '00:00', 44444]}
 
+Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents | Me
 
-Me = {1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"}
-Testing = {1891281816: ['ilandroxy.py', '00:00', 2222], 438879394: ['ilandroxxy.py', '00:00', 44444]}
-NewStudents = {}
-
-
-Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents | Testing
+# 1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
@@ -35,7 +32,7 @@ def step(call):
     # Репетитор -----------------------------------------------------------------------
     if call.data == 'price':
         pic_2 = open("photo/price.PNG", "rb")
-        msg = bot.send_photo(call.message.chat.id, pic_2)
+        bot.send_photo(call.message.chat.id, pic_2)
 
         send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!\n\n" \
                         f"Работаю официально по чекам через НПД (`Самозанятый`).\n\n"
@@ -43,7 +40,7 @@ def step(call):
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
                    types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🧮 Реквизиты", callback_data="wallet"))
-        msg = bot.send_message(call.message.chat.id, send_message2, parse_mode="Markdown", reply_markup=markup)
+        bot.send_message(call.message.chat.id, send_message2, parse_mode="Markdown", reply_markup=markup)
 
     elif call.data == "iam":
         send_message1 = f"*О себе:*\n" \
@@ -53,14 +50,14 @@ def step(call):
         bot.send_message(call.message.chat.id, send_message1, parse_mode="Markdown", disable_web_page_preview=True)
 
         pic = open("photo/diploma.png", "rb")
-        msg = bot.send_photo(call.message.chat.id, pic)
+        bot.send_photo(call.message.chat.id, pic)
 
         send_message2 = f" \n\n🎯 Цель открыть свою школу программирования для детей и подростков!\n\n" \
                         f"Общий стаж репетиторской деятельности больше 3 лет, в моем профиле можно ознакомиться с [отзывами](https://www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing) довольных учеников и родителей."
         bot.send_message(call.message.chat.id, send_message2, parse_mode="Markdown", disable_web_page_preview=True)
 
         pic_3 = open("photo/otzivy.PNG", "rb")
-        msg = bot.send_photo(call.message.chat.id, pic_3)
+        bot.send_photo(call.message.chat.id, pic_3)
 
         markup2 = types.InlineKeyboardMarkup(row_width=1)
         markup2.add(types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
@@ -103,25 +100,37 @@ def step(call):
                    types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"))
 
-        msg = bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
+        bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
     # Репетитор -----------------------------------------------------------------------
 
 
     # Homework ------------------------------------------------------------------------
     elif call.data == 'sendhomeworks':
-        bot.send_message(call.message.chat.id, 'Просто скопируйте свой код из PyCharm.\nБот сформирует файл и отправит его за вас 🤖 \n\n'
+        bot.send_message(call.message.chat.id, 'Просто скопируйте свой код из PyCharm.\nБот сформирует файл и отправит его за вас 🤖\n\n'
+                                               '*Обратите внимание, сообщение в Telegram ограничено 4096 символами!*\n\n'
                                                'Напишите `0`, чтобы отменить команду!', parse_mode='Markdown')
 
         file_name = f'homeworks/{Students[call.message.chat.id][0]}_homework.txt'
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             if message.text != '0':
+                count = 0
+                for STR in message.text:
+                    for _ in STR:
+                        count += 1
+
+                if count < 2 ** 12:
+                    bot.send_message(call.message.chat.id, f"Кол-во символов в файле: {count}\n🤖 Ожидайте отправляю файл.")
+                else:
+                    bot.send_message(call.message.chat.id, "Длина файла превышена, удалите лишнии строки!")
+
                 f = open(file_name, 'w')
                 f.write(message.text)
 
         bot.register_next_step_handler(call.message, message_input)
 
-        time.sleep(300)
+
+        time.sleep(150)
         f = open(file_name, 'r')
         bot.send_document(-726393257, f)
         bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
@@ -1537,7 +1546,7 @@ def mess(message):
 
         markup2 = types.InlineKeyboardMarkup(row_width=3)
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
-        bot.send_message(1891281816, f"{Students[message.chat.id][0]} ✅ Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
+        bot.send_message(1891281816, f"{Students[message.chat.id][0]} ✅ Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
     elif get_message_bot == 'Нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1549,7 +1558,7 @@ def mess(message):
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
         bot.send_message(message.chat.id, f"🤖 Если нужно перенести урок, то можно написать мне @ilandroxy или воспользоваться командой /calendly", reply_markup=markup)
-        bot.send_message(1891281816, f"{message.from_user.first_name} ⛔ Урока не будет\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
+        bot.send_message(1891281816, f"{message.from_user.first_name} ⛔ Урока не будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
 
     elif get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
@@ -1562,7 +1571,7 @@ def mess(message):
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
         bot.send_message(message.chat.id, f"Sorry, возможно 🤖 напутал с расписанием... Пробую исправить!", reply_markup=markup)
-        bot.send_message(1891281816, f"{message.from_user.first_name} ‼️ Что-то не так с расписанием, надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})\n\nВоспользуйтесь командой /less", parse_mode='Markdown')
+        bot.send_message(1891281816, f"{message.from_user.first_name} ‼️ Что-то не так с расписанием, надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
     elif get_message_bot == 'Прочитано ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
