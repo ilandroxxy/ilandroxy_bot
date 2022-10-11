@@ -7,7 +7,7 @@ import time
 import datetime as dt
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
-bot = telebot.TeleBot('5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU')
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
 
