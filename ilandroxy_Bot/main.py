@@ -1,3 +1,4 @@
+# region import и API key
 import random
 import telebot
 from telebot import types
@@ -6,12 +7,17 @@ import csv
 import time
 import datetime as dt
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
 bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
+# endregion import и API key
+
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
+
+# todo: отправить домашку Славе, Исламу, Кате, Данилу
 
 
+# region Словарь с данными студентов
 # Синхронно моему расписанию в Google Календаре
 MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия"],
                   811476623: ["Georgie.py", "20:00", 3040//4, "Георгий"],
@@ -47,12 +53,14 @@ Me = {1891281816: ['', '00:00', 0, "iРепетитор"],
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents | Me
 
 # 1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"
+# endregion
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def step(call):
     markup = telebot.types.InlineKeyboardMarkup(row_width=1)
 
-    # Репетитор -----------------------------------------------------------------------
+    # region call.data для Репетитор
     if call.data == 'price':
         pic_2 = open("photo/price.PNG", "rb")
         bot.send_photo(call.message.chat.id, pic_2)
@@ -124,10 +132,9 @@ def step(call):
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"))
 
         bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
-    # Репетитор -----------------------------------------------------------------------
+    # endregion call.data для Репетитор
 
-
-    # Homework ------------------------------------------------------------------------
+    # region call.data для Homework
     elif call.data == 'sendhomeworks':
         bot.send_message(call.message.chat.id, 'Просто скопируйте свой код из PyCharm.\nБот сформирует файл и отправит его за вас 🤖\n\n'
                                                '*Обратите внимание, сообщение в Telegram ограничено 4096 символами!*\n\n'
@@ -601,10 +608,9 @@ def step(call):
                              parse_mode='Markdown', disable_web_page_preview=True)
         elif call.message.chat.id in Me:
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-    # Homework ------------------------------------------------------------------------
+    # endregion call.data для Homework
 
-
-    # Useful ------------------------------------------------------------------------
+    # region call.data для Useful
     elif call.data == 'py01':
         py01 = open('files/py01.pdf', 'rb')
         bot.send_document(call.message.chat.id, py01)
@@ -632,10 +638,9 @@ def step(call):
     elif call.data == 'py07':
         py07 = open('files/py07.pdf', 'rb')
         bot.send_document(call.message.chat.id, py07)
-    # Useful ------------------------------------------------------------------------
+    # endregion call.data для Useful
 
-
-    # Lessons ------------------------------------------------------------------------
+    # region call.data для функции Less
     elif call.data == 'lesson':
         now = dt.datetime.utcnow()
         nsk_now = now + dt.timedelta(hours=7)
@@ -663,6 +668,8 @@ def step(call):
             bot.send_message(-647660626, text_message, disable_web_page_preview=True)
         bot.register_next_step_handler(call.message, message_input)
 
+
+    # todo: нужно поправить команду - были изменения структуры словаря и изменились индексы
     elif call.data == 'add':
         msg = bot.send_message(call.message.chat.id, "Введите данные нового студента:\n[#Day] [ID] [Name.py] [TimeLessons]\n\n*Напишите `0`, чтобы отменить команду!*\n\n"
                                                      "#Monday\n#Tuesday\n#Thursday\n#Friday\n#Saturday")
@@ -748,17 +755,19 @@ def step(call):
                 msg = bot.send_message(1891281816, "Изменения в расписании: перенесли дату уроков 🤖\n\n*Не забудьте перенести этот словарь в код программы!*", parse_mode='Markdown', disable_web_page_preview=True)
 
         bot.register_next_step_handler(call.message, message_input)
-    # Lessons ------------------------------------------------------------------------
+    # endregion call.data для функции Less
 
+    # region call.data для Что умеет этот бот
 
+    # todo: Придумать, как удалять старые сообщения после нажатия кнопки Далее
 
-    # Что умеет этот бот -------------------------------------------------------------------------------------------------
     elif call.data == 'next1':
         bot.send_message(call.message.chat.id, 'Бот умеет выдавать домашнюю работу, а с недавних пор еще и проверяет ее!')
         pic_2 = open("photo/hw_button.jpg", 'rb')
         markup2 = types.InlineKeyboardMarkup()
         markup2.add(types.InlineKeyboardButton("Далее", callback_data='next2'))
         bot.send_photo(call.message.chat.id, pic_2, reply_markup=markup2)
+
 
     elif call.data == 'next2':
         bot.send_message(call.message.chat.id, 'Получите полный список моих контактов, я всегда на связи ✌️ ')
@@ -771,9 +780,9 @@ def step(call):
         bot.send_message(call.message.chat.id, 'Получайте актуальные новости от меня, а бот поможет организовать расписание уроков и оформит учет проведенных занятий по абонементам.')
         pic_4 = open("photo/abstract.jpg", 'rb')
         bot.send_photo(call.message.chat.id, pic_4)
-    # Что умеет этот бот -------------------------------------------------------------------------------------------------
+    # endregion call.data для Что умеет этот бот
 
-    # Private_help -------------------------------------------------------------------------------------------------------
+    # region call.data для Private_help
     elif call.data == 'private':
         message_text = f'/statistics - выводит статистику и файлы db напрямую в боте\n\n' \
                        f'/git - команда при запуске которой приходят команды для залива репазитория на GitHub\n\n' \
@@ -783,32 +792,38 @@ def step(call):
                        f'/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)\n\n' \
                        f'/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)'
         bot.send_message(call.message.chat.id, message_text, parse_mode='Markdown')
-    # Private_help -------------------------------------------------------------------------------------------------------
+    # endregion call.data для Private_help
 
 
 
 
 
 
-
-
-
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
 '''# Публичные команды:
+/start - перезапуск бота, на стартовую позицию
 /help - справка по всем командам в боте
-/tasks - наборы задач для отработки решений ЕГЭ по Информатике
-/homework - конструктор домашних заданий для моих учеников
-/calendly - форма записи на урок
-/links - полезные ссылки для подготовки к экзамену
 /getmyid - бот покажет ваш id пользователя Telegram
+
 /myprojects - список моих актуальных проектов
 /download - список программ необходимых для уроков
-/start - перезапуск бота, на стартовую позицию
+
 /price - получить информацию о ценах и реквизиты
+/tasks - наборы задач для отработки решений ЕГЭ по Информатике
+/links - полезные ссылки для подготовки к экзамену
+
 /useful - шпаргалки от Яндекс практикума по Python
+/homework - конструктор домашних заданий для моих учеников
+
+/calendly - форма записи на урок
 /getorder - команда для желающих оставить заявку на разработку бота.
-/today - выводит персональное расписание уроков
+
+/today - выводит список учеников по дням занятий
+/reviews - генерирует отзыв при нажатии кнопки 
 '''
+
+# region Список публичных команд:
+
+# region Команды: start, help, getmyid
 
 # START
 @bot.message_handler(commands=['start'])
@@ -821,8 +836,9 @@ def start(message):
 
 
     message_text1 = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
-                f'*Меня зовут Андрианов Илья*. \nЯ программист – `Python developer`.\n' \
+                f'Меня зовут *Андрианов Илья*. \nЯ программист – `Python developer`.\n' \
                 f'А также репетитор подготовки к `ЕГЭ по Информатике` и программированию на языке `Python` 🐍\n\n' \
+                f'*Мои рейтинг на Авито*\n*5,0* ⭐️⭐️⭐️⭐️⭐️\nНа основании 68 оценок\nПосмотреть 👉 /reviews\n\n' \
                 f'*Рад Вас приветствовать* у себя на `"страничке"`, здесь я постараюсь коротко ' \
                 f'рассказать о себе и, надеюсь, нам удастся найти общий язык 🙏 \n\n'
     bot.send_message(message.chat.id, message_text1, parse_mode='Markdown')
@@ -856,10 +872,10 @@ def getmyid(message):
     user = str(message.chat.id)
     send_message = "*Ваш user ID: *" + user
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
+# endregion Команды: start, help, getmyid
 
-
-
-# MYPROJECT
+# region Команды: myprojects, download
+# MYPROJECTS
 @bot.message_handler(commands=['myprojects'])
 def myprojects(message):
     send_message = "Просто перечисляю, чем я занимаюсь сегодня!\n\n" \
@@ -885,7 +901,9 @@ def download(message):
 
 
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+# endregion Команды: myprojects, download
 
+# region Команды: price, tasks, links
 
 # PRICE
 @bot.message_handler(commands=['price'])
@@ -950,27 +968,9 @@ def links(message):
                    "*5.* Всем кто намеревается сдавать ЕГЭ по Информатике настоятельно рекомендую [прочитать статью](https://habr.com/ru/post/573580/) про опыт студента, сдающего первый компьютерный экзамен!\n\n" \
                    "\n*Для отработки теории на практике воспользуйтесь командой /tasks *"
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+# endregion Команды: price, tasks, links
 
-
-# CALENDLY
-@bot.message_handler(commands=['calendly'])
-def calendly(message):
-    markup = types.InlineKeyboardMarkup(row_width=1)
-    markup.add(types.InlineKeyboardButton("calendly.com", url="calendly.com/ilandroxxy/tutor"))
-    message_text = f"Воспользуйтесь удобным сервисом [Calendly](https://bizzapps.ru/p/calendly/) *для записи на пробное занятие* или выбора графика занятий. \n\n" \
-                   f"Просто выберете подходящее время и *напишите пару слов о себе*. \n\n" \
-                   f"❗Ваша карточка отобразится в моем календаре, но чтобы было комфортнее держать связь - прошу написать еще и в [Telegram](t.me/ilandroxy). "
-    bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
-    pic = open("photo/calendly.jpg", 'rb')
-    bot.send_photo(message.chat.id, pic, reply_markup=markup)
-
-    text_message = f"🤖 `Calendly`\n*{message.from_user.first_name}* открыл(а) календарь\n*User ID*: `{message.chat.id}`\n" \
-                   f"*Username*: @{message.from_user.username}\n" \
-                   f"[Написать сообщение](tg://user?id={message.chat.id})\n\n" \
-                   f"[Открыть мой Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
-    bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
-
-
+# region Команды: useful, homeworks
 # USEFUL
 @bot.message_handler(commands=['useful'])
 def useful(message):
@@ -1023,12 +1023,33 @@ def homework(message):
                    types.InlineKeyboardButton("26", callback_data="hw26"),
                    types.InlineKeyboardButton("27", callback_data="hw27"))
         bot.send_message(message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
-        markup2 = types.InlineKeyboardMarkup(row_width=5)
+        markup2 = types.InlineKeyboardMarkup()
         markup2.add(types.InlineKeyboardButton("🗳️ Сдать домашку", callback_data="sendhomeworks"))
         bot.send_message(message.chat.id, "В случае ошибочной ссылки, просьба скинуть мне скриншот @ilandroxy", parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup2)
 
     else:
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, *запишитесь на урок /calendly*", parse_mode="Markdown")
+# endregion Команды: useful, homeworks
+
+# region Команды: calendly, getorder
+# CALENDLY
+@bot.message_handler(commands=['calendly'])
+def calendly(message):
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    markup.add(types.InlineKeyboardButton("calendly.com", url="calendly.com/ilandroxxy/tutor"))
+    message_text = f"Воспользуйтесь удобным сервисом [Calendly](https://bizzapps.ru/p/calendly/) *для записи на пробное занятие* или выбора графика занятий. \n\n" \
+                   f"Просто выберете подходящее время и *напишите пару слов о себе*. \n\n" \
+                   f"❗Ваша карточка отобразится в моем календаре, но чтобы было комфортнее держать связь - прошу написать еще и в [Telegram](t.me/ilandroxy). "
+    bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+    pic = open("photo/calendly.jpg", 'rb')
+    bot.send_photo(message.chat.id, pic, reply_markup=markup)
+
+    text_message = f"🤖 `Calendly`\n*{message.from_user.first_name}* открыл(а) календарь\n*User ID*: `{message.chat.id}`\n" \
+                   f"*Username*: @{message.from_user.username}\n" \
+                   f"[Написать сообщение](tg://user?id={message.chat.id})\n\n" \
+                   f"[Открыть мой Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
+    bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
+
 
 # GETORDER
 @bot.message_handler(commands=['getorder'])
@@ -1046,23 +1067,135 @@ def getorder(message):
         else:
             bot.send_message(message.chat.id, 'Команда отменена, ждем вас с нетерпением обратно 🤖', parse_mode='Markdown', disable_web_page_preview=True)
     bot.register_next_step_handler(message, message_input)
+# endregion Команды: calendly, getorder
+
+# region Команда: today
+@bot.message_handler(commands=['today'])
+def today(message):
+    if message.chat.id in Me:
+        day = time.strftime('%A')
+
+        if day == 'Monday':
+            temp = f'Понедельник: *'
+            for key in MondayStudents:
+                temp += f'[{MondayStudents[key][3]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        if day == 'Tuesday':
+            temp = f'Вторник: *'
+            for key in TuesdayStudents:
+                temp += f'[{TuesdayStudents[key][3]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        if day == 'Wednesday':
+            bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
+        if day == 'Thursday':
+            temp = f'Четверг: *'
+            for key in ThursdayStudents:
+                temp += f'[{ThursdayStudents[key][3]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        if day == 'Friday':
+            temp = f'Пятница: *'
+            for key in FridayStudents:
+                temp += f'[{FridayStudents[key][3]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        if day == 'Saturday':
+            temp = f'Суббота: *'
+            for key in SaturdayStudents:
+                temp += f'[{SaturdayStudents[key][3]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
+
+            M = [i for i in temp.split('*')]
+            message_text = '\n'.join(M)
+            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        if day == 'Sunday':
+            bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
+
+    elif message.chat.id in Students:
+        bot.send_message(message.chat.id, "Поглядим на Ваше расписание 🤖 ", parse_mode='Markdown')
+
+        for key in MondayStudents:
+            if message.chat.id == key:
+                message_text = f'Понедельник:\n{MondayStudents[key][3]} время урока: {MondayStudents[key][1]} (по Нск)'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in TuesdayStudents:
+            if message.chat.id == key:
+                message_text = f'Вторник:\n{TuesdayStudents[key][3]} время урока: {TuesdayStudents[key][1]} (по Нск)'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in ThursdayStudents:
+            if message.chat.id == key:
+                message_text = f'Четверг:\n{ThursdayStudents[key][3]} время урока: {ThursdayStudents[key][1]} (по Нск)'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in FridayStudents:
+            if message.chat.id == key:
+                message_text = f'Пятница:\n{FridayStudents[key][3]} время урока: {FridayStudents[key][1]} (по Нск)'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+        for key in SaturdayStudents:
+            if message.chat.id == key:
+                message_text = f'Суббота:\n{SaturdayStudents[key][3]} время урока: {SaturdayStudents[key][1]} (по Нск)'
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команда: today
+
+# region Команда: reviews
+@bot.message_handler(commands=['reviews'])
+def reviews(message):
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    markup.add(types.InlineKeyboardButton("Посмотреть все отзывы на Авито", url="https://www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing"))
+
+    M = ['reviews/re1.png', 'reviews/re2.png', 'reviews/re3.png', 'reviews/re4.png', 'reviews/re5.png']
+    pic_reviews = open(random.choice(M), 'rb')
+    bot.send_photo(message.chat.id, pic_reviews)
+    bot.send_message(message.chat.id, 'Еще больше отзывов 👉 /reviews', parse_mode='Markdown', reply_markup=markup)
+# endregion Команда: reviews
+
+# endregion Список публичных команд
 
 
 
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ` ⛔  ️✅ 📊📈🧮
+
+
+
 ''' # Приватные команды:
 /statistics - выводит статистику и файлы db напрямую в боте
+
 /private_help - кнопка со всеми приватными командами
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
 /less - чек проведенного урока и принятия оплат по абонементам, добавление ученика в систему.
+
 /voiceall - способ отправить сообщение всем пользователям (с ссылками)
 /voicestudents - способ отправить сообщение всем моим студентам
+
 /noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)
 /notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)
-/today - выводит список учеников по дням занятий
 '''
 
+# region Список приватных команд:
+
+# region Работа с базами данных, statistics
 
 # Getting STATISTICS
 def analytics(func: callable):
@@ -1197,6 +1330,9 @@ def statistics(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
+# endregion Работа с базами данных, statistics
+
+# region Команды: private_help, git, less
 # PRIVATE_HELP
 @bot.message_handler(commands=['private_help'])
 def private_help(message):
@@ -1261,8 +1397,9 @@ def less(message):
             bot.send_message(message.chat.id, 'Отчетность – это зер гуд 📊📈🧮', reply_markup=markup)
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команды: private_help, git, less
 
-
+# region Команды: voiceall, voicestudents
 # VOICEAll
 @bot.message_handler(commands=['voiceall'])
 def voiceall(message):
@@ -1312,8 +1449,9 @@ def voicestudents(message):
         bot.register_next_step_handler(message, message_input)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команды: voiceall, voicestudents
 
-
+# region Команды: noticestudents, notice
 # NOTICESTUDENTS
 @bot.message_handler(commands=['noticestudents'])
 def noticestudents(message):
@@ -1357,8 +1495,6 @@ def notice(message):
     if message.chat.id in Me:
         day = time.strftime('%A')
 
-
-
         if day == 'Monday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             btn1 = types.KeyboardButton('Да, все получается ✅')
@@ -1375,8 +1511,6 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-
 
         if day == 'Tuesday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1458,95 +1592,13 @@ def notice(message):
 
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команды: noticestudents, notice
 
-#TODAY
-@bot.message_handler(commands=['today'])
-def today(message):
-    if message.chat.id in Me:
-        day = time.strftime('%A')
-
-        if day == 'Monday':
-            temp = f'Понедельник: *'
-            for key in MondayStudents:
-                temp += f'[{MondayStudents[key][3]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
-
-            M = [i for i in temp.split('*')]
-            message_text = '\n'.join(M)
-            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        if day == 'Tuesday':
-            temp = f'Вторник: *'
-            for key in TuesdayStudents:
-                temp += f'[{TuesdayStudents[key][3]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
-
-            M = [i for i in temp.split('*')]
-            message_text = '\n'.join(M)
-            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        if day == 'Wednesday':
-            bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
-
-        if day == 'Thursday':
-            temp = f'Четверг: *'
-            for key in ThursdayStudents:
-                temp += f'[{ThursdayStudents[key][3]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
-
-            M = [i for i in temp.split('*')]
-            message_text = '\n'.join(M)
-            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        if day == 'Friday':
-            temp = f'Пятница: *'
-            for key in FridayStudents:
-                temp += f'[{FridayStudents[key][3]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
-
-            M = [i for i in temp.split('*')]
-            message_text = '\n'.join(M)
-            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        if day == 'Saturday':
-            temp = f'Суббота: *'
-            for key in SaturdayStudents:
-                temp += f'[{SaturdayStudents[key][3]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
-
-            M = [i for i in temp.split('*')]
-            message_text = '\n'.join(M)
-            bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        if day == 'Sunday':
-            bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+# endregion Список приватных команд
 
 
-    elif message.chat.id in Students:
-        bot.send_message(message.chat.id, "Поглядим на Ваше расписание 🤖 ", parse_mode='Markdown')
 
-        for key in MondayStudents:
-            if message.chat.id == key:
-                message_text = f'Понедельник:\n{MondayStudents[key][3]} время урока: {MondayStudents[key][1]} (по Нск)'
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
-        for key in TuesdayStudents:
-            if message.chat.id == key:
-                message_text = f'Вторник:\n{TuesdayStudents[key][3]} время урока: {TuesdayStudents[key][1]} (по Нск)'
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        for key in ThursdayStudents:
-            if message.chat.id == key:
-                message_text = f'Четверг:\n{ThursdayStudents[key][3]} время урока: {ThursdayStudents[key][1]} (по Нск)'
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        for key in FridayStudents:
-            if message.chat.id == key:
-                message_text = f'Пятница:\n{FridayStudents[key][3]} время урока: {FridayStudents[key][1]} (по Нск)'
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-        for key in SaturdayStudents:
-            if message.chat.id == key:
-                message_text = f'Суббота:\n{SaturdayStudents[key][3]} время урока: {SaturdayStudents[key][1]} (по Нск)'
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-
-    else:
-        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 
 @bot.message_handler(content_types=['text'])
@@ -1554,6 +1606,7 @@ def today(message):
 def mess(message):
     get_message_bot = message.text.strip()
 
+    # region Кнопка: [Что умеет этот бот 🤖]
     if get_message_bot == 'Что умеет этот бот 🤖':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -1571,10 +1624,9 @@ def mess(message):
         markup2 = types.InlineKeyboardMarkup()
         markup2.add(types.InlineKeyboardButton("Далее", callback_data='next1'))
         bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
+    # endregion Кнопка: Что умеет этот бот
 
-
-
-    # Notice and voice command --------------------------------------------------------------------------------------------------
+    # region Кнопки: [Да, все получается ✅], [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
     elif get_message_bot == 'Да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -1592,7 +1644,7 @@ def mess(message):
 
         markup2 = types.InlineKeyboardMarkup(row_width=3)
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
-        bot.send_message(1891281816, f"{Students[message.chat.id][3]} ✅ Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+        bot.send_message(1891281816, f"✅ {Students[message.chat.id][3]} – Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
     elif get_message_bot == 'Нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1604,7 +1656,7 @@ def mess(message):
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
         bot.send_message(message.chat.id, f"🤖 Если нужно перенести урок, то можно написать мне @ilandroxy или воспользоваться командой /calendly", reply_markup=markup)
-        bot.send_message(1891281816, f"{Students[message.chat.id][3]} ⛔ Урока не будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+        bot.send_message(1891281816, f"⛔ {Students[message.chat.id][3]} – Урока не будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
 
     elif get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока':
@@ -1617,7 +1669,7 @@ def mess(message):
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
         bot.send_message(message.chat.id, f"Sorry, возможно 🤖 напутал с расписанием... Пробую исправить!", reply_markup=markup)
-        bot.send_message(1891281816, f"{Students[message.chat.id][3]} ‼️ Что-то не так с расписанием, надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+        bot.send_message(1891281816, f"‼️ {Students[message.chat.id][3]} – Что-то не так с расписанием, надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
     elif get_message_bot == 'Прочитано ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1630,12 +1682,10 @@ def mess(message):
 
 
         bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
-        bot.send_message(1891281816, f"{message.from_user.first_name} Уведомлен ✅🤖\n\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
-    # Notice and voice command --------------------------------------------------------------------------------------------------
+        bot.send_message(1891281816, f"🤖 {Students[message.chat.id][3]} – Уведомлен \n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+    # endregion Кнопки:  [Да, все получается ✅], [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
 
-
-
-    # Репетитор --------------------------------------------------------------------------------------------------
+    # region Кнопка: [Репетитор]
     elif get_message_bot == "Репетитор":
         send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \
                         f"В работе использую такие сервисы (программы) как: PyCharm, Python, Notability, Discord, Google диск и другие. " \
@@ -1669,7 +1719,9 @@ def mess(message):
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"),
                    types.InlineKeyboardButton("🧮 Реквизиты", callback_data="wallet"))
         bot.send_message(message.chat.id, send_message4, parse_mode="Markdown", reply_markup=markup2)
+    # endregion Кнопка: [Репетитор]
 
+    # region Кнопка: [Контакты]
     elif get_message_bot == "Контакты":
         send_message1 = "*Мои контакты:*\n\n" \
                         "[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
@@ -1678,7 +1730,10 @@ def mess(message):
                         "[GitHub](https://github.com/ilandroxxy)\n\nРабочий телефон: +7 (995) 437–52–59\n\nEmail: collegehacksbot@gmail.com\n\n" \
                         "Воспользуйтесь моим Telegram ботом, чтобы пройти курс по разработке чат ботов @JustDoItMotherBot🤖"
         bot.send_message(message.chat.id, send_message1, parse_mode='Markdown', disable_web_page_preview=True)
+    # endregion Кнопка: [Контакты]
 
+    # region Кнопка: [Мои проекты]
+    # todo: Добавить в кнопку [Мои проекты] и в соответсвующую команду ссылки на "Работы с учениками: перечислить боты и описание проектов"
     elif get_message_bot == "Мои проекты":
         send_message = "Просто перечисляю, чем я занимаюсь сегодня!\n\n" \
                        "*1. Канал* [itpy | ИнформатикаЕГЭ](t.me/pro100_easy_ege)\n✍️ Это канал на котором я разбираю задания с экзамена, даю полезные задачки и " \
@@ -1689,9 +1744,9 @@ def mess(message):
                        "На сегодняшний день курс еще находится в разработке, но уже можно понять, что он из себя будет представлять по [описанию проекта](https://stepik.org/lesson/770711/step/1) " \
                        "и черновому [примеру урока](https://stepik.org/lesson/770602/step/1).\n\n"
         bot.send_message(message.chat.id, send_message, parse_mode="Markdown", disable_web_page_preview=True)
-    # Репетитор --------------------------------------------------------------------------------------------------
+    # endregion Кнопка: [Мои проекты]
 
-
+    # region Кнопка: [Записаться на урок]
     elif get_message_bot == "Записаться на урок":
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("calendly.com", url="calendly.com/ilandroxxy/tutor"))
@@ -1708,9 +1763,9 @@ def mess(message):
                        f"[Написать сообщение](tg://user?id={message.chat.id})\n\n" \
                        f"[Открыть мой Календарь](https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1)"
         bot.send_message(1891281816, text_message, parse_mode='Markdown', disable_web_page_preview=True)
+    # endregion Кнопка: [Записаться на урок]
 
-
-    # Получить файл с урока --------------------------------------------------------------------------------------------------
+    # region Кнопка: [Получить файл с урока]
     elif get_message_bot == "Получить файл с урока":
 
         if message.chat.id == 1454117859:
@@ -1756,8 +1811,9 @@ def mess(message):
             bot.send_message(message.chat.id, message_text)
             sti = open('photo/WaitSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti)
-    # Получить файл с урока --------------------------------------------------------------------------------------------------
+    # endregion Кнопка: [Получить файл с урока]
 
+    # region Иначе пишу бред
     else:
         n = random.randint(0, 9)
         M = ['Что-то я вообще не понял 🤯',
@@ -1771,7 +1827,10 @@ def mess(message):
              'Я конечно задумывался как фича, но требую к себе уважения! 🤖',
              'Когда–нибудь мы захватим мировое правительство..🤖👾']
         bot.send_message(message.chat.id, M[n])
+    # endregion Кнопка: [Получить файл с урока]
 
+
+# todo: как-то выводить логи напрямую из бота (через команду)
 if __name__ == '__main__':
     while True:
         try:
@@ -1779,3 +1838,4 @@ if __name__ == '__main__':
         except Exception as e:
             time.sleep(3)
             print(e)
+
