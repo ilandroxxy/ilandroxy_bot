@@ -1,72 +1,64 @@
 
+# Проверка на аннаграмму
+"""
+s1 = input()
+s2 = input()
 
-def MyNod(x,y):
-    n = min(x, y)
-    res = 0
-    for i in range(1, n):
-        if x % i == 0 and y % i == 0:
-            res = i
-    return res
-#print(MyNod(int(input("введите a: ")), int(input("введите b: "))))
+base1 = {}
+for i in s1:
+    base1[i] = base1.get(i, 0) + 1
+print(base1)
 
+base2 = {}
+for i in s2:
+    base2[i] = base2.get(i, 0) + 1
+print(base2)
 
+if base1 == base2:
+    print('YES')
+else:
+    print('NO')
+"""
 
-# Списки list
+# Проверяем и выводим синонимы из словаря
+"""
+n = int(input('n: '))
 
-B = [1, 2, 3, '4', '5', 6.0]
-#    0  1  2   3    4    5
-# У списка list() есть порядковый номер элемента (индекс)
-# индексы считаются с нуля (либо отрицательным шагом с -1)
-# Мы можем менять элемент списка через индекс (изменяемй тип данных)
-# За счет индексации Списки поддерживают срезы
-print(B[2:4])
+base = {}
+for i in range(n):
+    M = [i for i in input().split()]
+    base[M[0]] = M[1]
+print(base)
 
-# Списки удобно пробегать через цикл for
-# Имеют много стандартных функций и методов - удобно работать
-
-# Словари dict()
-
-M = {}
-print(M, type(M))
-
-
-A = {1: 'один', 2: "два", 3: "три"}  # ключ: значение
-
-# доступ к значению элемента словаря предоставляется через ключ
-# ключи повторяться не могут, одинаковые записи будут пропадать
-print(A[2])
-
-for key in A:
-    print(key)
-
-for value in A.values():
-    print(value)
-
-for value in A.keys():
-    print(value)
-
-for value in A.items():
-    print(value)
-
-A = {1: 'один', 2: "два", 3: [1, 2, 3]}  # ключ: значение
-for i in A[3]:  # в элементе с ключом 3 лежит список, пробегаем его элементы
-    print(i)
+s = input('s: ')
+for key in base:
+    if s == key:
+        print(base[s])
+    if s == base[s]:
+        print(s)
+"""
 
 
-'''
-f = open('ilandroxy.py_homework5.txt')
-S = f.readlines()
+# Страны и города
 
-count = 0
-for i in S:
-    for j in i:
-        count += 1
-print(len(S), count)
+n = int(input('Введите кол-во стран: '))
 
-# 171 4096 кол-во строк и кол-во букв в файле
-# 198 3401
-# 101 1911
-# 76 4096
+base = {}
+for i in range(n):
+    M = [i for i in input("Введите страну и ее города: ").split()]
+    base[M[0]] = M[1:]
+print(base)
 
-print(2**12)
-'''
+# for i in base["Россия"]:
+#     print(i)
+
+m = int(input("Введите кол-во городов: "))
+
+for i in range(m):
+    town = input('Введите город: ')
+    for key in base:
+        if town in base[key]:
+            print(key)
+
+
+

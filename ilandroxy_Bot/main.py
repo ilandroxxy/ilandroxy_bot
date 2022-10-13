@@ -7,14 +7,13 @@ import csv
 import time
 import datetime as dt
 
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+bot = telebot.TeleBot('5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
-# test 5734914555:AAEPdNUsCpv4n49jie8C9P7TojK_McPkCIU
+# test 5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs
 # endregion import и API key
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
 
-# todo: отправить домашку Славе, Исламу, Кате, Данилу
 
 
 # region Словарь с данными студентов
@@ -790,7 +789,8 @@ def step(call):
                        f'/voiceall - способ отправить сообщение всем пользователям (с ссылками)\n\n' \
                        f'/voicestudents - способ отправить сообщение всем моим студентам\n\n' \
                        f'/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)\n\n' \
-                       f'/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)'
+                       f'/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)\n\n' \
+                       f'[Мой Google календарь](https://calendar.google.com/calendar)'
         bot.send_message(call.message.chat.id, message_text, parse_mode='Markdown')
     # endregion call.data для Private_help
 
@@ -834,6 +834,8 @@ def start(message):
     pic_1 = open("photo/hello.jpeg", 'rb')
     bot.send_photo(message.chat.id, pic_1)
 
+    markup1 = types.InlineKeyboardMarkup(row_width=1)
+    markup1.add(types.InlineKeyboardButton("🧑‍💻 Моя визитка", url="https://clck.ru/32FoBc"))
 
     message_text1 = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
                 f'Меня зовут *Андрианов Илья*. \nЯ программист – `Python developer`.\n' \
@@ -841,7 +843,10 @@ def start(message):
                 f'*Мои рейтинг на Авито*\n*5,0* ⭐️⭐️⭐️⭐️⭐️\nНа основании 68 оценок\nПосмотреть 👉 /reviews\n\n' \
                 f'*Рад Вас приветствовать* у себя на `"страничке"`, здесь я постараюсь коротко ' \
                 f'рассказать о себе и, надеюсь, нам удастся найти общий язык 🙏 \n\n'
-    bot.send_message(message.chat.id, message_text1, parse_mode='Markdown')
+    bot.send_message(message.chat.id, message_text1, parse_mode='Markdown', reply_markup=markup1)
+
+
+
 
     message_text2 = f'Если вы мой студент, то воспользуйтесь командой 👉 /getmyid, чтобы бот 🤖 показал ваш ID пользователя. Он необходим, чтобы [я смог добавить](t.me/@ilandroxy) Вас в систему!\n\n' \
                 f'Воспользуйтесь командой 👉 /download, чтобы получить список необходимых для занятий программ!\n\n' \
@@ -862,7 +867,7 @@ def help(message):
     send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
                    '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/price - получить информацию о ценах и реквизиты\n/links - полезные ссылки для подготовки к экзамену' \
                    '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram\n/useful - получите шпаргалки от `Яндекс практикума` по Python\n' \
-                   '/getorder - обсудить разработку Вашего чат бота под заказ\n/today - выводит персональное расписание уроков'
+                   '/getorder - обсудить разработку Вашего чат бота под заказ\n/today - выводит персональное расписание уроков\n/reviews - генерирует отзыв при нажатии кнопки'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
 
@@ -1191,6 +1196,8 @@ def reviews(message):
 
 /noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)
 /notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)
+
+/showcalendar - прямая ссылка на мой Google календарь
 '''
 
 # region Список приватных команд:
@@ -1329,6 +1336,30 @@ def statistics(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
+# SHOW_USERS
+@bot.message_handler(commands=['show_users'])
+def show_users(message):
+    if message.chat.id in Me:
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        sqlite_select_query = """SELECT id from active"""
+        cursor.execute(sqlite_select_query)
+        ID_users = cursor.fetchall()
+
+        message_text = ''
+        message_text2 = ''
+        for i in ID_users:
+            if i[0] in Students:
+                message_text += '\n' + f'Студент: {Students[i[0]]}\nUserID: {i[0]}\nПрофиль: tg://user?id={i[0]}\n'
+            else:
+                message_text2 += '\n' + f'UserID: {i[0]}\nПрофиль: tg://user?id={i[0]}\n'
+
+        bot.send_message(1891281816, message_text, parse_mode='Markdown')
+        bot.send_message(1891281816, message_text2, parse_mode='Markdown')
+
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 # endregion Работа с базами данных, statistics
 
@@ -1593,6 +1624,7 @@ def notice(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команды: noticestudents, notice
+
 
 # endregion Список приватных команд
 
