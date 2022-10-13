@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-bot = telebot.TeleBot('5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs')
+bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs
 # endregion import и API key
