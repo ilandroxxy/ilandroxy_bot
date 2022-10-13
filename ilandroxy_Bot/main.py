@@ -783,7 +783,8 @@ def step(call):
 
     # region call.data для Private_help
     elif call.data == 'private':
-        message_text = f'/statistics - выводит статистику и файлы db напрямую в боте\n\n' \
+        message_text = f'/show_users - выводит ссылки на пользователей из db\n\n' \
+                       f'/statistics - выводит статистику и файлы db напрямую в боте\n\n' \
                        f'/git - команда при запуске которой приходят команды для залива репазитория на GitHub\n\n' \
                        f'/less - чек проведенного урока и принятия оплат по абонементам\n\n' \
                        f'/voiceall - способ отправить сообщение всем пользователям (с ссылками)\n\n' \
@@ -794,7 +795,7 @@ def step(call):
         bot.send_message(call.message.chat.id, message_text, parse_mode='Markdown')
     # endregion call.data для Private_help
 
-
+# todo: Сделать папку с решениями ЕГЭ задач - чтобы можно было открыть и делать по аналогии
 
 
 
@@ -1186,6 +1187,7 @@ def reviews(message):
 
 ''' # Приватные команды:
 /statistics - выводит статистику и файлы db напрямую в боте
+/show_users - выводит ссылки на пользователей из db
 
 /private_help - кнопка со всеми приватными командами
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
@@ -1196,8 +1198,6 @@ def reviews(message):
 
 /noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)
 /notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)
-
-/showcalendar - прямая ссылка на мой Google календарь
 '''
 
 # region Список приватных команд:
