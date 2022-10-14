@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
+bot = telebot.TeleBot('5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs')
 # real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
 # test 5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs
 # endregion import и API key
@@ -783,7 +783,7 @@ def step(call):
 
     # region call.data для Private_help
     elif call.data == 'private':
-        message_text = f'/show_users - выводит ссылки на пользователей из db\n\n' \
+        message_text = f'/showusers - выводит ссылки на пользователей из db\n\n' \
                        f'/statistics - выводит статистику и файлы db напрямую в боте\n\n' \
                        f'/git - команда при запуске которой приходят команды для залива репазитория на GitHub\n\n' \
                        f'/less - чек проведенного урока и принятия оплат по абонементам\n\n' \
@@ -795,7 +795,17 @@ def step(call):
         bot.send_message(call.message.chat.id, message_text, parse_mode='Markdown')
     # endregion call.data для Private_help
 
-# todo: Сделать папку с решениями ЕГЭ задач - чтобы можно было открыть и делать по аналогии
+    # region call.data для Открыть решебник
+    elif call.data == 'reshebnik':
+        message_text = "Наборы решенных задач на Python\n\n" \
+                        "[2.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/2.py)     [5.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/5.py)     [6.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py)     [8.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/8.py)    [12.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/12.py)\n\n" \
+                        "[14.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/14.py)   [15.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/15.py)    [16.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/16.py)   [17.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/17.py)   [22.]()\n\n" \
+                        "[23.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/23.py)   [24.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/24.py)   [25.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py25)   [26.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/26.py)   [27.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/27.py)\n\n"
+
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown",disable_web_page_preview=True)
+    # endregion call.data для Открыть решебник
+
+
 
 
 
@@ -930,6 +940,9 @@ def price(message):
 # TASKS
 @bot.message_handler(commands=['tasks'])
 def tasks(message):
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    markup.add(types.InlineKeyboardButton("Открыть решебник 📚", callback_data="reshebnik"))
+
     message_text1 = "*Наборы разных типов задач с* [Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n`new 2022-2023 года`\n\n" \
                     "[1.](https://inf-ege.sdamgia.ru/test?id=11297175&nt=True&pub=False)   [2.](https://inf-ege.sdamgia.ru/test?id=11297177&nt=True&pub=False)   [3.](https://inf-ege.sdamgia.ru/test?id=11297178&nt=True&pub=False)   " \
                    "[4.](https://inf-ege.sdamgia.ru/test?id=11297180&nt=True&pub=False)   [5.](https://inf-ege.sdamgia.ru/test?id=11297181&nt=True&pub=False)   [6.](https://inf-ege.sdamgia.ru/test?id=11481799&nt=True&pub=False)   [7.](https://inf-ege.sdamgia.ru/test?id=11297184&nt=True&pub=False)    " \
@@ -939,7 +952,8 @@ def tasks(message):
                    "[22.](https://inf-ege.sdamgia.ru/test?id=11481790&nt=True&pub=False)   [23.](https://inf-ege.sdamgia.ru/test?id=11297224&nt=True&pub=False)   [24.](https://inf-ege.sdamgia.ru/test?id=11297227&nt=True&pub=False)   [25.](https://inf-ege.sdamgia.ru/test?id=11297232&nt=True&pub=False)   " \
                    "[26.](https://inf-ege.sdamgia.ru/test?id=11297237&nt=True&pub=False)   [27.](https://inf-ege.sdamgia.ru/test?id=11297240&nt=True&pub=False)\n\n" \
                     "*Обратите внимание*, что наборы задач разного года могут отличаться!"
-    bot.send_message(message.chat.id, message_text1, parse_mode="Markdown", disable_web_page_preview=True)
+    bot.send_message(message.chat.id, message_text1, reply_markup=markup, parse_mode="Markdown", disable_web_page_preview=True)
+
 
     message_text_old = "*Наборы разных типов задач с* [Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n`old 2021-2022 года`\n\n" \
                        "[1.](https://clck.ru/ebsmq)   [2.](https://clck.ru/ebsnV)   [3.](https://clck.ru/ebsnt)   " \
@@ -1180,8 +1194,6 @@ def reviews(message):
 # endregion Список публичных команд
 
 
-# todo: Александр_2 есть пробелема, что кнопки "Прочитано" не уходят мне обратно - ченкуть
-
 
 
 
@@ -1336,9 +1348,9 @@ def statistics(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
-# SHOW_USERS
-@bot.message_handler(commands=['show_users'])
-def show_users(message):
+# SHOWUSERS
+@bot.message_handler(commands=['showusers'])
+def showusers(message):
     if message.chat.id in Me:
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
@@ -1369,8 +1381,8 @@ def show_users(message):
 def private_help(message):
     if message.chat.id in Me:
         markup = types.InlineKeyboardMarkup(row_width=1)
-        markup.add(types.InlineKeyboardButton("Private commands", callback_data='private'))
-        bot.send_message(message.chat.id, 'Список всех приватных комманд 👉 ',reply_markup=markup)
+        markup.add(types.InlineKeyboardButton("Private commands 🔓", callback_data='private'))
+        bot.send_message(message.chat.id, 'Список всех приватных комманд 👉 ', reply_markup=markup)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
