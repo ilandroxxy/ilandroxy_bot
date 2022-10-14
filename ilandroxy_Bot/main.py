@@ -7,9 +7,10 @@ import csv
 import time
 import datetime as dt
 
-bot = telebot.TeleBot('5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk')
-# real 5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk
-# test 5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs
+TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+bot = telebot.TeleBot(TOKEN)
+# real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+# test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 # endregion import и API key
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
@@ -49,10 +50,13 @@ SaturdayStudents = {1454117859: ['Diana', "17:00", 4320//8, "Диана"],
 Me = {1891281816: ['', '00:00', 0, "iРепетитор"],
       438879394: ['', '00:00', 0, "Илья"]}
 
-Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents | Me
+PrivateMe = {1891281816: "Рабочий аккаунт",
+            438879394: 'Илья',
+            -726393257: "Homework",
+            -647660626: "Lessons"}
 
-# 1891281816: 'ilandroxy', 438879394: 'ilandroxxy', -726393257: "Homework", -647660626: "Lessons"
-# endregion
+Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents | Me
+# endregion Словарь с данными студентов
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -132,6 +136,162 @@ def step(call):
 
         bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
     # endregion call.data для Репетитор
+
+    # region call.data для Теоретической домашки
+    elif call.data == 'firstclass':
+        bot.send_message(call.message.chat.id,
+                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != '0':
+                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
+                n = int(message.text)
+                M = []
+                for i in range(n):
+                    x = random.randint(1, 25)
+                    while x in M:
+                        x = random.randint(1, 25)
+                    M.append(x)
+                    photo = open(f'theoryHW/firstclass/{x}.png', 'rb')
+                    bot.send_photo(call.message.chat.id, photo)
+                    photo = open(f'theoryHW/firstclass/{x}.png', 'rb')
+                    bot.send_photo(-726393257, photo)
+                M.clear()
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+
+        bot.register_next_step_handler(call.message, message_input)
+
+    elif call.data == 'ifelifelse':
+        bot.send_message(call.message.chat.id,
+                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != '0':
+                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                 parse_mode='Markdown')
+                n = int(message.text)
+                M = []
+                for i in range(n):
+                    x = random.randint(1, 21)
+                    while x in M:
+                        x = random.randint(1, 21)
+                    M.append(x)
+                    photo = open(f'theoryHW/ifelifelse/{x}.png', 'rb')
+                    bot.send_photo(call.message.chat.id, photo)
+                    photo = open(f'theoryHW/ifelifelse/{x}.png', 'rb')
+                    bot.send_photo(-726393257, photo)
+                M.clear()
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+
+        bot.register_next_step_handler(call.message, message_input)
+
+    elif call.data == 'whilefor':
+        bot.send_message(call.message.chat.id,
+                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != '0':
+                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                 parse_mode='Markdown')
+                n = int(message.text)
+                M = []
+                for i in range(n):
+                    x = random.randint(1, 20)
+                    while x in M:
+                        x = random.randint(1, 20)
+                    M.append(x)
+                    photo = open(f'theoryHW/whilefor/{x}.png', 'rb')
+                    bot.send_photo(call.message.chat.id, photo)
+                    photo = open(f'theoryHW/whilefor/{x}.png', 'rb')
+                    bot.send_photo(-726393257, photo)
+                M.clear()
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+
+        bot.register_next_step_handler(call.message, message_input)
+
+    elif call.data == 'list':
+        bot.send_message(call.message.chat.id,
+                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                             parse_mode='Markdown')
+            n = int(message.text)
+            M = []
+            for i in range(n):
+                x = random.randint(1, 18)
+                while x in M:
+                    x = random.randint(1, 18)
+                M.append(x)
+                photo = open(f'theoryHW/list/{x}.png', 'rb')
+                bot.send_photo(call.message.chat.id, photo)
+                photo = open(f'theoryHW/list/{x}.png', 'rb')
+                bot.send_photo(-726393257, photo)
+            M.clear()
+            bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+
+        bot.register_next_step_handler(call.message, message_input)
+
+    elif call.data == 'string':
+        bot.send_message(call.message.chat.id,
+                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != '0':
+                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                 parse_mode='Markdown')
+                n = int(message.text)
+                M = []
+                for i in range(n):
+                    x = random.randint(1, 14)
+                    while x in M:
+                        x = random.randint(1, 14)
+                    M.append(x)
+                    photo = open(f'theoryHW/string/{x}.png', 'rb')
+                    bot.send_photo(call.message.chat.id, photo)
+                    photo = open(f'theoryHW/string/{x}.png', 'rb')
+                    bot.send_photo(-726393257, photo)
+                M.clear()
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+
+        bot.register_next_step_handler(call.message, message_input)
+
+    elif call.data == 'function':
+        bot.send_message(call.message.chat.id,
+                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
+                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != '0':
+                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                 parse_mode='Markdown')
+                n = int(message.text)
+                M = []
+                for i in range(n):
+                    x = random.randint(1, 16)
+                    while x in M:
+                        x = random.randint(1, 16)
+                    M.append(x)
+                    photo = open(f'theoryHW/functions/{x}.png', 'rb')
+                    bot.send_photo(call.message.chat.id, photo)
+                    photo = open(f'theoryHW/functions/{x}.png', 'rb')
+                    bot.send_photo(-726393257, photo)
+                M.clear()
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+
+        bot.register_next_step_handler(call.message, message_input)
+    # endregion call.data для теоретической домашки
 
     # region call.data для Homework
     elif call.data == 'sendhomeworks':
@@ -791,6 +951,7 @@ def step(call):
                        f'/voicestudents - способ отправить сообщение всем моим студентам\n\n' \
                        f'/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)\n\n' \
                        f'/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)\n\n' \
+                       f'/list - список студентов для поиска по #\n\n' \
                        f'[Мой Google календарь](https://calendar.google.com/calendar)'
         bot.send_message(call.message.chat.id, message_text, parse_mode='Markdown')
     # endregion call.data для Private_help
@@ -1015,7 +1176,17 @@ def useful(message):
 @bot.message_handler(commands=['homework'])
 def homework(message):
     if message.chat.id in Me or message.chat.id in Students:
-        message_text = "Эта команда просто выдает рандомное задание с Решу ЕГЭ\n\nПомимо этого, мне приходит уведомление с номерами выпавших задач.\n\nПроявите самостоятельность в выборе, а на уроке мы разбрем возникшие вопросы!\n\n[Читать правила оформления домашки](https://www.notion.so/ilandroxxy/8234ee61967a4cbe8a232b745cff0b9a)"
+        message_text0 = 'Наборы задачек на отработку теории Python:'
+        markup0 = types.InlineKeyboardMarkup(row_width=1)
+        markup0.add(types.InlineKeyboardButton("Тип данных, Базовая арифметика", callback_data="firstclass"),
+                   types.InlineKeyboardButton("Условные операторы, ветвление", callback_data="ifelifelse"),
+                   types.InlineKeyboardButton("Циклы while и for", callback_data="whilefor"),
+                   types.InlineKeyboardButton("Тип коллекций списки (list)", callback_data="list"),
+                   types.InlineKeyboardButton("Строковый тип данных (str)", callback_data="string"),
+                   types.InlineKeyboardButton("Самописные функции и рекурсия", callback_data="function"))
+        bot.send_message(message.chat.id, message_text0, parse_mode="Markdown", reply_markup=markup0)
+
+        message_text = "Эта команда выдает рандомное задание с Решу ЕГЭ\n\nПомимо этого, мне приходит уведомление с номерами выпавших задач.\n\nПроявите самостоятельность в выборе, а на уроке мы разбрем возникшие вопросы!\n\n[Читать правила оформления домашки](https://www.notion.so/ilandroxxy/8234ee61967a4cbe8a232b745cff0b9a)"
         markup = types.InlineKeyboardMarkup(row_width=5)
         markup.add(types.InlineKeyboardButton("1", callback_data="hw1"),
                     types.InlineKeyboardButton("2", callback_data="hw2"),
@@ -1213,7 +1384,6 @@ def reviews(message):
 '''
 
 # region Список приватных команд:
-
 # region Работа с базами данных, statistics
 
 # Getting STATISTICS
@@ -1379,7 +1549,7 @@ def showusers(message):
 # PRIVATE_HELP
 @bot.message_handler(commands=['private_help'])
 def private_help(message):
-    if message.chat.id in Me:
+    if message.chat.id in PrivateMe:
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("Private commands 🔓", callback_data='private'))
         bot.send_message(message.chat.id, 'Список всех приватных комманд 👉 ', reply_markup=markup)
@@ -1637,7 +1807,20 @@ def notice(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команды: noticestudents, notice
 
+# region Команда: list
+@bot.message_handler(commands=['list'])
+def list(message):
+    if message.chat.id in PrivateMe:
+        message_text = 'Список студентов:\n'
+        for i in Students:
+            message_text += f'#{Students[i][3]}\n'
+        bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
+# endregion Команда: list
+
+# todo: в группы встроить команду list
 # endregion Список приватных команд
 
 
