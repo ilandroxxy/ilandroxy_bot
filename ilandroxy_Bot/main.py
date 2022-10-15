@@ -12,9 +12,7 @@ bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 # endregion import и API key
-
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
-
 
 
 # region Словарь с данными студентов
@@ -40,7 +38,8 @@ FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8, "Стася"],
                   719571990: ['Stepan.py', "17:00", 6800//8, "Степан"],
                   1029532016: ['Maria.py', "21:00", 3600//4, "Мария"],
                   1649389148: ['Slava.py', "22:00", 6800//8,  "Слава"]}
-SaturdayStudents = {1454117859: ['Diana', "17:00", 4320//8, "Диана"],
+SaturdayStudents = {1347259493: ['Andrey.py', '15:00', 1500, 'Андрей'],
+                    1454117859: ['Diana', "17:00", 4320//8, "Диана"],
                     5148819382: ['Tatyana.py', "19:00", 3600//4, "Татьяна"],
                     986539147: ['Danil.py', '20:00', 6800//8, "Данил"],
                     1314375732: ['Vasiliy.py', "21:00", 6800//8, "Василий"],
@@ -57,6 +56,7 @@ PrivateMe = {1891281816: "Рабочий аккаунт",
 
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents | Me
 # endregion Словарь с данными студентов
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -961,7 +961,7 @@ def step(call):
         message_text = "Наборы решенных задач на Python\n\n" \
                         "[2.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/2.py)     [5.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/5.py)     [6.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py)     [8.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/8.py)    [12.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/12.py)\n\n" \
                         "[14.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/14.py)   [15.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/15.py)    [16.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/16.py)   [17.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/17.py)   [22.]()\n\n" \
-                        "[23.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/23.py)   [24.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/24.py)   [25.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py25)   [26.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/26.py)   [27.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/27.py)\n\n"
+                        "[23.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/23.py)   [24.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/24.py)   [25.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/25.py)   [26.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/26.py)   [27.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/27.py)\n\n"
 
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown",disable_web_page_preview=True)
     # endregion call.data для Открыть решебник
@@ -970,7 +970,7 @@ def step(call):
 
 
 
-
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
 '''# Публичные команды:
 /start - перезапуск бота, на стартовую позицию
 /help - справка по всем командам в боте
@@ -1367,7 +1367,7 @@ def reviews(message):
 
 
 
-
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
 ''' # Приватные команды:
 /statistics - выводит статистику и файлы db напрямую в боте
 /show_users - выводит ссылки на пользователей из db
@@ -1820,7 +1820,6 @@ def list(message):
 
 # endregion Команда: list
 
-# todo: в группы встроить команду list
 # endregion Список приватных команд
 
 
