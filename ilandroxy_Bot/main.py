@@ -147,7 +147,8 @@ def step(call):
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             if message.text != '0':
-                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
+                if call.message.chat.id != 1891281816:
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -157,8 +158,9 @@ def step(call):
                     M.append(x)
                     photo = open(f'theoryHW/firstclass/{x}.png', 'rb')
                     bot.send_photo(call.message.chat.id, photo)
-                    photo = open(f'theoryHW/firstclass/{x}.png', 'rb')
-                    bot.send_photo(-726393257, photo)
+                    if call.message.chat.id != 1891281816:
+                        photo = open(f'theoryHW/firstclass/{x}.png', 'rb')
+                        bot.send_photo(-726393257, photo)
                 M.clear()
                 bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
 
@@ -172,7 +174,8 @@ def step(call):
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             if message.text != '0':
-                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                if call.message.chat.id != 1891281816:
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
                                  parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -183,8 +186,9 @@ def step(call):
                     M.append(x)
                     photo = open(f'theoryHW/ifelifelse/{x}.png', 'rb')
                     bot.send_photo(call.message.chat.id, photo)
-                    photo = open(f'theoryHW/ifelifelse/{x}.png', 'rb')
-                    bot.send_photo(-726393257, photo)
+                    if call.message.chat.id != 1891281816:
+                        photo = open(f'theoryHW/ifelifelse/{x}.png', 'rb')
+                        bot.send_photo(-726393257, photo)
                 M.clear()
                 bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
 
@@ -198,7 +202,8 @@ def step(call):
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             if message.text != '0':
-                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                if call.message.chat.id != 1891281816:
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
                                  parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -209,8 +214,9 @@ def step(call):
                     M.append(x)
                     photo = open(f'theoryHW/whilefor/{x}.png', 'rb')
                     bot.send_photo(call.message.chat.id, photo)
-                    photo = open(f'theoryHW/whilefor/{x}.png', 'rb')
-                    bot.send_photo(-726393257, photo)
+                    if call.message.chat.id != 1891281816:
+                        photo = open(f'theoryHW/whilefor/{x}.png', 'rb')
+                        bot.send_photo(-726393257, photo)
                 M.clear()
                 bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
 
@@ -223,7 +229,8 @@ def step(call):
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+            if call.message.chat.id != 1891281816:
+                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
                              parse_mode='Markdown')
             n = int(message.text)
             M = []
@@ -234,8 +241,9 @@ def step(call):
                 M.append(x)
                 photo = open(f'theoryHW/list/{x}.png', 'rb')
                 bot.send_photo(call.message.chat.id, photo)
-                photo = open(f'theoryHW/list/{x}.png', 'rb')
-                bot.send_photo(-726393257, photo)
+                if call.message.chat.id != 1891281816:
+                    photo = open(f'theoryHW/list/{x}.png', 'rb')
+                    bot.send_photo(-726393257, photo)
             M.clear()
             bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
 
@@ -249,7 +257,8 @@ def step(call):
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             if message.text != '0':
-                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                if call.message.chat.id != 1891281816:
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
                                  parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -260,8 +269,9 @@ def step(call):
                     M.append(x)
                     photo = open(f'theoryHW/string/{x}.png', 'rb')
                     bot.send_photo(call.message.chat.id, photo)
-                    photo = open(f'theoryHW/string/{x}.png', 'rb')
-                    bot.send_photo(-726393257, photo)
+                    if call.message.chat.id != 1891281816:
+                        photo = open(f'theoryHW/string/{x}.png', 'rb')
+                        bot.send_photo(-726393257, photo)
                 M.clear()
                 bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
 
@@ -275,8 +285,9 @@ def step(call):
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             if message.text != '0':
-                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
-                                 parse_mode='Markdown')
+                if call.message.chat.id != 1891281816:
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                     parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -286,8 +297,9 @@ def step(call):
                     M.append(x)
                     photo = open(f'theoryHW/functions/{x}.png', 'rb')
                     bot.send_photo(call.message.chat.id, photo)
-                    photo = open(f'theoryHW/functions/{x}.png', 'rb')
-                    bot.send_photo(-726393257, photo)
+                    if call.message.chat.id != 1891281816:
+                        photo = open(f'theoryHW/functions/{x}.png', 'rb')
+                        bot.send_photo(-726393257, photo)
                 M.clear()
                 bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
 
