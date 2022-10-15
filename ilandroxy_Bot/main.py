@@ -137,6 +137,7 @@ def step(call):
         bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
     # endregion call.data для Репетитор
 
+# todo: Убрать уведомление в homework, когда я сам беру задачки (чтоб не спамить)
     # region call.data для Теоретической домашки
     elif call.data == 'firstclass':
         bot.send_message(call.message.chat.id,

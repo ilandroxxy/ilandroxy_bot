@@ -137,6 +137,7 @@ print(sum(A) - max(A) - min(A))
 '''
 
 # Методы работы со списками
+"""
 M = [1, 2, 3, 4, 5]
 M.append(0)
 M.append(1)
@@ -159,6 +160,126 @@ print(M.index(1))  # возвращает индекс первого элеме
 x = M.pop(3)  # через индекс забирает элемент из списка в переменную x
 print(M)
 print(x)
+"""
+
+# Методы строк split() и join()
+
+# задача: Проверить ip адрес на корректность
+"""  split()
+ip = '123.56.45.8'  # 0 <= x <= 255
+M = [int(i) for i in ip.split('.')]
+print(M)
+
+flag = True
+for x in M:
+    if not(0 <= x <= 255):
+        flag = False
+if flag == True:
+    print('ip адрес корректный')
+else:
+    print('ip адрес не корректный')
+"""
+
+""" join
+M = ['h', 'e', 'l', 'l', 'o']
+slovo = ''.join(M)
+print(slovo)
+"""
+
+
+# Списочные выражения
+"""
+M = [i for i in 'Text']
+print(M)
+
+
+M = [i for i in '1234']
+print(M)
+
+M = [i*3 for i in '1234']
+print(M)
+
+M = [int(i) for i in '1234']
+print(M)
+
+# M = [i for i in input("Введите слово: ")]
+# print(M)
+
+
+M = [i for i in range(10)]  # создадим список [0, 9] или [0, 10)
+print(M)
+
+
+M = [i for i in range(2, 10, 2)]
+print(M)
+
+import string
+Symbols = string.punctuation
+print(Symbols)
+A = [i for i in input("Введите предложение: ") if i not in Symbols]
+predloshenie = ''.join(A)
+M = [i for i in predloshenie.split()]
+print(M)
+"""
+
+
+
+
+
+
+
+
+# Список четных
+"""
+M = []
+n = int(input('n: '))
+for i in range(2, n+1, 2):  # и через range по четным элементам 
+    M.append(i)
+print(M)
+
+M = []
+n = int(input('n: '))
+for i in range(1, n+1):
+    if i % 2 == 0:  # решили через условие, когда число четное - добавляем
+        M.append(i)
+print(M)
+"""
+
+
+# Символы всех строк
+"""
+n = int(input('Введите кол-во строк: '))
+
+M = []
+for i in range(n):
+    s = input(f's{i+1}: ')
+    for x in s:
+        M.append(x)
+print(M)
+"""
+
+# Сумма двух списков
+"""
+L = [int(i) for i in input('Введите числа через пробел: ').split()]
+M = [int(i) for i in input('Введите числа через пробел: ').split()]
+print(L)
+print(M)
+
+while len(L) != len(M):
+    if len(L) < len(M):
+        L.append(0)
+    else:
+        M.append(0)
+print(L)
+print(M)
+
+S = []
+for i in range(0, len(L)):
+    S.append(L[i] + M[i])
+print(S)
+"""
+
+
 
 
 
