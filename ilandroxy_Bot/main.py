@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
+TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
@@ -17,37 +17,36 @@ bot = telebot.TeleBot(TOKEN)
 
 # region Словарь с данными студентов
 # Синхронно моему расписанию в Google Календаре
-MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия"],
-                  811476623: ["Georgie.py", "20:00", 3040//4, "Георгий"],
-                  659796558: ['Ivan.py', '21:00', 3600//4, "Иван"],
-                  826004697: ['Nikita.py', '22:00', 3040//4, "Никита"]}
-TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина"],
-                   1649389148: ['Slava.py', "15:00", 6800//8, "Слава"],
-                   789322200: ['Katya.py', "16:00", 3600//4, "Екатерина"],
-                   1208542295: ['Sasha.py', '19:00', 4000//8, "Александра"],
-                   986539147: ['Danil.py', '20:00', 6800//8, "Данил"],
-                   804184353: ['Islam.py', '21:00', 3600//4, "Ислам"],
-                   1537718492: ['Aleksandr.py', '22:00', 5760//8, "Александр"]}
-ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина"],
-                    1187852992: ['Aleksandr_2.py', "17:00", 6800//8, "Александр2"],
-                    1454117859: ['Diana', "19:00", 4320//8, "Диана"],
-                    811476623:  ["Georgie.py", "20:00", 3040//4, "Георгий"],
-                    799740089: ["Bulat.py", "21:00", 2280//4, "Булат"],
-                    1537718492: ["Aleksandr.py", "22:00", 5760//8, "Александр"]}
-FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8, "Стася"],
-                  719571990: ['Stepan.py', "17:00", 6800//8, "Степан"],
-                  1029532016: ['Maria.py', "21:00", 3600//4, "Мария"],
-                  1649389148: ['Slava.py', "22:00", 6800//8,  "Слава"]}
-SaturdayStudents = {1347259493: ['Andrey.py', '15:00', 1500, 'Андрей'],
-                    1454117859: ['Diana', "17:00", 4320//8, "Диана"],
-                    5148819382: ['Tatyana.py', "19:00", 3600//4, "Татьяна"],
-                    986539147: ['Danil.py', '20:00', 6800//8, "Данил"],
-                    1314375732: ['Vasiliy.py', "21:00", 6800//8, "Василий"],
-                    871237277: ['Vladek.py', "22:00", 6800//8, "Владек"],
-                    1173284690: ['Polina.py', 'nope', 1000, "Полина"]}
+MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия", 1000],
+                  811476623: ["Georgie.py", "20:00", 3040//4, "Георгий", 4],
+                  659796558: ['Ivan.py', '21:00', 3600//4, "Иван", 4],
+                  826004697: ['Nikita.py', '22:00', 3040//4, "Никита", 4]}
+TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
+                   1649389148: ['Slava.py', "15:00", 6800//8, "Слава", 8],
+                   789322200: ['Katya.py', "16:00", 3600//4, "Екатерина", 4],
+                   1208542295: ['Sasha.py', '19:00', 4000//8, "Александра", 8],
+                   804184353: ['Islam.py', '21:00', 3600//4, "Ислам", 4],
+                   1537718492: ['Aleksandr.py', '22:00', 5760//8, "Александр", 8]}
+ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
+                    1187852992: ['Aleksandr_2.py', "17:00", 6800//8, "Александр2", 8],
+                    1454117859: ['Diana', "19:00", 4320//8, "Диана", 8],
+                    811476623:  ["Georgie.py", "20:00", 3040//4, "Георгий", 4],
+                    799740089: ["Bulat.py", "21:00", 2280//4, "Булат", 4],
+                    1537718492: ["Aleksandr.py", "22:00", 5760//8, "Александр", 8]}
+FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8, "Стася", 8],
+                  719571990: ['Stepan.py', "17:00", 6800//8, "Степан", 8],
+                  986539147: ['Danil.py', '19:00', 6800 // 8, "Данил", 8],
+                  1029532016: ['Maria.py', "21:00", 3600//4, "Мария", 4],
+                  1649389148: ['Slava.py', "22:00", 6800//8,  "Слава", 8]}
+SaturdayStudents = {1347259493: ['Andrey.py', '15:00', 1500, 'Андрей', 1000],
+                    1454117859: ['Diana', "17:00", 4320//8, "Диана", 8],
+                    5148819382: ['Tatyana.py', "19:00", 3600//4, "Татьяна", 4],
+                    1314375732: ['Vasiliy.py', "21:00", 6800//8, "Василий", 8],
+                    871237277: ['Vladek.py', "22:00", 6800//8, "Владек", 8],
+                    1173284690: ['Polina.py', 'nope', 1000, "Полина", 1000]}
 
-Me = {1891281816: ['', '00:00', 0, "iРепетитор"],
-      438879394: ['', '00:00', 0, "Илья"]}
+Me = {1891281816: ['', '00:00', 0, "iРепетитор", 2],
+      438879394: ['', '00:00', 0, "Илья", 2]}
 
 PrivateMe = {1891281816: "Рабочий аккаунт",
             438879394: 'Илья',
@@ -137,7 +136,6 @@ def step(call):
         bot.send_message(call.message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup, disable_web_page_preview=True)
     # endregion call.data для Репетитор
 
-# todo: Убрать уведомление в homework, когда я сам беру задачки (чтоб не спамить)
     # region call.data для Теоретической домашки
     elif call.data == 'firstclass':
         bot.send_message(call.message.chat.id,
@@ -812,123 +810,6 @@ def step(call):
         bot.send_document(call.message.chat.id, py07)
     # endregion call.data для Useful
 
-    # region call.data для функции Less
-    elif call.data == 'lesson':
-        now = dt.datetime.utcnow()
-        nsk_now = now + dt.timedelta(hours=7)
-        timer = nsk_now.strftime('%d #%A%B%Y #%B%Y')
-
-        bot.send_message(call.message.chat.id, "Введите сообщение к уроку в форма:\n[#Name] [Описание урока]")
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            text_message = timer + '\n\n' + message.text
-            bot.send_message(-647660626, text_message, disable_web_page_preview=True)
-        bot.register_next_step_handler(call.message, message_input)
-
-    elif call.data == 'pay':
-        now = dt.datetime.utcnow()
-        nsk_now = now + dt.timedelta(hours=7)
-        timer = nsk_now.strftime('%d %A #%B%Y')
-
-        textik = '✅ #Оплачен Абонемент:\n' + timer
-        bot.send_message(call.message.chat.id, "Введите данные по абонементу:\n[#Name] [Тип абонемента] [Цена]")
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            text_message = textik + '\n\n' + message.text
-            bot.send_message(-647660626, text_message, disable_web_page_preview=True)
-        bot.register_next_step_handler(call.message, message_input)
-
-
-    # todo: нужно поправить команду - были изменения структуры словаря и изменились индексы
-    elif call.data == 'add':
-        msg = bot.send_message(call.message.chat.id, "Введите данные нового студента:\n[#Day] [ID] [Name.py] [TimeLessons]\n\n*Напишите `0`, чтобы отменить команду!*\n\n"
-                                                     "#Monday\n#Tuesday\n#Thursday\n#Friday\n#Saturday")
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            if message.text != '0':
-                M = [i for i in message.text.split()]
-
-                if M[0] == '#Monday':
-                    MondayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"MondayStudents={MondayStudents}")
-
-                elif M[0] == '#Tuesday':
-                    TuesdayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"TuesdayStudents={TuesdayStudents}")
-
-                elif M[0] == '#Thursday':
-                    ThursdayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"ThursdayStudents={ThursdayStudents}")
-
-                elif M[0] == '#Friday':
-                    FridayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"FridayStudents={FridayStudents}")
-
-                elif M[0] == '#Saturday':
-                    SaturdayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"SaturdayStudents={SaturdayStudents}")
-
-                msg = bot.send_message(1891281816, "Добавил нового студента в систему 🤖\n\n*Не забудьте перенести этот словарь в код программы!*", parse_mode='Markdown', disable_web_page_preview=True)
-        bot.register_next_step_handler(call.message, message_input)
-
-    elif call.data == 'del':
-        msg = bot.send_message(call.message.chat.id, "Заполните форму:\n[#OldDay] [ID] [Name.py] [TimeLessons] [#NewDay]\n\n*Напишите `0`, чтобы отменить команду!*\n\n"
-                                                     "#OldMonday    #NewMonday\n#OldTuesday    #NewTuesday\n#OldThursday    #NewThursday"
-                                                     "\n#OldFriday    #NewFriday\n#OldSaturday    #NewSaturday")
-
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            if message.text != '0':
-                M = [i for i in message.text.split()]
-
-                if M[0] == '#OldMonday':
-                    del MondayStudents[int(M[1])]
-                    msg = bot.send_message(1891281816, f"Old: MondayStudents={MondayStudents}")
-
-                elif M[0] == '#OldTuesday':
-                    del TuesdayStudents[int(M[1])]
-                    msg = bot.send_message(1891281816, f"Old: TuesdayStudents={TuesdayStudents}")
-
-                elif M[0] == '#OldThursday':
-                    del ThursdayStudents[int(M[1])]
-                    msg = bot.send_message(1891281816, f"Old: ThursdayStudents={ThursdayStudents}")
-
-                elif M[0] == '#OldFriday':
-                    del FridayStudents[int(M[1])]
-                    msg = bot.send_message(1891281816, f"Old: FridayStudents={FridayStudents}")
-
-                elif M[0] == '#OldSaturday':
-                    del SaturdayStudents[int(M[1])]
-                    msg = bot.send_message(1891281816, f"Old: SaturdayStudents={SaturdayStudents}")
-
-                if M[3] == '#NewMonday':
-                    MondayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"New: MondayStudents={MondayStudents}")
-
-                elif M[3] == '#NewTuesday':
-                    TuesdayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"New: TuesdayStudents={MondayStudents}")
-
-                elif M[3] == '#NewThursday':
-                    ThursdayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"New: ThursdayStudents={ThursdayStudents}")
-
-                elif M[3] == '#NewFriday':
-                    FridayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"New: FridayStudents={FridayStudents}")
-
-                elif M[3] == '#NewSaturday':
-                    SaturdayStudents[int(M[1])] = [M[2], M[3]]
-                    msg = bot.send_message(1891281816, f"New: SaturdayStudents={SaturdayStudents}")
-
-                msg = bot.send_message(1891281816, "Изменения в расписании: перенесли дату уроков 🤖\n\n*Не забудьте перенести этот словарь в код программы!*", parse_mode='Markdown', disable_web_page_preview=True)
-
-        bot.register_next_step_handler(call.message, message_input)
-    # endregion call.data для функции Less
-
     # region call.data для Что умеет этот бот
 
     # todo: Придумать, как удалять старые сообщения после нажатия кнопки Далее
@@ -959,9 +840,10 @@ def step(call):
         message_text = f'/showusers - выводит ссылки на пользователей из db\n\n' \
                        f'/statistics - выводит статистику и файлы db напрямую в боте\n\n' \
                        f'/git - команда при запуске которой приходят команды для залива репазитория на GitHub\n\n' \
-                       f'/less - чек проведенного урока и принятия оплат по абонементам\n\n' \
                        f'/voiceall - способ отправить сообщение всем пользователям (с ссылками)\n\n' \
                        f'/voicestudents - способ отправить сообщение всем моим студентам\n\n' \
+                       f'/mylessons - проверить кол-во занятий в абонементе\n\n' \
+                       f'/less - подтверждение оплаты абонемента учеником\n\n' \
                        f'/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)\n\n' \
                        f'/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)\n\n' \
                        f'/list - список студентов для поиска по #\n\n' \
@@ -1004,6 +886,8 @@ def step(call):
 
 /today - выводит список учеников по дням занятий
 /reviews - генерирует отзыв при нажатии кнопки 
+
+/mylessons - проверить кол-во занятий в абонементе
 '''
 
 # region Список публичных команд:
@@ -1052,7 +936,7 @@ def help(message):
     send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
                    '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/price - получить информацию о ценах и реквизиты\n/links - полезные ссылки для подготовки к экзамену' \
                    '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram\n/useful - получите шпаргалки от `Яндекс практикума` по Python\n' \
-                   '/getorder - обсудить разработку Вашего чат бота под заказ\n/today - выводит персональное расписание уроков\n/reviews - генерирует отзыв при нажатии кнопки'
+                   '/getorder - обсудить разработку Вашего чат бота под заказ\n/today - выводит персональное расписание уроков\n/mylessons - проверить кол-во занятий в абонементе\n/reviews - генерирует отзыв при нажатии кнопки\n'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
 
@@ -1558,7 +1442,7 @@ def showusers(message):
 
 # endregion Работа с базами данных, statistics
 
-# region Команды: private_help, git, less
+# region Команды: private_help, git
 # PRIVATE_HELP
 @bot.message_handler(commands=['private_help'])
 def private_help(message):
@@ -1609,21 +1493,103 @@ def git(message):
             bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команды: private_help, git
 
-
+# region Команды: less, mylessons
 # LESS
 @bot.message_handler(commands=['less'])
 def less(message):
         if message.chat.id in Me:
-            markup = types.InlineKeyboardMarkup(row_width=2)
-            markup.add(types.InlineKeyboardButton("Проведен урок", callback_data='lesson'),
-                       types.InlineKeyboardButton("Оплата", callback_data='pay'),
-                       types.InlineKeyboardButton("Добавить ученика", callback_data='add'),
-                       types.InlineKeyboardButton("Поменять расписание", callback_data='del'))
-            bot.send_message(message.chat.id, 'Отчетность – это зер гуд 📊📈🧮', reply_markup=markup)
+            day = 'Все студенты: *'
+            for key in Students:
+                day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
+            M_day = [i for i in day.split('*')]
+            message_text_day = '\n'.join(M_day)
+            bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!',
+                                 parse_mode='Markdown')
+
+            @bot.message_handler(content_types=['text'])
+            def message_input(message):
+                text_message = message.text
+
+                if text_message != '0':
+                    message_text_students = [int(i) for i in text_message.split()]
+                    bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                    for key in message_text_students:
+                        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+                        btn1 = types.KeyboardButton('Подтвердить оплату абонемента ❗')
+                        markup.add(btn1)
+
+                        bot.send_message(key, f" 🤖 Привет!\nЭто подтверждение нужно, для ведения бухгалтерии 📊📈🧮\n\n",parse_mode='Markdown', reply_markup=markup)
+            bot.register_next_step_handler(message, message_input)
+
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-# endregion Команды: private_help, git, less
+
+# MYLESSONS
+@bot.message_handler(commands=['mylessons'])
+def mylessons(message):
+    if message.chat.id == 1891281816:
+        day = 'Все студенты: *'
+        for key in Students:
+            day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!',
+                         parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = message.text
+
+            if text_message != '0':
+                user_id = int(text_message)
+                sql = sqlite3.connect('analytics.db')
+                cursor = sql.cursor()
+
+                cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
+                                                               id INTEGER,
+                                                               name TEXT,
+                                                               count INTEGER,
+                                                               mess TEXT
+                                                           )""")
+                sql.commit()
+
+                cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+                records = cursor.fetchone()
+
+                if records is None:
+                    bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..')
+                else:
+                    bot.send_message(message.chat.id, f'{records[3]}', parse_mode='Markdown')
+                cursor.close()
+
+        bot.register_next_step_handler(message, message_input)
+    elif message.chat.id in Students:
+        user_id = message.chat.id
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
+                                                                       id INTEGER,
+                                                                       name TEXT,
+                                                                       count INTEGER,
+                                                                       mess TEXT
+                                                                   )""")
+        sql.commit()
+
+        cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+        records = cursor.fetchone()
+
+        if records is None:
+            bot.send_message(message.chat.id, 'Такого пользователя нет в системе..')
+        else:
+            bot.send_message(message.chat.id, f'Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
+        cursor.close()
+
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команды: less, mylessons
 
 # region Команды: voiceall, voicestudents
 # VOICEAll
@@ -1832,7 +1798,6 @@ def list(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
 # endregion Команда: list
-
 # endregion Список приватных команд
 
 
@@ -1865,7 +1830,56 @@ def mess(message):
         bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
     # endregion Кнопка: Что умеет этот бот
 
-    # region Кнопки: [Да, все получается ✅], [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
+    # region Кнопки: [Подтвердить оплату абонемента ❗]
+    elif get_message_bot == 'Подтвердить оплату абонемента ❗':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
+        bot.send_message(message.chat.id, f"Cпасибо, записал 🤖", reply_markup=markup)
+        bot.send_message(1891281816, f"{Students[message.chat.id][3]} подтвердил оплату ✅", reply_markup=markup)
+
+        now = dt.datetime.utcnow()
+        nsk_now = now + dt.timedelta(hours=7)
+        timer = nsk_now.strftime('#%d%A%B #%B%Y')
+        bot.send_message(-647660626, f"✅ #{Students[message.chat.id][3]} абонемент оплачен.\nДата: {timer}", parse_mode='Markdown')
+
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
+                                               id INTEGER,
+                                               name TEXT,
+                                               count INTEGER,
+                                               mess TEXT
+                                           )""")
+        sql.commit()
+
+        user_id = message.chat.id
+        cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+        records = cursor.fetchone()
+
+        if records is None:
+            name = Students[user_id][3]
+            count = 0
+            mess = f"✅ #{Students[message.chat.id][3]} абонемент оплачен.\nДата: {timer}\n\n"
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            sql.commit()
+        else:
+            name = Students[user_id][3]
+            count = records[2]
+            newmess = f"✅ #{Students[message.chat.id][3]} абонемент оплачен.\nДата: {timer}\n\n"
+            mess = records[3] + newmess
+            cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            sql.commit()
+            cursor.close()
+    # endregion Кнопки: [Подтвердить оплату абонемента ❗]
+
+    # region Кнопки: [Да, все получается ✅]
     elif get_message_bot == 'Да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -1878,13 +1892,54 @@ def mess(message):
 
         now = dt.datetime.utcnow()
         nsk_now = now + dt.timedelta(hours=7)
-        timer = nsk_now.strftime('%d #%A%B%Y #%B%Y')
+        timer = nsk_now.strftime('#%d%A%B #%A%B #%B%Y')
+        timer2 = nsk_now.strftime('#%d%A%B')
         bot.send_message(-647660626, f"{timer}\n\n#{Students[message.chat.id][3]}", parse_mode='Markdown')
 
         markup2 = types.InlineKeyboardMarkup(row_width=3)
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
         bot.send_message(1891281816, f"✅ {Students[message.chat.id][3]} – Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
+
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
+                                        id INTEGER,
+                                        name TEXT,
+                                        count INTEGER,
+                                        mess TEXT
+                                    )""")
+        sql.commit()
+
+        user_id = message.chat.id
+        cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+        records = cursor.fetchone()
+
+        if records is None:
+            name = Students[user_id][3]
+            count = 1
+            mess = f"Занятие №{count}\nДата: {timer2} \n\n"
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            sql.commit()
+        else:
+            name = Students[user_id][3]
+            count = records[2] + 1
+            newmess = f"Занятие №{count}\nДата: {timer2} \n\n"
+            mess = records[3] + newmess
+            cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+
+            if count == Students[user_id][4]:
+                bot.send_message(-647660626, f"#{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
+                                          f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
+                cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+            sql.commit()
+            cursor.close()
+    # endregion Кнопки: [Да, все получается ✅]
+
+    # region Кнопки: [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
     elif get_message_bot == 'Нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -1922,7 +1977,7 @@ def mess(message):
 
         bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
         bot.send_message(1891281816, f"🤖 {Students[message.chat.id][3]} – Уведомлен \n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
-    # endregion Кнопки:  [Да, все получается ✅], [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
+    # endregion Кнопки: [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
 
     # region Кнопка: [Репетитор]
     elif get_message_bot == "Репетитор":
