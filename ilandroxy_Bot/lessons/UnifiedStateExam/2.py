@@ -69,3 +69,44 @@ for x in range(2):
                 print(x, y, z, F)
 # Ответ: xzy
 # endregion Тип 2 № 15124
+
+# region Тип 2 № 29650
+'''
+#Логическая функция F задаётся выражением (w ∨ ¬x) ∧ (w ≡ ¬y) ∧ (w → z)
+print('x y z w')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (w or (not(x))) and (w == (not(y))) and (w <= z)
+                if F == True:
+                    print(x, y, z, w, F)
+'''
+# endregion Тип № 29650
+
+# region Тип 2 № 15097
+'''
+#Логическая функция F задаётся выражением (x ≡ z ) ∨ (x → (y ∧ z))
+print('x y z')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            F = (x == z) or (x <= (y and z))
+            if F == False:
+                print(x, y, z, F)
+'''
+# endregion Тип № 15097
+
+# region Тип 2 № 40718
+'''
+#Логическая функция F задаётся выражением ((x → y) ∧ (z ∨ w)) → ((x ≡ w) ∨ (y ∧ ¬z))
+print('x y z w')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((x <= y) and (z or w)) <= ((x == w) or (y and (not(z))))
+                if F == False:
+                    print(x, y, z, w, F)
+'''
+# endregion Тип № 40718
