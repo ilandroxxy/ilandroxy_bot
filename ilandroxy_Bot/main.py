@@ -12,6 +12,8 @@ bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 # endregion import и API key
+
+
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
 
 
@@ -19,7 +21,7 @@ bot = telebot.TeleBot(TOKEN)
 # Синхронно моему расписанию в Google Календаре
 MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия", 1000],
                   811476623: ["Georgie.py", "20:00", 3040//4, "Георгий", 2],
-                  659796558: ['Ivan.py', '21:00', 3600//4, "Иван", 1],
+                  659796558: ['Ivan.py', '21:00', 1000, "Иван", 1000],
                   826004697: ['Nikita.py', '22:00', 3040//4, "Никита", 4]}
 TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 1],
                    1649389148: ['Slava.py', "15:00", 6800//8, "Слава", 3],
@@ -1796,8 +1798,17 @@ def list(message):
         bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-
 # endregion Команда: list
+
+# region Команда: logi
+@bot.message_handler(commands=['logi'])
+def logi(message):
+    if message.chat.id in PrivateMe:
+        file = open('logi.txt', 'rb')
+        bot.send_document(message.chat.id, file)
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команда: logi
 # endregion Список приватных команд
 
 
@@ -2130,12 +2141,17 @@ def mess(message):
     # endregion Кнопка: [Получить файл с урока]
 
 
-# todo: как-то выводить логи напрямую из бота (через команду)
 if __name__ == '__main__':
     while True:
         try:
             bot.polling(none_stop=True)
         except Exception as e:
             time.sleep(3)
+            f = open('logi.txt', 'r')
+            s = f.readline()
+            log = f'\n\n{s}'
+
+            f = open('logi.txt', 'w')
+            f.write(log)
             print(e)
 
