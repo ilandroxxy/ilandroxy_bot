@@ -1559,7 +1559,7 @@ def mylessons(message):
                 records = cursor.fetchone()
 
                 if records is None:
-                    bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..')
+                    bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
                 else:
                     bot.send_message(message.chat.id, f'{records[3]}', parse_mode='Markdown')
                 cursor.close()
@@ -1582,7 +1582,7 @@ def mylessons(message):
         records = cursor.fetchone()
 
         if records is None:
-            bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по  всем вопросам пишите @ilandroxy')
+            bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по всем вопросам пишите @ilandroxy')
         else:
             bot.send_message(message.chat.id, f'Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
         cursor.close()
