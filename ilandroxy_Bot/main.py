@@ -20,7 +20,7 @@ bot = telebot.TeleBot(TOKEN)
 MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия", 1000],
                   811476623: ["Georgie.py", "20:00", 3040//4, "Георгий", 2],
                   659796558: ['Ivan.py', '21:00', 3600//4, "Иван", 1],
-                  826004697: ['Nikita.py', '22:00', 3040//4, "Никита", 1]}
+                  826004697: ['Nikita.py', '22:00', 3040//4, "Никита", 4]}
 TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 1],
                    1649389148: ['Slava.py', "15:00", 6800//8, "Слава", 3],
                    789322200: ['Katya.py', "16:00", 3600//4, "Екатерина", 2],
@@ -1582,7 +1582,7 @@ def mylessons(message):
         records = cursor.fetchone()
 
         if records is None:
-            bot.send_message(message.chat.id, 'Такого пользователя нет в системе..')
+            bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по  всем вопросам пишите @ilandroxy')
         else:
             bot.send_message(message.chat.id, f'Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
         cursor.close()
@@ -1923,7 +1923,7 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
-                bot.send_message(-647660626, f"#{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
                                           f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
@@ -1937,7 +1937,7 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
-                bot.send_message(-647660626, f"#{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
                                           f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
