@@ -46,7 +46,7 @@ SaturdayStudents = {1347259493: ['Andrey.py', '15:00', 1500, 'Андрей', 100
                     1173284690: ['Polina.py', 'nope', 1000, "Полина", 1000]}
 
 Me = {1891281816: ['', '00:00', 0, "iРепетитор", 2],
-      438879394: ['', '00:00', 0, "Илья", 2]}
+      438879394: ['', '00:00', 0, "Илья", 1]}
 
 PrivateMe = {1891281816: "Рабочий аккаунт",
             438879394: 'Илья',
@@ -1921,6 +1921,12 @@ def mess(message):
             count = 1
             mess = f"Занятие №{count}\nДата: {timer2} \n\n"
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+
+            if count == Students[user_id][4]:
+                bot.send_message(-647660626, f"#{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
+                                          f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
+                cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
             sql.commit()
         else:
             name = Students[user_id][3]
