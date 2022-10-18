@@ -1,142 +1,72 @@
+# Оформление консольного вывода
 '''
-# import math  # подключили библиотеку math
-# import math as m # подключили и переименовали вызов, чтобы сократить код
-# from math import pow # подключили только одну функцию из библиотеки
-from math import *  # подключили все функцию из библиотеки
+weather = 'облачно'
+temperature = 24
 
-# x = math.pow(4, 2)
-#x = m.pow(4, 2)
-x = pow(4, 2)
-print(x)
-'''
-
-
-'''
-import random
-x = random.randint(1, 100)  # рандомим число в диапазоне от 1 до 100
-print(x)
+print('Привет, сегодня', weather, ", а температура:", temperature)
+print('Привет, сегодня ' + weather + ', а температура: ' + str(temperature))
+print("Привет, сегодня {}, а температура: {}".format(weather, temperature))
+print("Привет, сегодня %s, а температура: %d"%(weather, temperature))  # %f - float
+print(f"Привет, сегодня {weather}, а температура: {temperature}")
 '''
 
-# pip - это библиотека библиотек
-# pip install name - для установки сторонней библиотеки, нужно вызвать эту команду с именем библиотеки (в Terminal)
+M = []  # - пустой список
 
-# https://pypi.org/project/ - сайт где можно искать библиотеки
+A = {}  # - пустой словарь dict()
 
+A = set()  # пустое множество set()
 
-# Чтобы установить API Телеграма, нужна команду: pip install pyTelegramBotAPI
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7}
 
-# https://t.me/BotFather - бот, через которого мы получаем токен для нашего бота (и настраиваем его)
+print(f'Объединение множеств A и B: {A | B} или {A.union(B)}')
+# Объединение множеств A, B: {1, 2, 3, 4, 5, 6, 7} или {1, 2, 3, 4, 5, 6, 7}
 
-import telebot
-from telebot import types
-import emoji
+print(f'Пересечение множеств A и B: {A & B} или {A.intersection(B)}')
+# Пересечение множеств A, B: {4, 5} или {4, 5}
 
-bot = telebot.TeleBot('5622089235:AAGnOz8pQ4bOiNTTQ3tC6ojU2yGHIeeRPhY')
+print(f'Разность множеств A и B: {A - B} или {A.difference(B)}')
+# Разность множеств A, B: {1, 2, 3} или {1, 2, 3}
 
+print(f'Симметрическая разность множеств A и B: {A ^ B} или {A.symmetric_difference(B)}')
+# Симметрическая разность множеств A и B: {1, 2, 3, 6, 7} или {1, 2, 3, 6, 7}
 
-@bot.message_handler(commands=['start'])
-def start(message):
-    user = message.chat.id
-    bot.send_message(message.chat.id, f'Ваш user ID: `{user}`', parse_mode='Markdown')
-
-
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    btn1 = types.KeyboardButton('Перевод из 10-ной в N-ную')
-    btn2 = types.KeyboardButton('Перевод из N-ной в 10-ную')
-    btn3 = types.KeyboardButton('Перевод из N-ной в K-тую')
-    markup.add(btn1, btn2, btn3)
-
-    name = message.from_user.first_name
-    familya = message.from_user.last_name
-    message_text = f'Привет *{name}*! Как у тебя дела? Твоя фамилия _{familya}_?\n\n' \
-                   f'Чтобы найти автора, воспользуйтесь [ссылкой](https://t.me/ilandroxy).'
-    bot.send_message(message.chat.id, message_text, parse_mode='Markdown', disable_web_page_preview=True, reply_markup=markup)
+# Приоритет операций в порядке убывания:
+# - разность
+# & пересечение
+# ^ симметрическая разность
+# | объединение
 
 
-@bot.message_handler(content_types=['text'])
-def mess(message):
-    get_message_bot = message.text.strip()
+"""
+# Значение выражения 4**34 + 5*4**22 + 4**13 + 2*4**9 + 82 записали в системе счисления с основанием 16.
+# Сколько разных цифр встречается в этой записи?
 
-    if get_message_bot == "Перевод из 10-ной в N-ную":
-        bot.send_message(message.chat.id, 'Введите число и систему в определенном порядке:\n'
-                                          '*[10-ное число] [В какую систему счисления]*', parse_mode='Markdown')
-
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            try:
-                text_message = message.text
-                M = [int(i) for i in text_message.split()]
-                x = M[0]
-                n = M[1]
-                print(x, n)
-                N = []
-                while x > 0:
-                    N.append(str(x % n))
-                    x //= n
-                N.reverse()
-                print(N)
-                res_string = "".join(N)
-                print(res_string)
-
-                message_text = f"Перевели число {M[0]} из 10-ной в {n}-ую систему\nРезультат вычисление: {res_string}_{n}"
-                bot.send_message(message.chat.id, message_text)
-            except IndexError:
-                bot.send_message(message.chat.id, "Введите два числа, через пробел!")
+x = 4 ** 34 + 5 * 4 ** 22 + 4 ** 13 + 2 * 4 ** 9 + 82
+M = []
+while x > 0:
+    M.append(x % 16)
+    x //= 16
+M.reverse()
+print(M)
 
 
-        bot.register_next_step_handler(message, message_input)
+A = []
+for x in M:
+    if x not in A:
+        A.append(x)
+print(A, len(A))
 
-    if get_message_bot == "Перевод из N-ной в 10-ную":
-        bot.send_message(message.chat.id, 'Пока что разрабатываем!')
-
-    if get_message_bot == "Перевод из N-ной в K-тую":
-        bot.send_message(message.chat.id, 'Пока что разрабатываем!')
-
-
-
-
-'''
-@bot.callback_query_handler(func=lambda call: True)
-def step(call):
-    markup = telebot.types.InlineKeyboardMarkup(row_width=1)
-
-    if call.data == 'КлючСобытия':
-        pass
-
-@bot.message_handler(commands=['start'])
-def start(message):
-    markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    btn1 = types.KeyboardButton('Репетитор')
-    markup1.add(btn1)
-    send_mess = f'👋 Доброго времени суток, *{message.from_user.first_name}*!'
-    bot.send_message(message.chat.id, send_mess, parse_mode='Markdown', reply_markup=markup1)
-
-    markup2 = types.InlineKeyboardMarkup(row_width=1)
-    markup2.add(types.InlineKeyboardButton("Кнопка", callback_data="КлючСобытия"))
-    pic_1 = open("hello.jpeg", 'rb')
-    bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
-
-@bot.message_handler(commands=['voice'])
-def voice(message):
-
-    @bot.message_handler(content_types=['text'])
-    def message_input(message):
-        text_message = message.text
-        bot.send_message(message.chat.id, text_message)
-
-    bot.register_next_step_handler(message, message_input)
-
-@bot.message_handler(content_types=['text'])
-def mess(message):
-    get_message_bot = message.text.strip()
-
-    if get_message_bot == "Репетитор":
-        pass
-'''
-
-bot.polling(none_stop=True)
+B = set(M)
+print(B, len(B))
+"""
+# Ответ: 6
 
 
+s = input().split()  # Ввод списка строчных элементов через пробел
+print(s)
 
+A = set(s)  # перевели список в множество
 
-
+M = [int(i) for i in input().split()]  # Ввод списка int-оных элементов через пробел
+print(M)
