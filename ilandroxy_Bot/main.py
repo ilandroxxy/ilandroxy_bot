@@ -14,7 +14,7 @@ bot = telebot.TeleBot(TOKEN)
 # endregion import и API key
 
 
-# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
+# 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️ 0️⃣  1️⃣  2️⃣  3️⃣  4️⃣  5️⃣  6️⃣  7️⃣  8️⃣  9️⃣  🔟
 
 
 # region Словарь с данными студентов
@@ -27,7 +27,7 @@ TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
                    1649389148: ['Slava.py', "15:00", 6800//8, "Слава", 3],
                    789322200: ['Katya.py', "16:00", 3600//4, "Екатерина", 2],
                    1208542295: ['Sasha.py', '19:00', 4000//8, "Александра", 6],
-                   804184353: ['Islam.py', '21:00', 3600//4, "Ислам", 3],
+                   804184353: ['Islam.py', '21:00', 3600//4, "Ислам", 2],
                    1537718492: ['Aleksandr.py', '22:00', 5760//8, "Александр", 8]}
 ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
                     1187852992: ['Aleksandr_2.py', "17:00", 6800//8, "Александр2", 6],
@@ -883,7 +883,7 @@ def step(call):
         bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/2/2.1.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/2/2.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/2.py) на полный набор задач 2 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/2.py) на полный набор задач 2️⃣ типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz5':
@@ -892,7 +892,7 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/5/5.3.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/5/5.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/5.py) на полный набор задач 5 типа🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/5.py) на полный набор задач 5️⃣ типа🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz6':
@@ -900,7 +900,7 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/6/6.2.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/6/6.3.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py) на полный набор задач 6 типа🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py) на полный набор задач 6️⃣ типа🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz8':
@@ -909,14 +909,14 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/8/8.3.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/8/8.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/8.py) на полный набор задач 8 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/8.py) на полный набор задач 8️⃣ типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz12':
         bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/12/12.1.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/12/12.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/12.py) на полный набор задач 12 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/12.py) на полный набор задач 1️⃣2️⃣ типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz14':
@@ -924,7 +924,7 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/14/14.2.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/14/14.3.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/14.py) на полный набор задач 14 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/14.py) на полный набор задач 1️⃣4️⃣  типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz15':
@@ -933,7 +933,7 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/15/15.3.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/15/15.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/15.py) на полный набор задач 15 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/15.py) на полный набор задач 1️⃣5️⃣  типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz16':
@@ -941,28 +941,28 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/16/16.2.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/16/16.3.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/16.py) на полный набор задач 16 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/16.py) на полный набор задач 1️⃣6️⃣ типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz17':
         bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/17/17.1.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/17/17.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/17.py) на полный набор задач 17 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/17.py) на полный набор задач 1️⃣7️⃣ типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz22':
         # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/22/22.1.jpg', 'rb')),
         #                                             types.InputMediaPhoto(open('gdz/22/22.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/22.py) на полный набор задач 22 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/22.py) на полный набор задач 2️⃣2️⃣  типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz23':
         # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/23/23.1.jpg', 'rb')),
         #                                             types.InputMediaPhoto(open('gdz/23/23.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/23.py) на полный набор задач 23 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/23.py) на полный набор задач 2️⃣3️⃣ типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz24':
@@ -971,7 +971,7 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/24/24.3.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/24/24.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/24.py) на полный набор задач 24 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/24.py) на полный набор задач 2️⃣4️⃣  типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz25':
@@ -980,21 +980,21 @@ def step(call):
                                                     types.InputMediaPhoto(open('gdz/25/25.3.jpg', 'rb')),
                                                     types.InputMediaPhoto(open('gdz/25/25.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/25.py) на полный набор задач 25 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/25.py) на полный набор задач  2️⃣5️⃣  типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz26':
         # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/26/26.1.jpg', 'rb')),
         #                                             types.InputMediaPhoto(open('gdz/26/26.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/26.py) на полный набор задач 26 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/26.py) на полный набор задач 2️⃣6️⃣  типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz27':
         # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/27/27.1.jpg', 'rb')),
         #                                             types.InputMediaPhoto(open('gdz/27/27.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/27.py) на полный набор задач 27 типа 🎯"
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/27.py) на полный набор задач 2️⃣7️⃣ типа 🎯"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
     # endregion для кнопок из Решебника
 
@@ -1195,13 +1195,13 @@ def useful(message):
         message_text = 'Для своих студентов я решил поделиться шпаргалками от *Яндекс Практикума*, в котором сейчас прохожу обучение по специальности `Python developer`.\n\n' \
                        'Постепенно список файлов будет пополняться, но *хочу отметить, что для успешной сдачи экзамена ЕГЭ по Информатике хватит первых 3-х файлов*:'
         markup = types.InlineKeyboardMarkup(row_width=1)
-        markup.add(types.InlineKeyboardButton("1. Знакомство с Python: Типы данных, Списки.", callback_data="py01"),
-                   types.InlineKeyboardButton("2. Циклы, Ветвления, Логические выражения.", callback_data="py02"),
-                   types.InlineKeyboardButton("3. Функции: Вызов, Аргументы, Возврат значений.", callback_data="py03"),
-                   types.InlineKeyboardButton("4. Коллекции: Словари и Множества.", callback_data="py04"),
-                   types.InlineKeyboardButton("5. Строки: Метод split() и f-string.", callback_data="py05"),
-                   types.InlineKeyboardButton("6. Библиотеки: datetime, math, random..", callback_data="py06"),
-                   types.InlineKeyboardButton("7. Сетевые запросы: Библиотека requests.", callback_data="py07"))
+        markup.add(types.InlineKeyboardButton("1️⃣ Знакомство с Python: Типы данных, Списки.", callback_data="py01"),
+                   types.InlineKeyboardButton("2️⃣ Циклы, Ветвления, Логические выражения.", callback_data="py02"),
+                   types.InlineKeyboardButton("3️⃣ Функции: Вызов, Аргументы, Возврат значений.", callback_data="py03"),
+                   types.InlineKeyboardButton("4️⃣ Коллекции: Словари и Множества.      ", callback_data="py04"),
+                   types.InlineKeyboardButton("5️⃣ Строки: Метод split() и f-string.    ", callback_data="py05"),
+                   types.InlineKeyboardButton("6️⃣ Библиотеки: datetime, math, random.. ", callback_data="py06"),
+                   types.InlineKeyboardButton("7️⃣ Сетевые запросы: Библиотека requests.", callback_data="py07"))
         bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
 
     else:
@@ -1214,12 +1214,12 @@ def homework(message):
     if message.chat.id in Me or message.chat.id in Students:
         message_text0 = 'Наборы задачек на отработку теории Python:'
         markup0 = types.InlineKeyboardMarkup(row_width=1)
-        markup0.add(types.InlineKeyboardButton("Тип данных, Базовая арифметика", callback_data="firstclass"),
-                   types.InlineKeyboardButton("Условные операторы, ветвление", callback_data="ifelifelse"),
-                   types.InlineKeyboardButton("Циклы while и for", callback_data="whilefor"),
-                   types.InlineKeyboardButton("Тип коллекций списки (list)", callback_data="list"),
-                   types.InlineKeyboardButton("Строковый тип данных (str)", callback_data="string"),
-                   types.InlineKeyboardButton("Самописные функции и рекурсия", callback_data="function"))
+        markup0.add(types.InlineKeyboardButton("1️⃣ Тип данных, Базовая арифметика", callback_data="firstclass"),
+                   types.InlineKeyboardButton("2️⃣ Условные операторы, ветвление", callback_data="ifelifelse"),
+                   types.InlineKeyboardButton("3️⃣ Циклы while и for", callback_data="whilefor"),
+                   types.InlineKeyboardButton("4️⃣ Тип коллекций списки (list)", callback_data="list"),
+                   types.InlineKeyboardButton("5️⃣ Строковый тип данных (str)", callback_data="string"),
+                   types.InlineKeyboardButton("6️⃣ Самописные функции и рекурсия", callback_data="function"))
         bot.send_message(message.chat.id, message_text0, parse_mode="Markdown", reply_markup=markup0)
 
         message_text = "Эта команда выдает рандомное задание с Решу ЕГЭ\n\nПомимо этого, мне приходит уведомление с номерами выпавших задач.\n\nПроявите самостоятельность в выборе, а на уроке мы разбрем возникшие вопросы!\n\n[Читать правила оформления домашки](https://www.notion.so/ilandroxxy/8234ee61967a4cbe8a232b745cff0b9a)"
@@ -1402,6 +1402,7 @@ def reviews(message):
 @bot.message_handler(commands=['gdz'])
 def gdz(message):
     if message.chat.id in Students:
+        # 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟
         message_text = 'Наборы задачек на отработку теории Python 👇 😅'
         markup = types.InlineKeyboardMarkup(row_width=3)
         markup.add(types.InlineKeyboardButton("2", callback_data="gdz2"),
