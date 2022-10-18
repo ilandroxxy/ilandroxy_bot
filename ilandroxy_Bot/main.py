@@ -13,8 +13,7 @@ bot = telebot.TeleBot(TOKEN)
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 # endregion import и API key
 
-# todo: пишем и оформляем разборы задачек ЕГЭ в виде картинок - отправляем из решебника при нажатии и формировании ссылки, следовательно переделать кнопки и добавить кнопку в useful
-# todo: меняем файлы отзывов в боте
+
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
 
 
@@ -49,7 +48,7 @@ SaturdayStudents = {1347259493: ['Andrey.py', '15:00', 1500, 'Андрей', 100
                     1173284690: ['Polina.py', 'nope', 1000, "Полина", 1000]}
 
 Me = {1891281816: ['', '00:00', 0, "iРепетитор", 2],
-      438879394: ['', '00:00', 0, "Илья", 1]}
+      438879394: ['', '00:00', 0, "Илья", 3]}
 
 PrivateMe = {1891281816: "Рабочий аккаунт",
             438879394: 'Илья',
@@ -840,14 +839,15 @@ def step(call):
 
     # region call.data для Private_help
     elif call.data == 'private':
-        message_text = f'/showusers - выводит ссылки на пользователей из db\n\n' \
+        message_text = f'/git - команда при запуске которой приходят команды для залива репазитория на GitHub\n\n' \
+                       f'/showusers - выводит ссылки на пользователей из db\n' \
                        f'/statistics - выводит статистику и файлы db напрямую в боте\n\n' \
-                       f'/git - команда при запуске которой приходят команды для залива репазитория на GitHub\n\n' \
-                       f'/voiceall - способ отправить сообщение всем пользователям (с ссылками)\n\n' \
+                       f'/voiceall - способ отправить сообщение всем пользователям (с ссылками)\n' \
                        f'/voicestudents - способ отправить сообщение всем моим студентам\n\n' \
-                       f'/mylessons - проверить кол-во занятий в абонементе\n\n' \
+                       f'/delless - удаление записи из бд о студенте (через id)\n' \
+                       f'/mylessons - проверить кол-во занятий в абонементе\n' \
                        f'/less - подтверждение оплаты абонемента учеником\n\n' \
-                       f'/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)\n\n' \
+                       f'/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)\n' \
                        f'/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)\n\n' \
                        f'/list - список студентов для поиска по #\n\n' \
                        f'[Мой Google календарь](https://calendar.google.com/calendar)'
@@ -856,14 +856,147 @@ def step(call):
 
     # region call.data для Открыть решебник
     elif call.data == 'reshebnik':
-        message_text = "Наборы решенных задач на Python\n\n" \
-                        "[2.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/2.py)     [5.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/5.py)     [6.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py)     [8.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/8.py)    [12.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/12.py)\n\n" \
-                        "[14.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/14.py)   [15.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/15.py)    [16.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/16.py)   [17.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/17.py)   [22.]()\n\n" \
-                        "[23.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/23.py)   [24.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/24.py)   [25.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/25.py)   [26.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/26.py)   [27.](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/27.py)\n\n"
+        if call.message.chat.id in Students:
+            message_text = 'Наборы задачек на отработку теории Python 👇 😅'
+            markup = types.InlineKeyboardMarkup(row_width=3)
+            markup.add(types.InlineKeyboardButton("2", callback_data="gdz2"),
+                        types.InlineKeyboardButton("5", callback_data="gdz5"),
+                        types.InlineKeyboardButton("6", callback_data="gdz6"),
+                        types.InlineKeyboardButton("8", callback_data="gdz8"),
+                        types.InlineKeyboardButton("12", callback_data="gdz12"),
+                        types.InlineKeyboardButton("14", callback_data="gdz14"),
+                        types.InlineKeyboardButton("15", callback_data="gdz15"),
+                        types.InlineKeyboardButton("16", callback_data="gdz16"),
+                        types.InlineKeyboardButton("17", callback_data="gdz17"),
+                        types.InlineKeyboardButton("22", callback_data="gdz22"),
+                        types.InlineKeyboardButton("23", callback_data="gdz23"),
+                        types.InlineKeyboardButton("24", callback_data="igdz24"),
+                        types.InlineKeyboardButton("25", callback_data="gdz25"),
+                        types.InlineKeyboardButton("26", callback_data="gdz26"),
+                        types.InlineKeyboardButton("27", callback_data="gdz27"))
+            bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup)
 
-        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown",disable_web_page_preview=True)
     # endregion call.data для Открыть решебник
 
+    # region call.data для кнопок из Решебника
+    elif call.data == 'gdz2':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/2/2.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/2/2.2.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/2.py) на полный набор задач 2 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz5':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/5/5.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/5/5.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/5/5.3.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/5/5.4.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/5.py) на полный набор задач 5 типа🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz6':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/6/6.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/6/6.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/6/6.3.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/6.py) на полный набор задач 6 типа🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz8':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/8/8.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/8/8.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/8/8.3.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/8/8.4.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/8.py) на полный набор задач 8 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz12':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/12/12.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/12/12.2.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/12.py) на полный набор задач 12 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz14':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/14/14.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/14/14.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/14/14.3.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/14.py) на полный набор задач 14 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz15':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/15/15.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/15/15.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/15/15.3.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/15/15.4.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/15.py) на полный набор задач 15 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz16':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/16/16.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/16/16.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/16/16.3.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/16.py) на полный набор задач 16 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz17':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/17/17.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/17/17.2.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/17.py) на полный набор задач 17 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz22':
+        # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/22/22.1.jpg', 'rb')),
+        #                                             types.InputMediaPhoto(open('gdz/22/22.2.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/22.py) на полный набор задач 22 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz23':
+        # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/23/23.1.jpg', 'rb')),
+        #                                             types.InputMediaPhoto(open('gdz/23/23.2.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/23.py) на полный набор задач 23 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz24':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/24/24.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/24/24.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/24/24.3.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/24/24.4.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/24.py) на полный набор задач 24 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz25':
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/25/25.1.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/25/25.2.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/25/25.3.jpg', 'rb')),
+                                                    types.InputMediaPhoto(open('gdz/25/25.4.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/25.py) на полный набор задач 25 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz26':
+        # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/26/26.1.jpg', 'rb')),
+        #                                             types.InputMediaPhoto(open('gdz/26/26.2.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/26.py) на полный набор задач 26 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+    elif call.data == 'gdz27':
+        # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/27/27.1.jpg', 'rb')),
+        #                                             types.InputMediaPhoto(open('gdz/27/27.2.jpg', 'rb'))])
+
+        message_text = "Воспользуйтесь [ссылкой gihub](https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/UnifiedStateExam/27.py) на полный набор задач 27 типа 🎯"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+    # endregion для кнопок из Решебника
 
 
 
@@ -891,6 +1024,8 @@ def step(call):
 /reviews - генерирует отзыв при нажатии кнопки 
 
 /mylessons - проверить кол-во занятий в абонементе
+
+/gdz - решебник с набором решенных Python задач ЕГЭ 
 '''
 
 # region Список публичных команд:
@@ -939,7 +1074,8 @@ def help(message):
     send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n/help - справка по всем командам в боте\n/start - перезапуск бота, на стартовую позицию\n" \
                    '/myprojects - список моих актуальных проектов\n/download - список программ необходимых для уроков\n/tasks - набор задач для отработки решений ЕГЭ по Информатике\n/price - получить информацию о ценах и реквизиты\n/links - полезные ссылки для подготовки к экзамену' \
                    '\n/homework - конструктор домашних заданий для моих учеников\n/calendly - форма записи на урок\n/getmyid - бот покажет ваш id пользователя Telegram\n/useful - получите шпаргалки от `Яндекс практикума` по Python\n' \
-                   '/getorder - обсудить разработку Вашего чат бота под заказ\n/today - выводит персональное расписание уроков\n/mylessons - проверить кол-во занятий в абонементе\n/reviews - генерирует отзыв при нажатии кнопки\n'
+                   '/getorder - обсудить разработку Вашего чат бота под заказ\n/today - выводит персональное расписание уроков\n/mylessons - проверить кол-во занятий в абонементе\n/reviews - генерирует отзыв при нажатии кнопки\n' \
+                   '/gdz - решебник с набором решенных Python задач ЕГЭ\n'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
 
@@ -1256,11 +1392,35 @@ def reviews(message):
     markup = types.InlineKeyboardMarkup(row_width=1)
     markup.add(types.InlineKeyboardButton("Посмотреть все отзывы на Авито", url="https://www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing"))
 
-    M = ['reviews/re1.png', 'reviews/re2.png', 'reviews/re3.png', 'reviews/re4.png', 'reviews/re5.png']
+    M = ['reviews/re1.png', 'reviews/re2.png', 'reviews/re3.png', 'reviews/re4.png', 'reviews/re5.png', 'reviews/re6.png']
     pic_reviews = open(random.choice(M), 'rb')
     bot.send_photo(message.chat.id, pic_reviews)
     bot.send_message(message.chat.id, 'Еще больше отзывов 👉 /reviews', parse_mode='Markdown', reply_markup=markup)
 # endregion Команда: reviews
+
+# region Команда: gdz
+@bot.message_handler(commands=['gdz'])
+def gdz(message):
+    if message.chat.id in Students:
+        message_text = 'Наборы задачек на отработку теории Python 👇 😅'
+        markup = types.InlineKeyboardMarkup(row_width=3)
+        markup.add(types.InlineKeyboardButton("2", callback_data="gdz2"),
+                   types.InlineKeyboardButton("5", callback_data="gdz5"),
+                   types.InlineKeyboardButton("6", callback_data="gdz6"),
+                   types.InlineKeyboardButton("8", callback_data="gdz8"),
+                   types.InlineKeyboardButton("12", callback_data="gdz12"),
+                   types.InlineKeyboardButton("14", callback_data="gdz14"),
+                   types.InlineKeyboardButton("15", callback_data="gdz15"),
+                   types.InlineKeyboardButton("16", callback_data="gdz16"),
+                   types.InlineKeyboardButton("17", callback_data="gdz17"),
+                   types.InlineKeyboardButton("22", callback_data="gdz22"),
+                   types.InlineKeyboardButton("23", callback_data="gdz23"),
+                   types.InlineKeyboardButton("24", callback_data="igdz24"),
+                   types.InlineKeyboardButton("25", callback_data="gdz25"),
+                   types.InlineKeyboardButton("26", callback_data="gdz26"),
+                   types.InlineKeyboardButton("27", callback_data="gdz27"))
+        bot.send_message(message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup)
+# endregion Команда: gdz
 
 # endregion Список публичных команд
 
@@ -1274,7 +1434,10 @@ def reviews(message):
 
 /private_help - кнопка со всеми приватными командами
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
-/less - чек проведенного урока и принятия оплат по абонементам, добавление ученика в систему.
+
+/less - подтверждение оплаты абонемента, запись в бд.
+/delless - удаление записи из бд о студенте (через id) 
+/mylessons - проверить кол-во занятий в абонементе
 
 /voiceall - способ отправить сообщение всем пользователям (с ссылками)
 /voicestudents - способ отправить сообщение всем моим студентам
@@ -1498,7 +1661,7 @@ def git(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команды: private_help, git
 
-# region Команды: less, mylessons
+# region Команды: less, mylessons, delless
 # LESS
 @bot.message_handler(commands=['less'])
 def less(message):
@@ -1564,7 +1727,8 @@ def mylessons(message):
                 if records is None:
                     bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
                 else:
-                    bot.send_message(message.chat.id, f'{records[3]}', parse_mode='Markdown')
+                    bot.send_message(message.chat.id, f'🤖 Доброго времени суток, Илья!\nЯ все посчитал, вот записи по абонементу студента #{Students[user_id][3]} 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
+                    bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*', parse_mode='Markdown')
                 cursor.close()
 
         bot.register_next_step_handler(message, message_input)
@@ -1587,12 +1751,57 @@ def mylessons(message):
         if records is None:
             bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по всем вопросам пишите @ilandroxy')
         else:
-            bot.send_message(message.chat.id, f'Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
+            bot.send_message(message.chat.id, f'🤖 Доброго времени суток, #{Students[user_id][3]}!\nЯ все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
+            bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*', parse_mode='Markdown')
         cursor.close()
 
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-# endregion Команды: less, mylessons
+
+# delless
+@bot.message_handler(commands=['delless'])
+def delless(message):
+    if message.chat.id == 1891281816:
+        day = 'Все студенты: *'
+        for key in Students:
+            day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
+        M_day = [i for i in day.split('*')]
+        message_text_day = '\n'.join(M_day)
+        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!',
+                         parse_mode='Markdown')
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            text_message = message.text
+
+            if text_message != '0':
+                user_id = int(text_message)
+                sql = sqlite3.connect('analytics.db')
+                cursor = sql.cursor()
+
+                cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
+                                                               id INTEGER,
+                                                               name TEXT,
+                                                               count INTEGER,
+                                                               mess TEXT
+                                                           )""")
+                sql.commit()
+
+                cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+                records = cursor.fetchone()
+
+                if records is None:
+                    bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
+                else:
+                    bot.send_message(message.chat.id, f'🤖 Хорошо, я удалил запись о #{Students[user_id][3]}-е', parse_mode='Markdown')
+                    cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+                sql.commit()
+                cursor.close()
+
+        bot.register_next_step_handler(message, message_input)
+    else:
+        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+# endregion Команды: less, mylessons, delless
 
 # region Команды: voiceall, voicestudents
 # VOICEAll
@@ -1857,7 +2066,7 @@ def mess(message):
         now = dt.datetime.utcnow()
         nsk_now = now + dt.timedelta(hours=7)
         timer = nsk_now.strftime('#%d%A%B #%B%Y')
-        bot.send_message(-647660626, f"✅ #{Students[message.chat.id][3]} абонемент оплачен.\nДата: {timer}", parse_mode='Markdown')
+        bot.send_message(-647660626, f"✅ #{Students[message.chat.id][3]} *абонемент оплачен*.\nДата: {timer}", parse_mode='Markdown')
 
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
@@ -1877,13 +2086,13 @@ def mess(message):
         if records is None:
             name = Students[user_id][3]
             count = 0
-            mess = f"✅ #{Students[message.chat.id][3]} абонемент оплачен.\nДата: {timer}\n\n"
+            mess = f"✅ #{Students[message.chat.id][3]} абонемент *оплачен*.\nДата: {timer}\n\n"
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
             sql.commit()
         else:
             name = Students[user_id][3]
             count = records[2]
-            newmess = f"✅ #{Students[message.chat.id][3]} абонемент оплачен.\nДата: {timer}\n\n"
+            newmess = f"✅ #{Students[message.chat.id][3]} абонемент *оплачен*.\nДата: {timer}\n\n"
             mess = records[3] + newmess
             cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
@@ -1935,7 +2144,7 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
-                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} абонемент *закончился*.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
                                           f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
@@ -1943,13 +2152,13 @@ def mess(message):
         else:
             name = Students[user_id][3]
             count = records[2] + 1
-            newmess = f"Занятие №{count}\nДата: {timer2} \n\n"
+            newmess = f"*Занятие №{count}*\nДата: {timer2} \n\n"
             mess = records[3] + newmess
             cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
-                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} абонемент закончился.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} *абонемент закончился*.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
                                           f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
