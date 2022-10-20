@@ -1,182 +1,185 @@
-# домашка
-# region Задание 1.1 "Сумма квадратов VS квадрат суммы"
 
-# Решение:
-'''
-a = 3
-b = 2
-print('Квадрат суммы', (a), 'и', (b), 'равен', (a + b)**2)
-print('Квадрат суммы', a, 'и', b, 'равен', (a + b)**2)
-print(f'Квадрат суммы {a} и {b} равен {(a + b)**2}')
-
-print('Сумма квадратов', (a), 'и', (b), 'равна', ((a**2) + (b**2)))
-'''
-# endregion Задание 1.1 "Сумма квадратов VS квадрат суммы"
-
-
-
-
-# region Задание 2 "Четырехзначное число"
-# Решение:
+# Домашка
+# Задание №1 "Обратное число"
 """
-a = 3281
-print('Цифра в позиции тысяч равна', a // 1000)
-print('Цифра в позиции сотен равна', (a // 100) % 10)
-print('Цифра в позиции десятков равна', (a % 100) // 10)
-print('Цифра в позиции едениц равна', a % 10)
-"""
-# endregion Задание 2 "Четырехзначное число"
-
-
-
-# Задание 3.2 "Пересчет временного интервала"
-# Решение:
-"""
-a = int(input('Введите кол-во минут: '))
-print(f'{a} мин - это {(a // 60)} час {(a % 60)} минут.')
-print((a), 'мин', '-', 'это', (a // 60), 'час', (a % 60), 'минут' '.')
-"""
-
-# Условные операторы (ветвление)
-# Ключевые слова: if, elif, else, and, or, not
-
-
-# Модуль числа
-"""
-# x = int(input('x: '))
-x = -6
-if x > 0:
-    print(x)
-if x < 0:
-    print(-x)
+x = int(input('x: '))
 if x == 0:
-    print(0)
-
-
-x = -6
-if x > 0:
-    print(x)
-elif x < 0:
-    print(-x)
-elif x == 0:
-    print(0)
-
-
-x = 7
-if x > 0:  # ЕСЛИ (если условие истинное, то мы заходим в тело условия)
-    print(x)
-elif x < 0:  # ИНАЧЕ ЕСЛИ (промежуточные условия)
-    print(-x)
-else:  # ИНАЧЕ (ставится в противовес всем условиям сверху)
-    print(0)
-
-
-
-# Некорректная работа! Если хотим использовать else, то промежуточные условия между if и else надо оформлять через elif
-x = 7
-if x > 0:
-    print(x)
-if x < 0:
-    print(-x)
+    print('Обратного числа не существует')
 else:
-    print(0)
-    
-# else работает только в паре с ближайшим сверхустоящим if
+    print(1 / x)
 """
-
-
-# Точки в декартовой системе координат
-'''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0 and y > 0:
-    print(1)
-elif x < 0 and y > 0:
-    print(2)
-elif x < 0 and y < 0:
-    print(3)
-elif x > 0 and y < 0:
-    print(4)
-else:
-    print('Лежит на осях.')
-'''
-
-# Каскадные условные операторы
+# Задание №2 "Високосный год"
 """
 x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0:
-    if y > 0:  # x > 0 and y > 0
-        print(1)
-    else:  # x > 0 and y <= 0
-        print(4)
+if x % 4 == 0 and (not (x % 100 == 0)):  # if x % 4 == 0 and x % 100 != 0:
+    print('YES')
+elif x % 400 == 0:
+    print('YES')
 else:
-    if y > 0:  # x <=0 and y > 0
-        print(2)
-    else:  # x <= 0 and y <= 0
-        print(3)
+    print('NO')
+"""
+# Задание №3 "Корректный email"
+"""
+x = input('x: ')  # функция input() - сама по себе принимает строку
+if ('@' and '.') in x:  # if '@' in x and '.' in x:
+    print('YES')
+else:
+    print('NO')
 """
 
 
-# Логические связки
+# Тип 15 № 33187
 """
-s1 = 'hello'
-s2 = 'hello '
-# == - сравнение (равны ли элементы?)
-print(s1 == s2)
+# Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без остатка на натуральное число m».
+#
+# Для какого наибольшего натурального числа А формула
+#
+# ДЕЛ(90, A) ∧ (¬ДЕЛ(x, А) → (ДЕЛ(x, 15) → ¬ДЕЛ(x, 20)))
+#
+# тождественно истинна (то есть принимает значение 1 при любом натуральном значении переменной x)?
 
-# != - отрицательное сравнение (не равны ли элементы?)
-print(s1 != s2)
+for A in range(100, -1, -1):
+    flag = True
+    for x in range(1, 1000):
+        if ( (90 % A == 0) and ((not(x % A == 0)) <= ((x % 15 == 0) <= (x % 20 != 0))) ) == False:
+            flag = False
+            break
+    if flag == True:
+        print(A)
+        break
+"""
+# Ответ: 30
 
-# = - присваивание значений
 
-a = 2
-b = 3
-c = 9
+# Тип 14 № 28552
+"""
+# Значение выражения 216**6 + 216**4 + 36**6 − 6**14 − 24 записали в системе счисления с основанием 6.
+# Сколько различных цифр содержит эта запись?
+#
+# Пример. Запись 122233_7 содержит три различные цифры: 1, 2 и 3.
 
-if a > 0 and b < 0 and c == 0:
-    print('YES1')
-if (a > 0 and b < 0) or c == 0:
-    print('YES2')
-if (a > 0 and b < 0) or not(c == 0):
-    print('YES3')
+x = 216**6 + 216**4 + 36**6 - 6**14 - 24
+M = []
+while x > 0:
+    M.append(x % 6)
+    x //= 6
+M.reverse()
+print(M)
+
+A = []
+for x in M:
+    if x not in A:
+        A.append(x)
+print(A, len(A))
+
+B = set(M)
+print(B, len(B))
 """
 
-# and - подразумевает жесткое выполнение всех условий
 
-# or - связки или ожидает срабатывания хотя бы одного условия
+# Циклы
+# for, while, range, break, continue, flag
 
-# not - накладывает отрицательное условие
-
-
-
-# Самописный калькулятор
+# циклы for и функция range
 """
-a = int(input('a: '))
-s = input('s: ')
-b = int(input('b: '))
+for i in range(5):  # цикл for бежит по переменной i в диапазоне range(5) от нуля до 5 не включительно [0, 5)
+    print(i, end=' ')  # range(0, STOP)
+print()
 
-if s == '+':
-    print(f"{a} {s} {b} = {a+b}")
-elif s == '-':
-    print(f"{a} {s} {b} = {a-b}")
-elif s == '*':
-    print(f"{a} {s} {b} = {a*b}")
-elif s == '/' and b == 0:
-    print('Делить на нуль нельзя!')
-elif s == '/':
-    print(f"{a} {s} {b} = {a/b}")
+for i in range(2, 10):  # [2, 10)   range(START, STOP)
+    print(i, end=' ')
+print()
+
+for i in range(2, 10, 2):  # [2, 10) с шагом 2   range(START, STOP, STEP)
+    print(i, end=' ')
+print()
+
+M = [1, 2, 3, 4]
+# i  0  1  2  3
+
+for x in M:
+    print(x, end=' ')  # переменная х принимает значение элементов списка на себя
+print()
+
+for i in range(0, len(M)):  # мы бежим по индексному диапазону элементов списка
+    print(M[i], end=' ')
+print()
+
+for i in range(0, len(M)):  # если мы знаем индексы элементов, то мы можем их менять
+    M[i] = M[i] ** 2
+print(M)
 """
-a = int(input('a: '))
-s = input('s: ')
-b = int(input('b: '))
 
-try:
-    if s == '/':
-        print(f"{a} {s} {b} = {a/b}")
-except ZeroDivisionError:
-    print('Делить на нуль нельзя!')
 
-# ZeroDivisionError: division by zero
+# Цикл while - цикл с условием, выполняет свое тело только при истинном условии
+'''
+for i in range(2, 10+1, 2):  # [2, 10) с шагом 2   range(START, STOP, STEP)
+    print(i, end=' ')
+print()
+
+i = 2  # START
+while i <= 10:  # делать пока истинно # STOP
+    print(i, end=' ')
+    i += 2  # STEP
+print()
+
+# Переведем x в двоичную систему
+x = int(input('x: '))
+M = []
+while x > 0:
+    M.append(x % 2)
+    x //= 2
+M.reverse()
+print(M)
+'''
+
+# break - прерывает исполнение цикла (выход из цикла в котором находится)
+# continue - прерывает итерацию цикла
+"""
+for i in range(1, 20):
+    if i == 16:
+        break
+    if i % 2 != 0:
+        continue
+    print(i, end=' ')
+print()
+print('Конец программы')
+"""
+
+
+# Бесконечный цикл
+'''
+count = 0
+while True:
+    print(count)
+    count += 1
+'''
+import random
+
+pas = 'qwerty'
+count = 0
+while True:
+    password = input('Введите пароль: ')
+    if pas == password:
+        print('Welcome')
+        break
+    print('Пароль неверный! ')
+    count += 1
+    if count == 3:
+        a = random.randint(0, 100)
+        b = random.randint(0, 100)
+        print(f'Пройдите проверку на робота:\nРешите пример: {a} + {b} = ')
+        x = int(input())
+        if x == a + b:
+            print('Проверка пройдена')
+            count = 0
+            continue
+        else:
+            print('Бан')
+            break
+
+
+
+
+
+
