@@ -29,7 +29,7 @@ TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
 ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
                     1187852992: ['Aleksandr_2.py', "17:00", 6800//8, "Александр2", 6],
                     1454117859: ['Diana', "19:00", 4320//8, "Диана", 5],
-                    811476623:  ["Georgie.py", "20:00", 3040//4, "Георгий", 2],
+                    811476623:  ["Georgie.py", "20:00", 3040//4, "Георгий", 4],
                     799740089: ["Bulat.py", "21:00", 2280//4, "Булат", 2],
                     1537718492: ["Aleksandr.py", "22:00", 5760//8, "Александр", 8]}
 FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8, "Стася", 2],
@@ -44,7 +44,7 @@ SaturdayStudents = {1347259493: ['Andrey.py', '15:00', 1500, 'Андрей', 100
                     871237277: ['Vladek.py', "22:00", 6800//8, "Владек", 3],
                     1173284690: ['Polina.py', 'nope', 1000, "Полина", 1000]}
 
-Me = {1891281816: ['', '00:00', 0, "iРепетитор", 2],
+Me = {1891281816: ['', '00:00', 0, "iРепетитор", 5],
       438879394: ['', '00:00', 0, "Илья", 3]}
 
 PrivateMe = {1891281816: "Рабочий аккаунт",
@@ -304,482 +304,6 @@ def step(call):
         bot.register_next_step_handler(call.message, message_input)
     # endregion call.data для теоретической домашки
 
-    # region call.data для Homework
-    elif call.data == 'sendhomeworks':
-        bot.send_message(call.message.chat.id, 'Просто скопируйте свой код из PyCharm.\nБот сформирует файл и отправит его за вас 🤖\n\n'
-                                               '*Обратите внимание, сообщение в Telegram ограничено 4096 символами!*\n\n'
-                                               'Напишите `0`, чтобы отменить команду!', parse_mode='Markdown')
-
-        file_name = f'homeworks/{Students[call.message.chat.id][3]}_homework.txt'
-        @bot.message_handler(content_types=['text'])
-        def message_input(message):
-            if message.text != '0':
-                count = 0
-                for STR in message.text:
-                    for _ in STR:
-                        count += 1
-
-                if count < 2 ** 12:
-                    bot.send_message(call.message.chat.id, f"Кол-во символов в файле: {count}\n🤖 Ожидайте отправляю файл.")
-                else:
-                    bot.send_message(call.message.chat.id, "Длина файла превышена, удалите лишние строки!")
-
-                f = open(file_name, 'w')
-                f.write(message.text)
-
-        bot.register_next_step_handler(call.message, message_input)
-
-
-        time.sleep(150)
-        f = open(file_name, 'r')
-        bot.send_document(-726393257, f)
-        bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
-
-
-
-
-    elif call.data == "hw1":
-        type = '1'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 29)
-        M = [13479, 23901, 38446, 11259, 26946, 18782, 5697, 15098, 16030, 5793, 29188, 26975, 18705, 7981, 38935, 4707,
-                 40717, 28678, 17367, 5196, 25833, 3828, 36856, 15971, 7777, 37136, 38446, 13506, 7355, 11232]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-
-    elif call.data == "hw2":
-        type = '2'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 41)
-        M = [29650, 33174, 18483, 27287, 46999, 26974, 35891, 36857, 15124, 40718, 28538, 27399, 15912, 18430,
-                 27260, 33472, 15970, 37137, 15787, 16878, 46960, 45236, 27531, 18781, 35460, 27371, 18071, 15097,
-                 35976, 16431, 18578, 39231, 15814, 33504, 36015, 16805, 33081, 29109, 18614, 38936, 16029, 19051]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-
-    elif call.data == "hw3":
-        type = '3'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 21)
-        M = [37494, 39232, 37481, 38937, 47000, 37491, 37492, 37493, 45237, 40719, 37417, 37479, 37508, 37488, 37507, 37489,
-                 37415, 46961, 40978, 37480, 37485, 37490]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-    elif call.data == "hw4":
-        type = '4'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [18617, 14691, 17323, 13351, 19054, 15942, 10499, 16808, 37139, 16881, 27290, 18553, 9791, 45238, 16380, 18581,
-                 47001, 15915, 10379, 16434, 26948, 17369, 13562, 15817, 26977, 11234, 15790, 36017, 18486, 28680, 18811, 18074,
-                 15621, 13616, 27263, 14220, 11341, 46962, 7685, 18433]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-
-    elif call.data == "hw5":
-        type = '5'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [7454, 26978, 13617, 29653, 18075, 11235, 18785, 10380, 15791, 7917, 9792, 16033, 17370, 11342, 18487, 14692, 18618, 7690,
-                 15101, 15622, 35894, 13590, 16435, 13536, 9190, 18582, 7751, 47002, 16809, 10407, 14767, 27375, 45239, 11262, 14265, 15818,
-                 27264, 10309, 26949, 13563]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-
-    elif call.data == "hw6":
-        type = '6'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 28)
-        M = [47246, 47404, 47245, 47390, 47247, 47308, 47249, 47315, 47305, 47249, 47304, 47306, 47403, 47313, 47311, 47307, 47310, 47312, 47314, 47393, 47316, 47391, 47406,
-                 47309, 47248, 47392, 47301, 47303, 47405]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-    elif call.data == "hw7":
-        type = '7'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [18078, 8097, 23907, 16438, 25839, 13355, 11110, 29194, 15821, 13620, 19058, 13593, 17327, 45241, 27538,
-             16812, 28684, 9759, 15977, 26981, 18585, 11345, 9795, 14695, 17373, 38941, 10497, 33477, 10470, 35465,
-             15946, 16036, 36862, 15131, 28545, 29655, 13736, 36020, 18711, 33509]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw8":
-        type = '8'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [9361, 15822, 10473, 15795, 16037, 10500, 7986, 35897, 3568, 27009, 8658, 11266, 3230, 26953, 23908, 3569, 36021, 3692,
-             3515, 33753, 36863, 3811, 13459, 3233, 7370, 27236, 5055, 7338, 16439, 9162, 10384, 3517,
-             7694, 19059, 3227, 18622, 13567, 15947, 14696, 27295]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw9":
-        type = '9'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 34)
-        M = [33754, 27529, 35898, 33088, 27524, 27524, 36022, 27406, 27525, 33181, 35467, 27518, 46967, 28117, 38588, 39238, 27517, 36864,
-             27526, 29657, 27523, 27519, 45243, 40725, 27528, 38943, 27522, 35983, 40984, 33511, 47006, 37144, 33479,
-             27520, 27527]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw10":
-        type = '10'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 33)
-        M = [36865, 27582, 33480, 46968, 27590, 27589, 35899, 27588, 38944, 36023, 29658, 27580, 40726, 27586,
-             37145, 27577, 40985, 27581, 33512, 45244, 27407, 27579, 27585, 33089, 33182, 35468, 27587, 27584,
-             39239, 27591, 33755, 47007, 27583, 35984]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw11":
-        type = '11'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [9364, 6885, 40986, 36024, 33481, 7924, 11309, 7989, 16889, 4684, 33183, 6415, 10476, 6181, 18792,
-             9305, 5081, 5237, 15629, 4716, 36866, 45245, 23911, 6298, 5270, 6917, 16442, 9165, 6330, 14272,
-             16816, 7785, 29198, 7758, 15853, 9197, 15825, 7670, 9763, 6451]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw12":
-        type = '12'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [13571, 23912, 16890, 26986, 10290, 33514, 29660, 40987, 10317, 13517, 15630, 11350, 15854, 15951,
-             15799, 13544, 28550, 45246, 35470, 33757, 10415, 18562, 18820, 27299, 27272, 47009, 38946, 9764,
-             39241, 18626, 10504, 16443, 35986, 33482, 35901, 14229, 18793, 14775, 17332, 18716]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw13":
-        type = '13'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [5365, 13361, 10505, 16818, 5429, 33092, 10478, 18627, 11271, 29122, 33758, 17333, 18591,
-             5941, 16891, 15631, 15800, 6237, 40988, 11244, 33515, 40729, 17379, 3746, 15855, 28690,
-             18496, 6269, 18563, 27300, 28551, 18084, 27544, 6309, 46971, 27273, 3285, 39242, 3294, 15110]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw14":
-        type = '14'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [15801, 15828, 8664, 9766, 18718, 33093, 16892, 17380, 16391, 27301, 16819, 29123, 36027,
-             38589, 29201, 9697, 36869, 18444, 15953, 18497, 27274, 33484, 46972, 15632, 13362, 47011, 18085,
-             15984, 13743, 33186, 26988, 18795, 16043, 27015, 18628, 25846, 45248, 23914, 15926, 27545]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw15":
-        type = '15'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 37)
-        M = [13745, 8106, 35989, 34539, 34547, 18720, 33760, 34516, 8666, 33517, 34509, 15955, 34518, 27303, 11119, 33094, 34511,
-             35904, 13364, 16894, 46973, 17382, 36870, 27547, 34506, 45249, 15928, 34510, 34535, 29633, 34537, 39244, 18566, 33187,
-             34542, 37150, 35473, 34513]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw16":
-        type = '16'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 37)
-        M = [4937, 5970, 37151, 35990, 38591, 5310, 4644, 4651, 36871, 4692, 35474, 45250, 7340, 4647, 7270, 5458, 4978, 27413, 6990,
-             4646, 4642, 5650, 4643, 7273, 5586, 4657, 4658, 5554, 4724, 33518, 6423, 6189, 4849, 35905, 5938, 4656, 33095, 5278]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw17":
-        type = '17'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 33)
-        M = [37356, 39763, 39764, 37344, 37348, 37354, 37345, 39246, 37350, 47014, 37360, 37355, 37347, 37337, 37359, 37358, 37371, 37349,
-             45251, 40733, 37370, 37372, 38951, 37340, 46975, 37369, 40992, 37341, 37336, 39762, 37357, 37373, 37362, 37361]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw18":
-        type = '18'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [27681, 27673, 35992, 46976, 27669, 27676, 27677, 39247, 27685, 27683, 29666, 40993, 27679, 33763, 33097, 33488, 37153,
-             33520, 45252, 35907, 27682, 40734, 27670, 27671, 27680, 38593, 27675, 27678, 36873, 27415, 27672, 36031, 33190, 38952, 47015,
-             27667, 27666, 35476, 27668, 27674]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-    elif call.data == "hw19-21":
-        type = '19-21'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 19)
-        M = [28096, 27832, 33764, 28001, 28035, 28099, 40994, 39248, 27771, 28090, 29667, 27797, 27932, 28077, 28102, 38597,
-             27802, 28158, 27780, 27826, ]
-
-        if call.message.chat.id in Students:
-            link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-            link = f'Задача типа (20): [{M[x]+1}]({s}{M[x]+1})'
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-            link = f'Задача типа (21): [{M[x]+2}]({s}{M[x]+2})'
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]}), [{M[x]+1}]({s}{M[x]+1}), [{M[x]+2}]({s}{M[x]+2})",
-                                   parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-            link = f'Задача типа (20): [{M[x] + 1}]({s}{M[x] + 1})'
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-            link = f'Задача типа (21): [{M[x] + 2}]({s}{M[x] + 2})'
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw22":
-        type = '22'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 33)
-        M = [47588, 47589, 47601, 47605, 47598, 47593, 47602, 47595, 47603, 47600, 47610, 47590, 47609, 47608, 47616,
-             47586, 47607, 47549, 47614, 47596, 47613, 47611, 47582, 47591, 47606, 47584, 47594, 47592, 47587, 47615,
-             47604, 47599, 47583, 47612]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-    elif call.data == "hw23":
-        type = '23'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 39)
-        M = [28697, 18450, 3631, 16898, 27551, 14783, 5913, 13418, 11123, 15638, 38957, 16451, 15932, 7379, 13471, 15990, 8670,
-             16825, 17340, 13633, 18570, 7315, 11318, 18828, 33195, 27391, 45257, 7347, 13552, 14237, 29207, 23920, 13525, 14281,
-             7998, 39252, 18634, 13579, 18598, 13368]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-    elif call.data == "hw24":
-        type = '24'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 35)
-        M = [27692, 33526, 33494, 35913, 27698, 33103, 37131, 40740, 27689, 40999, 35482, 27695, 27686, 27697, 27688, 27694, 33196,
-             36879, 27696, 37159, 27421, 38958, 46982, 45258, 35998, 38602, 39253, 33769, 47021, 27699, 36037, 27691, 27690, 29672,
-             27693, 27687]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw25":
-        type = '25'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 35)
-        M = [33527, 27852, 33104, 28120, 39254, 27854, 37160, 28122, 37130, 27857, 27422, 41000, 36038, 29673, 35999, 46983, 47022,
-             33495, 33197, 33770, 28124, 38959, 45259, 35914, 28123, 27853, 28121, 27858, 36880, 35483, 27851, 38603, 27850, 40741,
-             27856, 27855]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-
-    elif call.data == "hw26":
-        type = '26'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 33)
-        M = [46984, 28132, 33528, 40742, 28141, 39255, 33771, 27884, 38960, 27888, 28140, 27886, 35915, 36881, 27423, 29674,
-             36000, 35484, 36039, 28139, 27883, 41001, 47023, 27881, 27882, 33198, 27887, 27880, 33105, 28138, 33496, 37161,
-             45260, 27885]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-    elif call.data == "hw27":
-        type = '27'
-        s = 'inf-ege.sdamgia.ru/problem?id='
-        x = random.randint(0, 30)
-        M = [28133, 33529, 35485, 27424, 33497, 28131, 27891, 27991, 37162, 47024, 46985, 35916, 33106, 38961, 27889, 38604,
-             36001, 39256, 28130, 40743, 27990, 41002, 36882, 28129, 29675, 27890, 27989, 33772, 36040, 45261, 33199]
-        link = f'Задача типа ({type}): [{M[x]}]({s}{M[x]})'
-        if call.message.chat.id in Students:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-
-            bot.send_message(-726393257,
-                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\nПолучил домашку ({type}): [{M[x]}]({s}{M[x]})",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-    # endregion call.data для Homework
-
     # region call.data для Useful
     elif call.data == 'py01':
         py01 = open('files/py01.pdf', 'rb')
@@ -837,17 +361,18 @@ def step(call):
 
     # region call.data для Private_help
     elif call.data == 'private':
-        message_text = f'/git - команда при запуске которой приходят команды для залива репазитория на GitHub\n\n' \
-                       f'/showusers - выводит ссылки на пользователей из db\n' \
-                       f'/statistics - выводит статистику и файлы db напрямую в боте\n\n' \
-                       f'/voiceall - способ отправить сообщение всем пользователям (с ссылками)\n' \
-                       f'/voicestudents - способ отправить сообщение всем моим студентам\n\n' \
-                       f'/delless - удаление записи из бд о студенте (через id)\n' \
-                       f'/mylessons - проверить кол-во занятий в абонементе\n' \
-                       f'/less - подтверждение оплаты абонемента учеником\n\n' \
-                       f'/noticestudents - опрос по именам учеников - будет ли урок сегодня (по дням)\n' \
-                       f'/notice - опрос всех дневных учеников - будет ли урок сегодня (по дням)\n\n' \
-                       f'/list - список студентов для поиска по #\n\n' \
+        message_text = f'Список приватных команд:\n/git\n' \
+                       f'/showusers\n' \
+                       f'/logi\n' \
+                       f'/statistics\n' \
+                       f'/voiceall\n' \
+                       f'/voicestudents\n' \
+                       f'/delless\n' \
+                       f'/mylessons\n' \
+                       f'/less\n' \
+                       f'/noticestudents\n' \
+                       f'/notice\n' \
+                       f'/list\n' \
                        f'[Мой Google календарь](https://calendar.google.com/calendar)'
         bot.send_message(call.message.chat.id, message_text, parse_mode='Markdown')
     # endregion call.data для Private_help
@@ -996,7 +521,167 @@ def step(call):
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
     # endregion для кнопок из Решебника
 
+    # region call.data для отправки Homework
+    elif call.data == 'sendhomeworks':
+        bot.send_message(call.message.chat.id,
+                         'Просто скопируйте свой код из PyCharm.\nБот сформирует файл и отправит его за вас 🤖\n\n'
+                         '*Обратите внимание, сообщение в Telegram ограничено 4096 символами!*\n\n'
+                         'Напишите `0`, чтобы отменить команду!', parse_mode='Markdown')
 
+        file_name = f'homeworks/{Students[call.message.chat.id][3]}_homework.txt'
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != '0':
+                count = 0
+                for STR in message.text:
+                    for _ in STR:
+                        count += 1
+
+                if count < 2 ** 12:
+                    bot.send_message(call.message.chat.id,
+                                     f"Кол-во символов в файле: {count}\n🤖 Ожидайте отправляю файл.")
+                else:
+                    bot.send_message(call.message.chat.id, "Длина файла превышена, удалите лишние строки!")
+
+                f = open(file_name, 'w')
+                f.write(message.text)
+
+        bot.register_next_step_handler(call.message, message_input)
+
+        time.sleep(150)
+        f = open(file_name, 'r')
+        bot.send_document(-726393257, f)
+        bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
+        # endregion call.data для отправки Homework
+
+        # region call.data для Homework
+    elif call.data == "hw19-21":
+        type = '19-21'
+        s = 'inf-ege.sdamgia.ru/problem?id='
+        x = random.randint(0, 19)
+        M = [28096, 27832, 33764, 28001, 28035, 28099, 40994, 39248, 27771, 28090, 29667, 27797, 27932, 28077, 28102,
+             38597, 27802, 28158, 27780, 27826, ]
+
+        if call.message.chat.id in Students:
+            link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (20): [{M[x] + 1}]({s}{M[x] + 1})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (21): [{M[x] + 2}]({s}{M[x] + 2})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
+                             f"Получил домашку ({type}): [{M[x]}]({s}{M[x]}), [{M[x] + 1}]({s}{M[x] + 1}), [{M[x] + 2}]({s}{M[x] + 2})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (20): [{M[x] + 1}]({s}{M[x] + 1})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+            link = f'Задача типа (21): [{M[x] + 2}]({s}{M[x] + 2})'
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+
+    elif call.data == "hw1" or "hw2" or "hw3" or "hw4" or "hw5" or "hw6" or "hw7" or "hw8" or "hw9" or "hw10" or "hw11" or "hw12" or \
+            "hw13" or "hw14" or "hw15" or "hw16" or "hw17" or "hw18" or "hw22" or "hw23" or "hw24" or "hw25" or "hw26" or "hw27":
+        hw = {
+            '1': [13479, 23901, 38446, 11259, 26946, 18782, 5697, 15098, 16030, 5793, 29188, 26975, 18705, 7981, 38935,
+                  4707, 40717, 28678, 17367, 5196, 25833, 3828, 36856, 15971, 7777, 37136, 38446, 13506, 7355, 11232],
+            '2': [29650, 33174, 18483, 27287, 46999, 26974, 35891, 36857, 15124, 40718, 28538, 27399, 15912, 18430,
+                  27260, 33472, 15970, 37137, 15787, 16878, 46960, 45236, 27531, 18781, 35460, 27371, 18071, 15097,
+                  35976, 16431, 18578, 39231, 15814, 33504, 36015, 16805, 33081, 29109, 18614, 38936, 16029, 19051],
+            '3': [37494, 39232, 37481, 38937, 47000, 37491, 37492, 37493, 45237, 40719, 37417, 37479, 37508, 37488,
+                  37507, 37489,
+                  37415, 46961, 40978, 37480, 37485, 37490],
+            '4': [18617, 14691, 17323, 13351, 19054, 15942, 10499, 16808, 37139, 16881, 27290, 18553, 9791, 45238,
+                  16380, 18581,
+                  47001, 15915, 10379, 16434, 26948, 17369, 13562, 15817, 26977, 11234, 15790, 36017, 18486, 28680,
+                  18811, 18074,
+                  15621, 13616, 27263, 14220, 11341, 46962, 7685, 18433],
+            '5': [7454, 26978, 13617, 29653, 18075, 11235, 18785, 10380, 15791, 7917, 9792, 16033, 17370, 11342, 18487,
+                  14692, 18618, 7690, 15101, 15622, 35894, 13590, 16435, 13536, 9190, 18582, 7751, 47002, 16809, 10407,
+                  14767, 27375, 45239, 11262, 14265, 15818, 27264, 10309, 26949, 13563],
+            '6': [47246, 47404, 47245, 47390, 47247, 47308, 47249, 47315, 47305, 47249, 47304, 47306, 47403, 47313,
+                  47311, 47307, 47310, 47312, 47314, 47393, 47316, 47391, 47406, 47309, 47248, 47392, 47301, 47303,
+                  47405],
+            '7': [18078, 8097, 23907, 16438, 25839, 13355, 11110, 29194, 15821, 13620, 19058, 13593, 17327, 45241,
+                  27538, 16812, 28684, 9759, 15977, 26981, 18585, 11345, 9795, 14695, 17373, 38941, 10497, 33477, 10470,
+                  35465,
+                  15946, 16036, 36862, 15131, 28545, 29655, 13736, 36020, 18711, 33509],
+            '8': [9361, 15822, 10473, 15795, 16037, 10500, 7986, 35897, 3568, 27009, 8658, 11266, 3230, 26953, 23908,
+                  3569, 36021, 3692, 3515, 33753, 36863, 3811, 13459, 3233, 7370, 27236, 5055, 7338, 16439, 9162, 10384,
+                  3517,
+                  7694, 19059, 3227, 18622, 13567, 15947, 14696, 27295],
+            '9': [33754, 27529, 35898, 33088, 27524, 27524, 36022, 27406, 27525, 33181, 35467, 27518, 46967, 28117,
+                  38588, 39238, 27517, 36864, 27526, 29657, 27523, 27519, 45243, 40725, 27528, 38943, 27522, 35983,
+                  40984, 33511, 47006, 37144, 33479, 27520, 27527],
+            '10': [36865, 27582, 33480, 46968, 27590, 27589, 35899, 27588, 38944, 36023, 29658, 27580, 40726, 27586,
+                   37145, 27577, 40985, 27581, 33512, 45244, 27407, 27579, 27585, 33089, 33182, 35468, 27587, 27584,
+                   39239, 27591, 33755, 47007, 27583, 35984],
+            '11': [9364, 6885, 40986, 36024, 33481, 7924, 11309, 7989, 16889, 4684, 33183, 6415, 10476, 6181, 18792,
+                   9305, 5081, 5237, 15629, 4716, 36866, 45245, 23911, 6298, 5270, 6917, 16442, 9165, 6330, 14272,
+                   16816, 7785, 29198, 7758, 15853, 9197, 15825, 7670, 9763, 6451],
+            '12': [13571, 23912, 16890, 26986, 10290, 33514, 29660, 40987, 10317, 13517, 15630, 11350, 15854, 15951,
+                   15799, 13544, 28550, 45246, 35470, 33757, 10415, 18562, 18820, 27299, 27272, 47009, 38946, 9764,
+                   39241, 18626, 10504, 16443, 35986, 33482, 35901, 14229, 18793, 14775, 17332, 18716],
+            '13': [5365, 13361, 10505, 16818, 5429, 33092, 10478, 18627, 11271, 29122, 33758, 17333, 18591,
+                   5941, 16891, 15631, 15800, 6237, 40988, 11244, 33515, 40729, 17379, 3746, 15855, 28690,
+                   18496, 6269, 18563, 27300, 28551, 18084, 27544, 6309, 46971, 27273, 3285, 39242, 3294, 15110],
+            '14': [15801, 15828, 8664, 9766, 18718, 33093, 16892, 17380, 16391, 27301, 16819, 29123, 36027,
+                   38589, 29201, 9697, 36869, 18444, 15953, 18497, 27274, 33484, 46972, 15632, 13362, 47011, 18085,
+                   15984, 13743, 33186, 26988, 18795, 16043, 27015, 18628, 25846, 45248, 23914, 15926, 27545],
+            '15': [13745, 8106, 35989, 34539, 34547, 18720, 33760, 34516, 8666, 33517, 34509, 15955, 34518, 27303,
+                   11119, 33094, 34511, 35904, 13364, 16894, 46973, 17382, 36870, 27547, 34506, 45249, 15928, 34510,
+                   34535, 29633, 34537,
+                   39244, 18566, 33187, 34542, 37150, 35473, 34513],
+            '16': [4937, 5970, 37151, 35990, 38591, 5310, 4644, 4651, 36871, 4692, 35474, 45250, 7340, 4647, 7270, 5458,
+                   4978, 27413, 6990, 4646, 4642, 5650, 4643, 7273, 5586, 4657, 4658, 5554, 4724, 33518, 6423, 6189,
+                   4849, 35905, 5938, 4656, 33095, 5278],
+            '17': [37356, 39763, 39764, 37344, 37348, 37354, 37345, 39246, 37350, 47014, 37360, 37355, 37347, 37337,
+                   37359, 37358, 37371, 37349, 45251, 40733, 37370, 37372, 38951, 37340, 46975, 37369, 40992, 37341,
+                   37336, 39762, 37357, 37373, 37362, 37361],
+            '18': [27681, 27673, 35992, 46976, 27669, 27676, 27677, 39247, 27685, 27683, 29666, 40993, 27679, 33763,
+                   33097, 33488, 37153, 33520, 45252, 35907, 27682, 40734, 27670, 27671, 27680, 38593, 27675, 27678,
+                   36873, 27415, 27672,
+                   36031, 33190, 38952, 47015, 27667, 27666, 35476, 27668, 27674],
+            '22': [47588, 47589, 47601, 47605, 47598, 47593, 47602, 47595, 47603, 47600, 47610, 47590, 47609, 47608,
+                   47616, 47586, 47607, 47549, 47614, 47596, 47613, 47611, 47582, 47591, 47606, 47584, 47594, 47592,
+                   47587, 47615, 47604, 47599, 47583, 47612],
+            '23': [28697, 18450, 3631, 16898, 27551, 14783, 5913, 13418, 11123, 15638, 38957, 16451, 15932, 7379, 13471,
+                   15990, 8670, 16825, 17340, 13633, 18570, 7315, 11318, 18828, 33195, 27391, 45257, 7347, 13552, 14237,
+                   29207,
+                   23920, 13525, 14281, 7998, 39252, 18634, 13579, 18598, 13368],
+            '24': [27692, 33526, 33494, 35913, 27698, 33103, 37131, 40740, 27689, 40999, 35482, 27695, 27686, 27697,
+                   27688, 27694, 33196, 36879, 27696, 37159, 27421, 38958, 46982, 45258, 35998, 38602, 39253, 33769,
+                   47021, 27699, 36037,
+                   27691, 27690, 29672, 27693, 27687],
+            '25': [33527, 27852, 33104, 28120, 39254, 27854, 37160, 28122, 37130, 27857, 27422, 41000, 36038, 29673,
+                   35999, 46983, 47022, 33495, 33197, 33770, 28124, 38959, 45259, 35914, 28123, 27853, 28121, 27858,
+                   36880, 35483, 27851,
+                   38603, 27850, 40741, 27856, 27855],
+            '26': [46984, 28132, 33528, 40742, 28141, 39255, 33771, 27884, 38960, 27888, 28140, 27886, 35915, 36881,
+                   27423, 29674, 36000, 35484, 36039, 28139, 27883, 41001, 47023, 27881, 27882, 33198, 27887, 27880,
+                   33105, 28138, 33496, 37161, 45260, 27885],
+            '27': [28133, 33529, 35485, 27424, 33497, 28131, 27891, 27991, 37162, 47024, 46985, 35916, 33106, 38961,
+                   27889, 38604, 36001, 39256, 28130, 40743, 27990, 41002, 36882, 28129, 29675, 27890, 27989, 33772,
+                   36040, 45261, 33199]}
+
+        type = call.data[2:]
+        x = random.randint(0, len(hw[type]))
+        link = f'Задача типа ({type}): [{hw[type][random.randint(0, len(hw[type]))]}](inf-ege.sdamgia.ru/problem?id={hw[type][x]})'
+        if call.message.chat.id in Students:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+            bot.send_message(-726393257,
+                             f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
+                             f"Получил домашку ({type}): [{hw[type][x]}](inf-ege.sdamgia.ru/problem?id={hw[type][x]})",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+        elif call.message.chat.id in Me:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
+
+    # endregion call.data для Homework
 
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉  ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️
@@ -1022,7 +707,6 @@ def step(call):
 /reviews - генерирует отзыв при нажатии кнопки 
 
 /mylessons - проверить кол-во занятий в абонементе
-
 /gdz - решебник с набором решенных Python задач ЕГЭ 
 '''
 
@@ -1435,7 +1119,7 @@ def gdz(message):
 /git - команда при запуске которой приходят команды для залива репазитория на GitHub
 
 /less - подтверждение оплаты абонемента, запись в бд.
-/delless - удаление записи из бд о студенте (через id) 
+/delless - изменение уже имеющейся записи в бд (через id) 
 /mylessons - проверить кол-во занятий в абонементе
 
 /voiceall - способ отправить сообщение всем пользователям (с ссылками)
@@ -1614,7 +1298,7 @@ def private_help(message):
     if message.chat.id in PrivateMe:
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("Private commands 🔓", callback_data='private'))
-        bot.send_message(message.chat.id, 'Список всех приватных комманд 👉 ', reply_markup=markup)
+        bot.send_message(message.chat.id, 'Список всех приватных команд 👉 ', reply_markup=markup)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
@@ -1686,6 +1370,8 @@ def less(message):
                         markup.add(btn1)
 
                         bot.send_message(key, f" 🤖 Привет!\nЭто подтверждение нужно, для ведения бухгалтерии 📊📈🧮\n\n",parse_mode='Markdown', reply_markup=markup)
+                else:
+                    bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
             bot.register_next_step_handler(message, message_input)
 
         else:
@@ -1729,6 +1415,8 @@ def mylessons(message):
                     bot.send_message(message.chat.id, f'🤖 Доброго времени суток, Илья!\nЯ все посчитал, вот записи по абонементу студента #{Students[user_id][3]} 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
                     bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*', parse_mode='Markdown')
                 cursor.close()
+            else:
+                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
 
         bot.register_next_step_handler(message, message_input)
     elif message.chat.id in Students:
@@ -1757,7 +1445,7 @@ def mylessons(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
-# delless
+# DELLESS
 @bot.message_handler(commands=['delless'])
 def delless(message):
     if message.chat.id == 1891281816:
@@ -1766,13 +1454,11 @@ def delless(message):
             day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
-        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!',
-                         parse_mode='Markdown')
+        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!', parse_mode='Markdown')
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
-
             if text_message != '0':
                 user_id = int(text_message)
                 sql = sqlite3.connect('analytics.db')
@@ -1790,10 +1476,36 @@ def delless(message):
                 records = cursor.fetchone()
 
                 if records is None:
-                    bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
+                    bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутствует или не продлен!')
                 else:
-                    bot.send_message(message.chat.id, f'🤖 Хорошо, я удалил запись о #{Students[user_id][3]}-е', parse_mode='Markdown')
-                    cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+                    bot.send_message(message.chat.id, f'Высылаю запись на редактирование, просто измените ее по шаблону и отправьте обратно👨‍💻\n\nШаблон: [Текст] [Кол-во занятий]\n\n🤖 Напишите 0, чтобы отменить команду!')
+                    bot.send_message(message.chat.id, f'{records[3]}', parse_mode='Markdown')
+                    name = records[1]
+
+                    @bot.message_handler(content_types=['text'])
+                    def message_input(message):
+                        text_message = message.text
+
+                        if text_message != '0':
+                            sql = sqlite3.connect('analytics.db')
+                            cursor = sql.cursor()
+                            cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+                            records = cursor.fetchone()
+
+                            cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+
+                            mess = text_message[:-1]
+                            count = int(text_message[-1])
+
+                            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+                            sql.commit()
+                            cursor.close()
+                            bot.send_message(message.chat.id, f'Запись была заменена успешно, проверить 👉 /mylessons', parse_mode='Markdown')
+                        else:
+                            bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
+
+                    bot.register_next_step_handler(message, message_input)
+
                 sql.commit()
                 cursor.close()
 
@@ -1826,6 +1538,8 @@ def voiceall(message):
 
                 for i in range(0, len(users_id)):
                     bot.send_message(users_id[i][0], text_message, disable_web_page_preview=True)
+            else:
+                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
 
         bot.register_next_step_handler(message, message_input)
     else:
@@ -1849,6 +1563,8 @@ def voicestudents(message):
                     btn1 = types.KeyboardButton('Прочитано ✅')
                     markup.add(btn1)
                     bot.send_message(key, text_message, disable_web_page_preview=True, reply_markup=markup)
+            else:
+                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
         bot.register_next_step_handler(message, message_input)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
@@ -1885,6 +1601,8 @@ def noticestudents(message):
                         markup.add(btn1, btn2, btn3)
 
                         bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {Students[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+            else:
+                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
 
         bot.register_next_step_handler(message, message_input)
 
