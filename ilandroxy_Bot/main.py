@@ -523,36 +523,58 @@ def step(call):
 
     # region call.data для отправки Homework
     elif call.data == 'sendhomeworks':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+
         bot.send_message(call.message.chat.id,
                          'Просто скопируйте свой код из PyCharm.\nБот сформирует файл и отправит его за вас 🤖\n\n'
-                         '*Обратите внимание, сообщение в Telegram ограничено 4096 символами!*\n\n'
-                         'Напишите `0`, чтобы отменить команду!', parse_mode='Markdown')
+                         '*Обратите внимание, сообщение в Telegram ограничено 4096 символами!*', parse_mode='Markdown', reply_markup=markup)
 
         file_name = f'homeworks/{Students[call.message.chat.id][3]}_homework.txt'
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            if message.text != '0':
+            if message.text != 'Отменить ⛔':
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+
                 count = 0
                 for STR in message.text:
                     for _ in STR:
                         count += 1
 
                 if count < 2 ** 12:
-                    bot.send_message(call.message.chat.id,
-                                     f"Кол-во символов в файле: {count}\n🤖 Ожидайте отправляю файл.")
+
+                    bot.send_message(call.message.chat.id, f"Кол-во символов в файле: {count}\n🤖 Ожидайте отправляю файл.", reply_markup=markup)
                 else:
-                    bot.send_message(call.message.chat.id, "Длина файла превышена, удалите лишние строки!")
+                    bot.send_message(call.message.chat.id, "Длина файла превышена, удалите лишние строки!", reply_markup=markup)
 
                 f = open(file_name, 'w')
                 f.write(message.text)
+                time.sleep(150)
+                f = open(file_name, 'r')
+                bot.send_document(-726393257, f)
+                bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
 
         bot.register_next_step_handler(call.message, message_input)
 
-        time.sleep(150)
-        f = open(file_name, 'r')
-        bot.send_document(-726393257, f)
-        bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
+
         # endregion call.data для отправки Homework
 
         # region call.data для Homework
@@ -1349,29 +1371,46 @@ def git(message):
 @bot.message_handler(commands=['less'])
 def less(message):
         if message.chat.id in Me:
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            btn1 = types.KeyboardButton('Отменить ⛔')
+            markup.add(btn1)
+
             day = 'Все студенты: *'
             for key in Students:
                 day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
             M_day = [i for i in day.split('*')]
             message_text_day = '\n'.join(M_day)
-            bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!',
-                                 parse_mode='Markdown')
+            bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
 
             @bot.message_handler(content_types=['text'])
             def message_input(message):
                 text_message = message.text
 
-                if text_message != '0':
+                if text_message != 'Отменить ⛔':
                     message_text_students = [int(i) for i in text_message.split()]
-                    bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                    btn1 = types.KeyboardButton('Контакты')
+                    btn2 = types.KeyboardButton('Репетитор')
+                    btn3 = types.KeyboardButton('Мои проекты')
+                    btn4 = types.KeyboardButton('Записаться на урок')
+                    btn5 = types.KeyboardButton('Получить файл с урока')
+                    markup.add(btn1, btn2, btn3, btn4, btn5)
+                    bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown', reply_markup=markup)
+
                     for key in message_text_students:
                         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
                         btn1 = types.KeyboardButton('Подтвердить оплату абонемента ❗')
                         markup.add(btn1)
-
                         bot.send_message(key, f" 🤖 Привет!\nЭто подтверждение нужно, для ведения бухгалтерии 📊📈🧮\n\n",parse_mode='Markdown', reply_markup=markup)
                 else:
-                    bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                    btn1 = types.KeyboardButton('Контакты')
+                    btn2 = types.KeyboardButton('Репетитор')
+                    btn3 = types.KeyboardButton('Мои проекты')
+                    btn4 = types.KeyboardButton('Записаться на урок')
+                    btn5 = types.KeyboardButton('Получить файл с урока')
+                    markup.add(btn1, btn2, btn3, btn4, btn5)
+                    bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
             bot.register_next_step_handler(message, message_input)
 
         else:
@@ -1381,19 +1420,22 @@ def less(message):
 @bot.message_handler(commands=['mylessons'])
 def mylessons(message):
     if message.chat.id == 1891281816:
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+
         day = 'Все студенты: *'
         for key in Students:
             day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
-        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!',
-                         parse_mode='Markdown')
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
 
-            if text_message != '0':
+            if text_message != 'Отменить ⛔':
                 user_id = int(text_message)
                 sql = sqlite3.connect('analytics.db')
                 cursor = sql.cursor()
@@ -1412,25 +1454,32 @@ def mylessons(message):
                 if records is None:
                     bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
                 else:
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                    btn1 = types.KeyboardButton('Контакты')
+                    btn2 = types.KeyboardButton('Репетитор')
+                    btn3 = types.KeyboardButton('Мои проекты')
+                    btn4 = types.KeyboardButton('Записаться на урок')
+                    btn5 = types.KeyboardButton('Получить файл с урока')
+                    markup.add(btn1, btn2, btn3, btn4, btn5)
+
                     bot.send_message(message.chat.id, f'🤖 Доброго времени суток, Илья!\nЯ все посчитал, вот записи по абонементу студента #{Students[user_id][3]} 📊📈🧮\n\n{records[3]}', parse_mode='Markdown')
-                    bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*', parse_mode='Markdown')
+                    bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*', parse_mode='Markdown', reply_markup=markup)
                 cursor.close()
             else:
-                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(message, message_input)
     elif message.chat.id in Students:
         user_id = message.chat.id
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
-
-        cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
-                                                                       id INTEGER,
-                                                                       name TEXT,
-                                                                       count INTEGER,
-                                                                       mess TEXT
-                                                                   )""")
-        sql.commit()
 
         cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
         records = cursor.fetchone()
@@ -1449,17 +1498,21 @@ def mylessons(message):
 @bot.message_handler(commands=['delless'])
 def delless(message):
     if message.chat.id == 1891281816:
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+
         day = 'Все студенты: *'
         for key in Students:
             day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
-        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!', parse_mode='Markdown')
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
-            if text_message != '0':
+            if text_message != 'Отменить ⛔':
                 user_id = int(text_message)
                 sql = sqlite3.connect('analytics.db')
                 cursor = sql.cursor()
@@ -1478,15 +1531,19 @@ def delless(message):
                 if records is None:
                     bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутствует или не продлен!')
                 else:
-                    bot.send_message(message.chat.id, f'Высылаю запись на редактирование, просто измените ее по шаблону и отправьте обратно👨‍💻\n\nШаблон: [Текст] [Кол-во занятий]\n\n🤖 Напишите n, чтобы отменить команду!')
-                    bot.send_message(message.chat.id, f'{records[3]}', parse_mode='Markdown')
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+                    btn1 = types.KeyboardButton('Отменить ⛔')
+                    markup.add(btn1)
+
+                    bot.send_message(message.chat.id, f'Высылаю запись на редактирование, просто измените ее по шаблону и отправьте обратно👨‍💻\n\nШаблон: [Текст] [Кол-во занятий]')
+                    bot.send_message(message.chat.id, f'{records[3]}', parse_mode='Markdown', reply_markup=markup)
                     name = records[1]
 
                     @bot.message_handler(content_types=['text'])
                     def message_input(message):
                         text_message = message.text
 
-                        if text_message != 'n':
+                        if text_message != 'Отменить ⛔':
                             sql = sqlite3.connect('analytics.db')
                             cursor = sql.cursor()
                             cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
@@ -1500,14 +1557,39 @@ def delless(message):
                             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
                             sql.commit()
                             cursor.close()
-                            bot.send_message(message.chat.id, f'Запись была заменена успешно, проверить 👉 /mylessons', parse_mode='Markdown')
+
+                            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                            btn1 = types.KeyboardButton('Контакты')
+                            btn2 = types.KeyboardButton('Репетитор')
+                            btn3 = types.KeyboardButton('Мои проекты')
+                            btn4 = types.KeyboardButton('Записаться на урок')
+                            btn5 = types.KeyboardButton('Получить файл с урока')
+                            markup.add(btn1, btn2, btn3, btn4, btn5)
+
+                            bot.send_message(message.chat.id, f'Запись была заменена успешно, проверить 👉 /mylessons', parse_mode='Markdown', reply_markup=markup)
                         else:
-                            bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
+                            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                            btn1 = types.KeyboardButton('Контакты')
+                            btn2 = types.KeyboardButton('Репетитор')
+                            btn3 = types.KeyboardButton('Мои проекты')
+                            btn4 = types.KeyboardButton('Записаться на урок')
+                            btn5 = types.KeyboardButton('Получить файл с урока')
+                            markup.add(btn1, btn2, btn3, btn4, btn5)
+                            bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
                     bot.register_next_step_handler(message, message_input)
 
                 sql.commit()
                 cursor.close()
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(message, message_input)
     else:
@@ -1519,14 +1601,16 @@ def delless(message):
 @bot.message_handler(commands=['voiceall'])
 def voiceall(message):
     if message.chat.id == 1891281816:
-        bot.send_message(message.chat.id,
-                         "Введите сообщение, которое бот отправит всем пользователям (поддерживаются только классические ссылки):\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+
+        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит всем пользователям (поддерживаются только классические ссылки).", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
-            if text_message != '0':
+            if text_message != 'Отменить ⛔':
                 bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
 
                 sql = sqlite3.connect('analytics.db')
@@ -1539,7 +1623,14 @@ def voiceall(message):
                 for i in range(0, len(users_id)):
                     bot.send_message(users_id[i][0], text_message, disable_web_page_preview=True)
             else:
-                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(message, message_input)
     else:
@@ -1550,13 +1641,16 @@ def voiceall(message):
 @bot.message_handler(commands=['voicestudents'])
 def voicestudents(message):
     if message.chat.id == 1891281816:
-        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит только студентам (поддерживаются только классические ссылки):\n\n"
-                                          "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+
+        bot.send_message(message.chat.id, "Введите сообщение, которое бот отправит только студентам (поддерживаются только классические ссылки).", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
-            if text_message != '0':
+            if text_message != 'Отменить ⛔':
                 bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
                 for key in Students:
                     markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
@@ -1564,7 +1658,14 @@ def voicestudents(message):
                     markup.add(btn1)
                     bot.send_message(key, text_message, disable_web_page_preview=True, reply_markup=markup)
             else:
-                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
         bot.register_next_step_handler(message, message_input)
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
@@ -1575,6 +1676,9 @@ def voicestudents(message):
 @bot.message_handler(commands=['noticestudents'])
 def noticestudents(message):
     if message.chat.id == 1891281816:
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
 
 
         day = 'Все студенты: *'
@@ -1582,7 +1686,7 @@ def noticestudents(message):
             day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
-        bot.send_message(message.chat.id, message_text_day + '\n\nНапишите `0`, чтобы отменить команду!', parse_mode='Markdown')
+        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
 
 
 
@@ -1590,9 +1694,16 @@ def noticestudents(message):
         def message_input(message):
             text_message = message.text
 
-            if text_message != '0':
+            if text_message != 'Отменить ⛔':
                 message_text_students = [int(i) for i in text_message.split()]
-                bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown', reply_markup=markup)
                 for key in message_text_students:
                         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
                         btn1 = types.KeyboardButton('Да, все получается ✅')
@@ -1602,7 +1713,15 @@ def noticestudents(message):
 
                         bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {Students[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
             else:
-                bot.send_message(message.chat.id, f'Команда успешно отменена ⛔')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
 
         bot.register_next_step_handler(message, message_input)
 
