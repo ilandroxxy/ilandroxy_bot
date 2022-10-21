@@ -1478,7 +1478,7 @@ def delless(message):
                 if records is None:
                     bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутствует или не продлен!')
                 else:
-                    bot.send_message(message.chat.id, f'Высылаю запись на редактирование, просто измените ее по шаблону и отправьте обратно👨‍💻\n\nШаблон: [Текст] [Кол-во занятий]\n\n🤖 Напишите 0, чтобы отменить команду!')
+                    bot.send_message(message.chat.id, f'Высылаю запись на редактирование, просто измените ее по шаблону и отправьте обратно👨‍💻\n\nШаблон: [Текст] [Кол-во занятий]\n\n🤖 Напишите n, чтобы отменить команду!')
                     bot.send_message(message.chat.id, f'{records[3]}', parse_mode='Markdown')
                     name = records[1]
 
@@ -1486,7 +1486,7 @@ def delless(message):
                     def message_input(message):
                         text_message = message.text
 
-                        if text_message != '0':
+                        if text_message != 'n':
                             sql = sqlite3.connect('analytics.db')
                             cursor = sql.cursor()
                             cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
