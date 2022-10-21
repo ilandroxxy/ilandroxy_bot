@@ -1,189 +1,180 @@
-#Задание №1
+# Домашка:
+
+# Тип 2 № 36857
 '''
-M = []
-for i in range(10000):
-    n = int(input('n: '))
-    if n % 2 == 0:
-        M.append(n)
-        print(M)
-    else:
-        print('Число нечётное!!')
-'''
+#Логическая функция F задаётся выражением ((¬x ∨ z) ≡ (y ∧ ¬w)) → (z ∧ y).
+# На рисунке приведён частично заполненный фрагмент таблицы истинности функции F,
+# содержащий неповторяющиеся строки. Определите, какому столбцу таблицы истинности функции F
+# соответствует каждая из переменных x, y, z, w.
 
-'''
-M = []
-n = int(input('n: '))
-for x in range(1, n+1):
-    if x % 2 == 0:
-        M.append(x)
-print(M)
-'''
-
-
-#Задание №2
-'''
-L = []
-M = []
-S = []
-for m in range(3):
-    n1 = int(input('n1: '))
-    M.append(n1)
-print(M)
-for l in range(3):
-    n2 = int(input('n2: '))
-    L.append(n2)
-print(L)
-for i in range(3):
-    S.append(M[i] + L[i])
-print(S)
-'''
-
-'''
-M = [int(i) for i in input().split()]
-L = [int(i) for i in input().split()]
-# print(L)
-# print(M)
-while len(M) != len(L):
-    if len(M) < len(L):
-        M.append(0)
-    else:
-        L.append(0)
-# print(L)
-# print(M)
-
-S = []
-for i in range(len(M)):
-    S.append(M[i] + L[i])
-print(S)
-'''
-
-'''
-ip = '192.45.90.7'
-M = ip.split('.')  # метод split() разбивает строку на список строк
-print(M)
-for i in range(0, len(M)):
-    M[i] = int(M[i])
-print(M)
-
-#Задание №3
-
-x = str(input('Введите предложение: '))
-M = x.split()  # split() без аргумента - разделяет по пробелам
-print(M)
-
-maxi = 0
-for x in M:
-    if maxi < len(x):
-        maxi = len(x)
-print(maxi)
-'''
-
-#Задание №4
-'''
-x1 = int(input('x1: '))
-y1 = int(input('y1: '))
-x2 = int(input('x2: '))
-y2 = int(input('y2: '))
-if x1 == x2 and y1 == y2:
-    print('Фигура должна сделать ход!')
-elif x1+1 == x2 or y1 == y2:
-    print('YES')
-elif x1+1 == x2 or y1+1 == y2:
-    print('YES')
-elif x1-1 == x2 or y1 == y2:
-    print('YES')
-elif x1-1 == x2 or y1+1 == y2:
-    print('YES')
-elif x1 == x2 or y1+1 == y2:
-    print('YES')
-elif x1 == x2 or y1-1 == y2:
-    print('YES')
-elif x1-1 == x2 or y1-1 == y2:
-    print('YES')
-elif x1+1 == x2 or y1-1 == y2:
-    print('YES')
-else:
-    print('NO')
-'''
-
-# Теория: Правила логики в Питоне
-# отрицание (инверсия)  ¬y   <---->   (not(y))
-# конъюнкция   x ∧ y  <---->   x and y
-# дизъюнкция  x ∨ y  <---->   x or y
-# тождество  x ≡ z  <---->   x == z
-# Импликация z → w  <---->  z <= w    (¬z ∨ w)
-
-
-# region Тип 2 № 19051
-# Миша заполнял таблицу истинности функции (x ∧ ¬y) ∨ (x ≡ z) ∨ ¬w, но успел
-# заполнить лишь фрагмент из трёх различных её строк, даже не указав,
-# какому столбцу таблицы соответствует каждая из переменных w, x, y, z.
-"""
 print('x y z w')
 for x in range(2):
     for y in range(2):
         for z in range(2):
             for w in range(2):
-                F = (x and (not(y))) or (x == z) or (not(w))
+                F = (((not(x) or z) == (y and not(w))) <= (z and y))
                 if F == False:
-                    print(x, y, z, w, F)
-"""
-# Ответ: xwzy
-# endregion Тип 2 № 19051
+                   print(x, y, z, w, F)
 
-# region Тип 2 № 15124
-# Логическая функция F задаётся выражением (x ≡ y ) ∨ ((y ∨ z) → x).
-# Дан частично заполненный фрагмент, содержащий неповторяющиеся строки таблицы истинности функции F.
-# Определите, какому столбцу таблицы истинности соответствует каждая из переменных x, y, z.
-print('x y z')
+print('x y z w')
 for x in range(2):
     for y in range(2):
         for z in range(2):
-            F = (x == y) or ((y or z) <= x)
-            if F == False:
-                print(x, y, z, F)
-# Ответ: xzy
-# endregion Тип 2 № 15124
-
-# Списки (массивы) - list()
+            for w in range(2):
+                if not(((not(x) or z) == (y and not(w))) <= (z and y)):
+                   print(x, y, z, w, F)
 '''
-M = [1, 2, 3]
-print(M, type(M))
 
-print(len(M))  # функция len() выводит длину списка (то есть кол-во элементов в нем)
+#Задание 2 (35460)
+'''
+#Логическая функция F задаётся выражением ¬((x ∨ y) → (z ∧ w)) ∧ (x → w).
+# На рисунке приведён частично заполненный фрагмент таблицы истинности функции F,
+# содержащий неповторяющиеся строки. Определите, какому столбцу таблицы истинности функции F
+# соответствует каждая из переменных x, y, z, w.
 
-A = []  # пустой список
+print('x y z w')
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                F = not((x or y) <= (z and w)) and (x <= w)
+                if F == True:
+                   print(x, y, z, w, F)
+'''
 
-M = [3, 4, 5, 6, 7]
-#    0  1  2  3  4
-# Упорядоченные данные - индексируемые (у каждого элемента есть свой порядковый номер - индекс)
-# Индексация начинается с нуля (последний элемент списка имеет индекс -1)
-# Элементы списка - можно менять
+#Задание 3
+'''
+n = int(input('n: '))
+for i in range(1, n+1):
+    if i in range(5, 9+1):  # 5 <= i <= 9
+        continue
+    if 17 <= i <= 37:
+        continue
+    if 78 <= i <= 87:
+        continue
+    print(f'{i}')
+'''
 
-print(M[2])
+'''
+while True:
+    s = input()  # функция input() получает сразу строку str
+    if 'КОНЕЦ' in s or 'конец' in s:
+        break
+    print(s)
+'''
+'''
+while True:
+    s = input()  # функция input() получает сразу строку str
+    if 'КОНЕЦ' in s.upper():
+        break
+    print(s)
+# КоНеЦ
+'''
 
-for i in range(0, len(M)):
-    print(M[i], end=" ")
-print()
+# Срезы списков
+"""
+M = [2, 3, 4, 5, 6, 7, 8, 9]
+s = '23456789'
+print(M[0])
+print(M[2:5])  # элемент с индексом 5 не входит в срез
+print(M[2:])
+print(M[:5])  # элемент с индексом 5 не входит в срез
+print(M[1:8:2])
+print(M[8:1:-1])  # пробежали в обратном порядке
+print(M[::-1])  # в обратном порядке вывели список 
+"""
 
-for i in range(len(M)-1, -1, -1):
-    print(M[i], end=" ")
-print()
+# Функции списков
+'''
+M = [2, 3, 4, 5, 6, 7, 8, 9, 5, 6, 5, 6, 5]
+print(len(M))  # длина списков/коллекций и строк
+print(sum(M))
+print(max(M))
+print(min(M))
+
+A = set(M)  # при смене типа коллекции на set - из списка удалили все повторяющиеся элементы 
+print(A, len(A))
 
 
-M = [3, 4, 5, 6, 7]
-for i in range(0, len(M)):
-    M[i] = M[i] ** 2
+# Задача о среднем
+a1 = int(input())
+a2 = int(input())
+a3 = int(input())
+M = [a1, a2, a3]
+
+sred = sum(M) - max(M) - min(M)
+print(sred)
+'''
+
+
+# Методы списков
+"""
+M = [2, 3, 4, 5, 6, 7]
+M.append(0)  # добавление в конец
+M.append(0)
 print(M)
-'''
 
-# НА след. уроке: срезы список, функции списков, методы списков, системы счисления, 14 номер
+print(M.count(0))  # показать кол-во элементов 0 в списке
+print(M.index(0))  # выводит индекс первого найденного элемента 0 из списка
 
-x = 8**2020 + 4**2017 + 26 - 1
+M.sort()
+print(M)
+M.reverse()
+print(M)
+
+x = M.pop(6)  # вырезал и забрал элемент из списка по индексу
+print(M, x)
+
+B = M  # это не копирование список - по сути связь списков
+A = M.copy()  # создали нормальную копию и при изменении списка M мы не изменяем список A 
+print(M, B, A)
+M.append(33)
+print(M, B, A)
+
+M.clear()
+print(M)
+"""
+
+
+"""
+x = 8
+n = 2  # Перевести 8_10 в х_2
 M = []
 while x > 0:
-    M.append(x % 2)
-    x //= 2
-print(M.count(1))
+    M.append(x % n)
+    x //= n
+M.reverse()
+print(M)
+"""
+
+# Тип 14 № 38948
+'''
+# Значение выражения 4**36 + 3*4**20 + 4**15 + 2*4**7 + 49 записали в системе счисления с основанием 16.
+# Сколько разных цифр встречается в этой записи?
+x = 4**36 + 3*4**20 + 4**15 + 2*4**7 + 49
+M = []
+while x > 0:
+    M.append(x % 16)
+    x //= 16
+M.reverse()
+print(M)
+
+# Вариант 1
+A = []
+for i in M:
+    if i not in A:
+        A.append(i)
+print(A, len(A))
+
+# Вариант 2
+B = set(M)
+print(B, len(B))
+'''
+
+
+# todo: на след. уроке: разбираем номер Тип 14 № 47218 и 5 тип задач
+
+
+
 
 
