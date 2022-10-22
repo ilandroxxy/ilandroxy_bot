@@ -138,13 +138,14 @@ def step(call):
 
     # region call.data для Теоретической домашки
     elif call.data == 'firstclass':
-        bot.send_message(call.message.chat.id,
-                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+        bot.send_message(call.message.chat.id, "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться!", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            if message.text != '0':
+            if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
                     bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
@@ -160,18 +161,36 @@ def step(call):
                         photo = open(f'theoryHW/firstclass/{x}.png', 'rb')
                         bot.send_photo(-726393257, photo)
                 M.clear()
-                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy',
+                                 parse_mode='Markdown', reply_markup=markup)
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'ifelifelse':
-        bot.send_message(call.message.chat.id,
-                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+        bot.send_message(call.message.chat.id, "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться!", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            if message.text != '0':
+            if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
                     bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
                                  parse_mode='Markdown')
@@ -188,21 +207,38 @@ def step(call):
                         photo = open(f'theoryHW/ifelifelse/{x}.png', 'rb')
                         bot.send_photo(-726393257, photo)
                 M.clear()
-                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy',
+                                 parse_mode='Markdown', reply_markup=markup)
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'whilefor':
-        bot.send_message(call.message.chat.id,
-                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+        bot.send_message(call.message.chat.id, "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться!", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            if message.text != '0':
+            if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
-                                 parse_mode='Markdown')
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -216,48 +252,83 @@ def step(call):
                         photo = open(f'theoryHW/whilefor/{x}.png', 'rb')
                         bot.send_photo(-726393257, photo)
                 M.clear()
-                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy',
+                                 parse_mode='Markdown', reply_markup=markup)
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'list':
-        bot.send_message(call.message.chat.id,
-                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+        bot.send_message(call.message.chat.id, "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться!", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            if call.message.chat.id != 1891281816:
-                bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
-                             parse_mode='Markdown')
-            n = int(message.text)
-            M = []
-            for i in range(n):
-                x = random.randint(1, 18)
-                while x in M:
-                    x = random.randint(1, 18)
-                M.append(x)
-                photo = open(f'theoryHW/list/{x}.png', 'rb')
-                bot.send_photo(call.message.chat.id, photo)
+            if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                 parse_mode='Markdown')
+                n = int(message.text)
+                M = []
+                for i in range(n):
+                    x = random.randint(1, 18)
+                    while x in M:
+                        x = random.randint(1, 18)
+                    M.append(x)
                     photo = open(f'theoryHW/list/{x}.png', 'rb')
-                    bot.send_photo(-726393257, photo)
-            M.clear()
-            bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+                    bot.send_photo(call.message.chat.id, photo)
+                    if call.message.chat.id != 1891281816:
+                        photo = open(f'theoryHW/list/{x}.png', 'rb')
+                        bot.send_photo(-726393257, photo)
+                M.clear()
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown', reply_markup=markup)
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'string':
-        bot.send_message(call.message.chat.id,
-                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+        bot.send_message(call.message.chat.id, "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться!", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            if message.text != '0':
+            if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
-                                 parse_mode='Markdown')
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -271,21 +342,38 @@ def step(call):
                         photo = open(f'theoryHW/string/{x}.png', 'rb')
                         bot.send_photo(-726393257, photo)
                 M.clear()
-                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy',
+                                 parse_mode='Markdown', reply_markup=markup)
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(call.message, message_input)
 
     elif call.data == 'function':
-        bot.send_message(call.message.chat.id,
-                         "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться:\n\n"
-                         "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown')
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+        btn1 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1)
+        bot.send_message(call.message.chat.id, "Просто введите необходимое кол-во задач:\nP.s. задачи могут повторяться!", parse_mode='Markdown', reply_markup=markup)
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
-            if message.text != '0':
+            if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
-                                     parse_mode='Markdown')
+                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -299,7 +387,23 @@ def step(call):
                         photo = open(f'theoryHW/functions/{x}.png', 'rb')
                         bot.send_photo(-726393257, photo)
                 M.clear()
-                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown')
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f'Удачи ✌️\nЕсли будут вопросы, пиши 👉 @ilandroxy', parse_mode='Markdown', reply_markup=markup)
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(call.message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
         bot.register_next_step_handler(call.message, message_input)
     # endregion call.data для теоретической домашки
@@ -574,10 +678,9 @@ def step(call):
 
         bot.register_next_step_handler(call.message, message_input)
 
+    # endregion call.data для отправки Homework
 
-        # endregion call.data для отправки Homework
-
-        # region call.data для Homework
+    # region call.data для Homework
     elif call.data == "hw19-21":
         type = '19-21'
         s = 'inf-ege.sdamgia.ru/problem?id='
@@ -985,18 +1088,36 @@ def calendly(message):
 # GETORDER
 @bot.message_handler(commands=['getorder'])
 def getorder(message):
-    bot.send_message(message.chat.id, "Просто опишите в одном сообщении какой функциональностью должен обладать Ваш бот, а [я свяжусь с вами](https://t.me/ilandroxy) в ближайшее время!\n\n"
-                                        "Напишите `0`, чтобы отменить команду!", parse_mode='Markdown', disable_web_page_preview=True)
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+    btn1 = types.KeyboardButton('Отменить ⛔')
+    markup.add(btn1)
+    bot.send_message(message.chat.id, "Просто опишите в одном сообщении какой функциональностью должен обладать Ваш бот, а [я свяжусь с вами](https://t.me/ilandroxy) в ближайшее время!", parse_mode='Markdown', disable_web_page_preview=True, reply_markup=markup)
 
     @bot.message_handler(content_types=['text'])
     def message_input(message):
         text_message = message.text
-        if text_message != '0':
-            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ожидайте ответа.", parse_mode='Markdown')
+        if text_message != 'Отменить ⛔':
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+            btn1 = types.KeyboardButton('Контакты')
+            btn2 = types.KeyboardButton('Репетитор')
+            btn3 = types.KeyboardButton('Мои проекты')
+            btn4 = types.KeyboardButton('Записаться на урок')
+            btn5 = types.KeyboardButton('Получить файл с урока')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
+
+            bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ожидайте ответа.", parse_mode='Markdown', reply_markup=markup)
             order_message = f'✅ Новый заказ\nUser: {message.from_user.first_name}\n[Написать сообщение](tg://user?id={message.chat.id})\n\nMessage:\n{text_message}'
             bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
         else:
-            bot.send_message(message.chat.id, 'Команда отменена, ждем вас с нетерпением обратно 🤖', parse_mode='Markdown', disable_web_page_preview=True)
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+            btn1 = types.KeyboardButton('Контакты')
+            btn2 = types.KeyboardButton('Репетитор')
+            btn3 = types.KeyboardButton('Мои проекты')
+            btn4 = types.KeyboardButton('Записаться на урок')
+            btn5 = types.KeyboardButton('Получить файл с урока')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
+            bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
     bot.register_next_step_handler(message, message_input)
 # endregion Команды: calendly, getorder
 
