@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+TOKEN = "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
@@ -35,7 +35,7 @@ ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8]
 FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8, "Стася", 2],
                   719571990: ['Stepan.py', "17:00", 6800//8, "Степан", 4],
                   986539147: ['Danil.py', '19:00', 6800 // 8, "Данил", 5],
-                  1029532016: ['Maria.py', "21:00", 3600//4, "Мария", 4],
+                  1029532016: ['Maria.py', "21:00", 6800//8, "Мария", 8],
                   1649389148: ['Slava.py', "22:00", 6800//8,  "Слава", 3]}
 SaturdayStudents = {1347259493: ['Andrey.py', '15:00', 1500, 'Андрей', 1000],
                     1454117859: ['Diana', "17:00", 4320//8, "Диана", 5],

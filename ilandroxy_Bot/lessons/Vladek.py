@@ -1,288 +1,98 @@
-
 '''
-m = int(input())
-n = int(input())
-if m > n:
-    for i in range(n, m+1):
-        print(i)
-else:
-    for i in range(n, m-1, -1):
-        print(i)
-'''
-
-'''
-
-a = int(input())
-b = int(input())
-c = 0
-if a < b:
-    for i in range (a, b+1):
-        if (a, b % i == 0):
-            c = c+1
-    if (c <= 0):
-        print(i)
-'''
-
-'''
-a = int(input())
-b = int(input())
-c = 0
-if a < b:
-    for i in range (a, b+1):
-        if i != 1:
-            print(i)  
-            
-'''
-
-
-'''
-a = int(input())
-b = int(input())
-
-for i in range(a, b+1):
-    KolDel = 0
-    for j in range(1, i+1):
-        if i % j == 0:
-            KolDel += 1
-    if KolDel == 2:
-        print(i)
-
-for i in range(a, b+1):
-    flag = True
-    for j in range(2, i):
-        if i % j == 0:
-            flag = False
-            break
-    if flag == True:
-        print(i)
-'''
-
-# Все вместе
-'''
-x = int(input())   # 5498
-
-summ = 0
-pro = 1
-count = 0
-first = 0
-flag = True
-while x > 0:
-    if flag == True:
-        last = x % 10
-        flag = False
-    first = x % 10
-    count += 1
-    summ += x % 10
-    pro *= x % 10
-    x //= 10
-print(f'summ = {summ}, pro = {pro}, count = {count}, sred = {summ / count}, first = {first}, first +  last = {first + last}')
-'''
-
-#  ¬x  <---->   (not(x))
-
-
-# Тип коллекций - Списки
-'''
-M = [1, 2, 3]
-print(M, type(M))
-
-M = []  # пустой список
-print(M, len(M))  # len() - Длина списка - кол-во элементов в нем
-
-
-# Списки являются индексируемыми - то есть index - это порядковый номер элемента в списке
-A = [4, 6, 7, 23]  # счет индексов начинается с нуля
-#    0  1  2  3
-
-print(A[0])  # через индексы мы может обращаться к элементам списка
-
-
-# Списки являются изменяемым типом данных
-print(A)
-A[0] = '*'
-print(A)
-
-
-B = [4, 5, 6,7 ,8 ,9, 4 ,2, 4] # 9
-#    0  1  2 3  4  5  6  7  8
-
-# форик пробегает по индексам списка (индексный форик)
-for i in range(0, len(B)):  # [0, 9)
-    B[i] = B[i] ** 2
-print(B)
-
-
-for x in B:
-    print(x)
-
-V = [1, 2, 3, 4]
-print(V[0], V[-1], V[-2])  # элементы списка можно пройти с обратной стороны через отрицательные индексы, начиная с -1
-'''
-
-
-# Функции работы со списками:
-'''
-M = [1, 2, 3, 4, 5]
-print(len(M))
-print(sum(M))
-print(max(M))
-print(min(M))
-
-
 x1 = int(input())
 x2 = int(input())
-x3 = int(input())
-A = [x1, x2, x3]
-print(sum(A) - max(A) - min(A))
+y1 = int(input())
+y2 = int(input())
+
+if (x1 - x2 == 1 or x1 - x2 == -1 or x1 - x2 == 0) and \
+        (y1 - y2 == 1 or y1 - y2 == -1 or y1 - y2 == 0):
+    print('YES')
+else:
+    print('NO')
 '''
 
-# Методы работы со списками
-"""
-M = [1, 2, 3, 4, 5]
-M.append(0)
-M.append(1)
-M.append(1)  # добавить элемент в конец списка
-print(M)
-
-print(M.count(1))  # кол-во элементов в списке по запросу
-
-
-M.sort()  # отсортировали по возрастанию
-print(M)
-
-
-M.reverse()  # развернули список (получили по убыванию)
-print(M)
-
-
-print(M.index(1))  # возвращает индекс первого элемента по запросу
-
-x = M.pop(3)  # через индекс забирает элемент из списка в переменную x
-print(M)
-print(x)
-"""
-
-# Методы строк split() и join()
-
-# задача: Проверить ip адрес на корректность
-"""  split()
-ip = '123.56.45.8'  # 0 <= x <= 255
-M = [int(i) for i in ip.split('.')]
-print(M)
-
-flag = True
-for x in M:
-    if not(0 <= x <= 255):
-        flag = False
-if flag == True:
-    print('ip адрес корректный')
-else:
-    print('ip адрес не корректный')
-"""
-
-""" join
+'''
 M = ['h', 'e', 'l', 'l', 'o']
 slovo = ''.join(M)
 print(slovo)
-"""
+'''
+# print(''.join([i for i in input() if i in '0123456789']))
 
+'''
+a = int(input())
+for count in range(1, 9 + 1):
+   print(a, 'x', count, '=', a * count)
+   print(f'{a} x {count} = {a*count}')
+   print('%d x %d = %d'%(a, count, a * count))
+'''
 
-# Списочные выражения
-"""
-M = [i for i in 'Text']
-print(M)
+# Тип 14 № 16391
+'''
+# Значение выражения 49**7 + 7**20 − 28? записали в системе счисления с основанием 7.
+#
+# Сколько цифр 6 содержится в этой записи?
 
-
-M = [i for i in '1234']
-print(M)
-
-M = [i*3 for i in '1234']
-print(M)
-
-M = [int(i) for i in '1234']
-print(M)
-
-# M = [i for i in input("Введите слово: ")]
-# print(M)
-
-
-M = [i for i in range(10)]  # создадим список [0, 9] или [0, 10)
-print(M)
-
-
-M = [i for i in range(2, 10, 2)]
-print(M)
-
-import string
-Symbols = string.punctuation
-print(Symbols)
-A = [i for i in input("Введите предложение: ") if i not in Symbols]
-predloshenie = ''.join(A)
-M = [i for i in predloshenie.split()]
-print(M)
-"""
-
-
-
-
-
-
-
-
-# Список четных
-"""
+x = 49**7 + 7**20 - 28
 M = []
-n = int(input('n: '))
-for i in range(2, n+1, 2):  # и через range по четным элементам 
-    M.append(i)
-print(M)
+while x > 0:
+    M.append(x % 7)
+    x //= 7
+M.reverse()
+print(M, M.count(6))
+'''
+# Ответ: 12
 
+
+# Тип 14 № 38948
+'''
+# Значение выражения 4**36 + 3*4**20 + 4**15 + 2*4**7 + 49 записали в системе счисления с основанием 16.
+# Сколько разных цифр встречается в этой записи?
+
+x = 4**36 + 3*4**20 + 4**15 + 2*4**7 + 49
 M = []
-n = int(input('n: '))
-for i in range(1, n+1):
-    if i % 2 == 0:  # решили через условие, когда число четное - добавляем
-        M.append(i)
-print(M)
-"""
-
-
-# Символы всех строк
-"""
-n = int(input('Введите кол-во строк: '))
-
-M = []
-for i in range(n):
-    s = input(f's{i+1}: ')
-    for x in s:
-        M.append(x)
-print(M)
-"""
-
-# Сумма двух списков
-"""
-L = [int(i) for i in input('Введите числа через пробел: ').split()]
-M = [int(i) for i in input('Введите числа через пробел: ').split()]
-print(L)
+while x > 0:
+    M.append(x % 16)
+    x //= 16
+M.reverse()
 print(M)
 
-while len(L) != len(M):
-    if len(L) < len(M):
-        L.append(0)
-    else:
-        M.append(0)
-print(L)
-print(M)
+A = []
+for x in M:
+    if x not in A:
+        A.append(x)
+print(A, len(A))
 
-S = []
-for i in range(0, len(L)):
-    S.append(L[i] + M[i])
-print(S)
-"""
+B = set(M)  # меняем тип данных на множества (set) 
+print(B, len(B))
+'''
 
 
+# Тип 14 № 47218
+# Операнды арифметического выражения записаны в системе счисления с основанием 15:
+#
+# 123x5_15 + 1x233_15
+#
+# В записи чисел переменной x обозначена неизвестная цифра из алфавита 15-ричной системы счисления.
+# Определите наименьшее значение x, при котором значение данного арифметического выражения кратно 14.
+# Для найденного значения x вычислите частное от деления значения арифметического выражения на 14 и укажите его в ответе в десятичной системе счисления.
+# Основание системы счисления в ответе указывать не нужно.
 
+for x in range(0, 15):
+    A = [1, 2, 3, x, 5]
+    a = 0
+    A.reverse()
+    for i in range(0, len(A)):
+        a += A[i] * 15 ** i
 
+    B = [1, x, 2, 3, 3]
+    b = 0
+    B.reverse()
+    for i in range(0, len(B)):
+        b += B[i] * 15 ** i
 
+    if (a + b) % 14 == 0:
+        print((a + b) // 14)
+        break
+# Ответ: 8767
 
-
-
+# todo: 14 и 5 номер ЕГЭ
