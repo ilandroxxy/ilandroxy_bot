@@ -13,7 +13,6 @@ bot = telebot.TeleBot(TOKEN)
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 # endregion import и API key
 
-
 # region Словарь с данными студентов
 # Синхронно моему расписанию в Google Календаре
 MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия", 1000],
