@@ -430,3 +430,37 @@ t.done()
 
 
 
+import turtle as t
+t.color('black', 'blue')
+# t.speed(10)
+l = 30
+
+t.begin_fill()
+t.left(90)
+for i in range(4):
+    t.forward(10 * l)
+    t.right(90)
+t.end_fill()
+
+t.right(30)
+
+# t.begin_fill()
+# for i in range(2):
+#     t.forward(6 * l)
+#     t.right(60)
+#     t.forward(6 * l)
+#     t.right(120)
+# t.end_fill()
+
+canvas = t.getcanvas()
+count = 0
+for x in range(-100*l, 100*l, l):
+    for y in range(-100*l, 100*l, l):
+        item = canvas.find_overlapping(x, y, x, y)
+        if len(item) == 1 and item[0] == 5:
+            count += 1
+print(count)
+t.done()
+
+
+
