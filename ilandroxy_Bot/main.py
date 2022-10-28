@@ -34,6 +34,7 @@ ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8]
 FridayStudents = {644645774: ['Stasya.py', "16:00", 5760//8, "Стася", 2],
                   719571990: ['Stepan.py', "17:00", 6800//8, "Степан", 4],
                   986539147: ['Danil.py', '19:00', 6800 // 8, "Данил", 5],
+                  659796558: ['Ivan.py', '20:00', 1000, "Иван", 1000],
                   1029532016: ['Maria.py', "21:00", 6800//8, "Мария", 8],
                   1649389148: ['Slava.py', "22:00", 6800//8,  "Слава", 8]}
 SaturdayStudents = {438879394: ['ilya.py', '14:00', 0, "Илья", 4],
@@ -1831,7 +1832,7 @@ def noticestudents(message):
                         btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока ⚙️')
                         markup.add(btn1, btn2, btn3)
 
-                        bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {Students[key][1]} по Нск. \n\n", parse_mode='Markdown', reply_markup=markup)
+                        bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?", parse_mode='Markdown', reply_markup=markup)
             else:
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
                 btn1 = types.KeyboardButton('Контакты')
@@ -1986,9 +1987,10 @@ def logi(message):
 @analytics
 def mess(message):
     get_message_bot = message.text.strip()
+    get_message_bot = get_message_bot.lower()
 
     # region Кнопка: [Что умеет этот бот 🤖]
-    if get_message_bot == 'Что умеет этот бот 🤖':
+    if get_message_bot == 'что умеет этот бот 🤖':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -2008,7 +2010,7 @@ def mess(message):
     # endregion Кнопка: Что умеет этот бот
 
     # region Кнопки: [Подтвердить оплату абонемента ❗]
-    elif get_message_bot == 'Подтвердить оплату абонемента ❗':
+    elif get_message_bot == 'подтвердить оплату абонемента ❗':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -2057,7 +2059,7 @@ def mess(message):
     # endregion Кнопки: [Подтвердить оплату абонемента ❗]
 
     # region Кнопки: [Да, все получается ✅]
-    elif get_message_bot == 'Да, все получается ✅':
+    elif get_message_bot == 'да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -2123,7 +2125,7 @@ def mess(message):
     # endregion Кнопки: [Да, все получается ✅]
 
     # region Кнопки: [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
-    elif get_message_bot == 'Нет, не получится ⛔':
+    elif get_message_bot == 'нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -2136,7 +2138,7 @@ def mess(message):
         bot.send_message(1891281816, f"⛔ {Students[message.chat.id][3]} – Урока не будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
 
-    elif get_message_bot == 'Какая-то ошибка, у нас сегодня нет урока ⚙️':
+    elif get_message_bot == 'какая-то ошибка, у нас сегодня нет урока ⚙️':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -2148,7 +2150,7 @@ def mess(message):
         bot.send_message(message.chat.id, f" 🤖 Sorry, ошибка будет исправлена в ближайшее время!", reply_markup=markup)
         bot.send_message(1891281816, f"‼️ {Students[message.chat.id][3]} – что-то не так с расписанием, надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
-    elif get_message_bot == 'Прочитано ✅':
+    elif get_message_bot == 'прочитано ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -2163,7 +2165,7 @@ def mess(message):
     # endregion Кнопки: [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
 
     # region Кнопка: [Репетитор]
-    elif get_message_bot == "Репетитор":
+    elif get_message_bot == "репетитор":
         send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \
                         f"В работе использую такие сервисы (программы) как: PyCharm, Python, Notability, Discord, Google диск и другие. " \
                         f"Гарантирую связь со мной (WhatsApp, Telegram ☎️) каждый день и ответы на все ваши вопросы."
@@ -2199,7 +2201,7 @@ def mess(message):
     # endregion Кнопка: [Репетитор]
 
     # region Кнопка: [Контакты]
-    elif get_message_bot == "Контакты":
+    elif get_message_bot == "контакты":
         send_message1 = "*Мои контакты:*\n\n" \
                         "[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
                         "[Zoom](https://us04web.zoom.us/j/2402871810?pwd=OVdGQkE2ODIvWm1WNk5EdStQR1o4UT09)\n\n" \
@@ -2211,7 +2213,7 @@ def mess(message):
 
     # region Кнопка: [Мои проекты]
     # todo: Добавить в кнопку [Мои проекты] и в соответсвующую команду ссылки на "Работы с учениками: перечислить боты и описание проектов"
-    elif get_message_bot == "Мои проекты":
+    elif get_message_bot == "мои проекты":
         send_message = "Просто перечисляю, чем я занимаюсь сегодня!\n\n" \
                        "*1. Канал* [itpy | ИнформатикаЕГЭ](t.me/pro100_easy_ege)\n✍️ Это канал на котором я разбираю задания с экзамена, даю полезные задачки и " \
                        "показываю будущим студентам сферу IT, о которой они вряд ли слышали в школе!\n\n" \
@@ -2224,7 +2226,7 @@ def mess(message):
     # endregion Кнопка: [Мои проекты]
 
     # region Кнопка: [Записаться на урок]
-    elif get_message_bot == "Записаться на урок":
+    elif get_message_bot == "записаться на урок":
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("calendly.com", url="calendly.com/ilandroxxy/tutor"))
         message_text = f"Воспользуйтесь удобным сервисом [Calendly](https://bizzapps.ru/p/calendly/) *для записи на пробное занятие* или выбора графика занятий. \n\n" \
@@ -2243,7 +2245,7 @@ def mess(message):
     # endregion Кнопка: [Записаться на урок]
 
     # region Кнопка: [Получить файл с урока]
-    elif get_message_bot == "Получить файл с урока":
+    elif get_message_bot == "получить файл с урока":
 
         if message.chat.id == 1454117859:
             markup = types.InlineKeyboardMarkup(row_width=1)

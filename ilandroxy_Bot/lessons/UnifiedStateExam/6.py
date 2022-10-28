@@ -428,29 +428,130 @@ t.done()
 # Ответ: 13
 # endregion  Тип 6 № 47247
 
+# region Тип 6 № 47407 новое решение
+'''
+# Черепахе был дан для исполнения следующий алгоритм:
+# Повтори 4 [Вперёд 8 Направо 90]
+# Повтори 3 [Вперёд 12 Направо 120]
+#
+# Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом:Повтори 4 [Вперёд 8 Направо 90]
+# и находиться вне области, ограниченной линией, заданной данным алгоритмом: Повтори 3 [Вперёд 12 Направо 120].
+# Точки на линии учитывать не следует.
 
-
-import turtle as t
-t.color('black', 'blue')
-# t.speed(10)
+import  turtle as t
 l = 30
+t.left(90)
+t.color('red')
 
 t.begin_fill()
+for _ in range(4):
+    t.forward(8 * l)
+    t. right(90)
+t.end_fill()
+
+t.begin_fill()
+for _ in range(3):
+    t.forward(12 * l)
+    t. right(120)
+t.end_fill()
+
+canvas = t.getcanvas()
+count = 0
+for x in range(-100*l, 100*l, l):
+    for y in range(-100 * l, 100 * l, l):
+        item = canvas.find_overlapping(x, y, x, y)
+        if len(item) == 1 and item[0] == 5:
+            count += 1
+print(count)
+
+t.done()
+'''
+# Ответ: 13
+# endregion Тип 6 № 47407 новое решение
+
+# region Тип 6 № 47303 новое решение
+'''
+# В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.
+#
+# Черепахе был дан для исполнения следующий алгоритм:
+# Повтори 4 [Вперёд 5 Направо 90 Вперёд 10 Направо 90]
+#
+# Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом.
+# Точки на линии учитывать не следует.
+
+
+import  turtle as t
+l = 30
 t.left(90)
-for i in range(4):
+t.color('red')
+
+t.begin_fill()
+for _ in range(2):
+    t.forward(5 * l)
+    t. right(90)
     t.forward(10 * l)
     t.right(90)
 t.end_fill()
 
-t.right(30)
+canvas = t.getcanvas()
+count = 0
+for x in range(-100*l, 100*l, l):
+    for y in range(-100 * l, 100 * l, l):
+        item = canvas.find_overlapping(x, y, x, y)
+        if len(item) == 1 and item[0] == 5:
+            count += 1
+print(count)
 
-# t.begin_fill()
-# for i in range(2):
-#     t.forward(6 * l)
-#     t.right(60)
-#     t.forward(6 * l)
-#     t.right(120)
-# t.end_fill()
+t.done()
+'''
+# Ответ: 36
+# endregion Тип 6 № 47303 новое решение
+
+# region Тип 6 № 47310 новое решение
+# В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.
+# Черепахе был дан для исполнения следующий алгоритм:
+#
+# Повтори 4 [Вперёд 6 Направо 150 Вперёд 6 Направо 30]
+#
+# Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом.
+# Точки на линии учитывать не следует.
+
+# Вариант 1
+'''
+import turtle as t
+t.left(90)
+l = 40
+
+for _ in range(4):
+    t.forward(6 * l)
+    t.right(150)
+    t.forward(6 * l)
+    t.right(30)
+
+t.color('red')
+t.pu()
+for x in range(0, 10):
+    for y in range(-10, 10):
+        t.goto(x * l, y * l)
+        t.dot(3)
+
+t.done()
+'''
+
+# Вариант 2
+'''
+import turtle as t
+t.left(90)
+l = 40
+t.color('red')
+
+t.begin_fill()
+for _ in range(2):
+    t.forward(6 * l)
+    t.right(150)
+    t.forward(6 * l)
+    t.right(30)
+t.end_fill()
 
 canvas = t.getcanvas()
 count = 0
@@ -460,7 +561,8 @@ for x in range(-100*l, 100*l, l):
         if len(item) == 1 and item[0] == 5:
             count += 1
 print(count)
+
 t.done()
-
-
-
+'''
+# Ответ: 12
+# endregion Тип 6 № 47310
