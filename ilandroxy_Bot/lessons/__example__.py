@@ -442,11 +442,36 @@ t.done()  #10
 # Ответ: 73
 '''
 
-def fancy(length, char1='-', char2='*'):
-    return (char1 + char2) * length + char1
+# Номер 8
+'''
+print(7 ** 11)
+s = 'НИКОЛАЙ'
+s2 = 'НИКОЛА'
+count = 0
+for a1 in s2:
+    for a2 in s:
+        for a3 in s:
+            for a4 in s:
+                for a5 in s:
+                    for a6 in s:
+                        for a7 in s:
+                            for a8 in s:
+                                for a9 in s:
+                                    for a10 in s:
+                                        for a11 in s:
+                                            temp = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11
+                                            if temp.count('И') == 1 and temp.count('О') == 1 and temp.count('А') == 1:
+                                                count += 1
+print(count)
+'''
 
 
-print(fancy(char2='!'))
+
+# def fancy(length, char1='-', char2='*'):
+#     return (char1 + char2) * length + char1
+#
+#
+# print(fancy(char2='!'))
 
 
 
