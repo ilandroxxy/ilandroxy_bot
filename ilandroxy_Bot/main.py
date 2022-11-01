@@ -682,8 +682,7 @@ def step(call):
 
     elif call.data == "kg1" or call.data == "kg2" or call.data == "kg3" or call.data == "kg4" or call.data == "kg5" or call.data == "kg6" or call.data == "kg7" or call.data == "kg8" or call.data == "kg9" or call.data == "kg10" or call.data == "kg11" or call.data == "kg12" or \
             call.data == "kg13" or call.data == "kg14" or call.data == "kg15" or call.data == "kg16" or call.data == "kg17" or call.data == "kg18" or call.data == "kg19" or call.data == "kg22" or call.data == "kg23" or call.data == "kg24" or call.data == "kg25" or call.data == "kg26" or call.data == "kg27":
-        kg = {
-            '1': [78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 90, 91, 92, 571, 1584, 1585, 1586, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1595, 1596, 1597, 1598, 1599, 1600, 1601, 1602, 1603, 1604, 1605, 1606, 2819, 2820, 2821, 2822, 2823, 2824, 2825, 2826, 2827, 2828],
+        kg = {'1': [78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 89, 90, 91, 92, 571, 1584, 1585, 1586, 1587, 1588, 1589, 1590, 1591, 1592, 1593, 1594, 1595, 1596, 1597, 1598, 1599, 1600, 1601, 1602, 1603, 1604, 1605, 1606, 2819, 2820, 2821, 2822, 2823, 2824, 2825, 2826, 2827, 2828],
             '2': [2, 52, 53, 54, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 1607, 1608, 1609, 1610, 1611, 1612, 1613, 1614, 1615, 1616, 1617, 1618, 1619, 1620, 1621, 1622, 1623, 1624, 1625, 1626, 1627, 1628, 1629, 1630, 1630, 1631, 1632, 1633, 1634],
             '3': [4282, 4283, 4284, 4285, 4286, 4287, 4288, 4289, 4290, 4291, 4292, 4293, 4294, 4295, 4296, 4297, 4298, 4299, 4363, 4364, 4365, 4366, 4367, 4368, 4369, 4370, 4371, 4372, 4373, 4374, 4387, 4388, 4389, 4390, 4391, 4392, 4393, 4394, 4395, 4396, 4397, 4398, 4399],
             '4': [6, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,  123, 124, 125, 126, 127,  128, 129, 130, 132, 1664, 1665, 1666, 1667, 1668, 1669, 1670, 1671, 1672, 1673, 1674, 1675, 1676, 1677, 1678, 1679, 1680, 1681, 1682, 1683, 1684, 1685, 1686, 1687, 1688, 1689],
@@ -2242,7 +2241,7 @@ def mess(message):
         send_message1 = "*Мои контакты:*\n\n" \
                         "[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
                         "[Zoom](https://us04web.zoom.us/j/2402871810?pwd=OVdGQkE2ODIvWm1WNk5EdStQR1o4UT09)\n\n" \
-                        "[Профиль Авито](www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing)\n\n[YouTube](https://m.youtube.com/channel/UCcORhBL494aSLcyIODjOG0A)\n\n" \
+                        "[Профиль Авито](www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing)\n\n[YouTube](https://youtube.com/@ilandroxy)\n\n" \
                         "[GitHub](https://github.com/ilandroxxy)\n\nРабочий телефон: +7 (995) 437–52–59\n\nEmail: collegehacksbot@gmail.com\n\n" \
                         "Воспользуйтесь моим Telegram ботом, чтобы пройти курс по разработке чат ботов @JustDoItMotherBot🤖"
         bot.send_message(message.chat.id, send_message1, parse_mode='Markdown', disable_web_page_preview=True)

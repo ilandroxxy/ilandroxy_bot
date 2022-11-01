@@ -1,185 +1,166 @@
 # region Домашка:
 
-# 1 номер
-'''
-email = input()
-if '@' in email and '.' in email:
-    print('YES')
-else:
-    print('NO')
-'''
-
-'''
-M = [1, 2, 3 ,4, 3, 2,1, 2 ,3 ,4,4,2,21,21,2, 2,3]
-A = []
-for x in M:
-    if x not in A:
-        A.append(x)
-print(A)
-'''
-
-
-#2 номер
+# 1
 """
-x = int(input())
-if x == 2:
-    print("28")
-else:
-    print(30 + (x + x // 8) % 2)
+n = int(input())
+while n > 1000:
+    n //= 10
+print(n%10)
 """
 
-
-#3 номер
+# 2
 """
-x = int(input())
-if -30 < x <= -2 or 7 < x <= 25:
-    print ('Принадлежит')
-else:
-    print('Не принадлежит')
+n = int(input())
+sum = 0
+for i in range(1, n + 1):
+    if n % i == 0:
+        sum += i
+print(sum)
 """
 
+# 3
+"""
+n = int(input())
+while n % 7 == 0:
+    print(n)
+    n = int(input())
+"""
+
+# 4 (не понял как делать)
+'''
+summ = 0
+while True:
+    x = int(input('x: '))
+    if x < 0:
+        print(summ)
+        break
+    else:
+        summ += x
+'''
 # endregion Домашка:
 
 
 
 # region Урок:
 
-# Теория по циклам
-# Ключевые слова: while, for, range, len, break, continue, flag
+# 2 номер - математическая логика
+d1 = True  # bool (boolean) - Булева алгебра
+d2 = False
 
-# for - цикл для пробежки по спискам или цикл "повтори n раз"
+# Операции по построению таблицы истинности
+#  ¬x    <--->  (not(x))   инверсия (отрицанием)
+# x ∧ y  <--->  x and y    конъюнкция (логическое умножение)
+# x ∨ y  <--->  x or y     дизъюнкция (логическое сложение)
+# z → w  <--->  x < y      импликация
+# z → w  --->  ¬z ∨ w   <---> (not(z)) or w
+# x ≡ z  <--->  x == z     тождество
+
+
+# Тип 2 № 18781
 '''
-for i in range(5):  # [0, 5)    range(START = 0, STOP, STEP = 1)
-    print(i, end=' ')
-print()
-
-for i in range(1, 10):  # [1, 10)  range(START, STOP, STEP = 1)
-    print(i, end=' ')
-print()
-
-for i in range(0, 10, 2):  # [1, 10)  range(START, STOP, STEP)
-    print(i, end=' ')
-print()
-
-for i in range(10, 0, -1):  # поменяли шаг на -1, чтобы пройти по убыванию
-    print(i, end=' ')
-print()
-
-M = [4, 5, 6, 7, 8, 9]
-# i  0  1  2  3  4  5
-
-print(len(M))  # len() это функция возвращающая длину списка (то есть кол-во элементов в нем)
-for i in range(0, len(M)):  # [0, 6)  # вывели элементы нашего списка через индексы
-    print(M[i], end=' ')
-print()
-
-for x in M:  # вывели элементы нашего списка напрямую - то есть Х принимал значение элементов списка
-    print(x, end=' ')
-print()
-
-for i in range(0, len(M)):  # [0, 6)  # вывели элементы нашего списка через индексы
-    M[i] = M[i] ** 2
-print(M)
-'''
-
-
-
-# while - цикл с условием (если условие истинно, то выполняем действие, если же ложно - выходим из цикла)
-'''
-for i in range(0, 10+1, 2):
-    print(i, end=' ')
-print()
-
-i = 0
-while i <= 10:  # плохой бесконечный цикл
-    print(i, end=' ')
-    i += 2
-
-
-# Сумма цифр числа
-x = int(input())
-summ = 0
-while x > 0:
-    summ += x % 10
-    x //= 10
-    print(x)
-print(summ)
-
-# Факториал числа
-x = int(input())
-f = 1
-for i in range(1, x+1):
-    f *= i
-print(f)
-'''
-
-# break - команда которая прерывает цикл
-# continue - прерывает итерацию цикла
-'''
-for i in range(1, 20):
-    if i == 16:
-        break
-    if i % 2 != 0:
-        continue
-    print(i)
-'''
-
-
-# Тип 15 № 9320
-'''
-# Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без остатка на натуральное число m».
-# Для какого наименьшего натурального числа А формула
+# Логическая функция F задаётся выражением (¬x ∨ ¬y) ∧ ¬(x ≡ z) ∧ w.
 #
-# ДЕЛ(x, А) → (ДЕЛ(x, 21) + ДЕЛ(x, 35))
+# Дан частично заполненный фрагмент, содержащий неповторяющиеся строки таблицы истинности функции F.
+# Определите, какому столбцу таблицы истинности соответствует каждая из переменных x, y, z, w.
+
+print('x y z w F')
+for x in range(2):  # [0, 1]
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((not(x)) or (not(y))) and (not(x == z)) and w
+                if F == True:
+                    print(x, y, z, w, F)
+'''
+# Ответ: wxyz
+
+# Тип 2 № 25832
+'''
+# Миша заполнял таблицу истинности функции (x ∧ ¬y) ∨ (x ≡ z) ∨ ¬w,
+# но успел заполнить лишь фрагмент из трёх различных её строк, даже не указав,
+# какому столбцу таблицы соответствует каждая из переменных w, x, y, z.
+
+print('x y z w F')
+for x in range(2):  # [0, 1]
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x and (not(y))) or (x == z) or (not(w))
+                if F == False:
+                    print(x, y, z, w, F)
+'''
+
+
+
+#  Тип 2 № 17366
+'''
+# Логическая функция F задаётся выражением ((x ∧ w) ∨ (w ∧ z)) ≡ ((z → y) ∧ (y → x)).
 #
-# тождественно истинна (то есть принимает значение 1 при любом натуральном значении переменной x)?
+# Дан частично заполненный фрагмент, содержащий неповторяющиеся строки таблицы истинности функции F.
+#
+# Определите, какому столбцу таблицы истинности соответствует каждая из переменных x, y, z, w.
 
-for A in range(1, 1000):
-    flag = True
-    for x in range(1,1000):
-        if ((x % A == 0) <= ((x % 21 == 0) or (x % 35 == 0))) == False:
-            flag = False
-            break
-    if flag == True:
-        print(A)
-        break
-'''
-# Ответ: 21
-
-
-# Бесконечный цикл
-'''
-k = 0
-while True:
-    k += 1
-    print(k)
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ( ((x and w) or (w and z)) == ((z <= y) and (y <= x)) )
+                if F == True:
+                    print(x, y, z, w, F)
 '''
 
-import random
+# Библиотеки
+# import turtle  # импортировали библиотеку
+# turtle.forward(100)
+# turtle.done()
+#
+# from turtle import forward, done  # импортировали только необходимые функции из библиотеки
+# forward(100)
+# done()
+#
+# from turtle import *   # импортировали все функции из библиотеки
+# forward(100)
+# done()
+# color()
 
-password = 'qwerty'
-count = 0
-while True:
-    pas = input('Введите пароль: ')
-    if pas == password:
-        print('Welcome')
-        break
-    print('Пароль неверный, попробуйте снова')
-    count += 1
-    if count == 3:
-        a = random.randint(1, 100)
-        b = random.randint(1, 100)
-        print(f'Пройдите проверку на капчу!\nРешите пример: {a} + {b} = ')
-        x = int(input())
-        if x == a + b:
-            print('Пройдено успешно!')
-            count = 0
-            continue
-        else:
-            print('BAN')
-            break
+# import turtle as t  # переименовали вызов библиотеки
+# t.forward(100)
+# t.done()
 
+
+
+# Тип 6 № 47390
+'''
+# В начальный момент Черепаха находится в начале координат, её голова
+# направлена вдоль положительного направления оси ординат, хвост опущен.
+# Черепахе был дан для исполнения следующий алгоритм:
+# Повтори 10 [Направо 60 Вперёд 1 Направо 60 Вперёд 1 Направо 270]
+#
+# Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом.
+# Точки на линии учитывать не следует.
+
+import turtle as t
+t.left(90)
+t.speed(100)
+l = 100
+for _ in range(12):
+    t.right(60)
+    t.forward(1 * l)
+    t.right(60)
+    t.forward(1 * l)
+    t.right(270)
+
+t.pu()
+t.color('red')
+for x in range(-6, 8):
+    for y in range(2, -10, -1):
+        t.goto(x * l, y * l)
+        t.dot(3)
+t.done()
+'''
+# Ответ: 38
 # endregion Урок:
 
 
-# todo: Ислам = [], на следующем уроке: разбираем 2 номер ЕГЭ
+# todo: Ислам = [2], на следующем уроке: разбираем 6 номер ЕГЭ
