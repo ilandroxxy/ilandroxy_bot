@@ -16,6 +16,7 @@ bot = telebot.TeleBot(TOKEN)
 # region Словарь с данными студентов
 # Синхронно моему расписанию в Google Календаре
 MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия", 1000],
+                  1477701439: ["Bogdan.py", '16:30', 3600//4, "Богдан", 4],
                   811476623: ["Georgie.py", "20:00", 3040//4, "Георгий", 4],
                   659796558: ['Ivan.py', '21:00', 1000, "Иван", 1000],
                   826004697: ['Nikita.py', '22:00', 3040//4, "Никита", 4]}
@@ -23,6 +24,7 @@ TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
                    1649389148: ['Slava.py', "15:00", 6800//8, "Слава", 8],
                    789322200: ['Katya.py', "16:00", 3600//4, "Екатерина", 4],
                    1208542295: ['Sasha.py', '19:00', 4000//8, "Александра", 6],
+                   879517768: ['Grisha.py', "20:00", 6800//8, 'Гриша', 8],
                    804184353: ['Islam.py', '21:00', 3600//4, "Ислам", 4],
                    1537718492: ['Aleksandr.py', '22:00', 5760//8, "Александр", 8]}
 ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
@@ -41,7 +43,6 @@ SaturdayStudents = {438879394: ['ilya.py', '14:00', 0, "Илья", 4],
                     1347259493: ['Andrey.py', '15:00', 1500, 'Андрей', 1000],
                     1454117859: ['Diana', "17:00", 4320//8, "Диана", 8],
                     5148819382: ['Tatyana.py', "19:00", 6800//8, "Татьяна", 8],
-                    879517768: ['Grisha.py', "20:00", 6800//8, 'Гриша', 8],
                     1314375732: ['Vasiliy.py', "21:00", 6800//8, "Василий", 7],
                     871237277: ['Vladek.py', "22:00", 6800//8, "Владек", 3]}
 
@@ -940,7 +941,7 @@ def start(message):
     pic_2 = open("photo/menu.jpg", 'rb')
     bot.send_photo(message.chat.id, pic_2)
 
-    order_message = f'✅ Новый пользователь\nName: {message.from_user.first_name}\nUsername: @{message.from_user.username}\nUser ID: {message.chat.id}\n[Написать сообщение](tg://user?id={message.chat.id})'
+    order_message = f'✅ #newuser\nName: {message.from_user.first_name}\nUsername: @{message.from_user.username}\nUser ID: {message.chat.id}\n[Написать сообщение](tg://user?id={message.chat.id})'
     bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
 
 
@@ -1905,6 +1906,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+            bot.send_message(-647660626, message_text, parse_mode='Markdown')
 
         if day == 'Tuesday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1923,6 +1925,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+            bot.send_message(-647660626, message_text, parse_mode='Markdown')
 
         if day == 'Wednesday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
@@ -1944,6 +1947,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+            bot.send_message(-647660626, message_text, parse_mode='Markdown')
 
         if day == 'Friday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1961,6 +1965,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+            bot.send_message(-647660626, message_text, parse_mode='Markdown')
 
 
         if day == 'Saturday':
@@ -1980,6 +1985,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+            bot.send_message(-647660626, message_text, parse_mode='Markdown')
 
         if day == 'Sunday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
