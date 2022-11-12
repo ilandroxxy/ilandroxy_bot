@@ -1261,7 +1261,7 @@ def reviews(message):
 
 @bot.message_handler(commands=['gdz'])
 def gdz(message):
-    if message.chat.id in Students:
+    if message.chat.id in Students or message.chat.id in Me:
         # 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟
         message_text = 'Наборы задачек на отработку теории Python 👇 😅'
         markup = types.InlineKeyboardMarkup(row_width=3)
