@@ -542,3 +542,47 @@ print(count)
 # Ответ: 485
 
 
+
+
+'''
+# Три способа взятия суммы от строки
+s = '11221133221133'
+
+# вариант 1
+M = [int(i) for i in s]
+print(sum(M))
+
+# вариант 1
+summ1 = 0
+for i in s:
+    summ1 += int(i)
+print(summ1)
+
+# вариант 3
+summ2 = s.count('1') + s.count('2') * 2 + s.count('3') * 3
+print(summ2)
+'''
+
+
+
+# 14
+'''
+x = 5**36 + 5**24 - 25
+a = ''
+while x != 0:
+   a += str(x % 5)
+   x //= 5
+a = a[::-1]
+print(a.count('4'))
+
+
+x = 5**36 + 5**24 - 25
+M = []
+while x > 0:
+    M.append(x % 5)
+    x //= 5
+M.reverse()
+print(M.count(4))
+'''
+
+
