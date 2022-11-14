@@ -440,3 +440,155 @@ print(M[101-1])
 """
 # Ответ: О А У А О
 # endregion Тип 8 № 3194
+
+# region Тип 8 № 14771
+# Все трёхбуквенные слова, составленные из букв П, А, Р, У, С, записаны в алфавитном порядке и пронумерованы, начиная с 1.
+# Начало списка выглядит так:
+#
+# 1.ААА
+# 2.ААП
+# 3.ААР
+# 4.ААС
+# 5.ААУ
+# 6.АПА
+#
+# Под каким номером в списке идёт первое слово, которое начинается с буквы Р?
+
+# Вариант 1
+'''
+s = 'АПРСУ'
+i = 1
+for a in s:
+    for b in s:
+        for c in s:
+            temp = a + b + c
+            if a == 'Р':
+                print(i, temp)
+                exit()
+            i += 1
+'''
+
+# Вариант 2
+'''
+s = 'АПРСУ'
+i = 0
+for a in s:
+    for b in s:
+        for c in s:
+            i += 1
+            temp = a + b + c
+            if a == 'Р':
+                print(i, temp)
+                exit()
+'''
+
+
+# Вариант 3
+'''
+s = 'АПРСУ'
+M = ['0']
+for a in s:
+    for b in s:
+        for c in s:
+            temp = a + b + c
+            M.append(temp)
+
+for i in range(0, len(M)):
+    if M[i] == 'РАА':
+        print(i)
+'''
+
+# Ответ: 51 РАА
+
+# endregion Тип 8 № 14771
+
+# region Тип 8 № 18491
+'''
+# Ольга составляет 5-буквенные коды из букв О, Л, Ь, Г, А.
+# Каждую букву нужно использовать ровно 1 раз, при этом Ь нельзя ставить первым и нельзя ставить после гласной.
+# Сколько различных кодов может составить Ольга?
+
+s = 'ОЛЬГА'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    temp = a + b + c + d + e
+                    if a != 'Ь' and 'ОЬ' not in temp and 'АЬ' not in temp:
+                        M = [i for i in temp]
+                        A = set(M)  # переводим список М в множество, чтобы убрать повторяющиеся элементы
+                        if len(A) == 5:
+                            count += 1
+                            print(temp, A)
+print(count)
+'''
+# Ответ: 48
+
+# endregion Тип 8 № 18491
+
+
+# КЕГЭ задачи из сборника Полякова
+
+# region (№ 5708) (Л. Малинов)
+# Ваня составляет 6-буквенные слова из букв В, И, Д, Е, О.
+# Его интересуют коды, в которых есть хотя бы одна буква И и хотя бы одна буква Е.
+# Кроме того, все гласные в слове должны стоять в алфавитном порядке.
+# Сколько различных подходящих кодов может составить Ваня?
+'''
+s = 'ВДЕИО'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        temp = a + b + c + d + e + f
+                        if temp.count('И') >= 1 and temp.count('Е') >= 1:
+                            if 'О' in temp:
+                                if temp.rindex('Е') < temp.index('И') and temp.rindex('И') < temp.index('О'):
+                                    print(temp)
+                                    count += 1
+                            else:
+                                if temp.rindex('Е') < temp.index('И'):
+                                    print(temp)
+                                    count += 1
+
+print(count)
+'''
+# Ответ: 1215
+# endregion (№ 5708) (Л. Малинов)
+
+# region (№ 5010)
+# Вася составляет слова из букв слова ПРЕПАРАТ.
+# Код должен состоять из 8 букв, и каждая буква в нём должна встречаться столько же раз, сколько в заданном слове.
+# Кроме того, в коде должны стоять рядом две гласные или две согласные буквы.
+# Сколько различных слов может составить Вася?
+'''
+Symbol = ["АА", "АЕ", "ЕА", "ПП", "РР", "ПР", "РП", "ТР", "РТ", "ТП", "ПТ"]
+s = 'ПРЕПАРАТ'
+RES = []
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        for g in s:
+                            for h in s:
+                                temp = a + b + c + d + e + f + g + h
+                                if temp.count('П') == 2 and temp.count('Р') == 2 and  temp.count('А') == 2 and  temp.count('Т') == 1 and  temp.count('Е') == 1:
+                                    flag = True
+                                    for x in Symbol:
+                                        if x in temp:
+                                            RES.append(temp)
+                                            flag = False
+                                            break
+A = set(RES)
+print(len(A))
+'''
+# Ответ: 5040
+
+# endregion (№ 5010)

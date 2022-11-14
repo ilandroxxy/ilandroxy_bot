@@ -7,159 +7,213 @@
 
 # region Урок:  ******************************************************************************
 
-x = 5  # переменная равная 5, переменная - это способ хранения данных (5) по имени (a)
-# Типы данных переменных
+# Условные операторы - ветвление
+
 '''
-a = 5  # int (integer) - целочисленные числа
-# print(type(a))
+x = int(input('x: '))
 
-b = 5.0  # float (число с плавающей точкой) - дроби
-
-c = '5'  # str (string) - строковый тип данных, хранящий символы (текст)
-print(a * 4, c * 4)
-c1 = 'Bogdan'
-c2 = 'bogdan'
-c3 = 'Bogdan '  # пробел тоже является элементом строки
-print(c1 == c2 == c3)
-
-d1 = True  # bool  (boolean)
-d2 = False
-print(a == c)  # Ложь, потому что разные типы данных
-'''
-
-
-# Типы данных коллекций
-'''
-M = [1, 2, 3]  # коллекция - может хранить несколько значений
-
-A = [1, 2, 3]  # list() - список
-
-B = (1, 2, 3)  # tuple() - кортеж
-print(A[0], B[0])
-
-C = {1, 2, 2, 3}  # set() - множество
-print(C)
-
-A = [1, 2, 3, 4, 1, 2, 3, 13, 12, 1]
-B = set(A)
-print(B, len(B))  # шесть неповторяющихся цифр есть в записи А
-
-D = {1: 'one', 2: 'two', 3: 'three', 'four': 4}  # dict() - словарь
-print(D[3], D['four'])
-
-A = [1, 2, 3, 4, 1, 2, 3, 13, 12, 1, 2, 2]
-B = {}
-for x in A:
-    B[x] = A.count(x)
-print(B)
+if x > 0:  # if - если
+    print(x)
+elif x < 0:  # elif - иначе если
+    print(-x)
+else:     # else - иначе
+    print(0)
 '''
 
 '''
-M = [5, 5.0, '5', True, 5+6, 7/2, '4' * 5, 4 < 10, [1, 2, 3], (1, 2, 3), {1, 2, 3}, {1: 'one', 2: 'two', 3: 'three'}]
-for x in M:
-    print(x, type(x))
-'''
+x = int(input('x: '))
+y = int(input('y: '))
 
-# Конвертация типов данных
-'''
-a = 5
-print(a, type(a))
-
-a = str(a)
-print(a, type(a))
-
-a = float(a)
-print(a, type(a))
-
-a = int(a)
-print(a, type(a))
-
-# Переменные типа int and float можно переводить в другие типы данных без ограничений
-# Переменные типа str можно переводить, если они состоят только лишь из цифр
-
-A = [1, 2, 3]
-print(A, type(A))
-
-A = set(A)
-print(A, type(A))
-
-A = tuple(A)
-print(A, type(A))
-
-A = list(A)
-print(A, type(A))
-'''
-
-
-
-
-# Форматирование строк при функции print()
-'''
-s1 = 'Hello,'
-s2 = ' Bogdan'
-s = s1 + s2
-print(s)
-
-weather = 'облачно'
-temperature = 24
-# Привет, сегодня облачно, хотя температура всего 24 градуса!
-print('Привет, сегодня', weather, ', хотя температура всего', temperature, 'градуса!')
-print('Привет, сегодня ' + weather + ', хотя температура всего ' + str(temperature) + ' градуса!')
-print('Привет, сегодня {}, хотя температура всего {} градуса!'.format(weather, temperature))
-print('Привет, сегодня %s, хотя температура всего %d градуса!'%(weather, temperature))  # %f - для float
-print(f'Привет, сегодня {weather}, хотя температура всего {temperature} градуса!')
-
-
-# 3D4x_16
-for x in '0123456789abcdef':
-    s = f'3D4{x}'
-    print(s)
-'''
-
-# Базова арифметика
-a = 7
-b = 2
-
-print(a + b)
-print(f'{a} + {b} = {a + b}\n'
-      f'{a} - {b} = {a - b}\n'
-      f'{a} * {b} = {a * b}')
-
-print(f'Возведем число {a} в степень {b}: {a} ** {b} = {a ** b}')
-print(f'Квадратный корень от числа 16 = {16 ** (1/2)}')
-print(f'Кубический корень от числа 27 = {27 ** (1/3)}')
-
-print(f'Вещественное деление: {a} / {b} = {a / b}\n' 
-      f'Взятие целой части от деления (без округлений): {a} // {b} = {a // b}\n'
-      f'Взятие остатка от деления (от обыкновенной дроби): {a} % {b} = {a % b}')
-
-# Проверим число n на четность:
-'''
-# n = input('Введите число: ')  # получает с клавиатуры строку (str)
-n = int(input('Введите число: '))  # получает с клавиатуры строку (str)
-if n % 2 == 0:
-    print('Число четное!')
-elif n % 2 != 0:
-    print('Число не четное!')
-'''
-
-# Взять последнюю цифру от числа
-'''
-n = int(input('Введите число: '))
-print(n % 10)
-'''
-
-
-# проверить делится ли число на 5?
-'''
-n = int(input('Введите число: '))
-if n % 10 == 0 or n % 10 == 5:
-    print("Число кратно 5!")
+if x > 0 and y > 0:
+    print(1)
+elif x > 0 and y < 0:
+    print(4)
+elif x < 0 and y > 0:
+    print(2)
+elif x < 0 and y < 0:
+    print(3)
 else:
-    print("Число не кратно 5!")
+    print('Точка лежит на оси')
 '''
+
+# Каскадные условия
+'''
+x = int(input('x: '))
+y = int(input('y: '))
+
+if x > 0:
+    if y > 0:  # x > 0 and y > 0
+        print(1)
+    else:    # x > 0 and y <= 0
+        print(4)
+else:
+    if y > 0:  # x <= 0 and y > 0:
+        print(2)
+    else:    # x <= 0 and y <= 0
+        print(3)
+'''
+
+# Мини калькулятор
+'''
+a = int(input('a: '))
+s = input('s: ')
+b = int(input('b: '))
+
+if s == '+':
+    print(f'{a} {s} {b} = {a+b}')
+elif s == '-':
+    print(f'{a} {s} {b} = {a-b}')
+elif s == '*':
+    print(f'{a} {s} {b} = {a*b}')
+elif s == '/' and b == 0:
+    print(f'На ноль делить нельзя')
+elif s == '/':
+    print(f'{a} {s} {b} = {a/b}')
+'''
+
+# ZeroDivisionError: division by zero
+# Обработчик исключений
+'''
+a = int(input('a: '))
+s = input('s: ')
+b = int(input('b: '))
+
+try:
+    if s == '/':
+        print(f'{a} {s} {b} = {a/b}')
+
+except ZeroDivisionError:
+    print('На ноль делить нельзя')
+'''
+
+
+# Циклы - повторение каких-либо действий несколько раз
+
+# for - цикл повтори n раз, пробеги строку, пробеги строку через индексы и тд
+'''
+n = 10
+for i in range(n):  # [0, n)     range(START = 0, STOP = x, STEP = 1)
+    print(i, end=' ')
+print()
+
+for i in range(2, n):  # [2, n)     range(START = y, STOP = x, STEP = 1)
+    print(i, end=' ')
+print()
+
+for i in range(2, n, 2):  # [2, n)     range(START = y, STOP = x, STEP = z)
+    print(i, end=' ')
+print()
+
+for i in range(n-1, 0-1, -1):  # в случае, если нужно рассмотреть убывающую последовательность
+    print(i, end=' ')
+print()
+
+s = '765432'
+# i  012345
+M = [7, 6, 5, 4, 3, 2]
+# i  0  1  2  3  4  5
+
+for x in M:
+    print(x, end=' ')
+print()
+
+# len() - функция возвращающая длину списка (коллекции) - то есть кол-во элементов в нем
+for i in range(0, len(M)):  # [0, 6)
+    print(M[i], end=' ')
+print()
+
+print(M)
+for i in range(0, len(M)):  # [0, 6)
+    M[i] = M[i] ** 2
+print(M)
+'''
+
+
+
+
+# while - циклы с условием (выполняется пока условие истинно)
+'''
+for i in range(2, 10+1, 2):  # [2, n)     range(START = y, STOP = x, STEP = z)
+    print(i, end=' ')
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')
+    i += 2
+'''
+
+'''
+summ = 0
+x = 123459304830925209385
+
+s = str(x)
+M = [int(i) for i in s]
+print(sum(M))
+
+
+while x > 0:
+    summ += (x % 10)
+    x //= 10
+    print(x, summ)
+print(summ)
+'''
+
+'''
+k = 0
+while True:
+    print(k)
+    k += 1
+'''
+
+'''
+import random
+
+k = 0
+password = 'qwerty'
+while True:
+    pas = input('Введите пароль: ')
+    if pas == password:
+        print('Welcome')
+        break
+    print('Пароль неверный, попробуйте снова.')
+    k += 1
+    if k == 3:
+        symbol = '+-*'
+        a = random.randint(1, 10)
+        s = random.choice(symbol)
+        b = random.randint(1, 10)
+        print(f'Пройдите проверку на робота!\nРешив пример: {a} {s} {b} = ')
+        x = int(input())
+
+        if s == '+':
+            if x == a + b:
+                print('Проверка пройдена.')
+                k = 0
+                continue
+            else:
+                print('Banned')
+                break
+        if s == '-':
+            if x == a - b:
+                print('Проверка пройдена.')
+                k = 0
+                continue
+            else:
+                print('Banned')
+                break
+        if s == '*':
+            if x == a * b:
+                print('Проверка пройдена.')
+                k = 0
+                continue
+            else:
+                print('Banned')
+                break
+'''
+
 
 # endregion Урок:  ******************************************************************************
 
 
-# todo: Богдан = [], на следующем уроке: Говорим про условные операторы и циклы
+# todo: Богдан = [], на следующем уроке: Подробнее остановиться на комментариях, break и continue и технологии flag, решаем 2 номер

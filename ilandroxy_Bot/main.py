@@ -717,7 +717,7 @@ def step(call):
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
             bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
-                             f"Получил домашку КЕГЭ ({type}): [{kg[type][x]}](inf-ege.sdamgia.ru/problem?id={kg[type][x]})",
+                             f"Получил домашку КЕГЭ ({type}): [{kg[type][x]}](https://kpolyakov.spb.ru/school/ege/gen.php?action=viewTopic&topicId={kg[type][x]})",
                              parse_mode='Markdown', disable_web_page_preview=True)
         elif call.message.chat.id in Me:
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
