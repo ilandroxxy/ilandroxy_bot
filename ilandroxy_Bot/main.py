@@ -863,6 +863,7 @@ def step(call):
                 time.sleep(150)
                 f = open(file_name, 'r')
                 bot.send_document(-726393257, f)
+                bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]} отправил домашку.", reply_markup=markup)
                 bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
             else:
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
