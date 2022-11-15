@@ -1,65 +1,101 @@
 
-# import turtle  # стандартное подключение библиотеки в Python проект. Везде таскаем с собой turtle.
-# turtle.forward(1000)
-# turtle.done()
 
-# import turtle as t  # переименуем turtle. в t. (или любое другое имя)
-# t.forward(1000)
-# t.done()
+import math
+M = [i for i in input('Введите две дроби и знак операции между ними: ').split()]  # 1 2 + 3 4  ,    5 6 + 3 10
 
-# from turtle import forward, done  # подключаем только определенные функции из библиотеки
-# forward(1000)
-# done()
+a = int(M[0])
+b = int(M[1])
+s = M[2]
+m = int(M[3])
+n = int(M[4])
 
-# from turtle import *  # Подключаем все функции из библиотеки (не нужно использовать turtle. )
-# forward(1000)
-# pu()
-# done()
+# region Операция сложения дробей
+if s == '+':
+    NOK = math.lcm(b, n)
 
+    a = a * (NOK // b)
+    m = m * (NOK // n)
+    znam = n * (NOK // n)
 
-'''
-import turtle as t
+    print(f'{a}/{znam} {s} {m}/{znam}')
 
-for i in range(4):
-    t.forward(100)
-    t.left(90)
+    print(f'{a + m}/{znam}')
 
-t.color('red')
-for i in range(2):
-    t.forward(400)
-    t.left(90)
-    t.forward(200)
-    t.left(90)
+    cel = (a + m) // znam
+    ost = (a + m) % znam
 
-t.done()
+    NOD = math.gcd(ost, znam)
 
-'''
+    if cel != 0:
+        print(f'{cel} ({ost // NOD}/{znam // NOD})')
+    else:
+        print(f'({ost // NOD}/{znam // NOD})')
+# endregion Операция сложения дробей
 
-# Тип 6 № 47392
-# Черепахе был дан для исполнения следующий алгоритм:
-#
-# Повтори 6 [Вперёд 10 Направо 60]
-#
-# Определите, сколько точек с целочисленными координатами будут находиться внутри области,
-# ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать следует.
+# region Операция вычитание дробей
+elif s == '-':
+    NOK = math.lcm(b, n)
 
-# Eё голова направлена вдоль положительного направления оси ординат, хвост опущен.
+    a = a * (NOK // b)
+    m = m * (NOK // n)
+    znam = n * (NOK // n)
 
-import turtle as t  # 1
-t.left(90)   # 2
+    print(f'{a}/{znam} {s} {m}/{znam}')
 
-t.speed(10)  # 3
+    print(f'{a - m}/{znam}')
 
-l = 30  # 4
+    cel = (a - m) // znam
+    ost = (a - m) % znam
 
-for _ in range(6):
-    t.forward(10 * l)  # 5
-    t.right(60)
+    NOD = math.gcd(ost, znam)
 
-t.color('red')  # 6
-t.pu()  # 7
-for x in range(0, 20):
-    for y in range(-5, 20):
-        t.goto(x * l, y * l)  # 8
-        t.dot(3)  # 9
-t.done()  # 10
+    if cel != 0:
+        print(f'{cel} ({ost // NOD}/{znam // NOD})')
+    else:
+        print(f'({ost // NOD}/{znam // NOD})')
+# endregion Операция вычитание дробей
+
+# region Операция умножения дробей
+elif s == '*':
+    NOK = math.lcm(b, n)
+
+    x = a * m
+    znam = b * n
+
+    print(f'{x}/{znam}')
+
+    cel = (x) // znam
+    ost = (x) % znam
+
+    NOD = math.gcd(ost, znam)
+
+    if cel != 0:
+        print(f'{cel} ({ost // NOD}/{znam // NOD})')
+    else:
+        print(f'({ost // NOD}/{znam // NOD})')
+# endregion Операция умножения дробей
+
+# region Операция Деления дробей
+elif s == '/':
+    NOK = math.lcm(b, n)
+
+    x = a * n
+    znam = b * m
+
+    print(f'{x}/{znam}')
+
+    cel = (x) // znam
+    ost = (x) % znam
+
+    NOD = math.gcd(ost, znam)
+
+    if cel != 0:
+        print(f'{cel} ({ost // NOD}/{znam // NOD})')
+    else:
+        print(f'({ost // NOD}/{znam // NOD})')
+
+# endregion Операция Деления дробей
+
+# todo: НОД, НОК, Квадратное уравнение, Квадратный корень, Кубический корень, Факториал, Среднее арифметическое
+# todo: На следующем уроке: если скрипт покажет себя хорошо, то начинаем собирать его в бота
+
