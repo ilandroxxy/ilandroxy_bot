@@ -22,6 +22,7 @@ for i in range(0, len(M) - 1):
 print(count, Max)
 # Ответ: 397339 19908
 '''
+
 '''
 # Задание 35. Тип 17 № 47014.
 
@@ -79,158 +80,9 @@ print(count, Max)
 # region Урок:  ******************************************************************************
 
 
-# Тип 24 № 27692
-'''
-# Текстовый файл состоит не более чем из 10**6 символов A, B и C.
-# Определите максимальное количество идущих подряд символов B.
-#
-# Для выполнения этого задания следует написать программу.
-# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
-
-f = open('24.txt', 'r')
-s = f.readline()
-
-# s = 'ABCABCABCBBBBABBBBBBAAA'
-
-count = 1
-maxCount = 0
-for i in range(0, len(s)-1):
-    if s[i] == 'B' and s[i+1] == 'B':
-        count += 1
-        if maxCount < count:
-            maxCount = count
-    else:
-        count = 1
-print(maxCount)
-'''
-# Ответ: 11
-
-
-# Тип 24 № 27694
-'''
-# Текстовый файл состоит не более чем из 106 символов A, B и C.
-# Определите максимальную длину цепочки вида ABABAB... (составленной из фрагментов AB, последний фрагмент может быть неполным).
-#
-# Для выполнения этого задания следует написать программу.
-# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
-
-f = open('24.txt', 'r')
-s = f.readline()
-print(s)
-
-l = 'ABABABABABABABABABABABAB'
-print(len(l))
-
-# s = 'BABABABAAAAA'  # 9
-
-# count = 0
-# maxCount = 0
-# for i in range(0, len(s)-1):
-#     if (s[i] == 'A' and count % 2 == 0) or (s[i] == 'B' and count % 2 != 0):
-#         count += 1
-#         if maxCount < count:
-#             maxCount = count
-#     else:
-#         count = 1
-#
-# print(maxCount)
-'''
-# Ответ: 24
-
-
-# Тип 24 № 33494
-'''
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите символ, который чаще всего встречается в файле сразу после буквы E.
-#
-# Например, в тексте EBCEEBEDDD после буквы E два раза стоит B, по одному разу — E и D.
-# Для этого текста ответом будет B.
-#
-# Для выполнения этого задания следует написать программу.
-# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
-
-
-f = open('24.txt', 'r')
-s = f.readline()
-
-M = []
-for i in range(0, len(s)):
-    if s[i] == 'E':
-        M.append(s[i+1])
-
-
-# import string
-# Alphabet = string.ascii_uppercase
-# print(ALphabet)
-
-Alphabet = 'QWERTYUIOPASDFGHJKLZXCVBNM'
-
-maxCount = 0
-for x in Alphabet:
-    if maxCount < M.count(x):
-        maxCount = M.count(x)
-        print(x, M.count(x))
-'''
-# Ответ: Y
-
-
-# Тип 24 № 47228
-'''
-# Текстовый файл состоит из символов A, C, D, F и O.
-#
-# Определите максимальное количество идущих подряд пар символов вида
-#
-# согласная + гласная.
-#
-# Для выполнения этого задания следует написать программу.
-
-f = open('24.txt', 'r')
-s = f.readline()
-print(s)
-
-glas = 'AO'
-sogl = 'CDF'
-
-count = 0
-maxCount = 0
-r = ''
-for i in range(0, len(s)):
-    if (s[i] in sogl and count % 2 == 0) or (s[i] in glas and count % 2 != 0):
-        count += 1
-        r += s[i]
-        if maxCount < count:
-            maxCount = count
-            # print(r, len(r))
-    else:
-        count = 0
-        r = ''
-
-print(maxCount)
-'''
-
-
-# f=open(r'24.txt')
-# s=f.read()
-# count=0
-# max_count=0
-# i=0
-# while i < len(s):
-#     if (s[i]=='C' or s[i]=='D' or s[i]=='F') and (s[i+1]=='A' or s[i+1]=='O'):
-#         count+=1
-#         i+=2
-#         if max_count < count:
-#             max_count=count
-#     else:
-#         count=0
-#         i+=1
-# print(max_count)
-
-
-
-
 
 
 # endregion Урок:  ******************************************************************************
 
 
-# todo: Слава = [2, 5, 6, 8, 12, 14+, 15, 16, 17, 23], на следующем уроке: Если по 17 номеру не будет вопросов, то разбираем 24
+# todo: Слава = [2, 5, 6, 8, 12, 14+, 15, 16, 17, 23], на следующем уроке: Если по 17 номеру не будет вопросов, то разбираем 24 номер со сложными задачками.
