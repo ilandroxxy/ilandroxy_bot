@@ -1,161 +1,93 @@
 
+
+# Коллекции - это наборы из нескольких значений
+# Примеры типов коллекций
+'''
+A = []  # пустой список
+A = list()  # пустой список
+A = [1, 2, 3]  # список list()
+print(A)
+
+B = ()  # пустой кортеж
+B = tuple()  # пустой кортеж
+B = (1, 2, 3)  # кортеж tuple()
+print(B)
+
+C = set()  # пустое множество
+C = {1, 2, 3}  # множество set()
+
+D = {}  # пустой словарь
+D = dict()  # пустой словарь
+D = {1: 'один', 2: 'два', 3: 'три'}
+
+M = [1, '2', 3.0, True, 1+2, '2'*3, 7/2, 4 < 10, [1, 2, 3], (1, 2, 3), {1, 2, 3}, {1: 'один', 2: 'два', 3: 'три'}]
+for x in M:
+    print(x, type(x))
 '''
 
-s1 = 'красный синий'
-s2 = 'красный желтый'
-s3 = 'синий желтый'
 
-M = [i for i in input().split()]
-x = M[0]
-y = M[1]
+'''
+M = [i for i in range(1, 10)]
+print(M)
 
-if x == y:
-    print(f'Получится: {x}')
-elif x in s1 and y in s1:
-    print('Получился: фиолетовый')
-elif x in s2 and y in s2:
-    print('Получился: оранжевый')
-elif x in s3 and y in s3:
-    print('Получился: зеленый')
-else:
-    print('Ошибка')
+M = [i**2 for i in range(1, 10)]  # получаем список квадратов из диапазона 
+print(M)
+
+M = [i for i in range(1, 10) if i % 2 == 0]  # получаем список четных из диапазона 
+print(M)
 '''
 
 
-# Циклы
+M = [4, 5, 6, 7, 8]
+# i  0  1  2  3  4
+# i -5 -4 -3 -2 -1
+M.append(0)  # добавляем новый элемент в конец списка
 
-# for - цикл "повтори n раз"
-'''
-for i in range(5):  # [0, 5)     # range(START == 0, STOP, STEP == 1)
-    print(i, end=' ')
-print()
+print(M[0], M[-1])   # первый и последний элемент списка через индексы
 
-for i in range(1, 10):  # [1, 10)   # range(START, STOP, STEP == 1)
-    print(i, end=' ')
-print()
-
-for i in range(1, 10+1):  # [1, 10]
-    print(i, end=' ')
-print()
-
-for i in range(0, 10+1, 2):  # [1, 10]    # range(START, STOP, STEP)
-    print(i, end=' ')
-print()
-
-for i in range(10-1, 0-1, -1):  # пробежали отрезок в обратном порядке
-    print(i, end=' ')
-print()
-
-
-s = '654321'
-# i  012345
-M = [6, 5, 4, 3, 2, 1]
-# i  0  1  2  3  4  5
-
-print(M[0], s[0])
-
-for x in s:
+for x in M:
     print(x, end=' ')
 print()
-'''
 
-
-
-# len() - функция возвращающая длину списка или строки
-'''
-for i in range(0, len(s)):  # [0, 6)
-    print(s[i], end=' ')
-print()
-
-for i in range(0, len(M)):  # [0, 6)
+for i in range(0, len(M)):
     print(M[i], end=' ')
 print()
 
-print(M)
-for i in range(0, len(M)):  # через такой список можно легко изменять элементы списка (но только списка)
+for i in range(0, len(M)):
     M[i] = M[i] ** 2
 print(M)
-'''
 
 
-# while - цикл с условием (если условие истинно, то выполняем действие) - (пока условие истинно)
-'''
-for i in range(0, 10+1, 2):  # [1, 10]    # range(START, STOP, STEP)
-    print(i, end=' ')
-print()
+# Списки
+M = []  # пустой список
+print(len(M))   # функция len() выводит длину списка (коллекции) – то есть кол-во символов
+# 1. Все элементы списка упорядоченные - имеют порядковый номер, который называется индекс
+# 2. Индексы начинаются с нуля
+# 3. Через индексы мы можем не только брать значение элемента списка, но и изменять его
+
+# x = int(input())
+# M = [f'{x} * {i} = {x * i}' for i in range(0, x+1)]  # списочное выражение
+# print(M)
+
+# Задание 2. Тип 24 № 27686
+# Текстовый файл состоит не более чем из 10**6 символов X, Y и Z.
+# Определите длину самой длинной последовательности, состоящей из символов X. Хотя бы один символ X находится в последовательности.
+
+# f = open('24.txt', 'r')
+# s = f.readline()
+# s = s.replace('Y', ' ')
+# s = s.replace('Z', ' ')
+# M = s.split()
+# maxi = 0
+# for x in M:
+#     if maxi < len(x):
+#         maxi = len(x)
+# print(M)
+# print(maxi)
+
+print(max([len(i) for i in open('24.txt', 'r').readline().replace('Y', ' ').replace('Z', ' ').split()]))
 
 
-i = 0
-while i <= 10:
-    print(i, end=' ')
-    i += 2
-print()
-
-
-M = [1, 0, 1, 0, 1]
-N = [1, 0]
-
-while len(N) != len(M):
-    if len(N) < len(M):
-        N.reverse()
-        N.append(0)
-        N.reverse()
-    else:
-        M.reverse()
-        M.append(0)
-        M.reverse()
-
-print(M)
-print(N)
-'''
-
-import random
-
-password = 'qwerty'
-count = 0
-while True:
-    pas = input("Введите пароль: ")
-    if pas == password:
-        print('Welcome')
-        break
-    print('Пароль неверный, попробуйте снова!')
-    count += 1
-    if count == 3:
-        symbol = '+-*'
-        a = random.randint(1, 100)
-        s = random.choice(symbol)
-        b = random. randint(1, 100)
-        print(f'Пройдите проверку на робота:\n{a}{s}{b} =')
-        x = int(input())
-
-        if s == '+':
-            if x == a + b:
-                count = 0
-                print("Проверка пройдена")
-                continue
-            else:
-                print('BANNED')
-                break
-        elif s == '-':
-            if x == a - b:
-                count = 0
-                print("Проверка пройдена")
-                continue
-            else:
-                print('BANNED')
-                break
-        elif s == '*':
-            if x == a * b:
-                count = 0
-                print("Проверка пройдена")
-                continue
-            else:
-                print('BANNED')
-                break
-
-
-
-
-# todo: На следующем уроке: continue, break, порешать задачки с циклами
+# todo: На следующем уроке: Методы списков, Решить задачи по спискам, Функции списков, Списочные выражения
 
 # todo: Бот игра для тренировки устного счета (вычислений)
