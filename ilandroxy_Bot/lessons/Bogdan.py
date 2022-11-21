@@ -7,213 +7,122 @@
 
 # region Урок:  ******************************************************************************
 
-# Условные операторы - ветвление
+# Однострочный комментарий
 
 '''
-x = int(input('x: '))
-
-if x > 0:  # if - если
-    print(x)
-elif x < 0:  # elif - иначе если
-    print(-x)
-else:     # else - иначе
-    print(0)
+1
+Многострочный комментарий
+2
 '''
 
 '''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0 and y > 0:
-    print(1)
-elif x > 0 and y < 0:
-    print(4)
-elif x < 0 and y > 0:
-    print(2)
-elif x < 0 and y < 0:
-    print(3)
-else:
-    print('Точка лежит на оси')
+for i in range(0, 20):  # [0, 20)
+    if i % 2 == 0:  # если число поделилось на 2 без остатка, то оно четное
+        continue  # способ прервать итерацию цикла (шаг цикла)
+    if i == 15:
+        break  # способ прервать цикл
+    print(i)
 '''
 
-# Каскадные условия
+# Тип 15 № 16447
 '''
-x = int(input('x: '))
-y = int(input('y: '))
+# Для какого наибольшего целого неотрицательного числа A выражение
+#
+# (2x + 3y < 30) ∨ (x + y ≥ A)
+#
+# тождественно истинно при любых целых неотрицательных x и y?
 
-if x > 0:
-    if y > 0:  # x > 0 and y > 0
-        print(1)
-    else:    # x > 0 and y <= 0
-        print(4)
-else:
-    if y > 0:  # x <= 0 and y > 0:
-        print(2)
-    else:    # x <= 0 and y <= 0
-        print(3)
-'''
-
-# Мини калькулятор
-'''
-a = int(input('a: '))
-s = input('s: ')
-b = int(input('b: '))
-
-if s == '+':
-    print(f'{a} {s} {b} = {a+b}')
-elif s == '-':
-    print(f'{a} {s} {b} = {a-b}')
-elif s == '*':
-    print(f'{a} {s} {b} = {a*b}')
-elif s == '/' and b == 0:
-    print(f'На ноль делить нельзя')
-elif s == '/':
-    print(f'{a} {s} {b} = {a/b}')
-'''
-
-# ZeroDivisionError: division by zero
-# Обработчик исключений
-'''
-a = int(input('a: '))
-s = input('s: ')
-b = int(input('b: '))
-
-try:
-    if s == '/':
-        print(f'{a} {s} {b} = {a/b}')
-
-except ZeroDivisionError:
-    print('На ноль делить нельзя')
-'''
-
-
-# Циклы - повторение каких-либо действий несколько раз
-
-# for - цикл повтори n раз, пробеги строку, пробеги строку через индексы и тд
-'''
-n = 10
-for i in range(n):  # [0, n)     range(START = 0, STOP = x, STEP = 1)
-    print(i, end=' ')
-print()
-
-for i in range(2, n):  # [2, n)     range(START = y, STOP = x, STEP = 1)
-    print(i, end=' ')
-print()
-
-for i in range(2, n, 2):  # [2, n)     range(START = y, STOP = x, STEP = z)
-    print(i, end=' ')
-print()
-
-for i in range(n-1, 0-1, -1):  # в случае, если нужно рассмотреть убывающую последовательность
-    print(i, end=' ')
-print()
-
-s = '765432'
-# i  012345
-M = [7, 6, 5, 4, 3, 2]
-# i  0  1  2  3  4  5
-
-for x in M:
-    print(x, end=' ')
-print()
-
-# len() - функция возвращающая длину списка (коллекции) - то есть кол-во элементов в нем
-for i in range(0, len(M)):  # [0, 6)
-    print(M[i], end=' ')
-print()
-
-print(M)
-for i in range(0, len(M)):  # [0, 6)
-    M[i] = M[i] ** 2
-print(M)
-'''
-
-
-
-
-# while - циклы с условием (выполняется пока условие истинно)
-'''
-for i in range(2, 10+1, 2):  # [2, n)     range(START = y, STOP = x, STEP = z)
-    print(i, end=' ')
-print()
-
-i = 2
-while i <= 10:
-    print(i, end=' ')
-    i += 2
-'''
-
-'''
-summ = 0
-x = 123459304830925209385
-
-s = str(x)
-M = [int(i) for i in s]
-print(sum(M))
-
-
-while x > 0:
-    summ += (x % 10)
-    x //= 10
-    print(x, summ)
-print(summ)
-'''
-
-'''
-k = 0
-while True:
-    print(k)
-    k += 1
-'''
-
-'''
-import random
-
-k = 0
-password = 'qwerty'
-while True:
-    pas = input('Введите пароль: ')
-    if pas == password:
-        print('Welcome')
+for A in range(1000, 0, -1):
+    flag = True
+    for x in range(0, 100):
+        for y in range(0, 100):
+            if (((2*x + 3*y) < 30) or (x + y >= A)) == False:
+                flag = False
+                break
+        if flag == False:
+            break
+    if flag == True:
+        print(A)
         break
-    print('Пароль неверный, попробуйте снова.')
-    k += 1
-    if k == 3:
-        symbol = '+-*'
-        a = random.randint(1, 10)
-        s = random.choice(symbol)
-        b = random.randint(1, 10)
-        print(f'Пройдите проверку на робота!\nРешив пример: {a} {s} {b} = ')
-        x = int(input())
-
-        if s == '+':
-            if x == a + b:
-                print('Проверка пройдена.')
-                k = 0
-                continue
-            else:
-                print('Banned')
-                break
-        if s == '-':
-            if x == a - b:
-                print('Проверка пройдена.')
-                k = 0
-                continue
-            else:
-                print('Banned')
-                break
-        if s == '*':
-            if x == a * b:
-                print('Проверка пройдена.')
-                k = 0
-                continue
-            else:
-                print('Banned')
-                break
 '''
 
+# Правила алгебры логики на языке Python
+#   ¬y   <--->  (not(y))   инверсия (отрицание)
+# x ∧ y  <--->  x and y    конъюнкция (логическое умножение)
+# x ∨ w  <--->  x or y     дизъюнкция (логическое сложение)
+# w → z  <--->  w <= z     импликация
+# x ≡ z  <--->  x == z     тождество (равны ли элементы)
+
+
+# Тип 2 № 19051
+'''
+# Миша заполнял таблицу истинности функции (x ∧ ¬y) ∨ (x ≡ z) ∨ ¬w,
+# но успел заполнить лишь фрагмент из трёх различных её строк, даже не указав,
+# какому столбцу таблицы соответствует каждая из переменных w, x, y, z.
+
+print('x y z w F')
+for x in range(2):   # [0,1]
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((x and (not(y))) or (x == z) or (not(w)))
+                if F == False:
+                    print(x, y, z, w, F)
+'''
+
+
+# Тип 2 № 29650
+'''
+# Логическая функция F задаётся выражением (w ∨ ¬x) ∧ (w ≡ ¬y) ∧ (w → z).
+# На рисунке приведён частично заполненный фрагмент таблицы истинности функции F, содержащий неповторяющиеся строки.
+# Определите, какому столбцу таблицы истинности функции F соответствует каждая из переменных x, y, z, w.
+
+print('x y z w F')
+for x in range(2):   # [0,1]
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((w or (not(x))) and (w == (not(y))) and (w <= z))
+                if F == True:
+                    print(x, y, z, w, F)
+'''
+
+# Тип 2 № 33174
+'''
+# Логическая функция F задаётся выражением ((x → y) ≡ (w → x)) ∧ (z → w).
+# На рисунке приведён частично заполненный фрагмент таблицы истинности функции F, содержащий неповторяющиеся строки.
+# Определите, какому столбцу таблицы истинности функции F соответствует каждая из переменных x, y, z, w.
+
+print('x y z w F')
+for x in range(2):   # [0,1]
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (((x <= y) == (w <= x)) and (z <= w))
+                if F == True:
+                    print(x, y, z, w, F)
+'''
+
+
+# Тип 2 № 17366
+'''
+# Логическая функция F задаётся выражением ((x ∧ w) ∨ (w ∧ z)) ≡ ((z → y) ∧ (y → x)).
+#
+# Дан частично заполненный фрагмент, содержащий неповторяющиеся строки таблицы истинности функции F.
+#
+# Определите, какому столбцу таблицы истинности соответствует каждая из переменных x, y, z, w.
+
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (((x and w) or (w and z)) == ((z <= y) and (y <= x)) )
+                if F == True:
+                    print(x, y, z, w, F)
+'''
 
 # endregion Урок:  ******************************************************************************
 
 
-# todo: Богдан = [], на следующем уроке: Подробнее остановиться на комментариях, break и continue и технологии flag, решаем 2 номер
+# todo: Богдан = [], на следующем уроке: Обсуждаем дз, отвечаем на вопросы. Разбираем тему списков и строк (частично)

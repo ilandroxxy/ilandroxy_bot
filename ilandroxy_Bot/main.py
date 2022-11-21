@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+TOKEN = "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
@@ -723,7 +723,7 @@ def step(call):
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
     # endregion call.data для КЕГЭ
 
-    # region call.data для Homework
+    # region call.data для Решу ЕГЭ
     elif call.data == 'hw':
         message_text = "Эта команда выдает рандомное задание с Решу ЕГЭ\n\nПомимо этого, мне приходит уведомление с номерами выпавших задач.\n\nПроявите самостоятельность в выборе, а на уроке мы разбрем возникшие вопросы!\n\n[Читать правила оформления домашки](https://www.notion.so/ilandroxxy/8234ee61967a4cbe8a232b745cff0b9a)"
         markup = types.InlineKeyboardMarkup(row_width=5)
@@ -822,7 +822,7 @@ def step(call):
                              parse_mode='Markdown', disable_web_page_preview=True)
         elif call.message.chat.id in Me:
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
-    # endregion call.data для Homework
+    # endregion call.data для Решу ЕГЭ
 
     # region call.data для отправки Homework
     elif call.data == 'sendhomeworks':
@@ -852,8 +852,7 @@ def step(call):
                     for _ in STR:
                         count += 1
 
-                if count < 2 ** 12:
-
+                if count <= 2 ** 12:
                     bot.send_message(call.message.chat.id, f"Кол-во символов в файле: {count}\n🤖 Ожидайте отправляю файл.", reply_markup=markup)
                 else:
                     bot.send_message(call.message.chat.id, "Длина файла превышена, удалите лишние строки!", reply_markup=markup)
@@ -1828,6 +1827,47 @@ def voicestudents(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команды: voiceall, voicestudents
 
+
+# region Команда: votes
+# VOTES
+# @bot.message_handler(commands=[''])
+# def votes(message):
+#     if message.chat.id == 1891281816:
+#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+#         btn1 = types.KeyboardButton('Отменить ⛔')
+#         markup.add(btn1)
+#
+#         bot.send_message(message.chat.id,"Введите сообщение, которое бот отправит только студентам (поддерживаются только классические ссылки).",  parse_mode='Markdown', reply_markup=markup)
+#
+#         @bot.message_handler(content_types=['text'])
+#         def message_input(message):
+#             text_message = message.text
+#             if text_message != 'Отменить ⛔':
+#                 bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
+#                 for key in Students:
+#                     markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
+#                     btn1 = types.KeyboardButton('Да, звучит круто')
+#                     btn2 = types.KeyboardButton('Хочу попробовать')
+#                     btn3 = types.KeyboardButton('Возможно это интересно')
+#                     btn4 = types.KeyboardButton('Скорее нет чем да')
+#                     btn5 = types.KeyboardButton('Точно не интересно')
+#                     markup.add(btn1, btn2, btn3, btn4, btn5)
+#                     bot.send_message(key, text_message, disable_web_page_preview=True, reply_markup=markup)
+#             else:
+#                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+#                 btn1 = types.KeyboardButton('Контакты')
+#                 btn2 = types.KeyboardButton('Репетитор')
+#                 btn3 = types.KeyboardButton('Мои проекты')
+#                 btn4 = types.KeyboardButton('Записаться на урок')
+#                 btn5 = types.KeyboardButton('Получить файл с урока')
+#                 markup.add(btn1, btn2, btn3, btn4, btn5)
+#                 bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
+
+
+
+
+
 # region Команды: noticestudents, notice
 # NOTICESTUDENTS
 @bot.message_handler(commands=['noticestudents'])
@@ -2008,15 +2048,6 @@ def list(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команда: list
 
-# region Команда: logi
-@bot.message_handler(commands=['logi'])
-def logi(message):
-    if message.chat.id in PrivateMe:
-        file = open('logi.txt', 'rb')
-        bot.send_document(message.chat.id, file)
-    else:
-        bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-# endregion Команда: logi
 # endregion Список приватных команд
 
 
@@ -2362,11 +2393,5 @@ if __name__ == '__main__':
             bot.polling(none_stop=True)
         except Exception as e:
             time.sleep(3)
-            f = open('logi.txt', 'r')
-            s = f.readline()
-            log = f'\n\n{s}'
-
-            f = open('logi.txt', 'w')
-            f.write(log)
             print(e)
 
