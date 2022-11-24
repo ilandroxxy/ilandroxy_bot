@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
+TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
@@ -859,7 +859,7 @@ def step(call):
 
                 f = open(file_name, 'w')
                 f.write(message.text)
-                time.sleep(150)
+                time.sleep(300)
                 f = open(file_name, 'r')
                 bot.send_document(-726393257, f)
                 bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]} отправил домашку.", reply_markup=markup)
@@ -1827,47 +1827,6 @@ def voicestudents(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команды: voiceall, voicestudents
 
-
-# region Команда: votes
-# VOTES
-# @bot.message_handler(commands=[''])
-# def votes(message):
-#     if message.chat.id == 1891281816:
-#         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-#         btn1 = types.KeyboardButton('Отменить ⛔')
-#         markup.add(btn1)
-#
-#         bot.send_message(message.chat.id,"Введите сообщение, которое бот отправит только студентам (поддерживаются только классические ссылки).",  parse_mode='Markdown', reply_markup=markup)
-#
-#         @bot.message_handler(content_types=['text'])
-#         def message_input(message):
-#             text_message = message.text
-#             if text_message != 'Отменить ⛔':
-#                 bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
-#                 for key in Students:
-#                     markup = types.ReplyKeyboardMarkup(row_width=1, one_time_keyboard=True)
-#                     btn1 = types.KeyboardButton('Да, звучит круто')
-#                     btn2 = types.KeyboardButton('Хочу попробовать')
-#                     btn3 = types.KeyboardButton('Возможно это интересно')
-#                     btn4 = types.KeyboardButton('Скорее нет чем да')
-#                     btn5 = types.KeyboardButton('Точно не интересно')
-#                     markup.add(btn1, btn2, btn3, btn4, btn5)
-#                     bot.send_message(key, text_message, disable_web_page_preview=True, reply_markup=markup)
-#             else:
-#                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-#                 btn1 = types.KeyboardButton('Контакты')
-#                 btn2 = types.KeyboardButton('Репетитор')
-#                 btn3 = types.KeyboardButton('Мои проекты')
-#                 btn4 = types.KeyboardButton('Записаться на урок')
-#                 btn5 = types.KeyboardButton('Получить файл с урока')
-#                 markup.add(btn1, btn2, btn3, btn4, btn5)
-#                 bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
-
-
-
-
-
-
 # region Команды: noticestudents, notice
 # NOTICESTUDENTS
 @bot.message_handler(commands=['noticestudents'])
@@ -2275,7 +2234,7 @@ def mess(message):
     # region Кнопка: [Контакты]
     elif get_message_bot == "контакты":
         send_message1 = "*Мои контакты:*\n\n" \
-                        "[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
+                        "[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Teletype](https://teletype.in/@ilandroxy)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
                         "[Zoom](https://us04web.zoom.us/j/2402871810?pwd=OVdGQkE2ODIvWm1WNk5EdStQR1o4UT09)\n\n" \
                         "[Профиль Авито](www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing)\n\n[YouTube](https://youtube.com/@ilandroxy)\n\n" \
                         "[GitHub](https://github.com/ilandroxxy)\n\nРабочий телефон: +7 (995) 437–52–59\n\nEmail: collegehacksbot@gmail.com\n\n" \
