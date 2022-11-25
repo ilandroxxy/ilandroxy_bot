@@ -52,8 +52,8 @@ Me = {1891281816: ['', '00:00', 0, "iРепетитор", 5],
 
 PrivateMe = {1891281816: "Рабочий аккаунт",
             438879394: 'Илья',
-            -726393257: "Homework",
-            -647660626: "Lessons"}
+            -1001822573914: "Homework",
+            -1001819293687: "Lessons"}
 
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
 # endregion Словарь с данными студентов
@@ -150,7 +150,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
+                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -162,7 +162,7 @@ def step(call):
                     bot.send_photo(call.message.chat.id, photo)
                     if call.message.chat.id != 1891281816:
                         photo = open(f'theoryHW/firstclass/{x}.png', 'rb')
-                        bot.send_photo(-726393257, photo)
+                        bot.send_photo(-1001822573914, photo)
                 M.clear()
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
                 btn1 = types.KeyboardButton('Контакты')
@@ -195,7 +195,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:',
                                  parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -208,7 +208,7 @@ def step(call):
                     bot.send_photo(call.message.chat.id, photo)
                     if call.message.chat.id != 1891281816:
                         photo = open(f'theoryHW/ifelifelse/{x}.png', 'rb')
-                        bot.send_photo(-726393257, photo)
+                        bot.send_photo(-1001822573914, photo)
                 M.clear()
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
                 btn1 = types.KeyboardButton('Контакты')
@@ -241,7 +241,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
+                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -253,7 +253,7 @@ def step(call):
                     bot.send_photo(call.message.chat.id, photo)
                     if call.message.chat.id != 1891281816:
                         photo = open(f'theoryHW/whilefor/{x}.png', 'rb')
-                        bot.send_photo(-726393257, photo)
+                        bot.send_photo(-1001822573914, photo)
                 M.clear()
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
                 btn1 = types.KeyboardButton('Контакты')
@@ -286,7 +286,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:',
                                  parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -299,7 +299,7 @@ def step(call):
                     bot.send_photo(call.message.chat.id, photo)
                     if call.message.chat.id != 1891281816:
                         photo = open(f'theoryHW/list/{x}.png', 'rb')
-                        bot.send_photo(-726393257, photo)
+                        bot.send_photo(-1001822573914, photo)
                 M.clear()
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
                 btn1 = types.KeyboardButton('Контакты')
@@ -331,7 +331,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
+                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -343,7 +343,7 @@ def step(call):
                     bot.send_photo(call.message.chat.id, photo)
                     if call.message.chat.id != 1891281816:
                         photo = open(f'theoryHW/string/{x}.png', 'rb')
-                        bot.send_photo(-726393257, photo)
+                        bot.send_photo(-1001822573914, photo)
                 M.clear()
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
                 btn1 = types.KeyboardButton('Контакты')
@@ -376,7 +376,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-726393257, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
+                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:', parse_mode='Markdown')
                 n = int(message.text)
                 M = []
                 for i in range(n):
@@ -388,7 +388,7 @@ def step(call):
                     bot.send_photo(call.message.chat.id, photo)
                     if call.message.chat.id != 1891281816:
                         photo = open(f'theoryHW/functions/{x}.png', 'rb')
-                        bot.send_photo(-726393257, photo)
+                        bot.send_photo(-1001822573914, photo)
                 M.clear()
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
                 btn1 = types.KeyboardButton('Контакты')
@@ -716,7 +716,7 @@ def step(call):
         if call.message.chat.id in Students:
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-            bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
+            bot.send_message(-1001822573914, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
                              f"Получил домашку КЕГЭ ({type}): [{kg[type][x]}](https://kpolyakov.spb.ru/school/ege/gen.php?action=viewTopic&topicId={kg[type][x]})",
                              parse_mode='Markdown', disable_web_page_preview=True)
         elif call.message.chat.id in Me:
@@ -772,7 +772,7 @@ def step(call):
             link = f'Задача типа (21): [{M[x] + 2}]({s}{M[x] + 2})'
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-            bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
+            bot.send_message(-1001822573914, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
                              f"Получил домашку ({type}): [{M[x]}]({s}{M[x]}), [{M[x] + 1}]({s}{M[x] + 1}), [{M[x] + 2}]({s}{M[x] + 2})",
                              parse_mode='Markdown', disable_web_page_preview=True)
         elif call.message.chat.id in Me:
@@ -817,7 +817,7 @@ def step(call):
         if call.message.chat.id in Students:
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-            bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
+            bot.send_message(-1001822573914, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
                              f"Получил домашку Решу ЕГЭ ({type}): [{hw[type][x]}](inf-ege.sdamgia.ru/problem?id={hw[type][x]})",
                              parse_mode='Markdown', disable_web_page_preview=True)
         elif call.message.chat.id in Me:
@@ -861,8 +861,8 @@ def step(call):
                 f.write(message.text)
                 time.sleep(300)
                 f = open(file_name, 'r')
-                bot.send_document(-726393257, f)
-                bot.send_message(-726393257, f"#{Students[call.message.chat.id][3]} отправил домашку.", reply_markup=markup)
+                bot.send_document(-1001822573914, f)
+                bot.send_message(-1001822573914, f"#{Students[call.message.chat.id][3]} отправил домашку.", reply_markup=markup)
                 bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
             else:
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -1907,7 +1907,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-            bot.send_message(-647660626, message_text, parse_mode='Markdown')
+            bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
         if day == 'Tuesday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1926,7 +1926,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-            bot.send_message(-647660626, message_text, parse_mode='Markdown')
+            bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
         if day == 'Wednesday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
@@ -1948,7 +1948,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-            bot.send_message(-647660626, message_text, parse_mode='Markdown')
+            bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
         if day == 'Friday':
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1966,7 +1966,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-            bot.send_message(-647660626, message_text, parse_mode='Markdown')
+            bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
 
         if day == 'Saturday':
@@ -1986,7 +1986,7 @@ def notice(message):
             M = [i for i in temp.split('*')]
             message_text = '\n'.join(M)
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
-            bot.send_message(-647660626, message_text, parse_mode='Markdown')
+            bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
         if day == 'Sunday':
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
@@ -2055,7 +2055,7 @@ def mess(message):
         now = dt.datetime.utcnow()
         nsk_now = now + dt.timedelta(hours=7)
         timer = nsk_now.strftime('#%d%A%B #%B%Y')
-        bot.send_message(-647660626, f"✅ #{Students[message.chat.id][3]} *абонемент оплачен*.\nДата: {timer}", parse_mode='Markdown')
+        bot.send_message(-1001819293687, f"✅ #{Students[message.chat.id][3]} *абонемент оплачен*.\nДата: {timer}", parse_mode='Markdown')
 
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
@@ -2104,7 +2104,7 @@ def mess(message):
         nsk_now = now + dt.timedelta(hours=7)
         timer = nsk_now.strftime('#%d%A%B #%A%B #%B%Y')
         timer2 = nsk_now.strftime('#%d%A%B')
-        bot.send_message(-647660626, f"{timer}\n\n#{Students[message.chat.id][3]}", parse_mode='Markdown')
+        bot.send_message(-1001819293687, f"{timer}\n\n#{Students[message.chat.id][3]}", parse_mode='Markdown')
 
         markup2 = types.InlineKeyboardMarkup(row_width=3)
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
@@ -2133,7 +2133,7 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
-                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} абонемент *закончился*.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(-1001819293687, f"⛔ #{Students[user_id][3]} абонемент *закончился*.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
                                           f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
@@ -2147,7 +2147,7 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
-                bot.send_message(-647660626, f"⛔ #{Students[user_id][3]} *абонемент закончился*.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
+                bot.send_message(-1001819293687, f"⛔ #{Students[user_id][3]} *абонемент закончился*.\n[Написать сообщение](tg://user?id={user_id})\n\nИстория:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id, f"Доброго времени суток, #{Students[user_id][3]}!\n🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
                                           f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, чтобы получить реквизиты 🙏", parse_mode='Markdown')
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
