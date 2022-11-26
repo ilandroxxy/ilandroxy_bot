@@ -41,7 +41,7 @@ FridayStudents = {719571990: ['Stepan.py', "16:00", 6800//8, "Степан", 4],
                   1649389148: ['Slava.py', "22:00", 6800//8,  "Слава", 8]}
 SaturdayStudents = {438879394: ['ilya.py', '14:00', 0, "Илья", 4],
                     1347259493: ['Andrey.py', '15:00', 1500, 'Андрей', 1000],
-                    1454117859: ['Diana', "17:00", 4320//8, "Диана", 8],
+                    1454117859: ['Diana', "17:00", 4320//8, "Диана", 5],
                     5148819382: ['Tatyana.py', "19:00", 6800//8, "Татьяна", 8],
                     1763801774: ['Kirill.py', "20:00", 6800//8, "Кирилл", 8],
                     1314375732: ['Vasiliy.py', "21:00", 6800//8, "Василий", 7],
@@ -2328,6 +2328,18 @@ def mess(message):
             sti = open('photo/WaitSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti)
     # endregion Кнопка: [Получить файл с урока]
+
+    # region Кнопка: [Отменить ⛔]
+    elif get_message_bot == 'отменить ⛔':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
+        bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+    # endregion Кнопка: [отменить ⛔]
 
     # region Иначе пишу бред
     else:
