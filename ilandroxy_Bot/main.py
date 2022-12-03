@@ -24,10 +24,9 @@ TuesdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
                    789322200: ['Katya.py', "16:00", 3600//4, "Екатерина", 4],
                    1208542295: ['Sasha.py', '19:00', 4000//8, "Александра", 6],
                    879517768: ['Grisha.py', "20:00", 1000, 'Гриша', 1000],
-                   804184353: ['Islam.py', '21:00', 3600//4, "Ислам", 4],
-                   1537718492: ['Aleksandr.py', '22:00', 5760//8, "Александр", 8]}
+                   804184353: ['Islam.py', '21:00', 3600//4, "Ислам", 4]}
 ThursdayStudents = {1949653479: ['Yanina.py', '10:00', 4080//8, "Янина", 8],
-                    5242003138: ['Dima.py', '16:00', 1000, "Дмитрий", 1000],
+                    5242003138: ['Dima.py', '16:00', 3600//4, "Дмитрий", 4],
                     1187852992: ['Aleksandr_2.py', "17:00", 6800//8, "Александр2", 8],
                     1454117859: ['Diana', "19:00", 4320//8, "Диана", 8],
                     811476623:  ["Georgie.py", "20:00", 3040//4, "Георгий", 4],
@@ -47,6 +46,7 @@ SaturdayStudents = {438879394: ['ilya.py', '14:00', 0, "Илья", 4],
                     1314375732: ['Vasiliy.py', "21:00", 6800//8, "Василий", 7],
                     871237277: ['Vladek.py', "22:00", 6800//8, "Владек", 8]}
 
+# 923349631: ['Olesya.py','',,'Олеся', ]
 Me = {1891281816: ['', '00:00', 0, "iРепетитор", 5],
       438879394: ['Ilya.py', '14:00', 0, "Илья", 4]}
 
@@ -2234,7 +2234,7 @@ def mess(message):
     # region Кнопка: [Контакты]
     elif get_message_bot == "контакты":
         send_message1 = "*Мои контакты:*\n\n" \
-                        "[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Teletype](https://teletype.in/@ilandroxy)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
+                        "[Мое портфолио](https://ilandroxxy.github.io/)\n\n[Telegram](t.me/ilandroxy)\n\n[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Teletype](https://teletype.in/@ilandroxy)\n\n[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
                         "[Zoom](https://us04web.zoom.us/j/2402871810?pwd=OVdGQkE2ODIvWm1WNk5EdStQR1o4UT09)\n\n" \
                         "[Профиль Авито](www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing)\n\n[YouTube](https://youtube.com/@ilandroxy)\n\n" \
                         "[GitHub](https://github.com/ilandroxxy)\n\nРабочий телефон: +7 (995) 437–52–59\n\nEmail: collegehacksbot@gmail.com\n\n" \
