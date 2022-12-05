@@ -555,62 +555,7 @@ for i in range(45000000, 50000001):
         '''
 
 
-'''
-import time
-def D(x):
-    dl = set()
-    for j in range(1, int(x ** 0.5)+1):
-        if x % j == 0:
-            if j % 2 != 0:
-                dl.add(j)
-            if (x // j) % 2 != 0:
-                dl.add(x // j)
-            if len(dl) > 5:
-                return dl
-    return sorted(dl)
 
-for x in range(45000000, 50000000+1):
-    dl = D(x)
-    print(x, dl)
-    if len(dl) == 5:
-        print(x, dl, '-------')
-        time.sleep(15)
-'''
-# Ответ:
-# 45212176
-# 45265984
-# 47458321
-# 48469444
-
-
-
-# Тип 18 № 33488
-# Дана последовательность вещественных чисел.
-# Из неё необходимо выбрать несколько подряд идущих чисел так, чтобы каждое следующее число отличалось от предыдущего не более чем на 8.
-# Какую максимальную сумму могут иметь выбранные числа?
-#
-# В ответе запишите только целую часть максимально возможной суммы.
-# Исходная последовательность записана в виде одного столбца электронной таблицы.
-'''
-f = open('18.txt')
-M = []
-for s in f.readlines():
-    M.append(float(s.replace(',', '.')))
-print(M)
-
-A = set()
-maxcount = 0
-for i in range(0, len(M)-1):
-    if abs(M[i+1] - M[i]) <= 8:
-        A.add(M[i])
-        A.add(M[i+1])
-    else:
-        print(A, sum(A))
-        if maxcount < sum(A):
-            maxcount = sum(A)
-        A.clear()
-print(maxcount)
-'''
 
 # Пост:
 M = [1, 2, 3, 4, 5]
@@ -628,10 +573,11 @@ print()
 # Пары: 34 35
 # Пары: 45
 
+'''
 for i in range(0, len(M)):
     for j in range(i+1, len(M)):
         print(M[i], M[j], end=', ')
-
+'''
 
 # Тип 17 № 38951
 
@@ -666,7 +612,26 @@ D = {1, 2, 3}
 
 
 
+def map(function, items):
+    result = []
+    for item in items:
+        result.append(function(item))
+    return result
 
+def func_apply(function, items):
+    result = []
+    for item in items:
+        result.append(function(item))
+    return result
 
+def add3(x):
+    return x + 3
+
+def mul7(x):
+    return x * 7
+
+print(func_apply(mul7, [1, 2, 3, 4, 5, 6]))
+print(func_apply(add3, [1, 2, 3, 4, 5, 6]))
+print(func_apply(str, [1, 2, 3, 4, 5, 6]))
 
 
