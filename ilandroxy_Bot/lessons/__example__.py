@@ -607,31 +607,67 @@ C = {1, 2, 3}
 D = {}  # пустой словарь
 D = dict()  # пустое словарь
 D = {1, 2, 3}
+
+
+
+'''
+'''
+x = '112412'
+print(x.isdigit())
+
+
+func = lambda x: True if x[0].lower() == 'a' and x[-1].lower() == 'a' else False
+
+is_non_negative_num = lambda x: True if x.count('.') <= 1 and x.replace('.', '').isdigit() else False
+
+print(is_non_negative_num('-2345.213'))
+
+is_num = lambda x: True if x.count('-') <= 1 and '-' not in x[1:] and x.count('.') <= 1 and x.replace('.', '').replace('-', '').isdigit() else False
+print(is_num('0'))
+
+
+
+
+
+
+numbers = [46, 61, 34, 17, 56, 26, 93, 1, 3, 82, 71, 37, 80, 27, 77, 94, 34, 100, 36, 81, 33, 81, 66, 83, 41, 80, 80, 93, 40, 34, 32, 16, 5, 16, 40, 93, 36, 65, 8, 19, 8, 75, 66, 21, 72, 32, 41, 59, 35, 64, 49, 78, 83, 27, 57, 53, 43, 35, 48, 17, 19, 40, 90, 57, 77, 56, 80, 95, 90, 27, 26, 6, 4, 23, 52, 39, 63, 74, 15, 66, 29, 88, 94, 37, 44, 2, 38, 36, 32, 49, 5, 33, 60, 94, 89, 8, 36, 94, 46, 33]
+
+filter_result = list(filter(lambda num: num if num % 2 == 0 or (num % 2 != 0 and num <= 47) else None, numbers))
+
+map_result = list(map(lambda num: num // 2 if num % 2 == 0 else num, filter_result))
+
+print(* map_result)
+
+
+
+
+data = ['год', 'человек', 'время', 'дело', 'жизнь', 'день', 'рука', 'раз', 'работа', 'слово', 'место', 'лицо', 'друг', 'глаз', 'вопрос', 'дом', 'сторона', 'страна', 'мир', 'случай', 'голова', 'ребенок', 'сила', 'конец', 'вид', 'система', 'часть', 'город', 'отношение', 'женщина', 'деньги']
+
+
+
+result = sorted(data, key=lambda point: (len(point), point))
+
+print(*result)
+
+# for x in result:
+#     print(f'{x[1]}: {x[0]}')
+
+
+mixed_list = ['beside', 48, 'accelerate', 28, 'beware', 'absorb', 'besides', 'berry', 15, 65, 'abate', 'thursday', 76, 70, 94, 35, 36, 'berth', 41, 'abnormal', 'bicycle', 'bid', 'sunday', 'saturday', 87, 'bigot', 41, 'abort', 13, 60, 'friday', 26, 13, 'accident', 'access', 40, 26, 20, 75, 13, 40, 67, 12, 'abuse', 78, 10, 80, 'accessory', 20, 'bewilder', 'benevolent', 'bet', 64, 38, 65, 51, 95, 'abduct', 37, 98, 99, 14, 'abandon', 'accept', 46, 'abide', 'beyond', 19, 'about', 76, 26, 'abound', 12, 95, 'wednesday', 'abundant', 'abrupt', 'aboard', 50, 89, 'tuesday', 66, 'bestow', 'absent', 76, 46, 'betray', 47, 'able', 11]
+
+A = sorted(filter(lambda x: x if type(x) == int else None, mixed_list))
+
+B = sorted(filter(lambda x: x if type(x) == str else None, mixed_list))
+
+R = A + B
+print(*R)
 '''
 
+countries = ['Russia', 'USA', 'UK', 'Germany', 'France', 'India']
+capitals = ['Moscow', 'Washington', 'London', 'Berlin', 'Paris', 'Delhi']
+population = [145_934_462, 331_002_651, 80_345_321, 67_886_011, 65_273_511, 1_380_004_385]
 
-
-
-def map(function, items):
-    result = []
-    for item in items:
-        result.append(function(item))
-    return result
-
-def func_apply(function, items):
-    result = []
-    for item in items:
-        result.append(function(item))
-    return result
-
-def add3(x):
-    return x + 3
-
-def mul7(x):
-    return x * 7
-
-print(func_apply(mul7, [1, 2, 3, 4, 5, 6]))
-print(func_apply(add3, [1, 2, 3, 4, 5, 6]))
-print(func_apply(str, [1, 2, 3, 4, 5, 6]))
+for pair in zip(capitals, countries, population):
+    print(f'{pair[0]} is the capital of {pair[1]}, population equal {pair[2]} people.')
 
 
