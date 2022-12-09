@@ -663,11 +663,107 @@ R = A + B
 print(*R)
 '''
 
-countries = ['Russia', 'USA', 'UK', 'Germany', 'France', 'India']
-capitals = ['Moscow', 'Washington', 'London', 'Berlin', 'Paris', 'Delhi']
-population = [145_934_462, 331_002_651, 80_345_321, 67_886_011, 65_273_511, 1_380_004_385]
+# countries = ['Russia', 'USA', 'UK', 'Germany', 'France', 'India']
+# capitals = ['Moscow', 'Washington', 'London', 'Berlin', 'Paris', 'Delhi']
+# population = [145_934_462, 331_002_651, 80_345_321, 67_886_011, 65_273_511, 1_380_004_385]
+#
+# for pair in zip(capitals, countries, population):
+#     print(f'{pair[0]} is the capital of {pair[1]}, population equal {pair[2]} people.')
+#
 
-for pair in zip(capitals, countries, population):
-    print(f'{pair[0]} is the capital of {pair[1]}, population equal {pair[2]} people.')
 
+# ip = [i for i in input().split('.')]
+# result = all(map(lambda x: True if x.isdigit() and 0 <= int(x) <= 255 else False, ip))
+# print(result)
+
+
+
+'''
+a = int(input())
+b = int(input())
+numbers = [i for i in range(a, b+1)]
+result = []
+for x in numbers:
+    nums = [int(i) for i in str(x)]
+    temp = all(map(lambda y: y if '0' not in str(y) and x % y == 0 else None, nums))
+
+    if temp == True:
+        result.append(x)
+
+print(*result)
+'''
+
+'''
+import string
+s = input()
+result = all([any(map(lambda x: x in string.digits, s)), any(map(lambda x: x in string.ascii_lowercase, s)), any(map(lambda x: x in string.ascii_uppercase, s)), len(s) >= 7])
+
+if result == True:
+    print('YES')
+else:
+    print('NO')
+'''
+
+
+'''
+n = int(input())
+result = []
+for _ in range(n):
+    k = int(input())
+    M = []
+    for _ in range(k):
+        s = input()
+        M.append(s)
+    result.append(any(map(lambda x: '5' in x, M)))
+
+if all(result) == True:
+    print('YES')
+else:
+    print('NO')
+'''
+
+
+
+'''
+0.0 0.0
+1.5 0.0
+1.1 1.1
+'''
+
+# def generate_letter(mail, name, date, time, place, teacher='Тимур Гуев', number='17'):
+#     text_message = f'To: {mail}\nПриветствую, {name}!\nВам назначен экзамен, который пройдет {date}, в {time}.\nПо адресу: {place}.\n' \
+#                    f'Экзамен будет проводить {teacher} в кабинете {number}.\nЖелаем удачи на экзамене!'
+#     return text_message
+#
+# print(generate_letter('lara@yandex.ru', 'Лариса', '10 декабря', '12:00', 'Часова 23, корпус 2'))
+
+
+def pretty_print(data, side='-', delimiter='|'):
+    s = f'{delimiter} '
+    for i in data:
+        s += str(i) + f" {delimiter} "
+    print(len(s[:-1]))
+    text_message = f' {side * (len(s[:-1])-2)} \n{s[:-1]}\n {side * (len(s[:-1])-2)} '
+    return text_message
+
+print(pretty_print([1, 2, 10, 23, 123, 3000]))
+pretty_print((['abc', 'def', 'ghi', '12345']))
+pretty_print(['abc', 'def', 'ghi'], side='*')
+pretty_print(['abc', 'def', 'ghi'], delimiter='#')
+pretty_print(['abc', 'def', 'ghi'], side='*', delimiter='#')
+
+
+def concat(*args, sep=' '):
+    s = ''
+    for x in args:
+        s += str(x) + sep
+    return s[:-len(sep)]
+
+print(concat('hello', 'python', 'and', 'stepik'))
+print(concat('hello', 'python', 'and', 'stepik', sep='*'))
+print(concat('hello', 'python', sep='()()()'))
+
+
+def product_of_odds(data):
+    pass
 
