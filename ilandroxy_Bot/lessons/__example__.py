@@ -738,7 +738,7 @@ else:
 # print(generate_letter('lara@yandex.ru', 'Лариса', '10 декабря', '12:00', 'Часова 23, корпус 2'))
 
 
-def pretty_print(data, side='-', delimiter='|'):
+'''def pretty_print(data, side='-', delimiter='|'):
     s = f'{delimiter} '
     for i in data:
         s += str(i) + f" {delimiter} "
@@ -767,3 +767,4 @@ print(concat('hello', 'python', sep='()()()'))
 def product_of_odds(data):
     pass
 
+'''
