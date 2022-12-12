@@ -768,3 +768,32 @@ def product_of_odds(data):
     pass
 
 '''
+
+
+'''
+with open(f'file.txt', 'r', encoding='utf-8') as f:
+    s = f.readlines()
+    x3 = len(s)
+    x2, x1 = 0, 0
+    for x in s:
+        M = x.split()
+        x2 += len(M)
+        for z in M:
+            for slow in z:
+                if slow in 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM':
+                    x1 += 1
+
+# 1069 letters
+# 229 words
+# 12 lines
+
+
+print(f'Input file contains:\n{x1} letters\n{x2} words \n{x3} lines')
+'''
+with open(input()) as f:
+    prev, without_comments = ' ', []
+    for line in f:
+        if line.startswith('def') and not prev.startswith('#'):
+            without_comments.append(line[line.find(' ') + 1: line.find('(')])
+        prev = line
+    print('\n'.join(without_comments) if without_comments else 'Best Programming Team')
