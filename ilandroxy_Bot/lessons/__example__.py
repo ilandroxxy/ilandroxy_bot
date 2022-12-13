@@ -790,10 +790,10 @@ with open(f'file.txt', 'r', encoding='utf-8') as f:
 
 print(f'Input file contains:\n{x1} letters\n{x2} words \n{x3} lines')
 '''
-with open(input()) as f:
-    prev, without_comments = ' ', []
-    for line in f:
-        if line.startswith('def') and not prev.startswith('#'):
-            without_comments.append(line[line.find(' ') + 1: line.find('(')])
-        prev = line
-    print('\n'.join(without_comments) if without_comments else 'Best Programming Team')
+
+def update_dictionary(d, key, value):
+    if key in d:
+        d[key].append(value)
+    else:
+        d[key*2] = value
+
