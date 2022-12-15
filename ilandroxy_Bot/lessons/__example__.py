@@ -791,9 +791,24 @@ with open(f'file.txt', 'r', encoding='utf-8') as f:
 print(f'Input file contains:\n{x1} letters\n{x2} words \n{x3} lines')
 '''
 
-def update_dictionary(d, key, value):
-    if key in d:
-        d[key].append(value)
-    else:
-        d[key*2] = value
 
+
+
+import sqlite3
+
+con = sqlite3.connect('db.sqlite')
+cur = con.cursor()
+
+cur.execute('''
+SELECT ice_cream.name, categories.slug, MAX(ice_cream.price)
+FROM ice_cream, categories
+WHERE ice_cream.category_id = categories.id
+GROUP BY categories.slug
+ORDER BY ice_cream.price DESC
+''')
+
+for result in cur:
+    print(result)
+
+con.commit()
+con.close()
