@@ -2,100 +2,16 @@
 
 # region Домашка:  **************************************************
 
+# Задание 15 № 39244
 '''
-# Тип 5 № 28681
-for n in range(128, 256):
-    s = bin(n)[2:]
-    s = s.replace('1', '*')
-    s = s.replace('0', '1')
-    s = s.replace('*', '0')
-    if n - int(s, 2) == 105:
-        print(n)
-'''
-
-# Тип 16 № 7273
-'''
-def F(x):
-    if x == 1:
-        return 1
-    if x > 1:
-        return F(x - 1) * (2 * x + 1)
-print(F(4))
-'''
-
-# № 5458
-'''
-def F(x):
-    if x <= 2:
-        return 2
-    if x > 2:
-        return F(x - 1) + 2 * F(x - 2)
-print(F(5))
-'''
-
-# № 5554
-'''
-def F(x):
-    if x <= 2:
-        return x + 1
-    if x > 2:
-        return F(x - 1) + 3 * F(x - 2)
-print(F(4))
-'''
-
-# Тип 23 № 45257
-'''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a + 2, b) + F(a * 2, b)
-print(F(1, 18) * F(18, 52))
-'''
-
-# № 13633
-'''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a + 1, b) + F(a * 2, b) + F(a * 3, b)
-print(F(2, 15) * F(15, 30))
-'''
-
-# № 18828
-'''
-def F(a, b):
-    if a > b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a + 1, b) + F(a + 3, b) + F(a * 3, b)
-print(F(4, 10) * F(10, 17) * F(17, 23))
-'''
-
-# endregion Домашка: **************************************************
-
-
-# region Урок:  **************************************************
-
-# Тип 15 № 9320
-'''
-# Для какого наименьшего натурального числа А формула
-# ДЕЛ(x, А) → (ДЕЛ(x, 21) + ДЕЛ(x, 35))
-# тождественно истинна (то есть принимает значение 1 при любом натуральном значении переменной x)?
-
 def F(x, A):
-    return (x % A == 0) <= ((x % 21 == 0) or (x % 35 == 0))  # ДЕЛ(x, А) → (ДЕЛ(x, 21) + ДЕЛ(x, 35))
-
-for A in range(1, 1000):
+    B = x & 105 == 0
+    C = x & 58 != 0
+    D = x & A != 0
+    return B <= (C <= D)
+for A in range(0, 1000):
     flag = True
-    for x in range(1, 1000):
+    for x in range(0, 1000):
         if F(x, A) == False:
             flag = False
             break
@@ -103,20 +19,28 @@ for A in range(1, 1000):
         print(A)
         break
 '''
-# Ответ: 21
 
-
-
-
-# Тип 15 № 26990
+# № 34542
 '''
-# Для какого наибольшего целого неотрицательного числа A выражение
-# (x > A) ∨ (y > A) ∨ (2y + x < 110)
-# тождественно истинно, то есть принимает значение 1 при любых целых неотрицательных x и y?
+def F(x, a1, a2):
+    A = a1 <= x <= a2
+    P = 1 <= x <= 39
+    Q = 23 <= x <= 58
+    return (P <= (not(Q))) <= (not(A))
+liner = [i/4 for i in range(1*4, 60*4)]
+print(liner)
+M = []
+for a1 in liner:
+    for a2 in liner:
+        if all(F(x, a1, a2) == True for x in liner):
+            M.append(a2 - a1)
+print(max(M))
+'''
 
+# № 27303
+'''
 def F(x, y, A):
-    return (x > A) or (y > A) or (2*y + x < 110)
-
+    return (4 * x + 3 * y < A) or (y <= x) or (13 <= y)
 for A in range(0, 1000):
     flag = True
     for x in range(0, 100):
@@ -124,31 +48,136 @@ for A in range(0, 1000):
             if F(x, y, A) == False:
                 flag = False
                 break
-        if flag == False:
-            break
     if flag == True:
         print(A)
+        break
 '''
-# Ответ: 36
 
-
-
-# Тип 15 № 34508
+# № 18720
 '''
+def F(x, y, A):
+    return (x * y < A) or (x < y) or (12 <= x)
+for A in range(0, 1000):
+    flag = True
+    for x in range(0, 100):
+        for y in range(0, 100):
+            if F(x, y, A) == False:
+                flag = False
+                break
+    if flag == True:
+        print(A)
+        break
+'''
+
+# Площадь и длина
+'''
+# import math
+# def get_circle(R):
+#     return 2 * math.pi * R,  math.pi * R ** 2
+# R = float(input('Введите длину радиуса '))
+# print(get_circle(R))
+
+
+from math import *
+def get_circle(R):
+    return 2 * pi * R, pi * R ** 2
+R = float(input('Введите длину радиуса '))
+print(get_circle(R))
+'''
+
+# Is a Number Prime?
+'''
+def is_prime(num):
+    for x in range(2, num):
+        if num % x == 0:
+            return False
+    return True
+n = int(input('Введите число '))
+print(is_prime(n))
+'''
+
+# Делители 1
+'''
+def get_factors(num):
+    M = []
+    for i in range(1, num + 1):
+        if num % i == 0:
+            M.append(i)
+    return M
+n = int(input('Введите число '))
+print(get_factors(n))
+'''
+
+
+'''
+def FIO(last_name, first_name, daddy_name):
+    return f'{last_name[0]}.{first_name[0]}.{daddy_name[0]}.'
+
+name = input('Введите ФИО:').split()
+print(FIO(name[0], name[1], name[2]))
+'''
+
+
+'''
+def FIO(name):
+    name = name.upper()
+    M = name.split()
+    return f'{M[0][0]}.{M[1][0]}.{M[2][0]}.'
+
+name = input('Введите ФИО: ')
+
+print(FIO(name))
+'''
+
+
+
+
+# endregion Домашка: **************************************************
+
+
+# region Урок:  **************************************************
+
+#ДЗ или написать свою функцию для вычислений:
 # Обозначим через m & n поразрядную конъюнкцию неотрицательных целых чисел m и n.
 # Так, например, 14 & 5 = 1110_2 & 0101_2 = 0100_2 = 4.
-# Для какого наименьшего неотрицательного целого числа А формула
+print(14 & 4)
+
+
+# Тип 15 № 39244
+# Обозначим через m & n поразрядную конъюнкцию неотрицательных целых чисел m и n.
 #
-# x & 29 ≠ 0 → (x & 12 = 0 → x & А ≠ 0)
+# Так, например, 14 & 5 = 11102 & 01012 = 01002 = 4. Для какого наименьшего неотрицательного целого числа А формула
 #
-# тождественно истинна (то есть принимает значение 1 при любом неотрицательном целом значении переменной х)?
+# (x & 105 = 0) → ((x & 58 ≠ 0) → (x & А ≠ 0))
+#
+# тождественно истинна (т.е. принимает значение 1 при любом неотрицательном целом значении переменной x)?
+
+'''
+def Con(m, n):
+    M = bin(m)[2:]
+    N = bin(n)[2:]
+
+    while len(M) != len(N):  # добавляем незначащие нули
+        if len(M) < len(N):
+            M = '0' + M
+        else:
+            N = '0' + N
+
+    r = ''
+    for i in range(len(M)):
+        if M[i] == '1' and N[i] == '1':
+            r += '1'
+        else:
+            r += '0'
+
+    result = int(r, 2)
+    return result
 
 def F(x, A):
-    Q = x & 29 != 0
-    W = x & 12 == 0
-    R = x & A != 0
+    Q = Con(x, 105) == 0
+    W = x & 58 != 0
+    R = Con(x, A) != 0
     return Q <= (W <= R)
-    # return (x & 29 != 0) <= ((x & 12 == 0) <= (x & A != 0))
 
 for A in range(0, 1000):
     flag = True
@@ -160,129 +189,89 @@ for A in range(0, 1000):
         print(A)
         break
 '''
-# Ответ: 17
 
 
-
-# Тип 15 № 34535
-# На числовой прямой даны три отрезка: P = [10, 40], Q = [5, 15] и R = [35, 50].
-# Какова наименьшая возможная длина промежутка A, что формула
-# ( (x ∈ А) ∨ (x ∈ P) ) ∨ ((x ∈ Q)→ (x ∈ R))
-# тождественно истинна, то есть принимает значение 1 при любом значении переменной х.
-
-# Вариант 1 -> плохой вариант для работы с отрезками, потому что ошибается на +- 1
+# Тип 5 № 33475
 '''
-def F(x, a1, a2):
-    A = a1 <= x <= a2
-    P = 10 <= x <= 40
-    Q = 5 <= x <= 15
-    R = 35 <= x <= 50
-    return (A or P) or (Q <= R)
-    # return ((a1 <= x <= a2) or (10 <= x <= 40)) or ((5 <= x <= 15) <= (35 <= x <= 50))
-
-M = []
-for a1 in range(0, 60):
-    for a2 in range(0, 60):
-        flag = True
-        for x in range(0, 100):
-            if F(x, a1, a2) == False:
-                flag = False
-                break
-        if flag == True:
-            M.append(a2 - a1)
-print(min(M))
-'''
-
-# Вариант 2
-'''
-def F(x):
-    A = a1 <= x <= a2
-    P = 10 <= x <= 40
-    Q = 5 <= x <= 15
-    R = 35 <= x <= 50
-    return (A or P) or (Q <= R)
-
-liner = [i/4 for i in range(1*4, 60*4)]
-print(liner)
-
-M = []
-for a1 in liner:
-    for a2 in liner:
-        if all(F(x) == True for x in liner):
-            M.append(a2 - a1)
-print(min(M))
-'''
-# Ответ: 5
-
-# 3.8  # round(3.8) --> 4
-# 3.3  # round(3.3) --> 3
-
-# 3.8  #  int(3.8) + 1 --> 3 + 1 = 4
-# 3.3  #  int(3.3) + 1 --> 3 + 1 = 4
-
-
-
-# Тип 15 № 7763
-'''
-# На числовой прямой даны два отрезка: P = [5, 30] и Q = [14, 23]. Укажите наибольшую возможную длину промежутка A, для которого формула
+# Алгоритм получает на вход натуральное число N>1 и строит по нему новое число R следующим образом:
 #
-# ((x ∈ P) ≡ (x ∈ Q)) → ¬(x ∈ A)
+# 1. Строится двоичная запись числа N.
+# 2. В конец записи (справа) дописывается вторая справа цифра двоичной записи.
+# 3. В конец записи (справа) дописывается вторая слева цифра двоичной записи.
+# 4. Результат переводится в десятичную систему.
+
+# При каком наименьшем числе N в результате работы алгоритма получится R>180?
+# В ответе запишите это число в десятичной системе счисления.
+
+for n in range(2, 1000):
+    s = bin(n)[2:]
+    s += s[-2]
+    s += s[1]
+    r = int(s, 2)
+    if r > 180:
+        print(n)
+        break
+        '''
+# Ответ: 46
+
+# Тип 5 № 28542
+# Автомат обрабатывает натуральное число N по следующему алгоритму:
 #
-# тождественно истинна, то есть принимает значение 1 при любом значении переменной х.
+# 1. Строится троичная запись числа N.
+# 2. В конец записи (справа) дописывается остаток от деления числа N на 3.
+# 3. Результат переводится из троичной системы в десятичную и выводится на экран.
+#
+# Какое наименьшее четырёхзначное число может появиться на экране в результате работы автомата?
 
-def F(x):
-    A = a1 <= x <= a2
-    P = 5 <= x <= 30
-    Q = 14 <= x <= 23
-    return (P == Q) <= (not A)
-
-liner = [i/4 for i in range(1*4, 60*4)]
-print(liner)
-
-M = []
-for a1 in liner:
-    for a2 in liner:
-        if all(F(x) == True for x in liner):
-            M.append(a2 - a1)
-print(max(M))
+# Вариант 1
 '''
-# Ответ: 9
+for n in range(1, 1000):
+    x = n
 
+    M = []
+    while x > 0:
+        M.append(x % 3)
+        x //= 3
+    M.reverse()
 
-# Тип 15 № 47012
-''' 
-# На числовой прямой даны два отрезка: P=[69;91] и Q=[77;114]. Укажите наименьшую возможную длину такого отрезка A, для которого формула
-#
-# (x∈P)→(¬((x∈P)≡(x∈Q))∨((x∈Q)→(x∈A)))
-#
-# тождественно истинна (т.е. принимает значение 1 при любом значении переменной х).
+    M.append(n % 3)
 
-def F(x):
-    A = a1 <= x <= a2
-    P = 69 <= x <= 91
-    Q = 77 <= x <= 114
-    return P <= ((not(P == Q)) or (Q <= A))
+    r = 0
+    M.reverse()
+    for i in range(0, len(M)):
+        r += M[i] * 3 ** i
 
-liner = [i/4 for i in range(50*4, 120*4)]
-print(liner)
-
-M = []
-for a1 in liner:
-    for a2 in liner:
-        # flag = True
-        # for x in liner:
-        #     if F(x) == False:
-        #         flag = False
-        #         break
-        # if flag == True:
-        #     M.append(a2 - a1)
-        if all(F(x) == True for x in liner):
-            M.append(a2 - a1)
-print(min(M))
+    if 1000 <= r < 10000:
+        print(r)
+        break
 '''
-# Ответ: 14
+
+
+'''
+def systems(x, n):
+    alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    M = []
+    while x > 0:
+        M.append(alphabet[x % n])
+        x //= n
+    M.reverse()
+    r = ''.join(M)
+    return r
+
+for n in range(1, 1000):
+    s = systems(n, 3)
+    s += str(n % 3)
+    r = int(s, 3)
+    if 1000 <= r < 10000:
+        print(r)
+        break
+'''
+# Ответ: 1003
+
+
+
 
 # endregion Урок:  **************************************************
 
 
-# todo: Татьяна = [2, 5, 8, 12, 14+, 15.1, 16, 23], на следующем уроке: Вопросы по 15 номеру, Разбираем задачи на отрезки и множества
+# todo: Татьяна = [2, 5, 8, 12, 14+, 15.1, 16, 23], на следующем уроке: Переходим к 25

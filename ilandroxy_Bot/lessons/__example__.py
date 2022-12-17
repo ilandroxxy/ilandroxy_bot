@@ -791,26 +791,26 @@ with open(f'file.txt', 'r', encoding='utf-8') as f:
 print(f'Input file contains:\n{x1} letters\n{x2} words \n{x3} lines')
 '''
 
-import sqlite3
+'''
+from functools import *
+@lru_cache(None)
+def F(n):
+    if n <= 1:
+        return n
+    if n > 1 and n % 3 == 0:
+        return n + F(n / 3)
+    if n > 1 and n % 3 != 0:
+        return n + F(n+3)
 
-con = sqlite3.connect('db.sqlite')
-cur = con.cursor()
 
-cur.execute('''
-    SELECT ice_cream.name, 
-        categories.slug,  
-        wrappers.name, 
-        MIN(ice_cream.price), 
-        AVG(ice_cream.price)
-    FROM ice_cream
-    LEFT JOIN wrappers ON ice_cream.wrapper_id = wrappers.id
-    JOIN categories ON ice_cream.category_id = categories.id
-    GROUP BY categories.id;
+for x in range(1, 501):
+    try:
+        if F(x) >= 100:
+            print(x)
+            break
+    except:
+        pass
+'''
 
-''')
 
-for result in cur:
-    print(result)
-
-con.commit()
-con.close()
+print((2*3516 - 1) * (2*3515 - 1) * (2*3514 - 1))

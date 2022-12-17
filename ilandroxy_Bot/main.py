@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+TOKEN = "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
@@ -859,8 +859,8 @@ def step(call):
 
                 f = open(file_name, 'w')
                 f.write(message.text)
-                time.sleep(300)
-                f = open(file_name, 'r')
+                time.sleep(180)
+                f = open(file_name, 'rb')
                 bot.send_document(-1001822573914, f)
                 bot.send_message(-1001822573914, f"#{Students[call.message.chat.id][3]} отправил домашку.", reply_markup=markup)
                 bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
