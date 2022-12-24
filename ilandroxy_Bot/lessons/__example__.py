@@ -813,4 +813,18 @@ for x in range(1, 501):
 '''
 
 
-print((2*3516 - 1) * (2*3515 - 1) * (2*3514 - 1))
+def D(x):
+    M = []
+    for j in range(1, x+1):
+        if x % j == 0:
+            M.append(j)
+    return M
+
+print(2 * 2 * 2 * 11)
+
+x = int(input('x: '))
+result = D(x)
+if len(result) == 2:
+    print(f'Простое число\nДелители: {result}')
+else:
+    print(f'Составное число\nДелители: {result}')
