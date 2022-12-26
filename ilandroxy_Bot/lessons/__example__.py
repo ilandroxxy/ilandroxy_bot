@@ -812,7 +812,7 @@ for x in range(1, 501):
         pass
 '''
 
-
+'''
 def D(x):
     M = []
     for j in range(1, x+1):
@@ -828,3 +828,78 @@ if len(result) == 2:
     print(f'Простое число\nДелители: {result}')
 else:
     print(f'Составное число\nДелители: {result}')
+'''
+
+
+# import turtle as t
+# t.left(90)
+# l = 10
+# t.color('red')
+# x = 0
+# y = 0
+# t.begin_fill()
+# for _ in range(1):
+#     x += 5
+#     y += 15
+#     t.goto(x*l, y*l)
+#
+#     x += 111
+#     y += 0
+#     t.goto(x*l, y*l)
+#
+#     x += -60
+#     y += -15
+#     t.goto(x*l, y*l)
+#
+#     x += -56
+#     y += 0
+#     t.goto(x*l, y*l)
+# t.end_fill()
+#
+# canvas = t.getcanvas()
+# count = 0
+# for x in range(-100*l, 100*l, l):
+#     for y in range(-100*l, 100*l, l):
+#         item = canvas.find_overlapping(x, y, x, y)
+#         if len(item) == 1 and item[0] == 5:
+#             count += 1
+# print(count)
+#
+# t.done()
+
+
+# import turtle as t
+# t.left(90)
+# l = 20
+# t.speed(10)
+# t.color('red')
+#
+# for _ in range(3):
+#     t.forward(30*l)
+#     t.right(120)
+#
+# t.pu()
+# t.color('blue')
+# for x in range(0, 31):
+#     for y in range(0, 31):
+#         t.goto(x*l, y*l)
+#         t.dot(3)
+#
+# t.done()
+
+print(10**8)
+print('1234***7')
+
+M = [i for i in range(0, 1000)]
+M.append('')
+
+my_dict = {}
+for x in '0123456789':
+    for y in M:
+        A = int(f'1234{y}7')
+        if A % 141 == 0:
+            my_dict[A] = A // 141
+
+for key in sorted(my_dict):
+    print(key, my_dict[key])
+
