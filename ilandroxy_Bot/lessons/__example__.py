@@ -942,3 +942,7 @@ print(F(3, 11, '','') * F(11, 79, '', ''))
 #         return F(a+1, b) + F(int(str(a) + '0'), b) + F(int(str(a) + '1'), b)
 #
 # print(F(100, 11101))
+
+
+import Dima
+print(Dima.D.__doc__)
