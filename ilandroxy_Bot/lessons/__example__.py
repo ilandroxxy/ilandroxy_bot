@@ -944,5 +944,5 @@ print(F(3, 11, '','') * F(11, 79, '', ''))
 # print(F(100, 11101))
 
 
-import Dima
-print(Dima.D.__doc__)
+
+

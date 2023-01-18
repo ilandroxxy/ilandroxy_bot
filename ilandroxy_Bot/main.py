@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+TOKEN = "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
@@ -16,7 +16,7 @@ bot = telebot.TeleBot(TOKEN)
 # region Словарь с данными студентов
 MondayStudents = {
     1477701439: ["Valeria.py", '15:00-16:30', 1000, "Валерия", 1000],
-    768734764: ["Bogdan.py", '16:30-17:30', 3600//4, "Богдан", 4],
+    768734764: ["Bogdan.py", '16:30-17:30', 4000//4, "Богдан", 4],
     659796558: ['Ivan.py', '20:00-21:00', 1000, "Иван", 1000],
     826004697: ['Nikita.py', '22:00-23:00', 3040//4, "Никита", 4]}
 TuesdayStudents = {
@@ -34,7 +34,7 @@ ThursdayStudents = {
     811476623:  ["Georgie.py", "20:00-21:00", 3040//4, "Георгий", 4],
     1537718492: ["Aleksandr.py", "22:00-23:00", 5760//8, "Александр", 8]}
 FridayStudents = {
-    575882793: ['Artem.py', '15:00-16:00', 9600//8, 'Артем', 1000],
+    575882793: ['Artem.py', '15:00-16:00', 9600//8, 'Артем', 8],
     719571990: ['Stepan.py', "16:00-17:00", 6800//8, "Степан", 8],
     644645774: ['Stasya.py', "17:00-18:00", 6800//8, "Стася", 8],
     986539147: ['Danil.py', '19:00-20:00', 6800 // 8, "Данил", 8],
@@ -62,7 +62,7 @@ Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents 
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉
 # ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️ 0️⃣  1️⃣  2️⃣
-# 3️⃣  4️⃣  5️⃣  6️⃣  7️⃣  8️⃣  9️⃣  🔟    🐍
+# 3️⃣  4️⃣  5️⃣  6️⃣  7️⃣  8️⃣  9️⃣  🔟    🐍 ☎️ 📞 👾
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -509,33 +509,47 @@ def step(call):
     # todo: Придумать, как удалять старые сообщения после нажатия кнопки Далее
 
     elif call.data == 'next1':
-        send_message = 'Бот умеет выдавать домашнюю работу, а с недавних пор еще и проверяет ее!'
-        bot.send_message(call.message.chat.id, send_message)
-
+        bot.send_media_group(call.message.chat.id,
+                             [types.InputMediaPhoto(open('photo/hw_button_1.jpg', 'rb')),
+                              types.InputMediaPhoto(open('photo/hw_button_2.jpg', 'rb')),
+                              types.InputMediaPhoto(open('photo/hw_button_3.jpg', 'rb')),
+                              types.InputMediaPhoto(open('photo/hw_button_4.jpg', 'rb'))])
         markup2 = types.InlineKeyboardMarkup()
         markup2.add(types.InlineKeyboardButton("Далее", callback_data='next2'))
 
-        send_pic = open("photo/hw_button.jpg", 'rb')
-        bot.send_photo(call.message.chat.id, send_pic, reply_markup=markup2)
+        bot.send_message(call.message.chat.id,
+                         '👾 Бот выдает домашнюю работу,\n'
+                         'а также помогает проверять ее!',
+                         reply_markup=markup2)
 
 
     elif call.data == 'next2':
-        send_message = 'Получите полный список моих контактов, я всегда на связи ✌️'
-        bot.send_message(call.message.chat.id, send_message)
-
-        markup2 = types.InlineKeyboardMarkup()
-        btn1 = types.InlineKeyboardButton("Далее", callback_data='next3')
-        markup2.add(btn1)
-
         send_pic = open("photo/contact.jpg", 'rb')
-        bot.send_photo(call.message.chat.id, send_pic, reply_markup=markup2)
+        bot.send_photo(call.message.chat.id, send_pic)
+
+        markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("Далее", callback_data='next3'))
+
+        send_message = '📞 Получите полный список моих\nконтактов, я всегда на связи ✌️'
+        bot.send_message(call.message.chat.id, send_message, reply_markup=markup)
+
+
 
     elif call.data == 'next3':
+        bot.send_media_group(call.message.chat.id,
+                             [types.InputMediaPhoto(open('photo/abstract_1.jpg', 'rb')),
+                              types.InputMediaPhoto(open('photo/abstract_2.jpg', 'rb')),
+                              types.InputMediaPhoto(open('photo/abstract_3.jpg', 'rb'))])
+
         bot.send_message(call.message.chat.id,
-                         'Получайте актуальные новости от меня, а бот поможет организовать '
-                         'расписание уроков и оформит учет проведенных занятий по абонементам.')
-        pic_4 = open("photo/abstract.jpg", 'rb')
-        bot.send_photo(call.message.chat.id, pic_4)
+                         '*Бот поддерживает множество других функций 👇*\n\n'
+                         '▫️Вы всегда найдете ссылку на Ваш конспект;\n'
+                         '▫️Получайте актуальные новости от меня;\n'
+                         '▫️Следите за расписанием своих уроков;\n'
+                         '▫️Просматривайте кол-во занятий в абонементе;\n\n'
+                         '🤖 И много другое в одном месте!',
+                         parse_mode='Markdown')
+
     # endregion call.data для Что умеет этот бот
 
     # region call.data для Private_help
@@ -1605,8 +1619,6 @@ def homework(message):
                          parse_mode="Markdown")
 # endregion Команды: useful, homeworks
 
-
-
 # region Команды: getorder
 @bot.message_handler(commands=['getorder'])
 def getorder(message):
@@ -1966,7 +1978,6 @@ def showusers(message):
 
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-
 # endregion Работа с базами данных, statistics
 
 # region Команды: private_help, git
@@ -2580,16 +2591,15 @@ def mess(message):
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
-        sti = open("photo/hi.tgs", 'rb')
-        bot.send_sticker(message.chat.id, sti, reply_markup=markup)
-
         bot.send_message(message.chat.id,
-                         'Бот помогает мне организовывать учебный процесс, '
-                         'например, здесь можно увидеть доступ к моему календарю '
-                         'для записи на урок или переноса занятий.')
-        pic_1 = open("photo/appointment.jpg", 'rb')
+                         '🤖 Бот помогает мне\nорганизовывать учебный процесс.\n\n'
+                         '🧑‍💻 Например, здесь можно\nувидеть доступ к моему\nкалендарю '
+                         'для записи на урок\nили переноса занятий.')
+
         markup2 = types.InlineKeyboardMarkup()
         markup2.add(types.InlineKeyboardButton("Далее", callback_data='next1'))
+
+        pic_1 = open("photo/appointment.jpg", 'rb')
         bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
     # endregion Кнопка: Что умеет этот бот
 
@@ -2876,7 +2886,7 @@ def mess(message):
         markup.add(types.InlineKeyboardButton("planerka.app", url="https://planerka.app/meet/ilandroxy/tutor"))
         message_text = f"Воспользуйтесь удобным сервисом [planerka.app](https://deepvoice.me/) " \
                        f"*для записи на пробное занятие* или выбора графика занятий. \n\n" \
-                       f"Просто выберете подходящее время и *напишите пару слов о себе*. \n\n" \
+                       f"Просто выберите подходящее время и *напишите пару слов о себе*. \n\n" \
                        f"❗Ваша карточка отобразится в моем календаре, но чтобы было комфортнее " \
                        f"держать связь - прошу написать еще и в [Telegram](t.me/ilandroxy). "
         bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
