@@ -7,7 +7,7 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+TOKEN = "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
 bot = telebot.TeleBot(TOKEN)
 # real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
@@ -58,6 +58,13 @@ PrivateMe = {1891281816: "Рабочий аккаунт",
              -1001819293687: "Lessons"}
 
 Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
+
+S = []
+for k, v in sorted(Students.items()):
+    S.append((v, k))
+
+for x in sorted(S):
+    print(x[0][0], x[-1])
 # endregion Словарь с данными студентов
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉
@@ -2043,8 +2050,8 @@ def less(message):
             markup.add(btn1)
 
             day = 'Все студенты: *'
-            for key in Students:
-                day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
+            for x in sorted(S):
+                day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
             M_day = [i for i in day.split('*')]
             message_text_day = '\n'.join(M_day)
             bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
@@ -2095,8 +2102,8 @@ def mylessons(message):
         markup.add(btn1)
 
         day = 'Все студенты: *'
-        for key in Students:
-            day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
+        for x in sorted(S):
+            day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
@@ -2185,8 +2192,8 @@ def delless(message):
         markup.add(btn1)
 
         day = 'Все студенты: *'
-        for key in Students:
-            day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
+        for x in sorted(S):
+            day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
@@ -2376,8 +2383,8 @@ def noticestudents(message):
 
 
         day = 'Все студенты: *'
-        for key in Students:
-            day += f'[{Students[key][3]}](tg://user?id={key}): {key} *'
+        for x in sorted(S):
+            day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
         bot.send_message(message.chat.id, message_text_day,
