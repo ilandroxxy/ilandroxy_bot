@@ -13,6 +13,7 @@ __pycache__/
 homeworks/
 build/
 develop-eggs/
+.idea/
 dist/
 downloads/
 eggs/
