@@ -7,10 +7,10 @@ import csv
 import time
 import datetime as dt
 
-TOKEN = "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
-bot = telebot.TeleBot(TOKEN)
-# real "5640042697:AAGA5EIFYkt2urDf-UXlcyoVLG4x375Ntjk"
+with open("token.txt") as f:
+    TOKEN = f.read().strip()
 # test "5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs"
+bot = telebot.TeleBot(f'{TOKEN}')
 # endregion import и API key
 
 # region Словарь с данными студентов
@@ -1670,10 +1670,13 @@ def getorder(message):
 @bot.message_handler(commands=['today'])
 def today(message):
     if message.chat.id == 1891281816:
+        send_pic = open('photo/today.jpg', 'rb')
+        bot.send_photo(message.chat.id, send_pic)
+
         day = time.strftime('%A')
 
         if day == 'Monday':
-            temp = f'Понедельник: *'
+            temp = f'Список уроков на понедельник: *'
             for key in MondayStudents:
                 temp += f'[{MondayStudents[key][3]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
 
@@ -1682,7 +1685,7 @@ def today(message):
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Tuesday':
-            temp = f'Вторник: *'
+            temp = f'Список уроков на вторник: *'
             for key in TuesdayStudents:
                 temp += f'[{TuesdayStudents[key][3]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
 
@@ -1694,7 +1697,7 @@ def today(message):
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
 
         if day == 'Thursday':
-            temp = f'Четверг: *'
+            temp = f'Список уроков на четверг: *'
             for key in ThursdayStudents:
                 temp += f'[{ThursdayStudents[key][3]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
 
@@ -1703,7 +1706,7 @@ def today(message):
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Friday':
-            temp = f'Пятница: *'
+            temp = f'Список уроков на пятницу: *'
             for key in FridayStudents:
                 temp += f'[{FridayStudents[key][3]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
 
@@ -1712,7 +1715,7 @@ def today(message):
             bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
 
         if day == 'Saturday':
-            temp = f'Суббота: *'
+            temp = f'Список уроков на субботу: *'
             for key in SaturdayStudents:
                 temp += f'[{SaturdayStudents[key][3]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
 
@@ -1725,40 +1728,42 @@ def today(message):
 
 
     elif message.chat.id in Students:
+        send_pic = open('photo/today.jpg', 'rb')
+        bot.send_photo(message.chat.id, send_pic)
         bot.send_message(message.chat.id, "Поглядим на Ваше расписание 🤖 ", parse_mode='Markdown')
 
         for key in MondayStudents:
             if message.chat.id == key:
                 bot.send_message(message.chat.id,
-                                 f'Понедельник:\n{MondayStudents[key][3]} '
+                                 f'Понедельник, '
                                  f'время урока: {MondayStudents[key][1]} (по Нск)',
                                  parse_mode='Markdown')
 
         for key in TuesdayStudents:
             if message.chat.id == key:
                 bot.send_message(message.chat.id,
-                                 f'Вторник:\n{TuesdayStudents[key][3]} '
+                                 f'Вторник, '
                                  f'время урока: {TuesdayStudents[key][1]} (по Нск)',
                                  parse_mode='Markdown')
 
         for key in ThursdayStudents:
             if message.chat.id == key:
                 bot.send_message(message.chat.id,
-                                 f'Четверг:\n{ThursdayStudents[key][3]} '
+                                 f'Четверг, '
                                  f'время урока: {ThursdayStudents[key][1]} (по Нск)',
                                  parse_mode='Markdown')
 
         for key in FridayStudents:
             if message.chat.id == key:
                 bot.send_message(message.chat.id,
-                                 f'Пятница:\n{FridayStudents[key][3]} '
+                                 f'Пятница, '
                                  f'время урока: {FridayStudents[key][1]} (по Нск)',
                                  parse_mode='Markdown')
 
         for key in SaturdayStudents:
             if message.chat.id == key:
                 bot.send_message(message.chat.id,
-                                 f'Суббота:\n{SaturdayStudents[key][3]} '
+                                 f'Суббота, '
                                  f'время урока: {SaturdayStudents[key][1]} (по Нск)',
                                  parse_mode='Markdown')
 
