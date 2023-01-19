@@ -33,6 +33,7 @@ ThursdayStudents = {
     5242003138: ['Dima.py', '16:00-17:00', 3600//4, "Дмитрий", 4],
     1187852992: ['Aleksandr_2.py', "17:00-18:00", 6800//8, "Александр2", 8],
     811476623:  ["Georgie.py", "20:00-21:00", 3040//4, "Георгий", 4],
+    799740089: ["Bulat.py", "21:00", 4000//4, "Булат", 4],
     1537718492: ["Aleksandr.py", "22:00-23:00", 5760//8, "Александр", 8]}
 FridayStudents = {
     575882793: ['Artem.py', '15:00-16:00', 9600//8, 'Артем', 8],
@@ -2385,8 +2386,10 @@ def noticestudents(message):
             day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
         M_day = [i for i in day.split('*')]
         message_text_day = '\n'.join(M_day)
-        bot.send_message(message.chat.id, message_text_day,
-                         parse_mode='Markdown', reply_markup=markup)
+        bot.send_message(message.chat.id,
+                         message_text_day,
+                         parse_mode='Markdown',
+                         reply_markup=markup)
 
 
 

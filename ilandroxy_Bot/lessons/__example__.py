@@ -953,13 +953,13 @@ Students = {
     871237277: ['Vladek.py', "22:00-23:00", 6800//8, "Владек", 8],
     438879394: ['Ilya.py', '14:00', 0, "Илья", 4]}
 
-M = []
+S = []
 
 for k, v in sorted(Students.items()):
-    M.append((v, k))
+    S.append((v, k))
 
-for x in sorted(M):
-    print(x[0][0], x[-1])
+for x in sorted(S):
+    print(x)
 
 
 
