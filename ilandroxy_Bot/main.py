@@ -18,7 +18,8 @@ bot = telebot.TeleBot(f'{TOKEN}')
 MondayStudents = {
     1477701439: ["Valeria.py", '15:00-16:30', 1000, "Валерия", 1000],
     768734764: ["Bogdan.py", '16:30-17:30', 4000//4, "Богдан", 4],
-    659796558: ['Ivan.py', '20:00-21:00', 1000, "Иван", 1000],
+    1454117859: ['Diana', "20:00-21:00", 4320//4, "Диана", 4],
+    659796558: ['Ivan.py', '21:00-22:00', 1000, "Иван", 1000],
     826004697: ['Nikita.py', '22:00-23:00', 3040//4, "Никита", 4]}
 TuesdayStudents = {
     1949653479: ['Yanina.py', '11:00-12:00', 4080//8, "Янина", 8],
@@ -47,11 +48,10 @@ FridayStudents = {
     1649389148: ['Slava.py', "22:00-23:00", 6800//8,  "Слава", 8]}
 SaturdayStudents = {
     1347259493: ['Andrey.py', '15:00-16:30', 1500, 'Андрей', 1000],
-    1454117859: ['Diana', "16:30-18:00", 4320//4, "Диана", 4],
     5148819382: ['Tatyana.py', "18:30-20:00", 10200//8, "Татьяна", 8],
     1314375732: ['Vasiliy.py', "21:00-22:00", 6800//8, "Василий", 8],
     871237277: ['Vladek.py', "22:00-23:00", 6800//8, "Владек", 8],
-    438879394: ['Ilya.py', '14:00', 0, "Илья", 4]}
+    438879394: ['Ilya.py', '14:00', 0, "Илья", 1]}
 
 Me = {1891281816: ['', '00:00', 0, "iРепетитор", 5],
       438879394: ['Ilya.py', '14:00', 0, "Илья", 4]}
@@ -1233,7 +1233,7 @@ def step(call):
                              disable_web_page_preview=True)
     # endregion call.data для Решу ЕГЭ
 
-    # region call.data для отправки Homework
+    # region call.data для Отправки Homework
     elif call.data == 'sendhomeworks':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         btn1 = types.KeyboardButton('Отменить ⛔')
@@ -1296,6 +1296,48 @@ def step(call):
 
     # endregion call.data для отправки Homework
 
+    # region call.data для Оплаты абонемента
+    elif call.data == 'send_price':
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+        markup.add(types.KeyboardButton('Подтвердить оплату'))
+
+        pic_2 = open("photo/price.PNG", "rb")
+        bot.send_photo(call.message.chat.id, pic_2)
+
+        message_text_2 = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n" \
+                         f"`+7 (913) 468-35-34`\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
+                         f"*Или по номеру карты:*\nТинькоф: `5536 9140 2240 5801`\n" \
+                         f"СБЕР: `5469 4400 2244 1977`\nТинькоф МИР: `2200 7004 1864 5957`\n" \
+                         f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
+                         f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
+                         f"[Оставить чаевые, коплю на новый компьютер](https://clck.ru/33J6fo) 💫"
+
+        bot.send_message(call.message.chat.id,
+                         message_text_2,
+                         parse_mode="Markdown",
+                         disable_web_page_preview=True,
+                         reply_markup=markup)
+    # endregion call.data для Оплаты абонемента
+
+    # region call.data выводит Прайс в самом начале
+    elif call.data == 'whats_price':
+        pic_2 = open("photo/price.PNG", "rb")
+        bot.send_photo(call.message.chat.id, pic_2)
+
+        send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень " \
+                        f"знаний, и мы вместе подбираем оптимальный абонемент!\n\n" \
+                        f"Работаю официально по чекам через НПД (`Самозанятый`).\n\n"
+
+        markup_price = types.InlineKeyboardMarkup(row_width=1)
+        markup_price.add(types.InlineKeyboardButton('Оплатить абонемент', callback_data='send_price'))
+
+        bot.send_message(call.message.chat.id, send_message2,
+                         parse_mode="Markdown", reply_markup=markup_price)
+
+    # endregion call.data выводит Прайс в самом начале
+
+
+
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉
 # ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️ 0️⃣  1️⃣  2️⃣
@@ -1339,7 +1381,7 @@ def start(message):
     bot.send_photo(message.chat.id, pic_1)
 
     markup1 = types.InlineKeyboardMarkup(row_width=1)
-    markup1.add(types.InlineKeyboardButton("🧑‍💻 Моя визитка", url="https://clck.ru/32FoBc"))
+    markup1.add(types.InlineKeyboardButton("🧮 Посмотреть прайс на абонементы", callback_data='whats_price'))
 
     message_text1 = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
                     f'Меня зовут *Андрианов Илья*. \nЯ программист – `Python` `developer`.\n' \
@@ -1458,7 +1500,7 @@ def price(message):
                      f"СБЕР: `5469 4400 2244 1977`\nТинькоф МИР: `2200 7004 1864 5957`\n" \
                      f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
                      f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
-                     f"[Оставить чаевые](https://clck.ru/33J6fo)"
+                     f"[Оставить чаевые, коплю на новый компьютер](https://clck.ru/33J6fo) 💫"
     bot.send_message(message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True)
 
 
@@ -1979,7 +2021,7 @@ def mess(message):
     # endregion Кнопка: Что умеет этот бот
 
     # region Кнопки: [Подтвердить оплату абонемента ❗]
-    elif get_message_bot == 'подтвердить оплату абонемента ❗':
+    elif get_message_bot in ('подтвердить оплату абонемента ❗', 'оплачено', 'подтвердить оплату'):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
@@ -1988,7 +2030,7 @@ def mess(message):
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
         bot.send_message(message.chat.id,
-                         f"Cпасибо, записал 🤖",
+                         f"Cпасибо, записал 🤖\nПроверить, что все сработало\n👉/mylessons",
                          reply_markup=markup)
         bot.send_message(1891281816,
                          f"{Students[message.chat.id][3]} подтвердил оплату ✅",
@@ -2085,15 +2127,17 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
+                markup_price = types.InlineKeyboardMarkup(row_width=3)
+                markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент', callback_data='send_price'))
+
                 bot.send_message(-1001819293687,
                                  f"⛔ #{Students[user_id][3]} абонемент *закончился*.\n"
                                  f"[Написать сообщение](tg://user?id={user_id})\n\n"
                                  f"История:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id,
-                                 f"Доброго времени суток, #{Students[user_id][3]}!\n"
-                                 f"🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
-                                 f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, "
-                                 f"чтобы получить реквизиты 🙏", parse_mode='Markdown')
+                                 f"Доброго времени суток, #{Students[user_id][3]}!\n\n"
+                                 f"🤖 Я посчитал, что Ваш абонемент заканчивается, сегодняшний урок последний!\n\n 🧮 Давайте проверим:\n\n"
+                                 f"{mess}", parse_mode='Markdown', reply_markup=markup_price)
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
             sql.commit()
         else:
@@ -2105,15 +2149,17 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
+                markup_price = types.InlineKeyboardMarkup(row_width=3)
+                markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент', callback_data='send_price'))
+
                 bot.send_message(-1001819293687,
                                  f"⛔ #{Students[user_id][3]} *абонемент закончился*.\n"
                                  f"[Написать сообщение](tg://user?id={user_id})\n\n"
                                  f"История:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id,
-                                 f"Доброго времени суток, #{Students[user_id][3]}!\n"
-                                 f"🤖 Я посчитал, что Ваш абонемент закончился, давайте проверим 📊📈🧮\n\n"
-                                 f"История:\n{mess}\nВоспользуйтесь командой 👉 /price, "
-                                 f"чтобы получить реквизиты 🙏", parse_mode='Markdown')
+                                 f"Доброго времени суток, #{Students[user_id][3]}!\n\n"
+                                 f"🤖 Я посчитал, что Ваш абонемент заканчивается, сегодняшний урок последний!\n\n 🧮 Давайте проверим:\n\n"
+                                 f"{mess}", parse_mode='Markdown', reply_markup=markup_price)
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
             sql.commit()
             cursor.close()
@@ -2171,17 +2217,19 @@ def mess(message):
 
     # region Кнопка: [Контакты]
     elif get_message_bot == "контакты":
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(types.InlineKeyboardButton("👨‍💻 Моя визитка MyQRcards", url='https://card.myqrcards.com/links/5jaDBMw7w61?v=-1160'))
+
         send_message1 = "*Мои контакты:*\n\n" \
-                        "[Мое портфолио](https://ilandroxxy.github.io/)\n\n[Telegram](t.me/ilandroxy)\n\n" \
+                        "[Мое портфолио ilandroxxy.github.io](https://ilandroxxy.github.io/)\n\n[Telegram](t.me/ilandroxy)\n\n" \
                         "[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Teletype](https://teletype.in/@ilandroxy)\n\n" \
                         "[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
                         "[Zoom](https://us04web.zoom.us/j/2402871810?pwd=OVdGQkE2ODIvWm1WNk5EdStQR1o4UT09)\n\n" \
                         "[Профиль Авито](www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing)\n\n" \
                         "[YouTube](https://youtube.com/@ilandroxy)\n\n" \
                         "[GitHub](https://github.com/ilandroxxy)\n\nРабочий телефон: +7 (995) 437–52–59\n\n" \
-                        "Email: collegehacksbot@gmail.com\n\n" \
-                        "Воспользуйтесь моим Telegram ботом, чтобы пройти курс по разработке чат ботов @JustDoItMotherBot🤖"
-        bot.send_message(message.chat.id, send_message1, parse_mode='Markdown', disable_web_page_preview=True)
+                        "Email: ilandroxxy@gmail.com"
+        bot.send_message(message.chat.id, send_message1, parse_mode='Markdown', disable_web_page_preview=True, reply_markup=markup)
     # endregion Кнопка: [Контакты]
 
     # region Кнопка: [Мои проекты]
@@ -2298,17 +2346,17 @@ def mess(message):
     elif get_message_bot == "репетитор":
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-            btn1 = types.KeyboardButton('notice')
-            btn2 = types.KeyboardButton('noticestudents')
-            btn3 = types.KeyboardButton('less')
-            btn4 = types.KeyboardButton('delless')
-            btn5 = types.KeyboardButton('statistics')
-            btn6 = types.KeyboardButton('showusers')
-            btn7 = types.KeyboardButton('git')
-            btn8 = types.KeyboardButton('voice')
+            btn1 = types.KeyboardButton('Отправить оповещение')
+            btn2 = types.KeyboardButton('Оповещение тета-тет')
+            btn3 = types.KeyboardButton('Запросить оплату')
+            btn4 = types.KeyboardButton('Редактрировать db')
+            btn5 = types.KeyboardButton('Статистика')
+            btn6 = types.KeyboardButton('Показать пользователей')
+            btn7 = types.KeyboardButton('GitHub')
+            btn8 = types.KeyboardButton('Запустить рассылку')
             btn9 = types.KeyboardButton('Отменить ⛔')
             markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
-            bot.send_message(message.chat.id, 'Вот ты даешь', reply_markup=markup)
+            bot.send_message(message.chat.id, 'Время поработать.', reply_markup=markup)
         else:
             send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \
                             f"В работе использую такие сервисы (программы) как: " \
@@ -2352,8 +2400,8 @@ def mess(message):
 
     ########## Приватные кнопки ##########
 
-    # region Кнопка [less]
-    elif get_message_bot == "less":
+    # region Кнопка [запросить оплату]
+    elif get_message_bot == "запросить оплату":
         if message.chat.id in Me:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             btn1 = types.KeyboardButton('Отменить ⛔')
@@ -2402,10 +2450,10 @@ def mess(message):
 
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [less]
+    # endregion Кнопка [запросить оплату]
 
-    # region Кнопка [delless]
-    elif get_message_bot == 'delless':
+    # region Кнопка [редактрировать db]
+    elif get_message_bot == 'редактрировать db':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             btn1 = types.KeyboardButton('Отменить ⛔')
@@ -2512,10 +2560,10 @@ def mess(message):
             bot.register_next_step_handler(message, message_input)
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [delless]
+    # endregion Кнопка [редактрировать db]
 
-    # region Кнопка [noticestudents]
-    elif get_message_bot == 'noticestudents':
+    # region Кнопка [оповещение тета-тет]
+    elif get_message_bot == 'оповещение тета-тет':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             btn1 = types.KeyboardButton('Отменить ⛔')
@@ -2569,11 +2617,19 @@ def mess(message):
 
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [noticestudents]
+    # endregion Кнопка [оповещение тета-тет]
 
-    # region Кнопка [notice]
-    elif get_message_bot == 'notice':
+    # region Кнопка [отправить оповещение]
+    elif get_message_bot == 'отправить оповещение':
         if message.chat.id in Me:
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+            btn1 = types.KeyboardButton('Контакты')
+            btn2 = types.KeyboardButton('Репетитор')
+            btn3 = types.KeyboardButton('Мои проекты')
+            btn4 = types.KeyboardButton('Записаться на урок')
+            btn5 = types.KeyboardButton('Получить файл с урока')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
+
             day = time.strftime('%A')
 
             if day == 'Monday':
@@ -2593,7 +2649,7 @@ def mess(message):
 
                 M = [i for i in temp.split('*')]
                 message_text = '\n'.join(M)
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
                 bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
             if day == 'Tuesday':
@@ -2614,11 +2670,11 @@ def mess(message):
 
                 M = [i for i in temp.split('*')]
                 message_text = '\n'.join(M)
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
                 bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
             if day == 'Wednesday':
-                bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+                bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ", reply_markup=markup)
 
             if day == 'Thursday':
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -2640,7 +2696,7 @@ def mess(message):
 
                 M = [i for i in temp.split('*')]
                 message_text = '\n'.join(M)
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
                 bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
             if day == 'Friday':
@@ -2661,7 +2717,7 @@ def mess(message):
 
                 M = [i for i in temp.split('*')]
                 message_text = '\n'.join(M)
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
                 bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
 
             if day == 'Saturday':
@@ -2687,20 +2743,23 @@ def mess(message):
                 message_text = '\n'.join(M)
                 bot.send_message(message.chat.id,
                                  message_text,
-                                 parse_mode='Markdown')
+                                 parse_mode='Markdown',
+                                 reply_markup=markup)
                 bot.send_message(-1001819293687,
                                  message_text,
                                  parse_mode='Markdown')
 
             if day == 'Sunday':
-                bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+                bot.send_message(message.chat.id,
+                                 "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ",
+                                 reply_markup=markup)
 
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [notice]
+    # endregion Кнопка [отправить оповещение]
 
-    # region Кнопка [voicestudents]
-    elif get_message_bot == 'voice':
+    # region Кнопка [запустить рассылку]
+    elif get_message_bot == 'запустить рассылку':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             btn1 = types.KeyboardButton('Отменить ⛔')
@@ -2733,11 +2792,19 @@ def mess(message):
             bot.register_next_step_handler(message, message_input)
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [voicestudents]
+    # endregion Кнопка [запустить рассылку]
 
-    # region Кнопка [statistics]
-    elif get_message_bot == 'statistics':
+    # region Кнопка [статистика]
+    elif get_message_bot == 'статистика':
         if message.chat.id in Me:
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+            btn1 = types.KeyboardButton('Контакты')
+            btn2 = types.KeyboardButton('Репетитор')
+            btn3 = types.KeyboardButton('Мои проекты')
+            btn4 = types.KeyboardButton('Записаться на урок')
+            btn5 = types.KeyboardButton('Получить файл с урока')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
+
             sql = sqlite3.connect('analytics.db')
             cursor = sql.cursor()
 
@@ -2796,7 +2863,7 @@ def mess(message):
                              f"*Общее кол-во студентов:* {len(Students)}\n\n"
                              f"*Количество уроков:*\nВ неделю {classes}\nВ месяц {classes * 4}\n\n"
                              f"*Доходы:*\nВ неделю ~ {summ} руб\nВ месяц ~ {summ * 4} руб\nЗа урок ~ {summ // classes} руб\n\n"
-                             f"*Всего пользователей в db:* {len(records)}", parse_mode='Markdown')
+                             f"*Всего пользователей в db:* {len(records)}", parse_mode='Markdown', reply_markup=markup)
 
             db = open("analytics.db", 'rb')
             bot.send_document(message.chat.id, db)
@@ -2814,11 +2881,19 @@ def mess(message):
             cursor.close()
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [statistics]
+    # endregion Кнопка [статистика]
 
-    # region Кнопка [showusers]
-    elif get_message_bot == 'showusers':
+    # region Кнопка [показать пользователей]
+    elif get_message_bot == 'показать пользователей':
         if message.chat.id in Me:
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+            btn1 = types.KeyboardButton('Контакты')
+            btn2 = types.KeyboardButton('Репетитор')
+            btn3 = types.KeyboardButton('Мои проекты')
+            btn4 = types.KeyboardButton('Записаться на урок')
+            btn5 = types.KeyboardButton('Получить файл с урока')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
+
             sql = sqlite3.connect('analytics.db')
             cursor = sql.cursor()
 
@@ -2835,43 +2910,83 @@ def mess(message):
                     message_text2 += '\n' + f'UserID: {i[0]}\nПрофиль: tg://user?id={i[0]}\n'
 
             bot.send_message(1891281816, message_text, parse_mode='Markdown')
-            bot.send_message(1891281816, message_text2, parse_mode='Markdown')
+            bot.send_message(1891281816, message_text2, parse_mode='Markdown', reply_markup=markup)
 
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [showusers]
+    # endregion Кнопка [показать пользователей]
 
-    # region Кнопка [git]
-    elif get_message_bot == 'git':
+    # region Кнопка [github]
+    elif get_message_bot == 'github':
         if message.chat.id in Me:
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+            btn1 = types.KeyboardButton('Контакты')
+            btn2 = types.KeyboardButton('Репетитор')
+            btn3 = types.KeyboardButton('Мои проекты')
+            btn4 = types.KeyboardButton('Записаться на урок')
+            btn5 = types.KeyboardButton('Получить файл с урока')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
+
             day = time.strftime('%A')
             if day == 'Monday':
                 for key in MondayStudents:
-                    bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+                    bot.send_message(key,
+                                     f" 🤖 Обновил конспекты с уроков на GitHub",
+                                     parse_mode='Markdown')
+                bot.send_message(1891281816,
+                                 "🤖 Отправил уведомление ученикам",
+                                 parse_mode='Markdown',
+                                 reply_markup=markup)
 
             elif day == 'Tuesday':
                 for key in TuesdayStudents:
-                    bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+                    bot.send_message(key,
+                                     f" 🤖 Обновил конспекты с уроков на GitHub",
+                                     parse_mode='Markdown')
+                bot.send_message(1891281816,
+                                 "🤖 Отправил уведомление ученикам",
+                                 parse_mode='Markdown',
+                                 reply_markup=markup)
 
             elif day == 'Thursday':
                 for key in ThursdayStudents:
-                    bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+                    bot.send_message(key,
+                                     f" 🤖 Обновил конспекты с уроков на GitHub",
+                                     parse_mode='Markdown')
+                bot.send_message(1891281816,
+                                 "🤖 Отправил уведомление ученикам",
+                                 parse_mode='Markdown',
+                                 reply_markup=markup)
 
             elif day == 'Friday':
                 for key in FridayStudents:
-                    bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+                    bot.send_message(key,
+                                     f" 🤖 Обновил конспекты с уроков на GitHub",
+                                     parse_mode='Markdown')
+                bot.send_message(1891281816,
+                                 "🤖 Отправил уведомление ученикам",
+                                 parse_mode='Markdown',
+                                 reply_markup=markup)
 
             elif day == 'Saturday':
                 for key in SaturdayStudents:
-                    bot.send_message(key, f" 🤖 Обновил конспекты с уроков на GitHub", parse_mode='Markdown')
-                bot.send_message(1891281816, "🤖 Отправил уведомление ученикам", parse_mode='Markdown')
+                    bot.send_message(key,
+                                     f" 🤖 Обновил конспекты с уроков на GitHub",
+                                     parse_mode='Markdown')
+                bot.send_message(1891281816,
+                                 "🤖 Отправил уведомление ученикам",
+                                 parse_mode='Markdown',
+                                 reply_markup=markup)
+
+            else:
+                bot.send_message(1891281816,
+                                 "🤖 Сегодня вообще-то выходной!",
+                                 parse_mode='Markdown',
+                                 reply_markup=markup)
         else:
-            bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [git]
+            bot.send_message(message.chat.id,
+                             "Извините, у вас нет прав доступа 👨‍💻")
+    # endregion Кнопка [github]
 
     # region Иначе пишу бред
     else:
