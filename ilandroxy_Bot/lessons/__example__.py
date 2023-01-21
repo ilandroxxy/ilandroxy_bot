@@ -944,7 +944,7 @@ print(F(3, 11, '','') * F(11, 79, '', ''))
 # print(F(100, 11101))
 
 
-
+'''
 Students = {
     1347259493: ['Andrey.py', '15:00-16:30', 1500, 'Андрей', 1000],
     1454117859: ['Diana', "16:30-18:00", 4320//4, "Диана", 4],
@@ -960,7 +960,32 @@ for k, v in sorted(Students.items()):
 
 for x in sorted(S):
     print(x)
+'''
 
+
+# Определите количество пятизначных чисел, записанных в восьмеричной системе счисления,
+# в записи которых только одна цифра 6, при этом никакая нечётная цифра не стоит рядом с цифрой 6
+
+counter = 0
+nums = '01234567'
+X = list(map(str, "16 61 36 63 56 65 76 67".split()))
+for a in '1234567':
+    for b in nums:
+        for c in nums:
+            for d in nums:
+                for e in nums:
+                    l = a + b + c + d + e
+                    flag = True
+                    if l.count('6') == 1:
+                        for x in X:
+                            if x in l:
+                                flag = False
+                        if flag == True:
+                            print(l)
+                            counter += 1
+print(counter)
+
+# Ответ: 3381, должно быть 2961
 
 
 
