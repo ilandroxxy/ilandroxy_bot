@@ -154,3 +154,29 @@ print("Ответ: ", maxi, res)
 '''
 # Ответ: G
 # endregion Тип 24 № 33196
+
+
+# region Тип 24 Статград
+
+# Текстовый файл состоит из символов A, C, D, F, O.
+# Определите максимальное количество идущих подряд пар символов вида
+# cогласная + гласная в прилагаемом файле.
+# Для выполнения этого задания следует написать программу
+
+'''
+n = open('24.txt').readline()
+sogl, gl = 'CDF', 'AO'
+counter = max_counter = 0
+
+for i in range(0, len(n)-1):
+    if (n[i] in gl and n[i+1] in sogl) or (n[i] in sogl and n[i+1] in gl):
+        counter += 1
+        max_counter = max(max_counter, counter)
+    else:
+        counter = 0
+
+print(max_counter / 2)
+'''
+# Ответ: 95
+
+# endregion Тип 24 Статград
