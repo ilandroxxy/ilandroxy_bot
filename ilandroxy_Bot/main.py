@@ -2145,12 +2145,13 @@ def mess(message):
             count = records[2] + 1
             newmess = f"*Занятие №{count}*\nДата: {timer2} \n\n"
             mess = records[3] + newmess
-            cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
-            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            cursor.execute("DELETE FROM tickets WHERE id = {user_id}")
+            cursor.execute("INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
                 markup_price = types.InlineKeyboardMarkup(row_width=3)
-                markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент', callback_data='send_price'))
+                markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент',
+                                                            callback_data='send_price'))
 
                 bot.send_message(-1001819293687,
                                  f"⛔ #{Students[user_id][3]} *абонемент закончился*.\n"
@@ -2158,7 +2159,8 @@ def mess(message):
                                  f"История:\n{mess}", parse_mode='Markdown')
                 bot.send_message(user_id,
                                  f"Доброго времени суток, #{Students[user_id][3]}!\n\n"
-                                 f"🤖 Я посчитал, что Ваш абонемент заканчивается, сегодняшний урок последний!\n\n 🧮 Давайте проверим:\n\n"
+                                 f"🤖 Я посчитал, что Ваш абонемент заканчивается, "
+                                 f"сегодняшний урок последний!\n\n 🧮 Давайте проверим:\t"
                                  f"{mess}", parse_mode='Markdown', reply_markup=markup_price)
                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
             sql.commit()
