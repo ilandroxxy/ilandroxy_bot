@@ -986,8 +986,49 @@ for a in '1234567':
 print(counter)
 '''
 # Ответ: 2961
+import datetime as dt
 
-print((9600/2) * 3)
+def my_time(timer: str) -> str:
+    '''
+:param timer: nsk_now.strftime('%A %d %B %Y')
+:return: пример #Среда #25.01.2023
+    '''
+    month_dict = {'January': '01',
+                  'February': '02',
+                  'March': '03',
+                  'April': '04',
+                  'May': '05',
+                  'June': '06',
+                  'July': '07',
+                  'August': '08',
+                  'September': '09',
+                  'October': '10',
+                  'November': '11',
+                  'December': '12'
+                  }
+
+    day_dict = {'Monday': 'Понедельник',
+                'Tuesday': 'Вторник',
+                'Wednesday': 'Среда',
+                'Thursday': 'Четверг',
+                'Friday': 'Пятница',
+                'Saturday': 'Суббота',
+                'Sunday': 'Воскресенье'
+                }
+
+    datetime_date = timer.split()
+    my_date = f'#{day_dict[datetime_date[0]]} #{datetime_date[1]}.{month_dict[datetime_date[2]]}.{datetime_date[3]}'
+    return my_date
+
+# #Среда #25.01.2023
+
+
+now = dt.datetime.utcnow()
+nsk_now = now + dt.timedelta(hours=7)
+
+timer = nsk_now.strftime('%A %d %B %Y')
+
+print(my_time(timer))
 
 
 
