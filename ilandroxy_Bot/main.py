@@ -2165,8 +2165,8 @@ def mess(message):
             count = records[2] + 1
             newmess = f"*Занятие №{count}*\nДата: {date} \n\n"
             mess = records[3] + newmess
-            cursor.execute("DELETE FROM tickets WHERE id = {user_id}")
-            cursor.execute("INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
 
             if count == Students[user_id][4]:
                 markup_price = types.InlineKeyboardMarkup(row_width=3)
@@ -2378,7 +2378,7 @@ def mess(message):
             btn8 = types.KeyboardButton('Запустить рассылку')
             btn9 = types.KeyboardButton('Отменить ⛔')
             markup.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9)
-            bot.send_message(message.chat.id, 'Время поработать.', reply_markup=markup)
+            bot.send_message(message.chat.id, 'Время поработать..', reply_markup=markup)
         else:
             send_message1 = f"👨🏼‍💻 Работаю дистанционно, есть все необходимое для проведения занятий. " \
                             f"В работе использую такие сервисы (программы) как: " \
@@ -2422,7 +2422,7 @@ def mess(message):
 
     ########## Приватные кнопки ##########
 
-    # region Кнопка [запросить оплату]
+    # region Кнопка [Запросить оплату]
     elif get_message_bot == "запросить оплату":
         if message.chat.id in Me:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -2474,7 +2474,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [запросить оплату]
 
-    # region Кнопка [редактрировать db]
+    # region Кнопка [Редактрировать db]
     elif get_message_bot == 'редактрировать db':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -2584,7 +2584,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [редактрировать db]
 
-    # region Кнопка [оповещение тета-тет]
+    # region Кнопка [Оповещение тета-тет]
     elif get_message_bot == 'оповещение тета-тет':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -2641,7 +2641,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [оповещение тета-тет]
 
-    # region Кнопка [отправить оповещение]
+    # region Кнопка [Отправить оповещение]
     elif get_message_bot == 'отправить оповещение':
         if message.chat.id in Me:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -2780,7 +2780,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [отправить оповещение]
 
-    # region Кнопка [запустить рассылку]
+    # region Кнопка [Запустить рассылку]
     elif get_message_bot == 'запустить рассылку':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -2816,7 +2816,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [запустить рассылку]
 
-    # region Кнопка [статистика]
+    # region Кнопка [Статистика]
     elif get_message_bot == 'статистика':
         if message.chat.id in Me:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
@@ -2829,7 +2829,7 @@ def mess(message):
             bot.send_message(message.chat.id, '🤖 Отправляю кнопки со статистикой:', reply_markup=markup)
     # endregion Кнопка [статистика]
 
-    # region Кнопка [словарь с расписанием 📅]
+    # region Кнопка [Cловарь с расписанием 📅]
     elif get_message_bot == 'словарь с расписанием 📅':
         if message.chat.id in Me:
             sql = sqlite3.connect('analytics.db')
@@ -2879,7 +2879,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [словарь с расписанием]
 
-    # region Кнопка [планирование оплат 🤑]
+    # region Кнопка [Планирование оплат 🤑]
     elif get_message_bot == 'планирование оплат 🤑':
         if message.chat.id in Me:
             sql = sqlite3.connect('analytics.db')
@@ -2932,45 +2932,52 @@ def mess(message):
                 if key not in stud_dict:
                     stud_dict[key] = [Students[key][3], 0, 100]
 
+            count = 1
             message_text0 = 'Абонементы закончились ⛔\n'
             for key in stud_dict:
                 if stud_dict[key][2] == 100:
-                    message_text0 += f'[{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: {stud_dict[key][1]}\n'
-            if len(message_text0) != 0 :
+                    message_text0 += f'{count}. [{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: *{stud_dict[key][1]}*\n'
+                    count += 1
+            if len(message_text0) != 0:
                 bot.send_message(message.chat.id, message_text0, parse_mode='Markdown')
 
             message_text1 = 'Кол-во занятий более 7️⃣5️⃣\n'
             for key in stud_dict:
                 if 75 <= stud_dict[key][2] < 100:
-                    message_text1 += f'[{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: {stud_dict[key][1]}\n'
+                    message_text1 += f'{count}. [{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: *{stud_dict[key][1]}*\n'
+                    count += 1
             if len(message_text1) != 0:
                 bot.send_message(message.chat.id, message_text1, parse_mode='Markdown')
 
             message_text2 = 'Кол-во занятий более 5️⃣0️⃣\n'
             for key in stud_dict:
                 if 50 <= stud_dict[key][2] < 75:
-                    message_text2 += f'[{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: {stud_dict[key][1]}\n'
+                    message_text2 += f'{count}. [{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: *{stud_dict[key][1]}*\n'
+                    count += 1
             if len(message_text2) != 0:
                 bot.send_message(message.chat.id, message_text2, parse_mode='Markdown')
 
             message_text3 = 'Кол-во занятий более 2️⃣5️⃣\n'
             for key in stud_dict:
                 if 25 <= stud_dict[key][2] < 50:
-                    message_text3 += f'[{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: {stud_dict[key][1]}\n'
+                    message_text3 += f'{count}. [{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: *{stud_dict[key][1]}*\n'
+                    count += 1
             if len(message_text3) != 0:
                 bot.send_message(message.chat.id, message_text3, parse_mode='Markdown')
 
             message_text4 = 'Абонемент недавно оплачен ✅\n'
             for key in stud_dict:
                 if stud_dict[key][2] == 0 or 10 < stud_dict[key][2] < 25:
-                    message_text4 += f'[{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: {stud_dict[key][1]}\n'
+                    message_text4 += f'{count}. [{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: *{stud_dict[key][1]}*\n'
+                    count += 1
             if len(message_text4) != 0:
                 bot.send_message(message.chat.id, message_text4, parse_mode='Markdown')
 
             message_text5 = 'Студенты с разовыми занятиями 🤯\n'
             for key in stud_dict:
                 if 0 < stud_dict[key][2] < 10:
-                    message_text5 += f'[{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: {stud_dict[key][1]}\n'
+                    message_text5 += f'{count}. [{stud_dict[key][0]}](tg://user?id={key}) кол-во занятий: *{stud_dict[key][1]}*\n'
+                    count += 1
             if len(message_text5) != 0:
                 bot.send_message(message.chat.id, message_text5, parse_mode='Markdown')
 
@@ -2980,7 +2987,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [планирование оплат]
 
-    # region Кнопка [отправить файлы db 💾]
+    # region Кнопка [Отправить файлы db 💾]
     elif get_message_bot == 'отправить файлы db 💾':
         if message.chat.id in Me:
             sql = sqlite3.connect('analytics.db')
@@ -3008,7 +3015,7 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [отправить файлы db]
 
-    # region Кнопка [показать пользователей]
+    # region Кнопка [Показать пользователей]
     elif get_message_bot == 'показать пользователей':
         if message.chat.id in Me:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)

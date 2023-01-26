@@ -986,6 +986,10 @@ for a in '1234567':
 print(counter)
 '''
 # Ответ: 2961
+
+
+
+"""
 import datetime as dt
 
 def my_time(timer: str) -> str:
@@ -1029,6 +1033,15 @@ nsk_now = now + dt.timedelta(hours=7)
 timer = nsk_now.strftime('%A %d %B %Y')
 
 print(my_time(timer))
+"""
 
 
+import turtle
 
+for _ in range(10):
+    turtle.forward(100)
+    turtle.right(60)
+    turtle.color('red')
+    turtle.forward(120)
+
+turtle.done()
