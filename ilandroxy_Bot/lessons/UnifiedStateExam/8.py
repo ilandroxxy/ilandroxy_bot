@@ -621,3 +621,91 @@ print(counter)
 # Ответ: 2961
 '''
 # endregion Тип 8 Статград
+
+# region Тип 8 № 9302
+
+# Сколько слов длины 4, начинающихся с согласной буквы и заканчивающихся гласной буквой, можно составить из букв М, Е, Т, Р, О?
+# Каждая буква может входить в слово несколько раз. Слова не обязательно должны быть осмысленными словами русского языка.
+
+# Вариант 1
+'''
+import itertools
+sogl = 'МТР'
+glas = 'ЕО'
+count = 0
+s = itertools.product('МЕТРО', repeat=4)
+for temp in s:
+    if temp[0] in sogl and temp[3] in glas:
+        count += 1
+print(count)
+'''
+
+# Вариант 2
+'''
+s = 'МЕТРО'
+sogl = 'МТР'
+glas = 'ЕО'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                temp = a + b + c + d
+                if a in sogl and d in glas:
+                    count += 1
+print(count)
+'''
+
+# Вариант 3
+'''
+s = 'МЕТРО'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                if a in 'МТР' and d in 'ЕО':
+                    count += 1
+print(count)
+'''
+# Ответ: 150
+
+# endregion Тип 8 № 9302
+
+# region Тип 8 № 27295
+
+# Света составляет 5-буквенные коды из букв С, В, Е, Т, А.
+# Каждую букву нужно использовать ровно один раз, при этом нельзя ставить рядом две гласные.
+# Сколько различных кодов может составить Света?
+
+# Вариант 1
+'''
+import itertools
+s = itertools.permutations('СВЕТА', r=5)
+count = 0
+for temp in s:
+    temp = ''.join(temp)
+    if 'ЕА' not in temp and 'АЕ' not in temp:
+        count += 1
+print(count)
+'''
+
+# Вариант 1
+'''
+s = 'СВЕТА'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    temp = a + b + c + d + e
+                    M = [a, b, c, d, e]
+                    if len(set(M)) == len(M):
+                        if 'ЕА' not in temp and 'АЕ' not in temp:
+                            count += 1
+print(count)
+'''
+# Ответ: 72
+
+# endregion Тип 8 № 27295
