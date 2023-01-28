@@ -1035,7 +1035,7 @@ timer = nsk_now.strftime('%A %d %B %Y')
 print(my_time(timer))
 """
 
-
+'''
 import turtle
 
 for _ in range(10):
@@ -1045,3 +1045,9 @@ for _ in range(10):
     turtle.forward(120)
 
 turtle.done()
+'''
+
+
+x = '1232iuhju'
+s = int(x)
+

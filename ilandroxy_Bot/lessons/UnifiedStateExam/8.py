@@ -642,6 +642,17 @@ print(count)
 
 # Вариант 2
 '''
+import itertools
+count = 0
+s = itertools.product('МЕТРО', repeat=4)
+for temp in s:
+    if temp[0] in 'МТР' and temp[3] in 'ЕО':
+        count += 1
+print(count)
+'''
+
+# Вариант 3
+'''
 s = 'МЕТРО'
 sogl = 'МТР'
 glas = 'ЕО'
@@ -656,7 +667,7 @@ for a in s:
 print(count)
 '''
 
-# Вариант 3
+# Вариант 4
 '''
 s = 'МЕТРО'
 count = 0

@@ -10,8 +10,8 @@ import datetime as dt
 with open("token.txt") as f:
     TOKEN = f.read().strip()
 
-bot = telebot.TeleBot(f'{TOKEN}')
-# bot = telebot.TeleBot("5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs")
+# bot = telebot.TeleBot(f'{TOKEN}')
+bot = telebot.TeleBot("5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs")
 # endregion import и API key
 
 # region Словарь с данными студентов
@@ -2010,6 +2010,163 @@ def list(message):
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команда: list
+
+# region Команда: добавить ученика, редактировать запись
+@bot.message_handler(commands=['addstudents'])
+def addstudents(message):
+    if message.chat.id == 1891281816:
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        markup.add(types.KeyboardButton('Отменить ⛔'))
+
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute("""CREATE TABLE IF NOT EXISTS students(
+                                                id INTEGER,
+                                                name TEXT,
+                                                pyfile TEXT,
+                                                day TEXT,
+                                                time TEXT,
+                                                price INTEGER,
+                                                count INTEGER
+                                            )""")
+        sql.commit()
+
+        bot.send_message(1891281816,
+                         f" 🤖 Итак, я готов добавить ученика.\nВведите данные о студенте через пробел, используя пример:\n"
+                         f"[id name filename.py day time price count]", reply_markup=markup)
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != 'Отменить ⛔':
+
+                cursor.execute(f"SELECT * FROM students")
+
+                mess = message.text.strip().split()
+                id = int(mess[0])
+                name = mess[1]
+                file = mess[2]
+                day = mess[3]
+                time = mess[4]
+                price = int(mess[5])
+                count = int(mess[6])
+                cursor.execute(f"INSERT INTO students VALUES(?, ?, ?, ?, ?, ?, ?);", (id, name, file, day, time, price, count))
+                sql.commit()
+                cursor.close()
+
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+
+                bot.send_message(1891281816,
+                                 f" 🤖 Студент успешно добавлен!",
+                                 reply_markup=markup)
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
+        bot.register_next_step_handler(message, message_input)
+
+
+@bot.message_handler(commands=['editstudents'])
+def editstudents(message):
+    if message.chat.id == 1891281816:
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        markup.add(types.KeyboardButton('Отменить ⛔'))
+
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute("""CREATE TABLE IF NOT EXISTS students(
+                                                id INTEGER,
+                                                name TEXT,
+                                                pyfile TEXT,
+                                                day TEXT,
+                                                time TEXT,
+                                                price INTEGER,
+                                                count INTEGER
+                                            )""")
+        sql.commit()
+
+        cursor.execute(f"SELECT * FROM students")
+        records = cursor.fetchall()
+        send_message = ''
+        for row in records:
+            send_message += f'{row[2]}: {row[0]}\n'
+
+        bot.send_message(1891281816, send_message)
+
+        bot.send_message(1891281816, 'Введите id пользователя, для редактирования: ', reply_markup=markup)
+
+        @bot.message_handler(content_types=['text'])
+        def message_input(message):
+            if message.text != 'Отменить ⛔':
+                id = int(message.text)
+                cursor.execute(f"SELECT * FROM students WHERE id = {id}")
+                records = cursor.fetchone()
+
+                send_message = f'{records[0]} {records[1]} {records[2]} {records[3]} {records[4]} {records[5]} {records[6]}'
+                bot.send_message(1891281816, send_message)
+                bot.send_message(1891281816, "Введите отредактированную запись: ")
+
+                @bot.message_handler(content_types=['text'])
+                def message_input(message):
+                    if message.text != 'Отменить ⛔':
+                        mess = message.text.strip().split()
+                        id = int(mess[0])
+                        name = mess[1]
+                        file = mess[2]
+                        day = mess[3]
+                        time = mess[4]
+                        price = int(mess[5])
+                        count = int(mess[6])
+
+                        cursor.execute(f"DELETE FROM students WHERE id = {id}")
+
+                        cursor.execute(f"INSERT INTO students VALUES(?, ?, ?, ?, ?, ?, ?);", (id, name, file, day, time, price, count))
+                        sql.commit()
+
+                        cursor.close()
+                        bot.send_message(1891281816, "Запись о студентах отредактирована!")
+
+                    else:
+                        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                        btn1 = types.KeyboardButton('Контакты')
+                        btn2 = types.KeyboardButton('Репетитор')
+                        btn3 = types.KeyboardButton('Мои проекты')
+                        btn4 = types.KeyboardButton('Записаться на урок')
+                        btn5 = types.KeyboardButton('Получить файл с урока')
+                        markup.add(btn1, btn2, btn3, btn4, btn5)
+                        bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+                bot.register_next_step_handler(message, message_input)
+
+            else:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+                bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
+        bot.register_next_step_handler(message, message_input)
+
+
+
+
+# endregion Команда: добавить ученика
+
 
 
 @bot.message_handler(content_types=['text'])
