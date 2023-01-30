@@ -10,8 +10,8 @@ import datetime as dt
 with open("token.txt") as f:
     TOKEN = f.read().strip()
 
-# bot = telebot.TeleBot(f'{TOKEN}')
-bot = telebot.TeleBot("5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs")
+bot = telebot.TeleBot(f'{TOKEN}')
+# bot = telebot.TeleBot("5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs")
 # endregion import и API key
 
 # region Словарь с данными студентов
@@ -41,7 +41,7 @@ FridayStudents = {
     575882793: ['Artem.py', '15:00-16:00', 9600//8, 'Артем', 8],
     719571990: ['Stepan.py', "16:00-17:00", 6800//8, "Степан", 8],
     644645774: ['Stasya.py', "17:00-18:30", 10200//8, "Стася", 8],
-    986539147: ['Danil.py', '19:00-20:00', 8000 // 8, "Данил", 8],
+    986539147: ['Danil.py', '19:00-20:00', 4000 // 4, "Данил", 4],
     659796558: ['Ivan.py', '20:00-21:00', 1000, "Иван", 1000],
     1029532016: ['Maria.py', "21:00-22:00", 8000//8, "Мария", 8],
     1649389148: ['Slava.py', "22:00-23:00", 8000//8,  "Слава", 8]}

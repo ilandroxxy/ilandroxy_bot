@@ -1047,7 +1047,36 @@ for _ in range(10):
 turtle.done()
 '''
 
+# Вариант 1
+M = [int(i) for i in open('17.txt')]
+count = 0
+summ = 0
+for x in M:
+    if x % 3 == 0 and x % 9 != 0:
+        # if str(x)[-1] in '456789':
+        if x % 10 >= 4:
+            count += 1
+            summ += x
+print("Number of such numbers:", count)
+print("Integer part of average:", int(summ / count))
 
-x = '1232iuhju'
-s = int(x)
+# Вариант 2
+numbers = [int(i) for i in open('17.txt').readlines() if int(i) % 3 == 0 and int(i) % 9 != 0]
+filtered_numbers = [i for i in numbers if i % 10 >= 4]
+count = len(filtered_numbers)
+sum_of_numbers = sum(filtered_numbers)
+average = sum_of_numbers / count
+integer_part_of_average = int(average)
+print("Number of such numbers:", count)
+print("Integer part of average:", integer_part_of_average)
 
+# Вариант 3
+numbers = []
+for i in [int(i) for i in open('17.txt').readlines()]:
+    if i % 3 == 0 and i % 9 != 0 and i % 10 >= 4:
+        numbers.append(i)
+        count = len(numbers)
+        average = sum(numbers) / count
+integer_part_of_average = int(average)
+print("Number of such numbers:", count)
+print("Integer part of average:", integer_part_of_average)
