@@ -1048,6 +1048,7 @@ turtle.done()
 '''
 
 # Вариант 1
+'''
 M = [int(i) for i in open('17.txt')]
 count = 0
 summ = 0
@@ -1080,3 +1081,19 @@ for i in [int(i) for i in open('17.txt').readlines()]:
 integer_part_of_average = int(average)
 print("Number of such numbers:", count)
 print("Integer part of average:", integer_part_of_average)
+'''
+
+for n in range(2, 1000):
+    temp = n
+    M = []
+    while n > 0:
+        M.append(n % 2)
+        n //= 2
+    M.reverse()
+
+    A = [M[i] for i in range(0, len(M)) if i % 2 != 0 and M[i] == 1]
+    B = [M[i] for i in range(0, len(M)) if i % 2 == 0 and M[i] == 0]
+
+    if abs(len(B) - len(A)) == 4:
+        print(temp)
+        break
