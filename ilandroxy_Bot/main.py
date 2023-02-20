@@ -2262,9 +2262,7 @@ def mess(message):
         btn4 = types.KeyboardButton('Записаться на урок')
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
-        bot.send_message(message.chat.id,
-                         f"Cпасибо, отправил ответ 🤖",
-                         reply_markup=markup)
+        bot.send_message(message.chat.id, f"Cпасибо, отправил ответ 🤖", reply_markup=markup)
 
         now = dt.datetime.utcnow()
         date = my_time(now.strftime('%A %d %B %Y'))
