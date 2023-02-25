@@ -1206,4 +1206,15 @@ print([(x, max(D(x))) for x in range(123456789, 223456789+1) if len(D(x)) == 3])
 # 141158161 1295029
 # 163047361 1442897
 
+# Повтори 4 [Вперёд 14 Направо 120]
+
+from turtle import *
+
+left(90)
+speed(10)
+l = 20
+for _ in range(4):
+    forward(14*l)
+    right(120)
+done()
 
