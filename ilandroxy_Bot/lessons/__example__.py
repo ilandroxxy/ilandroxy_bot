@@ -1208,13 +1208,29 @@ print([(x, max(D(x))) for x in range(123456789, 223456789+1) if len(D(x)) == 3])
 
 # Повтори 4 [Вперёд 14 Направо 120]
 
-from turtle import *
+def F(a, b):
+    return 0 if a > b else 1 if a == b else F(a + 1, b) + F(a + 3, b)
 
-left(90)
-speed(10)
-l = 20
-for _ in range(4):
-    forward(14*l)
-    right(120)
-done()
+print(F(1, 9) * F(9, 17))
+
+
+
+F = lambda a, b: 0 if a > b else 1 if a == b else F(a + 1, b) + F(a + 3, b)
+
+print(F(1, 9) * F(9, 17))
+
+
+def F(a, b, memo={}):
+    if (a, b) in memo:
+        return memo[(a, b)]
+    if a > b:
+        return 0
+    if a == b:
+        return 1
+    else:
+        result = F(a + 1, b, memo) + F(a + 3, b, memo)
+        memo[(a, b)] = result
+        return result
+
+print(F(1, 9) * F(9, 17))
 

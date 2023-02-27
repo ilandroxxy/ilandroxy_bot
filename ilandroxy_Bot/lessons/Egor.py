@@ -6,157 +6,155 @@
 
 # region Урок: ******************************************************************
 
-# переменные в Python
-
-# X = 4  # через переменную осуществляется доступ к данным на компьютере
-
-
-# Типы данных переменных
+# Условные операторы (ветвление) - if, elif, else
 '''
-a = 4  # int (integer) - целочисленные значения
+x = int(input('x: '))
+y = int(input('y: '))
 
-b = 4.0  # float (вещественные / дроби) - числа с плавающей точкой
-
-c = '4'  # str (string) - строковый тип данных: буквы, символы, цифры, слова, текст, txt, ...
-print(a * 5, c * 5)
-print(a + 5, c + '5')  # конкотинация строк - склеивание строк
-
-d1 = True  # bool (boolean) - логические переменные (МАТЕМАТИЧЕСКЕАЯ ЛОГИКА)
-d2 = False
-
-
-# Типы данных коллекций
-A = [1, 2, 3]  # list (списки)
-
-B = (1, 2, 3)  # tuple (кортеж)
-
-C = {1, 2, 3}  # set (множество)
-
-D = {1: 'one', 2: 'two', 3: 'three'}   # dict (словарь)
-print(D[1])
-
-M = [a, b, c, d1, 2+4, '4'*6, 7/2, 4 < 10, A, B, C, D]
-
-for x in M:
-    print(x, type(x))
+if x > 0 and y > 0:  # if - если (выполняется условие)
+    print(1)
+elif x < 0 and y > 0:
+    print(2)
+elif x < 0 and y < 0:  # elif - иначесли (промежуточное условие между if и elif)
+    print(3)
+elif x > 0 and y < 0:
+    print(4)
+else:           # else - иначе (если не выполняются вышеописанные условия)
+    print('Лежит на осях')
 '''
 
-# Конвертация типов данных
+# Каскадные условные операторы
 '''
-a = 5
-print(a, type(a))
+x = int(input('x: '))
+y = int(input('y: '))
 
-a = str(a)
-print(a, type(a))  # строки можно переводить, только если они удовлетворяют синтаксису типов данных int, float
-
-a = float(a)
-print(a, type(a))
-
-a = int(a)
-print(a, type(a))
-
-A = [1, 2, 3, 1, 2, 5]
-print(A, type(A))
-
-A = tuple(A)
-print(A, type(A))
-
-A = set(A)
-print(A, type(A))
-
-A = list(A)
-print(A, type(A))
+if x > 0:
+    if y > 0:  # x > 0 and y > 0
+        print(1)
+    else:    # x > 0 and y <= 0
+        print(4)
+else:
+    if y > 0:  # x <= 0 and y > 0
+        print(2)   
+    else:     # x <= 0 and y <= 0
+        print(3)
 '''
 
-# Ввод данных с клавиатуры и красивый вывод print():
 '''
-weather = 'облачно'
-temperature = int(input('Введите температуру: '))
-name = input('Введите свое имя: ')
-# Привет, Егор. Сегодня облачно, а температура 24 градуса, давай гулять?
-print('Привет, ', name, '. Сегодня ', weather, ', а температура ', temperature, 'градуса, давай гулять? ')
-print('Привет, ' + name + '. Сегодня ' + weather + ', а температура ' + str(temperature) + ' градуса, давай гулять? ')
-print('Привет, {}. Сегодня {}, а температура {} градуса, давай гулять?'.format(name, weather, temperature))
-print(f'Привет, {name}. Сегодня {weather}, а температура {temperature} градуса, давай гулять?')
-'''
-
-# Базовая арифметика:
-'''
-a = 7
-b = 2
-
-print(f'{a} + {b} = {a+b}\n'
-      f'{a} - {b} = {a-b}\n'
-      f'{a} * {b} = {a*b}\n')
-
-print(f'{a} / {b} = {a / b} Вещественное деление\n'
-      f'{a} // {b} = {a // b} Целочисленное деление (отбрасывается остаток)\n'
-      f'{a} % {b} = {a % b} Остаток от деление (обыкновенной дроби)\n ')
-
-print(f'{a} в степени {b}: {a} ** {b} = {a**b}')
-print(f'Квадратный корень от 16: {16} ** {0.5} = {16**(1/2)}')
-print(f'Кубический корень от 27: 27 ** (1/3) = {27**(1/3)}')
-
-
-print(4 < 10)  # True потому что это правда 
+a, b, c = int(input('a: ')), int(input('b: ')),  int(input('c: '))
+print(a, b, c)
+if a > 0 and b > 0 and c > 0:
+    print('все числа обязательно больше 0')
+elif a > 0 or b > 0 or c > 0:
+    print('хотя бы одно из чисел больше 0')
+elif not(a > 0 or b > 0 or c > 0):
+    print('хотя бы одно из чисел б345')
+else:
+    print('что-то не так')
 '''
 
-# Удобные штуки:
+# while, for - циклы в Python
 
-# - это однострочный комментарий
+# print(4, 5, 6, sep=', ')
+
+
+# цикл for - повтори n раз, пробеги коллекцию, пробеги строку, пробеги от а до б
+'''
+for i in range(10):   # range(START=0, STOP=10, STEP=1)
+    print(i, end=' ')  # повтори 10 раз
+print()
+
+for i in range(2, 10):   # range(START=2, STOP=10, STEP=1)
+    print(i, end=' ')  # повтори 10 раз
+print()
+
+for i in range(2, 10, 2):   # range(START=2, STOP=10, STEP=2)
+    print(i, end=' ')  # повтори 10 раз
+print()
+
+for i in range(10, 0, -1):   # range(START=10, STOP=0, STEP=-1)
+    print(i, end=' ')  # повтори 10 раз
+print()
+
+# i  0  1  2  3  4  5
+M = [6, 3, 4, 7, 8, 2]
+print(len(M))  # выведет длину списка, то есть кол-во цифр в нем
+#-i -6 -5 -4 -3 -2 -1
+print(M[0])  # доступ по индексу к минимальному элементу
+print(M[-1])  # доступ по индексу к максимальному элементу
+
+for i in range(0, len(M)):
+    print(f'Элемент списка {M} под индексом {i} равен {M[i]}')
+
+string = 'alphabet'
+for i in string:
+    print(i*4, end=' ')
+'''
+
+# while - это цикл с условием, тело цикла выполняется, только если условие истинно
+'''
+x = 12345
+summ = 0
+while x > 0:
+    summ += x % 10
+    x //= 10
+print(summ)
+'''
+
 
 '''
-Многострочный комментарий
+for i in range(2, 10+1, 2):   # range(START=2, STOP=10, STEP=2)
+    print(i, end=' ')  # повтори 10 раз
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')
+    i += 2
 '''
 
-print('Хочу прочитать книгу "Война и Мир" ')  # разные ковычки позволяют избежать недопониманий
-
-M = []
-M.append(1)  # через M.  можно увидеть все методы объекта список, то есть объект. показывает все методы объекта
-
-
-# Возвращает документацию к функциям и методам
-print(len.__doc__)  # Return the number of items in a container.
-
-print(M.append.__doc__)  # Append object to the end of the list.
-
-
-import __example__
-print(__example__.D(1000))
-
-
-# калькулятор систем счислений
-'''
-while True:
-    print('case 1: Перевод из 10-ной в n-ную\ncase 2: Перевод из n-ной в 10-ную\ncase 0: exit\n\n')
-    case = input('case: ')
-
-    if case == '1':
-        x = int(input('Введите 10-ное число: '))
-        n = int(input('Введите систему счисления: '))
-        alphabet = '0123456789abcdef'
-        M = []
-        while x > 0:
-            M.append(alphabet[x % n])
-            x //= n
-        M.reverse()
-        print(''.join(M))
-
-    if case == '2':
-        x = input('Введите n-ное число: ')
-        n = int(input('Введите систему счисления: '))
-
-        print(int(x, n))
-
-    elif case == '0':
+for x in range(2, 16):  # [0, 16)
+    if x == 14:
         break
-'''
+    if x % 2 == 0:
+        continue
+    print(x, end=' ')
 
+
+print('\n\n')
+
+import random
+password = 'qwerty'
+
+count = 0
+while True:
+    pas = input('Введите пароль: ')
+    if pas == password:
+        print('Welcome')
+        break
+    count += 1
+    if count == 3:
+        a = random.randint(1, 100)
+        s = random.choice(['-', '+'])
+        b = random.randint(1, 100)
+        x = int(input(f'решите пример: {a} {s} {b} = '))
+        if s == '+' and x == a + b:
+            print('Вы не робот, спасибо за проверку')
+            count = 0
+        elif s == '-' and x == a - b:
+            print('Вы не робот, спасибо за проверку')
+            count = 0
+        else:
+            print('BANNED')
+            break
+
+    else:
+        print('Пароль неверный, попробуйте снова')
 
 # endregion Урок: ******************************************************************
 
 
 
 # todo: Егор = []
-# на прошлом уроке: Обговорили типы данных, базовую арифметику, ввод с клавиатуры, f-строки
-# на следующем уроке: Условные операторы, циклы while и for (мейби 2 номер)
+# на прошлом уроке: Проговаривали теорию условных операторов и циклов
+# на следующем уроке:
