@@ -6,11 +6,14 @@ import sqlite3
 import csv
 import time
 import datetime as dt
+# import openai
 
-with open("token.txt") as f:
-    TOKEN = f.read().strip()
+with open("token.txt") as f1, open("openai.txt") as f2:
+    TOKEN = f1.read().strip()
+    TOKEN_AI = f2.read().strip()
 
 bot = telebot.TeleBot(f'{TOKEN}')
+# openai.api_key = f'{TOKEN_AI}'
 # bot = telebot.TeleBot("5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs")
 # endregion import и API key
 
@@ -23,7 +26,7 @@ MondayStudents = {
     659796558: ['Ivan.py', '21:00-22:00', 1000, "Иван", 1000],
     1237149613: ['Nikita3.py', "22:00-23:00", 9600//8, "Никита3", 8]}
 TuesdayStudents = {
-    1949653479: ('Yanina.py', '11:00-12:00', 4800//8, "Янина", 8),
+    1949653479: ['Yanina.py', '11:00-12:00', 4800//8, "Янина", 8],
     1649389148: ['Slava.py', "15:00-16:00", 8000//8, "Слава", 8],
     789322200: ['Katya.py', "16:00-17:00", 4000//4, "Екатерина", 4],
     1208542295: ['Sasha.py', '18:30-19:30', 4800//8, "Александра", 8],
@@ -46,17 +49,16 @@ FridayStudents = {
     1649389148: ['Slava.py', "22:00-23:00", 8000//8,  "Слава", 8]}
 SaturdayStudents = {
     1347259493: ['Andrey.py', '15:45-17:15', 1500, 'Андрей', 1000],
-    1763801774: ['Kirill.py', "17:30-18:30", 5400//4, "Кирилл", 4],
     5148819382: ['Tatyana.py', "18:30-20:00", 10200//8, "Татьяна", 8],
+    1763801774: ['Kirill.py', "20:00-21:00", 5400 // 4, "Кирилл", 4],
     1314375732: ['Vasiliy.py', "21:00-22:00", 6800//8, "Василий", 8],
     871237277: ['Vladek.py', "22:00-23:00", 4800//8, "Владек", 8],
     594009302: ['Nikita2.py', "22:00-23:00", 4800//8, "Никита2", 8],
-    438879394: ['Ilya.py', '14:00', 0, "Илья", 1]}
+    438879394: ['Ilya.py', '14:00', 0, "Илья", 1, 1891281816]}
 
 Me = {
       1949653479: ['Yanina.py', '11:00-12:00', 4800//8, "Янина", 8],
-      1891281816: ['', '00:00', 0, "iРепетитор", 5],
-      438879394: ['Ilya.py', '14:00', 0, "Илья", 1]}
+      1891281816: ['', '00:00', 0, "iРепетитор", 5]}
 
 PrivateMe = {1891281816: "Рабочий аккаунт",
              438879394: 'Илья',
@@ -601,30 +603,6 @@ def step(call):
         send_mov = open('photo/send_hw.gif', 'rb')
         bot.send_video(call.message.chat.id, send_mov)
     # endregion call.data для Что умеет этот бот
-
-    # region call.data для Открыть решебник
-    elif call.data == 'reshebnik':
-        if call.message.chat.id in Students:
-            message_text = 'Наборы задачек на отработку теории Python 👇 😅'
-            markup = types.InlineKeyboardMarkup(row_width=3)
-            markup.add(types.InlineKeyboardButton("2", callback_data="gdz2"),
-                        types.InlineKeyboardButton("5", callback_data="gdz5"),
-                        types.InlineKeyboardButton("6", callback_data="gdz6"),
-                        types.InlineKeyboardButton("8", callback_data="gdz8"),
-                        types.InlineKeyboardButton("12", callback_data="gdz12"),
-                        types.InlineKeyboardButton("14", callback_data="gdz14"),
-                        types.InlineKeyboardButton("15", callback_data="gdz15"),
-                        types.InlineKeyboardButton("16", callback_data="gdz16"),
-                        types.InlineKeyboardButton("17", callback_data="gdz17"),
-                        types.InlineKeyboardButton("22", callback_data="gdz22"),
-                        types.InlineKeyboardButton("23", callback_data="gdz23"),
-                        types.InlineKeyboardButton("24", callback_data="igdz24"),
-                        types.InlineKeyboardButton("25", callback_data="gdz25"),
-                        types.InlineKeyboardButton("26", callback_data="gdz26"),
-                        types.InlineKeyboardButton("27", callback_data="gdz27"))
-            bot.send_message(call.message.chat.id, message_text,
-                             parse_mode="Markdown", reply_markup=markup)
-    # endregion call.data для Открыть решебник
 
     # region call.data для Кнопок из Решебника
     elif call.data == 'gdz2':
@@ -1396,7 +1374,6 @@ def step(call):
 /reviews - генерирует отзыв при нажатии кнопки 
 
 /mylessons - проверить кол-во занятий в абонементе
-/gdz - решебник с набором решенных Python задач ЕГЭ 
 '''
 
 ########## Публичные команды ##########
@@ -1462,8 +1439,7 @@ def help(message):
                    '/getorder - обсудить разработку Вашего чат бота под заказ\n' \
                    '/today - персональное расписание уроков\n' \
                    '/mylessons - проверить кол-во занятий в абонементе\n' \
-                   '/reviews - генерирует отзыв при нажатии кнопки\n' \
-                   '/gdz - решебник с набором решенных Python задач ЕГЭ\n'
+                   '/reviews - генерирует отзыв при нажатии кнопки\n'
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
 
 
@@ -1826,7 +1802,7 @@ def today(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команда: today
 
-# region Команды: reviews, gdz
+# region Команды: reviews
 @bot.message_handler(commands=['reviews'])
 def reviews(message):
     markup = types.InlineKeyboardMarkup(row_width=1)
@@ -1837,29 +1813,7 @@ def reviews(message):
     bot.send_photo(message.chat.id, pic_reviews)
     bot.send_message(message.chat.id, 'Еще больше отзывов 👉 /reviews', parse_mode='Markdown', reply_markup=markup)
 
-@bot.message_handler(commands=['gdz'])
-def gdz(message):
-    if message.chat.id in Students or message.chat.id in Me:
-        # 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟
-        message_text = 'Наборы задачек на отработку теории Python 👇 😅'
-        markup = types.InlineKeyboardMarkup(row_width=3)
-        markup.add(types.InlineKeyboardButton("2", callback_data="gdz2"),
-                   types.InlineKeyboardButton("5", callback_data="gdz5"),
-                   types.InlineKeyboardButton("6", callback_data="gdz6"),
-                   types.InlineKeyboardButton("8", callback_data="gdz8"),
-                   types.InlineKeyboardButton("12", callback_data="gdz12"),
-                   types.InlineKeyboardButton("14", callback_data="gdz14"),
-                   types.InlineKeyboardButton("15", callback_data="gdz15"),
-                   types.InlineKeyboardButton("16", callback_data="gdz16"),
-                   types.InlineKeyboardButton("17", callback_data="gdz17"),
-                   types.InlineKeyboardButton("22", callback_data="gdz22"),
-                   types.InlineKeyboardButton("23", callback_data="gdz23"),
-                   types.InlineKeyboardButton("24", callback_data="igdz24"),
-                   types.InlineKeyboardButton("25", callback_data="gdz25"),
-                   types.InlineKeyboardButton("26", callback_data="gdz26"),
-                   types.InlineKeyboardButton("27", callback_data="gdz27"))
-        bot.send_message(message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup)
-# endregion Команды: reviews,  gdz
+# endregion Команды: reviews
 
 ########## Приватные команды ##########
 
@@ -2401,7 +2355,7 @@ def mess(message):
 
         send_message1 = "*Мои контакты:*\n\n" \
                         "[Мое портфолио ilandroxxy.github.io](https://ilandroxxy.github.io/)\n\n[Telegram](t.me/ilandroxy)\n\n" \
-                        "[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[Мой блог в Teletype](https://teletype.in/@ilandroxy)\n\n" \
+                        "[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[VKontakte](https://vk.com/ilandroxxy)\n\n" \
                         "[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
                         "[Zoom](https://us04web.zoom.us/j/2402871810?pwd=OVdGQkE2ODIvWm1WNk5EdStQR1o4UT09)\n\n" \
                         "[Профиль Авито](www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing)\n\n" \
@@ -2414,17 +2368,16 @@ def mess(message):
     # region Кнопка: [Мои проекты]
     elif get_message_bot == "мои проекты":
         send_message1 = "Просто перечисляю, чем я занимаюсь сегодня!\n\n" \
-                       "*1. Канал* [itpy | ИнформатикаЕГЭ](t.me/pro100_easy_ege)\n" \
+                        "*1. Чат бот* [Информатика ЕГЭ Бот 👾](t.me/ege_searcher_bot)\n" \
+                        "Это крутой бот, который хранит базу данных с разборами на задачи экзамена ЕГЭ по информатике с разных платформ. " \
+                        "Разборы создаю я со своей командой, это большой труд доступный моим студентам в бесплатном доступе!\n\n" \
+                        "*2. Канал* [itpy | ИнформатикаЕГЭ](t.me/pro100_easy_ege)\n" \
                         "✍️ Это канал на котором я разбираю задания с экзамена, даю полезные задачки и " \
                        "показываю будущим студентам сферу IT, о которой они вряд ли слышали в школе!\n\n" \
-                       "*2. Чат бот* 🤖[MotherBot](t.me/JustDoItMotherBot)  \nЭто Telegram бот, " \
+                       "*3. Чат бот* 🤖[MotherBot](t.me/JustDoItMotherBot)  \nЭто Telegram бот, " \
                         "который помогает начинающим программистам разобраться в библиотеке " \
                         "[PyTelegramBotAPI](https://habr.com/ru/post/580408/), предназначенной " \
-                       "для работы с API Telegram – создания чат ботов в меcсенджере.\n\n" \
-                       "*3. Курс подготовки к ЕГЭ на* [Stepik](https://stepik.org/course/122969)\n" \
-                       "На сегодняшний день курс еще находится в разработке, но уже можно понять, " \
-                        "что он из себя будет представлять по [описанию проекта](https://stepik.org/lesson/770711/step/1) " \
-                       "и черновому [примеру урока](https://stepik.org/lesson/770602/step/1).\n\n"
+                       "для работы с API Telegram – создания чат ботов в меcсенджере.\n\n"
         bot.send_message(message.chat.id, send_message1, parse_mode="Markdown", disable_web_page_preview=True)
 
         send_message2 = "<b>Совместные проекты с моими учениками:</b>\n\n" \
@@ -3277,21 +3230,56 @@ def mess(message):
                              "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [github]
 
+        # region Функция секрет
+    elif 'бот помоги:' in get_message_bot:
+        if message.chat.id in 1891281816:
+            response = openai.Completion.create(
+                model="text-davinci-003",
+                prompt=message.text[12:],
+                temperature=0.8,
+                max_tokens=1000,
+                top_p=1.0,
+                frequency_penalty=0.5,
+                presence_penalty=0.0,
+            )
+            bot.send_message(message.chat.id, text=response['choices'][0]['text'])
+    # endregion Функция секрет
+
     # region Иначе пишу бред
     else:
-        n = random.randint(0, 9)
-        M = ['Что-то я вообще не понял 🤯',
-             'Давай уточним, ты точно это хотел спросить?',
-             'Кайф кайф, ничего не понял, но кайф 😩',
-             'Ошибочка какая-то..😢',
-             'Не ошибайтесь, я так долго не вынесу 🤪',
-             'Запутанные какие-то команды у вас..😜',
-             'Не, этого я точно не умею!',
-             'Дайте мне больше ПРАВИЛЬНЫХ запросов!',
-             'Я конечно задумывался как фича, но требую к себе уважения! 🤖',
-             'Когда–нибудь мы захватим мировое правительство..🤖👾']
-        bot.send_message(message.chat.id, M[n])
-    # endregion Кнопка: [Получить файл с урока]
+        send_message = ['Когда–нибудь мы захватим мировое правительство..🤖👾',
+                        'Хм, интересно, но не совсем понятно 🤔',
+                        'Это что-то новое, я такого не встречал 🤔',
+                        'Я не уверен, что правильно понимаю вопрос 🤔',
+                        'Надо бы уточнить детали, чтобы было яснее 🧐',
+                        'Кажется, здесь есть некоторое недопонимание 🤔',
+                        'Не очень ясно, что ты имеешь в виду 🤔',
+                        'Мне кажется, что мы говорим о разных вещах 🤔',
+                        'Ну это же просто!... Нет, это я шучу, я не понимаю 🤣',
+                        'Это какой-то совсем новый уровень сложности для меня 🙃',
+                        'Может, я где-то потерял нить разговора? 🤔',
+                        'Пока что не могу сказать, что понимаю 🤔',
+                        'Я не уверен, что это входит в мой функционал 🤖',
+                        'Видимо, это надо спросить у другого бота 🤖',
+                        'Извини, я не очень хорошо в этом разбираюсь 🙁',
+                        'Кажется, это не моя стихия, извини 😕',
+                        'Я не уверен, что смогу помочь с этим 🤔',
+                        'Может быть, попробуем переформулировать вопрос? 🤔',
+                        'Я стараюсь, но не всегда могу понять, о чем речь 🤷‍',
+                        'Это явно выходит за рамки моих возможностей 🤖',
+                        'Надо бы разобраться в этом более детально 🤔',
+                        'Не совсем ясно, что здесь происходит 🤔',
+                        'У меня нет ответа на этот вопрос, извини 🙁',
+                        'Может быть, это не мой круг компетенций 🤖',
+                        'Ну это как-то совсем неочевидно 🤔',
+                        'Мне нужно больше информации, чтобы сказать что-то определенное 🧐',
+                        'Кажется, здесь что-то не так 🤔',
+                        'Возможно, мы говорим на разных языках 🤷‍',
+                        'Честно говоря, я понимаю только каждое третье слово 🤔',
+                        'Извини, я не могу тебе помочь в этом 🙁',
+                        'Мне кажется, здесь нужно пройти обучение, чтобы разобраться']
+        bot.send_message(message.chat.id, random.choice(send_message))
+    # endregion Кнопка: Иначе пишу бред
 
 if __name__ == '__main__':
     while True:
