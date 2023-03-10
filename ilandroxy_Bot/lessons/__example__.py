@@ -1236,12 +1236,34 @@ print(F(1, 9) * F(9, 17))
 
 '''
 
+def cache3(func):
+   cache = func()
+   count = 0
+   def wrapper():
+       nonlocal count
+       if count < 4:
+           return cache
+       else:
+           count = 0
+           return func()
+    return wrapper
 
 
-x = 11
-y = 5
-z = y  # Z принимает значения y, то есть = 5
-y = x % y  # берем остаток от деления x на y, то есть 11 % 5 = 1
-x = z  # X принимает значения z, то есть = 5
-y = (y + 2) + z  # Y принимает значения (y + 2) + z, то есть = (1 + 2) + 5 = 8
-print(x, y, z)
+@cache3
+def heavy():
+    print('Сложные вычисления')
+    return 1
+
+
+print(heavy())
+# Сложные вычисления
+# 1
+print(heavy())
+# 1
+print(heavy())
+# 1
+
+# Опять кеш устарел, надо вычислять заново
+print(heavy())
+# Сложные вычисления
+# 1

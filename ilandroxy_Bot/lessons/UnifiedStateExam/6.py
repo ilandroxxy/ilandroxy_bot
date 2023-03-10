@@ -566,3 +566,66 @@ t.done()
 '''
 # Ответ: 12
 # endregion Тип 6 № 47310
+
+
+import turtle as t
+t.left(90)
+l = 25
+t.color('red')
+t.speed(100)
+
+t.right(60)
+for _ in range(4):
+    t.forward(8 * l)
+    t.right(120)
+
+    t.forward(4 * l)
+    t.right(240)
+t.right(120)
+t.forward(2 * l)
+t.right(90)
+t.forward((16 * 3**0.5) * l)
+t.right(90)
+t.forward(2 * l)
+
+t.up()
+for x in range(0, 40):
+    for y in range(-3, 5):
+        t.goto(x*l, y*l)
+        t.dot(1, 'blue')
+
+t.done()
+'''
+import turtle as t
+t.left(90)
+l = 10
+t.color('red')
+
+t.begin_fill()
+t.right(60)
+for _ in range(4):
+    t.forward(8 * l)
+    t.right(120)
+
+    t.forward(4 * l)
+    t.right(240)
+t.right(120)
+t.forward(2 * l)
+t.right(90)
+t.forward((16 * 3**0.5) * l)
+t.right(90)
+t.forward(2 * l)
+
+t.end_fill()
+
+canvas = t.getcanvas()
+count = 0
+for x in range(-100*l, 100*l, l):
+    for y in range(-100*l, 100*l, l):
+        item = canvas.find_overlapping(x, y, x, y)
+        if len(item) == 1 and item[0] == 5:
+            count += 1
+print(count)
+
+t.done()
+'''

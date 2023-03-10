@@ -100,7 +100,87 @@ print(count)
 '''
 # Ответ: 64
 
+'''
+for a in range(100, 0, -1):
+    k = 0
+    for x in range(1, 1000):
+        if ((x % 3 == 0) <= (x % 2 != 0) or (x - a >= 4 )):
+            k += 1
+    if k == 999:
+        print(a)
+        break
+'''
 
+'''
+def F(x):
+    return ((x % 3 == 0) <= (x % 2 != 0)) or (x - A >= 4)
+
+for A in range(1, 1000):
+    if all(F(x) for x in range(1, 1000)):
+        print(A)
+'''
+# Ответ: 2
+
+'''
+for x in '0123456789abc':
+    a = int(f'735{x}2', 13)
+    b = int(f'2{x}173', 13)
+
+    if (a + b) % 12 == 0:
+        print((a + b) // 12)
+        break
+'''
+# Ответ: 22615
+
+
+'''
+M = ['']
+import itertools
+for t in range(1, 3+1):
+    for s in itertools.product('0123456789', repeat=t):
+        s = ''.join(s)
+        M.append(s)
+
+R = []
+for x in range(0, 10):
+    for y in M:
+        A = int(f'1{x}2139{y}4')
+        if A % 3052 == 0:
+            R.append([A, A//3052])
+
+for x in sorted(R):
+    print(*x)
+'''
+# Ответ
+# 1421398804 465727
+# 1521397584 498492
+# 1621396364 531257
+# 1721395144 564022
+# 1821393924 596787
+# 1921392704 629552
+
+# Тип 16
+print((2*516-3) * (2 * 515 - 3) * (2 * 514-3))
+# Ответ: 1083202575
+
+
+# Тип 23
+'''
+numbers = set()
+
+def F(a, h):
+    if h == 13:
+        numbers.add(a)
+    else:
+        F(a - 3, h + 1)
+        F(a * (-3), h + 1)
+F(333, 0)
+
+M = [i for i in numbers if i < 0]
+print(M)
+print(len(M))
+'''
+# Ответ: 2224
 
 # endregion Урок:  *************************************************************************
 
