@@ -12,15 +12,14 @@ with open("token.txt") as f1, open("openai.txt") as f2:
     TOKEN = f1.read().strip()
     TOKEN_AI = f2.read().strip()
 
-# bot = telebot.TeleBot(f'{TOKEN}')
+bot = telebot.TeleBot(f'{TOKEN}')
 openai.api_key = f'{TOKEN_AI}'
-bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
+# bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
 # endregion import и API key
 
 # region Словарь с данными студентов
 MondayStudents = {
     1477701439: ["Valeria.py", '15:00-16:00', 4000//4, "Валерия", 4],
-    1771225714: ['Egor.py', "17:00-18:00", 9600//8, "Егор", 8],
     826004697: ['Nikita.py', '19:00-20:00', 4000//4, "Никита", 4],
     1454117859: ['Diana', "20:00-21:00", 4800//8, "Диана", 8],
     659796558: ['Ivan.py', '21:00-22:00', 1000, "Иван", 1000],
@@ -116,18 +115,18 @@ def step(call):
 
     # region call.data для Репетитор
     if call.data == 'price':
-        pic_2 = open("photo/price.PNG", "rb")
-        bot.send_photo(call.message.chat.id, pic_2)
-
-        send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень " \
-                        f"знаний, и мы вместе подбираем оптимальный абонемент!\n\n" \
-                        f"Работаю официально по чекам через НПД (`Самозанятый`).\n\n"
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
                    types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🧮 Реквизиты", callback_data="wallet"))
-        bot.send_message(call.message.chat.id, send_message2,
-                         parse_mode="Markdown", reply_markup=markup)
+
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open("photo/price.PNG", "rb")),
+                                                    types.InputMediaPhoto(open("photo/price2.png", "rb"))])
+
+        message_text = f"*Первое занятие БЕСПЛАТНО*,\n" \
+                       f"на нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown",
+                         disable_web_page_preview=True, reply_markup=markup)
 
     elif call.data == "iam":
         send_message1 = f"*О себе:*\n" \
@@ -193,28 +192,27 @@ def step(call):
                                disable_web_page_preview=True)
 
     elif call.data == "wallet":
-
-        send_message = f"*Мои реквизиты для перевода*\n\n" \
-                       f"*Перевод по номеру телефона:* \n`+7 (913) 468-35-34`" \
-                       f"\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
-                       f"*Или по номеру карты:*\nТинькоф: `5536 9140 2240 5801`" \
-                       f"\nСБЕР: `5469 4400 2244 1977`\n" \
-                       f"Тинькоф МИР: `2200 7004 1864 5957`\n" \
-                       f"Получатель: `Андрианов Илья Алексеевич`\n\n" \
-                       f"После оплаты скидываю вам чек, работаю " \
-                       f"официально через НПД (`Самозанятый`).\n\n" \
-                       f"[Оставить чаевые](https://www.tinkoff.ru/cf/9f3vcMecD9w)"
-
-        markup = types.InlineKeyboardMarkup(row_width=1)
-        markup.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
+        markup0 = types.InlineKeyboardMarkup(row_width=1)
+        markup0.add(types.InlineKeyboardButton("🧑🏽‍💻 О себе", callback_data="iam"),
                    types.InlineKeyboardButton("⬇️ Программы", callback_data="downloads"),
                    types.InlineKeyboardButton("🏷 Прайс", callback_data="price"))
 
-        bot.send_message(call.message.chat.id,
-                         send_message,
-                         parse_mode="Markdown",
-                         reply_markup=markup,
-                         disable_web_page_preview=True)
+        message_text_2 = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n" \
+                         f"+7 (913) 468-35-34\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
+                         f"*Или по номеру карты:*\nТинькофф: 2200 7004 1864 5957\n" \
+                         f"СБЕР: 5469 4400 2244 1977\n" \
+                         f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
+                         f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
+                         f"[Перевод на карту Тинькофф](https://www.tinkoff.ru/rm/andrianov.ilya18/x0KX062685)"
+        bot.send_message(call.message.chat.id, message_text_2, parse_mode="Markdown",
+                         disable_web_page_preview=True, reply_markup=markup0)
+
+        bot.send_photo(call.message.chat.id, open("photo/payment_qr.jpg", "rb"))
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(types.InlineKeyboardButton("Оставить чаевые 💫", url='https://clck.ru/33J6fo'))
+        message_text_3 = f"Воспользуйтесь QR кодом для перевода на Тинькофф"
+        bot.send_message(call.message.chat.id, message_text_3, parse_mode="Markdown",
+                         disable_web_page_preview=True, reply_markup=markup)
     # endregion call.data для Репетитор
 
     # region call.data для Теоретической домашки
@@ -609,9 +607,10 @@ def step(call):
                              [types.InputMediaPhoto(open('gdz/2/2.1.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/2/2.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6Ee) на полный набор задач 2️⃣ типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz5':
         bot.send_media_group(call.message.chat.id,
@@ -620,9 +619,10 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/5/5.3.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/5/5.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6ET) на полный набор задач 5️⃣ типа🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz6':
         bot.send_media_group(call.message.chat.id,
@@ -630,9 +630,10 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/6/6.2.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/6/6.3.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6EK) на полный набор задач 6️⃣ типа🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz8':
         bot.send_media_group(call.message.chat.id,
@@ -641,18 +642,20 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/8/8.3.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/8/8.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6E6) на полный набор задач 8️⃣ типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz12':
         bot.send_media_group(call.message.chat.id,
                              [types.InputMediaPhoto(open('gdz/12/12.1.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/12/12.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6Dq) на полный набор задач 1️⃣2️⃣ типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz14':
         bot.send_media_group(call.message.chat.id,
@@ -660,9 +663,10 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/14/14.2.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/14/14.3.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6Dd) на полный набор задач 1️⃣4️⃣  типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz15':
         bot.send_media_group(call.message.chat.id,
@@ -671,9 +675,10 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/15/15.3.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/15/15.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6DS) на полный набор задач 1️⃣5️⃣  типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz16':
         bot.send_media_group(call.message.chat.id,
@@ -681,24 +686,28 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/16/16.2.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/16/16.3.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6Cc) на полный набор задач 1️⃣6️⃣ типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz17':
         bot.send_media_group(call.message.chat.id,
                              [types.InputMediaPhoto(open('gdz/17/17.1.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/17/17.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6CW) на полный набор задач 1️⃣7️⃣ типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz22':
         # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/22/22.1.jpg', 'rb')),
         #                                             types.InputMediaPhoto(open('gdz/22/22.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6Bo) на полный набор задач 2️⃣2️⃣  типа 🎯"
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
         bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz23':
@@ -706,9 +715,10 @@ def step(call):
                              [types.InputMediaPhoto(open('gdz/23/23.1.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/23/23.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6BR) на полный набор задач 2️⃣3️⃣ типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz24':
         bot.send_media_group(call.message.chat.id,
@@ -717,9 +727,10 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/24/24.3.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/24/24.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6BC) на полный набор задач 2️⃣4️⃣  типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz25':
         bot.send_media_group(call.message.chat.id,
@@ -728,25 +739,28 @@ def step(call):
                               types.InputMediaPhoto(open('gdz/25/25.3.jpg', 'rb')),
                               types.InputMediaPhoto(open('gdz/25/25.4.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6Ay) на полный набор задач  2️⃣5️⃣  типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz26':
         # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/26/26.1.jpg', 'rb')),
         #                                             types.InputMediaPhoto(open('gdz/26/26.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6Aj) на полный набор задач 2️⃣6️⃣  типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
     elif call.data == 'gdz27':
         # bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open('gdz/27/27.1.jpg', 'rb')),
         #                                             types.InputMediaPhoto(open('gdz/27/27.2.jpg', 'rb'))])
 
-        message_text = "Воспользуйтесь [ссылкой gihub](https://clck.ru/33J6AP) на полный набор задач 2️⃣7️⃣ типа 🎯"
-        bot.send_message(call.message.chat.id, message_text,
-                         parse_mode="Markdown", disable_web_page_preview=True)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
     # endregion для кнопок из Решебника
 
     # region call.data для Теоретических задач
@@ -1309,43 +1323,47 @@ def step(call):
 
     # region call.data для Оплаты абонемента
     elif call.data == 'send_price':
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        markup.add(types.KeyboardButton('Подтвердить оплату'))
+        markup0 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+        markup0.add(types.KeyboardButton('Подтвердить оплату'))
 
-        pic_2 = open("photo/price.PNG", "rb")
-        bot.send_photo(call.message.chat.id, pic_2)
+        message_text_1 = f"*Первое занятие БЕСПЛАТНО*,\n" \
+                         f"на нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
+        bot.send_message(call.message.chat.id, message_text_1, parse_mode="Markdown", disable_web_page_preview=True)
+
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open("photo/price.PNG", "rb")),
+                                               types.InputMediaPhoto(open("photo/price2.png", "rb"))])
 
         message_text_2 = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n" \
                          f"+7 (913) 468-35-34\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
-                         f"*Или по номеру карты:*\nТинькоф: 2200 7004 1864 5957\n" \
+                         f"*Или по номеру карты:*\nТинькофф: 2200 7004 1864 5957\n" \
                          f"СБЕР: 5469 4400 2244 1977\n" \
                          f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
                          f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
-                         f"[Оставить чаевые, коплю на новый компьютер](https://clck.ru/33J6fo) 💫"
+                         f"[Перевод на карту Тинькофф](https://www.tinkoff.ru/rm/andrianov.ilya18/x0KX062685)"
+        bot.send_message(call.message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup0)
 
-        bot.send_message(call.message.chat.id,
-                         message_text_2,
-                         parse_mode="Markdown",
-                         disable_web_page_preview=True,
-                         reply_markup=markup)
+        bot.send_photo(call.message.chat.id, open("photo/payment_qr.jpg", "rb"))
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(types.InlineKeyboardButton("Оставить чаевые 💫", url='https://clck.ru/33J6fo'))
+        message_text_3 = f"Воспользуйтесь QR кодом для перевода на Тинькофф"
+        bot.send_message(call.message.chat.id, message_text_3, parse_mode="Markdown",
+                         disable_web_page_preview=True, reply_markup=markup)
     # endregion call.data для Оплаты абонемента
 
-    # region call.data выводит Прайс в самом начале
+    # region call.data Прайс в самом начале
     elif call.data == 'whats_price':
-        pic_2 = open("photo/price.PNG", "rb")
-        bot.send_photo(call.message.chat.id, pic_2)
+        bot.send_media_group(call.message.chat.id, [types.InputMediaPhoto(open("photo/price.PNG", "rb")),
+                                                    types.InputMediaPhoto(open("photo/price2.png", "rb"))])
 
-        send_message2 = f"*Первое занятие БЕСПЛАТНО*,\nна нем я определю уровень " \
-                        f"знаний, и мы вместе подбираем оптимальный абонемент!\n\n" \
-                        f"Работаю официально по чекам через НПД (`Самозанятый`).\n\n"
+        message_text = f"*Первое занятие БЕСПЛАТНО*,\n" \
+                       f"на нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
 
         markup_price = types.InlineKeyboardMarkup(row_width=1)
         markup_price.add(types.InlineKeyboardButton('Оплатить абонемент', callback_data='send_price'))
 
-        bot.send_message(call.message.chat.id, send_message2,
-                         parse_mode="Markdown", reply_markup=markup_price)
-
-    # endregion call.data выводит Прайс в самом начале
+        bot.send_message(call.message.chat.id, message_text, parse_mode="Markdown",
+                         disable_web_page_preview=True, reply_markup=markup_price)
+    # endregion call.data Прайс в самом начале
 
 # 👉 🙏 👆 👇 😅 👋 🙌 ☺️ ❗ ️‼️ ✌️ 👌 ✊ 👨‍💻  🤖 😉
 # ☝️ ❤️ 💪 ✍️ 🎯  ⛔  ️✅ 📊📈🧮   🗳️ 0️⃣  1️⃣  2️⃣
@@ -1919,22 +1937,27 @@ def download(message):
 def price(message):
     message_text_1 = f"*Первое занятие БЕСПЛАТНО*,\n" \
                      f"на нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
-    bot.send_message(message.chat.id,
-                     message_text_1,
-                     parse_mode="Markdown",
-                     disable_web_page_preview=True)
+    bot.send_message(message.chat.id, message_text_1, parse_mode="Markdown", disable_web_page_preview=True)
 
-    pic_2 = open("photo/price.PNG", "rb")
-    bot.send_photo(message.chat.id, pic_2)
+    bot.send_media_group(message.chat.id, [types.InputMediaPhoto(open("photo/price.PNG", "rb")),
+                                           types.InputMediaPhoto(open("photo/price2.png", "rb"))])
+
 
     message_text_2 = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n" \
                      f"+7 (913) 468-35-34\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
-                     f"*Или по номеру карты:*\nТинькоф: 2200 7004 1864 5957\n" \
+                     f"*Или по номеру карты:*\nТинькофф: 2200 7004 1864 5957\n" \
                      f"СБЕР: 5469 4400 2244 1977\n" \
                      f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
                      f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
-                     f"[Оставить чаевые, коплю на новый компьютер](https://clck.ru/33J6fo) 💫"
+                     f"[Перевод на карту Тинькофф](https://www.tinkoff.ru/rm/andrianov.ilya18/x0KX062685)"
     bot.send_message(message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True)
+
+    bot.send_photo(message.chat.id, open("photo/payment_qr.jpg", "rb"))
+    markup = types.InlineKeyboardMarkup(row_width=1)
+    markup.add(types.InlineKeyboardButton("Оставить чаевые 💫", url='https://clck.ru/33J6fo'))
+    message_text_3 = f"Воспользуйтесь QR кодом для перевода на Тинькофф"
+    bot.send_message(message.chat.id, message_text_3, parse_mode="Markdown",
+                     disable_web_page_preview=True, reply_markup=markup)
 # endregion Команда [price]
 
 # region Команда [tasks]
@@ -2077,6 +2100,43 @@ def useful(message):
     else:
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, [запишитесь на урок](https://clck.ru/33J5xF)", parse_mode="Markdown", disable_web_page_preview=True)
 # endregion Команда [useful]
+
+# region Команда [gdz]
+@bot.message_handler(commands=['gdz'])
+def gdz(message):
+    if message.chat.id in Students or message.chat.id in Me:
+        # 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟
+        message_text = 'Наборы задачек на отработку теории Python 👇 😅'
+        markup = types.InlineKeyboardMarkup(row_width=3)
+        markup.add(types.InlineKeyboardButton("2", callback_data="gdz2"),
+                   types.InlineKeyboardButton("5", callback_data="gdz5"),
+                   types.InlineKeyboardButton("6", callback_data="gdz6"),
+                   types.InlineKeyboardButton("8", callback_data="gdz8"),
+                   types.InlineKeyboardButton("12", callback_data="gdz12"),
+                   types.InlineKeyboardButton("14", callback_data="gdz14"),
+                   types.InlineKeyboardButton("15", callback_data="gdz15"),
+                   types.InlineKeyboardButton("16", callback_data="gdz16"),
+                   types.InlineKeyboardButton("17", callback_data="gdz17"),
+                   types.InlineKeyboardButton("22", callback_data="gdz22"),
+                   types.InlineKeyboardButton("23", callback_data="gdz23"),
+                   types.InlineKeyboardButton("24", callback_data="igdz24"),
+                   types.InlineKeyboardButton("25", callback_data="gdz25"),
+                   types.InlineKeyboardButton("26", callback_data="gdz26"),
+                   types.InlineKeyboardButton("27", callback_data="gdz27"))
+        bot.send_message(message.chat.id, message_text, parse_mode="Markdown", reply_markup=markup)
+
+        markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup1.add(btn1, btn2, btn3, btn4, btn5)
+        message_text = f"Разборы на любую задачу с [Решу ЕГЭ](https://inf-ege.sdamgia.ru/), [КЕГЭ](https://kompege.ru/task), " \
+                       f"[Сборник Полякова](https://kpolyakov.spb.ru/school/ege/generate.htm)" \
+                       f" - Вы можете найти в моем Telegram боте: [@ege_searcher_bot] 🤖"
+        bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup1)
+# endregion Команда [gdz]
 
 # region Команда [homework]
 @bot.message_handler(commands=['homework'])
@@ -2358,8 +2418,6 @@ def list(message):
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команда: [list]
 
-
-
 # region Команда: добавить ученика, редактировать запись
 @bot.message_handler(commands=['addstudents'])
 def addstudents(message):
@@ -2542,7 +2600,7 @@ def mess(message):
 
         pic_1 = open("photo/appointment.jpg", 'rb')
         bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
-    # endregion Кнопка: Что умеет этот бот
+    # endregion Кнопка: [Что умеет этот бот]
 
     # region Кнопки: [Подтвердить оплату абонемента ]
     elif get_message_bot in ('подтвердить оплату абонемента ❗', 'оплачено', 'подтвердить оплату'):
@@ -2597,7 +2655,7 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
             sql.commit()
             cursor.close()
-    # endregion Кнопки: [Подтвердить оплату абонемента ]
+    # endregion Кнопки: [Подтвердить оплату абонемента]
 
     # region Кнопки: [Да, все получается ✅]
     elif get_message_bot == 'да, все получается ✅':
@@ -2740,10 +2798,11 @@ def mess(message):
     # region Кнопка: [Контакты]
     elif get_message_bot == "контакты":
         markup = types.InlineKeyboardMarkup(row_width=1)
-        markup.add(types.InlineKeyboardButton("👨‍💻 Моя визитка MyQRcards", url='https://card.myqrcards.com/links/5jaDBMw7w61?v=-1160'))
+        markup.add(types.InlineKeyboardButton("👨‍💻 Моя визитка MyQRcards", url='https://card.myqrcards.com/links/5jaDBMw7w61?v=-1160'),
+                   types.InlineKeyboardButton("✌️ Моя визитка Planerka.app", url='https://planerka.app/meet/ilandroxy'))
 
         send_message1 = "*Мои контакты:*\n\n" \
-                        "[Мое портфолио ilandroxxy.github.io](https://ilandroxxy.github.io/)\n\n" \
+                        "Мое портфолио [ilandroxxy.github.io](https://ilandroxxy.github.io/)\n\n" \
                         "[Telegram](t.me/ilandroxy)\n\n" \
                         "[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n" \
                         "[VKontakte](https://vk.com/ilandroxxy)\n\n" \
@@ -2788,22 +2847,21 @@ def mess(message):
     # region Кнопка: [Записаться на урок]
     elif get_message_bot == "записаться на урок":
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        btn1 = types.KeyboardButton('Персональные уроки')
-        btn2 = types.KeyboardButton('Групповые занятия')
-        btn3 = types.KeyboardButton('Отменить ⛔')
+        btn1 = types.KeyboardButton('🙋‍ Персональные уроки')
+        btn2 = types.KeyboardButton('🙋‍️🤷‍ Групповые занятия')
+        btn3 = types.KeyboardButton('↩️ Вернуться назад')
         markup.add(btn1, btn2, btn3)
         bot.send_message(message.chat.id, 'Выберите какой формат обучения Вас интересует:', reply_markup=markup)
     # endregion Кнопка: [Записаться на урок]
 
     # region Кнопка: [Персональные уроки]
-    elif get_message_bot == 'персональные уроки':
+    elif get_message_bot in ('🙋‍ персональные уроки', 'персональные уроки'):
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("planerka.app", url="https://planerka.app/meet/ilandroxy/tutor"))
-        message_text = f"Воспользуйтесь удобным сервисом [planerka.app](https://deepvoice.me/) " \
+        message_text = f"Воспользуйтесь удобным сервисом [planerka.app](https://planerka.space/) " \
                        f"*для записи на пробное занятие* или выбора графика занятий. \n\n" \
                        f"Просто выберите подходящее время и *напишите пару слов о себе*. \n\n" \
-                       f"❗Ваша карточка отобразится в моем календаре, но чтобы было комфортнее " \
-                       f"держать связь - прошу написать еще и в [Telegram](t.me/ilandroxy). "
+                       f"❗Ваша карточка отобразится в моем календаре и я напишу Вам 🙏"
         bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
 
         pic = open("photo/calendly.jpg", 'rb')
@@ -2811,8 +2869,18 @@ def mess(message):
     # endregion Кнопка: [Персональные уроки]
 
     # region Кнопка: [Групповые занятия]
-    elif get_message_bot == 'групповые занятия':
-        pass
+    elif get_message_bot in ('🙋‍️🤷‍ групповые занятия', 'групповые занятия'):
+        markup = types.InlineKeyboardMarkup(row_width=1)
+        markup.add(types.InlineKeyboardButton("planerka.app", url="https://planerka.app/meet/ilandroxy/group"))
+        message_text = f"Воспользуйтесь удобным сервисом [planerka.app](https://planerka.space/) " \
+                       f"*для записи на групповое занятие*. Обращаю Ваше внимание, что группы рассчитаны не более чем на 4 человека. " \
+                       f"Так же могу заметить, что выгоднее сразу приходить с одноклассниками, чтобы начинать подготовку в равных условиях!\n\n" \
+                       f"Просто выберите подходящее время/группу и *напишите пару слов о себе*. \n\n" \
+                       f"❗Ваша карточка отобразится в моем календаре и я напишу Вам 🙏"
+        bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+        pic = open("photo/calendly2.jpg", 'rb')
+        bot.send_photo(message.chat.id, pic, reply_markup=markup)
     # endregion Кнопка: [Групповые занятия]
 
     # region Кнопка: [Получить файл с урока]
@@ -2960,7 +3028,7 @@ def mess(message):
                         btn1 = types.KeyboardButton('Подтвердить оплату абонемента ❗')
                         markup.add(btn1)
                         bot.send_message(key,
-                                         f" 🤖 Привет!\nЭто подтверждение нужно, для ведения бухгалтерии 📊📈🧮\n\n",
+                                         f" 🤖 Привет!\nЭто подтверждение нужно для ведения бухгалтерии 📊📈🧮\n\n",
                                          parse_mode='Markdown', reply_markup=markup)
                 else:
                     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -2981,8 +3049,7 @@ def mess(message):
     elif get_message_bot == 'редактрировать db':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-            btn1 = types.KeyboardButton('Отменить ⛔')
-            markup.add(btn1)
+            markup.add(types.KeyboardButton('Отменить ⛔'))
 
             day = 'Все студенты: *'
             for x in sorted(S):
@@ -3640,7 +3707,7 @@ def mess(message):
     # endregion Интегрирую openai
 
     # region Кнопка: [Отменить ⛔]
-    elif get_message_bot in ('отменить ⛔', 'отменить', 'отмена', 'назад'):
+    elif get_message_bot in ('отменить ⛔', 'отменить', 'отмена', 'назад', 'вернуться назад', '↩️ вернуться назад'):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
         btn2 = types.KeyboardButton('Репетитор')
