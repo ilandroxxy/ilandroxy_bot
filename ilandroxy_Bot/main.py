@@ -6,15 +6,15 @@ import sqlite3
 import csv
 import time
 import datetime as dt
-# import openai
+import openai
 
 with open("token.txt") as f1, open("openai.txt") as f2:
     TOKEN = f1.read().strip()
     TOKEN_AI = f2.read().strip()
 
-bot = telebot.TeleBot(f'{TOKEN}')
-# openai.api_key = f'{TOKEN_AI}'
-# bot = telebot.TeleBot("5734914555:AAHshNFPEP2SszdrAKbfm_6uKZI4waH1Nbs")
+# bot = telebot.TeleBot(f'{TOKEN}')
+openai.api_key = f'{TOKEN_AI}'
+bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
 # endregion import и API key
 
 # region Словарь с данными студентов
@@ -56,8 +56,7 @@ SaturdayStudents = {
     594009302: ['Nikita2.py', "22:00-23:00", 4800//8, "Никита2", 8],
     438879394: ['Ilya.py', '14:00', 0, "Илья", 1, 1891281816]}
 
-Me = {
-      1949653479: ['Yanina.py', '11:00-12:00', 4800//8, "Янина", 8],
+Me = {1949653479: ['Yanina.py', '11:00-12:00', 4800//8, "Янина", 8],
       1891281816: ['', '00:00', 0, "iРепетитор", 5]}
 
 PrivateMe = {1891281816: "Рабочий аккаунт",
@@ -1306,7 +1305,6 @@ def step(call):
 
 
         bot.register_next_step_handler(call.message, message_input)
-
     # endregion call.data для отправки Homework
 
     # region call.data для Оплаты абонемента
@@ -1378,7 +1376,7 @@ def step(call):
 
 ########## Публичные команды ##########
 
-# region Команды: start, help, getmyid
+# region Команда [start]
 @bot.message_handler(commands=['start'])
 def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
@@ -1399,9 +1397,6 @@ def start(message):
                     f'рассказать о себе и, надеюсь, нам удастся найти общий язык 🙏 \n\n'
     bot.send_message(message.chat.id, message_text1, parse_mode='Markdown', reply_markup=markup1)
 
-
-
-
     message_text2 = f'Если вы мой студент, то воспользуйтесь командой 👉 /getmyid, чтобы бот ' \
                     f'🤖 показал ваш ID пользователя. Он необходим, чтобы ' \
                     f'[я смог добавить](t.me/@ilandroxy) Вас в систему!\n\n' \
@@ -1420,55 +1415,493 @@ def start(message):
     order_message = f'✅ #Новыйпользователь\nName: {message.from_user.first_name}\nUsername: @{message.from_user.username}\n' \
                     f'User ID: {message.chat.id}\n[Написать сообщение](tg://user?id={message.chat.id})'
     bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
+# endregion Команда [start]
 
-
-# HELP
+# region Команда [help]
 @bot.message_handler(commands=['help'])
 def help(message):
-    send_message = "*You can control me by sending these commands:*\n\n*Commands public*\n" \
-                   "/help - справка по всем командам в боте\n" \
-                   "/start - перезапуск бота на стартовую позицию\n" \
-                   '/myprojects - список моих актуальных проектов\n' \
-                   '/download - список программ необходимых для уроков\n' \
-                   '/tasks - набор задач для отработки решений ЕГЭ по Информатике\n' \
-                   '/price - получить информацию о ценах и реквизиты\n' \
-                   '/links - полезные ссылки для подготовки к экзамену\n' \
-                   '/homework - конструктор домашних заданий для моих учеников\n' \
-                   '/getmyid - бот покажет ваш id пользователя Telegram\n' \
-                   '/useful - получите шпаргалки от `Яндекс практикума` по Python\n' \
-                   '/getorder - обсудить разработку Вашего чат бота под заказ\n' \
-                   '/today - персональное расписание уроков\n' \
-                   '/mylessons - проверить кол-во занятий в абонементе\n' \
-                   '/reviews - генерирует отзыв при нажатии кнопки\n'
-    bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    markup.add(types.KeyboardButton('Отменить ⛔'))
+
+    send_message = ['👾 Если у тебя возникли какие-либо проблемы, то напиши мне одним сообщением (4096 символов), и я отвечу тебе в ближайшее время 👨‍💻',
+                    '👾 Если у тебя возникли какие-либо трудности или проблемы, не стесняйся написать мне одним сообщением (до 4096 символов). Я постараюсь ответить как можно скорее 👨‍💻',
+                    '👾 Если у тебя возникли трудности с чем-то, не стесняйся написать мне одним сообщением (до 4096 символов). Я постараюсь ответить как можно скорее и помочь решить проблему 👨‍💻',
+                    '👾 Если у тебя возникли какие-либо вопросы или проблемы, напиши мне одним сообщением (до 4096 символов), и я обязательно отвечу тебе в ближайшее время 👨‍💻',
+                    '👾 Не стесняйся обратиться ко мне, если у тебя возникли какие-либо трудности или проблемы. Напиши мне одним сообщением (до 4096 символов), и я постараюсь помочь в ближайшее время 👨‍💻',
+                    '👾 Если у тебя возникли какие-либо вопросы или проблемы, напиши мне одним сообщением (до 4096 символов), и я обязательно помогу тебе в ближпйшее время 👨‍💻',
+                    '👾 Если ты столкнулся с проблемой или у тебя есть вопросы, напиши мне одним сообщением (до 4096 символов). Я постараюсь ответить как можно скорее и помочь решить проблему 👨‍💻',
+                    '👾 Если у тебя возникли какие-либо вопросы или трудности, напиши мне одним сообщением (до 4096 символов), и я обязательно отвечу тебе в ближайшее время 👨‍💻']
+
+    bot.send_message(message.chat.id, random.choice(send_message), parse_mode='Markdown', reply_markup=markup)
+
+    @bot.message_handler(content_types=['text'])
+    def message_input(message):
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
+
+        if message.text == 'Отменить ⛔':
+            bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+        elif message.text == '/help':
+            bot.send_message(message.chat.id, f"‼️ Повторным нажатием отменена команда /help", reply_markup=markup)
+        elif message.text == '/start':
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+            markup.add(types.KeyboardButton('Что умеет этот бот 🤖'))
+
+            pic_1 = open("photo/hello.jpeg", 'rb')
+            bot.send_photo(message.chat.id, pic_1)
+
+            markup1 = types.InlineKeyboardMarkup(row_width=1)
+            markup1.add(types.InlineKeyboardButton("🧮 Посмотреть прайс на абонементы", callback_data='whats_price'))
+
+            message_text1 = f'👋 Доброго времени суток, *{message.from_user.first_name}*!\n\n' \
+                            f'Меня зовут *Андрианов Илья*. \nЯ программист – `Python` `developer`.\n' \
+                            f'А также репетитор подготовки к ЕГЭ по Информатике и ' \
+                            f'программированию на языке `Python` 🐍\n\n' \
+                            f'*Мои рейтинг на Авито*\n*5,0* ⭐️⭐️⭐️⭐️⭐️\nНа основании 68 оценок\nПосмотреть 👉 /reviews\n\n' \
+                            f'*Рад Вас приветствовать* у себя на `"страничке"`, здесь я постараюсь ' \
+                            f'рассказать о себе и, надеюсь, нам удастся найти общий язык 🙏 \n\n'
+            bot.send_message(message.chat.id, message_text1, parse_mode='Markdown', reply_markup=markup1)
+
+            message_text2 = f'Если вы мой студент, то воспользуйтесь командой 👉 /getmyid, чтобы бот ' \
+                            f'🤖 показал ваш ID пользователя. Он необходим, чтобы ' \
+                            f'[я смог добавить](t.me/@ilandroxy) Вас в систему!\n\n' \
+                            f'Воспользуйтесь командой 👉 /download, чтобы получить список ' \
+                            f'необходимых для занятий программ!\n\n' \
+                            f'Воспользуйтесь командой 👉 /getorder, если хотите обсудить вопросы ' \
+                            f'сотрудничества или разработку Вашего `Telegram` `бота` под заказ.\n\n' \
+                            f'Воспользуйтесь командой 👉 /help, ' \
+                            f'чтобы подробнее узнать о всех доступных командах.\n' \
+                            f'Или вызовите *Меню команд* – большая синяя кнопка на семь часов.'
+            bot.send_message(message.chat.id, message_text2, parse_mode='Markdown', reply_markup=markup)
+
+            pic_2 = open("photo/menu.jpg", 'rb')
+            bot.send_photo(message.chat.id, pic_2)
+
+            order_message = f'✅ #Новыйпользователь\nName: {message.from_user.first_name}\nUsername: @{message.from_user.username}\n' \
+                            f'User ID: {message.chat.id}\n[Написать сообщение](tg://user?id={message.chat.id})'
+            bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
+        elif message.text == '/getmyid':
+            send_message = f"*Ваш user ID:* {message.chat.id}"
+            bot.send_message(message.chat.id, send_message, parse_mode="Markdown", reply_markup=markup)
+        elif message.text == '/price':
+            message_text_1 = f"*Первое занятие БЕСПЛАТНО*,\n" \
+                             f"на нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
+            bot.send_message(message.chat.id,
+                             message_text_1,
+                             parse_mode="Markdown",
+                             disable_web_page_preview=True)
+
+            pic_2 = open("photo/price.PNG", "rb")
+            bot.send_photo(message.chat.id, pic_2)
+
+            message_text_2 = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n" \
+                             f"+7 (913) 468-35-34\nСБЕР или Тинькофф, *есть СБП*.\n\n" \
+                             f"*Или по номеру карты:*\nТинькоф: 2200 7004 1864 5957\n" \
+                             f"СБЕР: 5469 4400 2244 1977\n" \
+                             f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
+                             f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
+                             f"[Оставить чаевые, коплю на новый компьютер](https://clck.ru/33J6fo) 💫"
+            bot.send_message(message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup)
+        elif message.text == '/download':
+            message_text = f"*Перечень необходимых программ:*\n\n" \
+                           f"1. Python [скачать](www.python.org/downloads/)\n\n" \
+                           f"2. Telegram Desktop [скачать](telegram.org/)\n\n" \
+                           f"3. Discord [скачать](discord.com/download)\n\n" \
+                           f"4. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
+                           f"В случае необходимости, воспользуйтесь " \
+                           f"[видео инструкцией](https://clck.ru/33J6UW) по установке PyCharm"
+
+            bot.send_message(message.chat.id, message_text, parse_mode="Markdown",
+                                     disable_web_page_preview=True, reply_markup=markup)
+        elif message.text == '/tasks':
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Открыть решебник 📚", callback_data="reshebnik"))
+
+            bot.send_message(message.chat.id,
+                             "*Наборы разных типов задач с* " \
+                             "[Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n`new 2022-2023 года`\n\n" \
+                             "[1.](https://clck.ru/33J69K)   " \
+                             "[2.](https://clck.ru/33J69E)   " \
+                             "[3.](https://clck.ru/33J695)   " \
+                             "[4.](https://clck.ru/33J68r)   " \
+                             "[5.](https://clck.ru/33J5yi)   " \
+                             "[6.](https://clck.ru/33J68Q)   " \
+                             "[7.](https://clck.ru/33J68C)    " \
+                             "[8.](https://clck.ru/33J67y)    " \
+                             "[9.](https://clck.ru/33J67e)    " \
+                             "[10.](https://clck.ru/33J66D)\n\n" \
+                             "[11.](https://clck.ru/33J666)   " \
+                             "[12.](https://clck.ru/33J65o)   " \
+                             "[13.](https://clck.ru/33J65W)   " \
+                             "[14.](https://clck.ru/33J658)   " \
+                             "[15.](https://clck.ru/33J64M)   " \
+                             "[16.](https://clck.ru/33J642)   " \
+                             "[17.](https://clck.ru/33J63c)   " \
+                             "[18.](https://clck.ru/33J63R)\n\n" \
+                             "[19-21.](https://clck.ru/33J63E)   " \
+                             "[22.](https://clck.ru/33J634)   " \
+                             "[23.](https://clck.ru/33J62N)   " \
+                             "[24.](https://clck.ru/33J626)   " \
+                             "[25.](https://clck.ru/33J5zh)   " \
+                             "[26.](https://clck.ru/33J5zQ)   " \
+                             "[27.](https://clck.ru/33J5z5)\n\n" \
+                             "*Обратите внимание*, что наборы задач разного года могут отличаться!",
+                             reply_markup=markup,
+                             parse_mode="Markdown",
+                             disable_web_page_preview=True)
+
+            bot.send_message(message.chat.id,
+                             "*Наборы разных типов задач с* " \
+                             "[Решу ЕГЭ](https://inf-ege.sdamgia.ru/?redir=1):\n" \
+                             "`old 2021-2022 года`\n\n" \
+                             "[1.](https://clck.ru/ebsmq)   " \
+                             "[2.](https://clck.ru/ebsnV)   " \
+                             "[3.](https://clck.ru/ebsnt)   " \
+                             "[4.](https://clck.ru/ebsoN)   " \
+                             "[5.](https://clck.ru/ebsp8)   " \
+                             "[6.](https://clck.ru/33J5yi)   " \
+                             "[7.](https://clck.ru/ebspX)    " \
+                             "[8.](https://clck.ru/ebsq2)    " \
+                             "[9.](https://clck.ru/ebsqH)   " \
+                             "[10.](https://clck.ru/ebsqc)\n\n" \
+                             "[11.](https://clck.ru/ebsrf)   " \
+                             "[12.](https://clck.ru/ebsrr)   " \
+                             "[13.](https://clck.ru/ebssH)   " \
+                             "[14.](https://clck.ru/ebssi)   " \
+                             "[15.](https://clck.ru/ebst4)   " \
+                             "[16.](https://clck.ru/ebstT)   " \
+                             "[17.](https://clck.ru/ebsuA)   " \
+                             "[18.](https://clck.ru/ebsuf)\n\n" \
+                             "[19-21.](https://clck.ru/ebsvw)   " \
+                             "[22.](https://clck.ru/33J5xy)   " \
+                             "[23.](https://clck.ru/ebsxo)   " \
+                             "[24.](https://clck.ru/ebsyM)   " \
+                             "[25.](https://clck.ru/ebszu)   " \
+                             "[26.](https://clck.ru/ebt22)   " \
+                             "[27.](https://clck.ru/ebt3a)\n\n" \
+                             "При желании попробовать более сложные " \
+                             "задачи воспользуйтесь конструктором " \
+                             "[КЕГЭ](https://kompege.ru/task)",
+                             parse_mode="Markdown",
+                             disable_web_page_preview=True, reply_markup=markup)
+        elif message.text == '/links':
+            message_text = "*Постарался собрать для вас полезные ссылки для подготовки:*\n\n" \
+                           "*1.* [Ссылка](https://stepik.org/course/58852) " \
+                           "на крутой и бесплатный курс по базовой теории языка Python;\n\n" \
+                           "*2.* Отличный, но растянутый [курс видеолекций](https://clck.ru/33J6kr) " \
+                           "МФТИ от Тимофея Хирьянова;\n\n" \
+                           "*3.* Возможно кому-то будет полезен экспресс обзор почти всей " \
+                           "необходимой теории на [YouTube](https://clck.ru/33J6mF);\n\n" \
+                           "*4.* Некоторые разборы и варианты решений можно посмотреть на " \
+                           "[YouTube](https://clck.ru/32e8aE) канале Ивана, не все понятно с первого раза, " \
+                           "но это лучший вариант из предложенных. А может быть даже из возможных.\n\n" \
+                           "*5.* Всем кто намеревается сдавать ЕГЭ по Информатике настоятельно рекомендую " \
+                           "[прочитать статью](https://habr.com/ru/post/573580/) про опыт студента, " \
+                           "сдающего первый компьютерный экзамен!\n\n" \
+                           "\n*Для отработки теории на практике воспользуйтесь командой /tasks *"
+            bot.send_message(message.chat.id, message_text, parse_mode="Markdown",
+                             disable_web_page_preview=True, reply_markup=markup)
+        elif message.text == '/useful':
+            if message.chat.id in Students or message.chat.id in Me:
+                message_text = 'Со своими студентами я решил поделиться шпаргалками от *Яндекс Практикума*, ' \
+                               'в котором сейчас прохожу обучение по специальности `Python` `developer`.\n\n' \
+                               'Постепенно список файлов будет пополняться, но *хочу отметить, что для ' \
+                               'успешной сдачи экзамена ЕГЭ по Информатике хватит первых 3-х файлов*:'
+                markup2 = types.InlineKeyboardMarkup(row_width=1)
+                markup2.add(
+                    types.InlineKeyboardButton("1️⃣ Знакомство с Python: Типы данных, Списки.", callback_data="py01"),
+                    types.InlineKeyboardButton("2️⃣ Циклы, Ветвления, Логические выражения.", callback_data="py02"),
+                    types.InlineKeyboardButton("3️⃣ Функции: Вызов, Аргументы, Возврат значений.",
+                                               callback_data="py03"),
+                    types.InlineKeyboardButton("4️⃣ Коллекции: Словари и Множества.      ", callback_data="py04"),
+                    types.InlineKeyboardButton("5️⃣ Строки: Метод split() и f-string.    ", callback_data="py05"),
+                    types.InlineKeyboardButton("6️⃣ Библиотеки: datetime, math, random.. ", callback_data="py06"),
+                    types.InlineKeyboardButton("7️⃣ Сетевые запросы: Библиотека requests.", callback_data="py07"))
+                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup2)
+
+            else:
+                bot.send_message(message.chat.id,
+                                 "Извините, эта функция доступна только моим ученикам, [запишитесь на урок](https://clck.ru/33J5xF)",
+                                 parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup)
+        elif message.text == '/homework':
+            if message.chat.id in Me or message.chat.id in Students:
+                markup2 = types.InlineKeyboardMarkup(row_width=1)
+                markup2.add(types.InlineKeyboardButton("🐍 Задачи на теорию Python", callback_data="th"),
+                            types.InlineKeyboardButton("🪤 Получить задачи с Решу ЕГЭ", callback_data="hw"),
+                            types.InlineKeyboardButton("🧱 Получить задачи с КЕГЭ", callback_data="kg"),
+                            types.InlineKeyboardButton("🗳️ Сдать домашку", callback_data="sendhomeworks"))
+                sti = open('photo/hw.tgs', 'rb')
+                bot.send_sticker(message.chat.id, sti, reply_markup=markup2)
+
+            else:
+                bot.send_message(message.chat.id,
+                                 "Извините, эта функция доступна только "
+                                 "моим ученикам, [запишитесь на урок](https://clck.ru/33J5xF)",
+                                 parse_mode="Markdown", reply_markup=markup)
+        elif message.text == '/getorder':
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            btn1 = types.KeyboardButton('Отменить ⛔')
+            markup.add(btn1)
+            bot.send_message(message.chat.id,
+                             "Просто опишите в одном сообщении какой функциональностью должен обладать Ваш бот, "
+                             "а [я свяжусь с вами](https://t.me/ilandroxy) в ближайшее время!",
+                             parse_mode='Markdown', disable_web_page_preview=True, reply_markup=markup)
+
+            @bot.message_handler(content_types=['text'])
+            def message_input(message):
+                text_message = message.text
+                if text_message != 'Отменить ⛔':
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                    btn1 = types.KeyboardButton('Контакты')
+                    btn2 = types.KeyboardButton('Репетитор')
+                    btn3 = types.KeyboardButton('Мои проекты')
+                    btn4 = types.KeyboardButton('Записаться на урок')
+                    btn5 = types.KeyboardButton('Получить файл с урока')
+                    markup.add(btn1, btn2, btn3, btn4, btn5)
+
+                    bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ожидайте ответа.",
+                                     parse_mode='Markdown', reply_markup=markup)
+
+                    bot.send_message(1891281816, f'✅ Новый заказ\nUser: {message.from_user.first_name}\n'
+                                                 f'Username: {message.from_user.username}\n'
+                                                 f'[Написать сообщение](tg://user?id={message.chat.id})\n\n'
+                                                 f'Message:\n{text_message}', parse_mode='Markdown',
+                                     disable_web_page_preview=True)
+                else:
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                    btn1 = types.KeyboardButton('Контакты')
+                    btn2 = types.KeyboardButton('Репетитор')
+                    btn3 = types.KeyboardButton('Мои проекты')
+                    btn4 = types.KeyboardButton('Записаться на урок')
+                    btn5 = types.KeyboardButton('Получить файл с урока')
+                    markup.add(btn1, btn2, btn3, btn4, btn5)
+                    bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
+            bot.register_next_step_handler(message, message_input)
+        elif message.text == '/today':
+            if message.chat.id == 1891281816:
+                send_pic = open('photo/today.jpg', 'rb')
+                bot.send_photo(message.chat.id, send_pic)
+
+                day = time.strftime('%A')
+
+                if day == 'Monday':
+                    temp = f'Список уроков на понедельник: *'
+                    for key in MondayStudents:
+                        temp += f'[{MondayStudents[key][3]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
+
+                    M = [i for i in temp.split('*')]
+                    message_text = '\n'.join(M)
+                    bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+                if day == 'Tuesday':
+                    temp = f'Список уроков на вторник: *'
+                    for key in TuesdayStudents:
+                        temp += f'[{TuesdayStudents[key][3]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
+
+                    M = [i for i in temp.split('*')]
+                    message_text = '\n'.join(M)
+                    bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+                if day == 'Wednesday':
+                    bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
+
+                if day == 'Thursday':
+                    temp = f'Список уроков на четверг: *'
+                    for key in ThursdayStudents:
+                        temp += f'[{ThursdayStudents[key][3]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
+
+                    M = [i for i in temp.split('*')]
+                    message_text = '\n'.join(M)
+                    bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+                if day == 'Friday':
+                    temp = f'Список уроков на пятницу: *'
+                    for key in FridayStudents:
+                        temp += f'[{FridayStudents[key][3]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
+
+                    M = [i for i in temp.split('*')]
+                    message_text = '\n'.join(M)
+                    bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+                if day == 'Saturday':
+                    temp = f'Список уроков на субботу: *'
+                    for key in SaturdayStudents:
+                        temp += f'[{SaturdayStudents[key][3]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
+
+                    M = [i for i in temp.split('*')]
+                    message_text = '\n'.join(M)
+                    bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
+
+                if day == 'Sunday':
+                    bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
 
 
-# GETMYID
+            elif message.chat.id in Students:
+                send_pic = open('photo/today.jpg', 'rb')
+                bot.send_photo(message.chat.id, send_pic)
+                bot.send_message(message.chat.id, "Поглядим на Ваше расписание 🤖 ", parse_mode='Markdown')
+
+                for key in MondayStudents:
+                    if message.chat.id == key:
+                        bot.send_message(message.chat.id,
+                                         f'Понедельник, '
+                                         f'время урока: {MondayStudents[key][1]} (по Нск)',
+                                         parse_mode='Markdown')
+
+                for key in TuesdayStudents:
+                    if message.chat.id == key:
+                        bot.send_message(message.chat.id,
+                                         f'Вторник, '
+                                         f'время урока: {TuesdayStudents[key][1]} (по Нск)',
+                                         parse_mode='Markdown')
+
+                for key in ThursdayStudents:
+                    if message.chat.id == key:
+                        bot.send_message(message.chat.id,
+                                         f'Четверг, '
+                                         f'время урока: {ThursdayStudents[key][1]} (по Нск)',
+                                         parse_mode='Markdown')
+
+                for key in FridayStudents:
+                    if message.chat.id == key:
+                        bot.send_message(message.chat.id,
+                                         f'Пятница, '
+                                         f'время урока: {FridayStudents[key][1]} (по Нск)',
+                                         parse_mode='Markdown')
+
+                for key in SaturdayStudents:
+                    if message.chat.id == key:
+                        bot.send_message(message.chat.id,
+                                         f'Суббота, '
+                                         f'время урока: {SaturdayStudents[key][1]} (по Нск)',
+                                         parse_mode='Markdown')
+
+            else:
+                bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻", reply_markup=markup)
+        elif message.text == '/reviews':
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("Посмотреть все отзывы на Авито",
+                                                  url="https://www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing"))
+
+            M = ['reviews/re1.png', 'reviews/re2.png', 'reviews/re3.png', 'reviews/re4.png', 'reviews/re5.png',
+                 'reviews/re6.png']
+            pic_reviews = open(random.choice(M), 'rb')
+            bot.send_photo(message.chat.id, pic_reviews)
+            bot.send_message(message.chat.id, 'Еще больше отзывов 👉 /reviews', parse_mode='Markdown',
+                             reply_markup=markup)
+        elif message.text == '/mylessons':
+            if message.chat.id == 1891281816:
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+                btn1 = types.KeyboardButton('Отменить ⛔')
+                markup.add(btn1)
+
+                day = 'Все студенты: *'
+                for x in sorted(S):
+                    day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
+                M_day = [i for i in day.split('*')]
+                message_text_day = '\n'.join(M_day)
+                bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
+
+                @bot.message_handler(content_types=['text'])
+                def message_input(message):
+                    text_message = message.text
+
+                    if text_message != 'Отменить ⛔':
+                        user_id = int(text_message)
+                        sql = sqlite3.connect('analytics.db')
+                        cursor = sql.cursor()
+
+                        cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
+                                                                       id INTEGER,
+                                                                       name TEXT,
+                                                                       count INTEGER,
+                                                                       mess TEXT
+                                                                   )""")
+                        sql.commit()
+
+                        cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+                        records = cursor.fetchone()
+
+                        if records is None:
+                            bot.send_message(message.chat.id,
+                                             'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
+                        else:
+                            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                            btn1 = types.KeyboardButton('Контакты')
+                            btn2 = types.KeyboardButton('Репетитор')
+                            btn3 = types.KeyboardButton('Мои проекты')
+                            btn4 = types.KeyboardButton('Записаться на урок')
+                            btn5 = types.KeyboardButton('Получить файл с урока')
+                            markup.add(btn1, btn2, btn3, btn4, btn5)
+
+                            bot.send_message(message.chat.id,
+                                             f'🤖 Доброго времени суток, Илья!\n'
+                                             f'Я все посчитал, вот записи по абонементу студента '
+                                             f'#{Students[user_id][3]} 📊📈🧮\n\n{records[3]}',
+                                             parse_mode='Markdown')
+                            bot.send_message(message.chat.id,
+                                             f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*',
+                                             parse_mode='Markdown', reply_markup=markup)
+                        cursor.close()
+                    else:
+                        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                        btn1 = types.KeyboardButton('Контакты')
+                        btn2 = types.KeyboardButton('Репетитор')
+                        btn3 = types.KeyboardButton('Мои проекты')
+                        btn4 = types.KeyboardButton('Записаться на урок')
+                        btn5 = types.KeyboardButton('Получить файл с урока')
+                        markup.add(btn1, btn2, btn3, btn4, btn5)
+                        bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
+                bot.register_next_step_handler(message, message_input)
+            elif message.chat.id in Students:
+                user_id = message.chat.id
+                sql = sqlite3.connect('analytics.db')
+                cursor = sql.cursor()
+
+                cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+                records = cursor.fetchone()
+
+                if records is None:
+                    bot.send_message(message.chat.id,
+                                     'Абонемент отсутсвует или не продлен, по всем вопросам пишите @ilandroxy')
+                else:
+                    bot.send_message(message.chat.id,
+                                     f'🤖 Доброго времени суток, #{Students[user_id][3]}!\n'
+                                     f'Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n'
+                                     f'{records[3]}', parse_mode='Markdown')
+                    bot.send_message(message.chat.id,
+                                     f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*',
+                                     parse_mode='Markdown')
+                cursor.close()
+
+            else:
+                bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻", reply_markup=markup)
+        else:
+            message.text = message.text.lower().strip()
+            bot.send_message(message.chat.id, f"👾 Спасибо, я отвечу в ближайшее время в ЛС", reply_markup=markup)
+
+            bot.send_message(438879394, f'Пользователь: @{message.from_user.username}\n'
+                                          f'[Написать сообщение](tg://user?id={message.chat.id})\n\n'
+                                          f'*Задает вопрос:*\n{message.text}',
+                                          parse_mode='Markdown', disable_web_page_preview=True)
+    bot.register_next_step_handler(message, message_input)
+# endregion Команда [help]
+
+# region Команда [getmyid]
 @bot.message_handler(commands=['getmyid'])
 def getmyid(message):
-    user = str(message.chat.id)
-    send_message = "*Ваш user ID: *" + user
+    send_message = f"*Ваш user ID:* {message.chat.id}"
     bot.send_message(message.chat.id, send_message, parse_mode="Markdown")
-# endregion Команды: start, help, getmyid
+# endregion Команда [getmyid]
 
-# region Команды: myprojects, download
-@bot.message_handler(commands=['myprojects'])
-def myprojects(message):
-    send_message = "Просто перечисляю, чем я занимаюсь сегодня!\n\n" \
-                   "*1. Канал* [itpy | ИнформатикаЕГЭ](t.me/pro100_easy_ege)\n" \
-                   "✍️ Это канал на котором я разбираю задания с экзамена, даю полезные задачки и " \
-                   "показываю будущим студентам сферу IT, о которой они вряд ли слышали в школе!\n\n" \
-                   "*2. Чат бот* 🤖[MotherBot](t.me/JustDoItMotherBot)  \nЭто Telegram бот, который помогает " \
-                   "начинающим программистам разобраться в библиотеке [PyTelegramBotAPI](https://habr.com/ru/post/580408/), предназначенной " \
-                   "для работы с API Telegram – создания чат ботов в меcсенджере.\n\n" \
-                   "*3. Курс подготовки к ЕГЭ на* [Stepik](https://stepik.org/course/122969)\n" \
-                   "На сегодняшний день курс еще находится в разработке, но уже можно понять, " \
-                   "что он из себя будет представлять по [описанию проекта](https://stepik.org/lesson/770711/step/1) " \
-                   "и черновому [примеру урока](https://stepik.org/lesson/770602/step/1).\n\n"
-
-    bot.send_message(message.chat.id, send_message, parse_mode="Markdown", disable_web_page_preview=True)
-
-
+# region Команда [download]
 @bot.message_handler(commands=['download'])
 def download(message):
     message_text = f"*Перечень необходимых программ:*\n\n" \
@@ -1477,14 +1910,11 @@ def download(message):
                    f"3. Discord [скачать](discord.com/download)\n\n" \
                    f"4. Pycharm [скачать](www.jetbrains.com/ru-ru/pycharm/download/)\n\n" \
                    f"В случае необходимости, воспользуйтесь " \
-                   f"[видео инструкцией](https://clck.ru/33J6UW) по установке PyCharm" \
-
-
+                   f"[видео инструкцией](https://clck.ru/33J6UW) по установке PyCharm"
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
-# endregion Команды: myprojects, download
+# endregion Команда [download]
 
-# region Команды: price, tasks, links
-
+# region Команда [price]
 @bot.message_handler(commands=['price'])
 def price(message):
     message_text_1 = f"*Первое занятие БЕСПЛАТНО*,\n" \
@@ -1505,8 +1935,9 @@ def price(message):
                      f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
                      f"[Оставить чаевые, коплю на новый компьютер](https://clck.ru/33J6fo) 💫"
     bot.send_message(message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True)
+# endregion Команда [price]
 
-
+# region Команда [tasks]
 @bot.message_handler(commands=['tasks'])
 def tasks(message):
     markup = types.InlineKeyboardMarkup(row_width=1)
@@ -1544,7 +1975,6 @@ def tasks(message):
                      reply_markup=markup,
                      parse_mode="Markdown",
                      disable_web_page_preview=True)
-
 
     bot.send_message(message.chat.id,
                      "*Наборы разных типов задач с* " \
@@ -1595,8 +2025,9 @@ def tasks(message):
                      "будет полезно – [подпишись!](https://m.youtube.com/channel/UCcORhBL494aSLcyIODjOG0A)",
                      parse_mode="Markdown",
                      disable_web_page_preview=True)
+# endregion Команда [tasks]
 
-
+# region Команда [links]
 @bot.message_handler(commands=['links'])
 def links(message):
     message_text = "*Постарался собрать для вас полезные ссылки для подготовки:*\n\n" \
@@ -1614,9 +2045,18 @@ def links(message):
                    "сдающего первый компьютерный экзамен!\n\n" \
                    "\n*Для отработки теории на практике воспользуйтесь командой /tasks *"
     bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
-# endregion Команды: price, tasks, links
+# endregion Команда [links]
 
-# region Команды: useful, homeworks
+# region Команда [link]
+@bot.message_handler(commands=['link'])
+def link(message):
+    markup2 = types.InlineKeyboardMarkup(row_width=1)
+    markup2.add(types.InlineKeyboardButton("Записаться 🗳️", url="https://t.me/ilandroxy_Bot"))
+
+    bot.send_message(message.chat.id, f"👨‍💻 Готовлю к ЕГЭ по информатике, провожу персональные и групповые занятия 👉", reply_markup=markup2, parse_mode='Markdown')
+# endregion Команда [link]
+
+# region Команда [useful]
 @bot.message_handler(commands=['useful'])
 def useful(message):
     if message.chat.id in Students or message.chat.id in Me:
@@ -1636,8 +2076,9 @@ def useful(message):
 
     else:
         bot.send_message(message.chat.id, "Извините, эта функция доступна только моим ученикам, [запишитесь на урок](https://clck.ru/33J5xF)", parse_mode="Markdown", disable_web_page_preview=True)
+# endregion Команда [useful]
 
-
+# region Команда [homework]
 @bot.message_handler(commands=['homework'])
 def homework(message):
     if message.chat.id in Me or message.chat.id in Students:
@@ -1654,9 +2095,9 @@ def homework(message):
                          "Извините, эта функция доступна только "
                          "моим ученикам, [запишитесь на урок](https://clck.ru/33J5xF)",
                          parse_mode="Markdown")
-# endregion Команды: useful, homeworks
+# endregion Команда [homework]
 
-# region Команды: getorder
+# region Команда [getorder]
 @bot.message_handler(commands=['getorder'])
 def getorder(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -1695,9 +2136,9 @@ def getorder(message):
             bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
     bot.register_next_step_handler(message, message_input)
-# endregion Команды: getorder
+# endregion Команда [getorder]
 
-# region Команда: today
+# region Команда: [today]
 @bot.message_handler(commands=['today'])
 def today(message):
     if message.chat.id == 1891281816:
@@ -1800,9 +2241,9 @@ def today(message):
 
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-# endregion Команда: today
+# endregion Команда: [today]
 
-# region Команды: reviews
+# region Команда: [reviews]
 @bot.message_handler(commands=['reviews'])
 def reviews(message):
     markup = types.InlineKeyboardMarkup(row_width=1)
@@ -1812,59 +2253,9 @@ def reviews(message):
     pic_reviews = open(random.choice(M), 'rb')
     bot.send_photo(message.chat.id, pic_reviews)
     bot.send_message(message.chat.id, 'Еще больше отзывов 👉 /reviews', parse_mode='Markdown', reply_markup=markup)
+# endregion Команда: [reviews]
 
-# endregion Команды: reviews
-
-########## Приватные команды ##########
-
-# region Работа с базами данных
-def analytics(func: callable):
-    total_users = 0
-    users = [['user_id', 'username']]
-    username = ""
-
-
-    def anlytics_wrapper(message):
-        nonlocal users, username
-
-        # Считаем кол-во нажатий на клавишу-----------------------------------
-        sql = sqlite3.connect('analytics.db')
-        cursor = sql.cursor()
-
-        cursor.execute("""CREATE TABLE IF NOT EXISTS active(
-                                id INTEGER,
-                                UserName TEXT
-                            )""")
-        sql.commit()
-
-        people_id = message.chat.id
-        cursor.execute(f"SELECT id FROM active WHERE id = {people_id}")
-        data = cursor.fetchone()
-
-        if data is None:
-            user_id = message.chat.id
-            username = message.from_user.username
-
-            cursor.execute(f"INSERT INTO active VALUES(?, ?);", (user_id, username))
-            sql.commit()
-        else:
-            cursor.execute(f"DELETE FROM active WHERE id = {people_id}")
-            user_id = message.chat.id
-            username = message.from_user.username
-            users.append([user_id, username])
-
-
-
-            cursor.execute(f"INSERT INTO active VALUES(?, ?);", (user_id, username))
-            sql.commit()
-
-            cursor.close()
-
-        return func(message)
-    return anlytics_wrapper
-# endregion Работа с базами данных
-
-# region Команда:  mylessons
+# region Команда: [mylessons]
 @bot.message_handler(commands=['mylessons'])
 def mylessons(message):
     if message.chat.id == 1891281816:
@@ -1953,9 +2344,9 @@ def mylessons(message):
 
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-# endregion Команда: mylessons
+# endregion Команда: [mylessons]
 
-# region Команда: list
+# region Команда: [list]
 @bot.message_handler(commands=['list'])
 def list(message):
     if message.chat.id in PrivateMe:
@@ -1965,7 +2356,9 @@ def list(message):
         bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-# endregion Команда: list
+# endregion Команда: [list]
+
+
 
 # region Команда: добавить ученика, редактировать запись
 @bot.message_handler(commands=['addstudents'])
@@ -2118,15 +2511,11 @@ def editstudents(message):
 
         bot.register_next_step_handler(message, message_input)
 
-
-
-
 # endregion Команда: добавить ученика
 
 
 
 @bot.message_handler(content_types=['text'])
-@analytics
 def mess(message):
     get_message_bot = message.text.strip().lower()
 
@@ -2155,7 +2544,7 @@ def mess(message):
         bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
     # endregion Кнопка: Что умеет этот бот
 
-    # region Кнопки: [Подтвердить оплату абонемента ❗]
+    # region Кнопки: [Подтвердить оплату абонемента ]
     elif get_message_bot in ('подтвердить оплату абонемента ❗', 'оплачено', 'подтвердить оплату'):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -2208,7 +2597,7 @@ def mess(message):
             cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
             sql.commit()
             cursor.close()
-    # endregion Кнопки: [Подтвердить оплату абонемента ❗]
+    # endregion Кнопки: [Подтвердить оплату абонемента ]
 
     # region Кнопки: [Да, все получается ✅]
     elif get_message_bot == 'да, все получается ✅':
@@ -2298,27 +2687,25 @@ def mess(message):
             cursor.close()
     # endregion Кнопки: [Да, все получается ✅]
 
-    # region Кнопки: [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
+    # region Кнопки: [Нет, не получится ⛔]
     elif get_message_bot == 'нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-        btn1 = types.KeyboardButton('Контакты')
-        btn2 = types.KeyboardButton('Репетитор')
-        btn3 = types.KeyboardButton('Мои проекты')
-        btn4 = types.KeyboardButton('Записаться на урок')
-        btn5 = types.KeyboardButton('Получить файл с урока')
-        markup.add(btn1, btn2, btn3, btn4, btn5)
+        markup.add(types.KeyboardButton('Отменить ⛔'))
 
-        bot.send_message(message.chat.id,
-                         f"🤖 Воспользуйтесь формой, чтобы "
-                         f"[перенести урок](https://clck.ru/33J6hH)",
-                         reply_markup=markup, parse_mode='Markdown',
-                         disable_web_page_preview=True)
-        bot.send_message(1891281816,
-                         f"⛔ {Students[message.chat.id][3]} – Урока не будет\n"
-                         f"[Написать сообщение](tg://user?id={message.chat.id})",
-                         parse_mode='Markdown')
+        markup2 = types.InlineKeyboardMarkup(row_width=1)
+        markup2.add(types.InlineKeyboardButton("Форма для переноса урока", url="https://planerka.app/meet/ilandroxy/perenos"))
 
+        bot.send_message(message.chat.id, f"Попробуем перенести урок? 👇",
+                         reply_markup=markup2, parse_mode='Markdown')
 
+        bot.send_message(1891281816, f"⛔ {Students[message.chat.id][3]} – Урока не будет\n"
+                         f"[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+
+        bot.send_message(message.chat.id, f"Или просто отменим? 🤔👇",
+                         reply_markup=markup, parse_mode='Markdown')
+    # endregion Кнопки: [Нет, не получится ⛔]
+
+    # region Кнопки: [Какая-то ошибка]
     elif get_message_bot == 'какая-то ошибка, у нас сегодня нет урока ⚙️':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -2332,7 +2719,9 @@ def mess(message):
         bot.send_message(1891281816, f"‼️ {Students[message.chat.id][3]} – что-то не так с расписанием, "
                                      f"надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})",
                                      parse_mode='Markdown')
+    # endregion Кнопки: [Какая-то ошибка]
 
+    # region Кнопки: [Прочитано ✅]
     elif get_message_bot == 'прочитано ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -2346,7 +2735,7 @@ def mess(message):
         bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
         bot.send_message(1891281816, f"🤖 {Students[message.chat.id][3]} – Уведомлен \n"
                                      f"[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
-    # endregion Кнопки: [Нет, не получится ⛔], [Какая-то ошибка], [Прочитано ✅]
+    # endregion Кнопки: [Прочитано ✅]
 
     # region Кнопка: [Контакты]
     elif get_message_bot == "контакты":
@@ -2354,13 +2743,16 @@ def mess(message):
         markup.add(types.InlineKeyboardButton("👨‍💻 Моя визитка MyQRcards", url='https://card.myqrcards.com/links/5jaDBMw7w61?v=-1160'))
 
         send_message1 = "*Мои контакты:*\n\n" \
-                        "[Мое портфолио ilandroxxy.github.io](https://ilandroxxy.github.io/)\n\n[Telegram](t.me/ilandroxy)\n\n" \
-                        "[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n[VKontakte](https://vk.com/ilandroxxy)\n\n" \
+                        "[Мое портфолио ilandroxxy.github.io](https://ilandroxxy.github.io/)\n\n" \
+                        "[Telegram](t.me/ilandroxy)\n\n" \
+                        "[WhatsApp](wa.me/message/JSXJ2NLWTVNFC1)\n\n" \
+                        "[VKontakte](https://vk.com/ilandroxxy)\n\n" \
                         "[Discord](https://discordapp.com/users/ilandroxxy#6249) ilandroxxy#6249\n\n" \
                         "[Zoom](https://us04web.zoom.us/j/2402871810?pwd=OVdGQkE2ODIvWm1WNk5EdStQR1o4UT09)\n\n" \
                         "[Профиль Авито](www.avito.ru/user/590293c00d3ab79d83e929a6731df164/profile?src=sharing)\n\n" \
                         "[YouTube](https://youtube.com/@ilandroxy)\n\n" \
-                        "[GitHub](https://github.com/ilandroxxy)\n\nРабочий телефон: +7 (995) 437–52–59\n\n" \
+                        "[GitHub](https://github.com/ilandroxxy)\n\n" \
+                        "Рабочий телефон: +7 (995) 437–52–59\n\n" \
                         "Email: ilandroxxy@gmail.com"
         bot.send_message(message.chat.id, send_message1, parse_mode='Markdown', disable_web_page_preview=True, reply_markup=markup)
     # endregion Кнопка: [Контакты]
@@ -2395,6 +2787,16 @@ def mess(message):
 
     # region Кнопка: [Записаться на урок]
     elif get_message_bot == "записаться на урок":
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
+        btn1 = types.KeyboardButton('Персональные уроки')
+        btn2 = types.KeyboardButton('Групповые занятия')
+        btn3 = types.KeyboardButton('Отменить ⛔')
+        markup.add(btn1, btn2, btn3)
+        bot.send_message(message.chat.id, 'Выберите какой формат обучения Вас интересует:', reply_markup=markup)
+    # endregion Кнопка: [Записаться на урок]
+
+    # region Кнопка: [Персональные уроки]
+    elif get_message_bot == 'персональные уроки':
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("planerka.app", url="https://planerka.app/meet/ilandroxy/tutor"))
         message_text = f"Воспользуйтесь удобным сервисом [planerka.app](https://deepvoice.me/) " \
@@ -2406,7 +2808,12 @@ def mess(message):
 
         pic = open("photo/calendly.jpg", 'rb')
         bot.send_photo(message.chat.id, pic, reply_markup=markup)
-    # endregion Кнопка: [Записаться на урок]
+    # endregion Кнопка: [Персональные уроки]
+
+    # region Кнопка: [Групповые занятия]
+    elif get_message_bot == 'групповые занятия':
+        pass
+    # endregion Кнопка: [Групповые занятия]
 
     # region Кнопка: [Получить файл с урока]
     elif get_message_bot == "получить файл с урока":
@@ -2459,20 +2866,6 @@ def mess(message):
             sti = open('photo/WaitSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti)
     # endregion Кнопка: [Получить файл с урока]
-
-    # region Кнопка: [Отменить ⛔]
-    elif get_message_bot in ('отменить ⛔', 'отменить', 'отмена'):
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-        btn1 = types.KeyboardButton('Контакты')
-        btn2 = types.KeyboardButton('Репетитор')
-        btn3 = types.KeyboardButton('Мои проекты')
-        btn4 = types.KeyboardButton('Записаться на урок')
-        btn5 = types.KeyboardButton('Получить файл с урока')
-        markup.add(btn1, btn2, btn3, btn4, btn5)
-        bot.send_message(message.chat.id,
-                         "Команда успешно отменена ⛔",
-                         reply_markup=markup)
-    # endregion Кнопка: [отменить ⛔]
 
     # region Кнопка: [Репетитор]
     elif get_message_bot == "репетитор":
@@ -3226,13 +3619,12 @@ def mess(message):
                                  parse_mode='Markdown',
                                  reply_markup=markup)
         else:
-            bot.send_message(message.chat.id,
-                             "Извините, у вас нет прав доступа 👨‍💻")
+            bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [github]
 
-        # region Функция секрет
+    # region Интегрирую openai
     elif 'бот помоги:' in get_message_bot:
-        if message.chat.id in 1891281816:
+        if message.chat.id in (1891281816, 438879394):
             response = openai.Completion.create(
                 model="text-davinci-003",
                 prompt=message.text[12:],
@@ -3243,9 +3635,23 @@ def mess(message):
                 presence_penalty=0.0,
             )
             bot.send_message(message.chat.id, text=response['choices'][0]['text'])
-    # endregion Функция секрет
+        else:
+            bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+    # endregion Интегрирую openai
 
-    # region Иначе пишу бред
+    # region Кнопка: [Отменить ⛔]
+    elif get_message_bot in ('отменить ⛔', 'отменить', 'отмена', 'назад'):
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
+        bot.send_message(message.chat.id, "Команда успешно отменена ⛔", reply_markup=markup)
+    # endregion Кнопка: [отменить ⛔]
+
+    # region Если пользователь опечатался
     else:
         send_message = ['Когда–нибудь мы захватим мировое правительство..🤖👾',
                         'Хм, интересно, но не совсем понятно 🤔',
@@ -3279,7 +3685,7 @@ def mess(message):
                         'Извини, я не могу тебе помочь в этом 🙁',
                         'Мне кажется, здесь нужно пройти обучение, чтобы разобраться']
         bot.send_message(message.chat.id, random.choice(send_message))
-    # endregion Кнопка: Иначе пишу бред
+    # endregion Если пользователь опечатался
 
 if __name__ == '__main__':
     while True:
