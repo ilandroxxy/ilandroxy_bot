@@ -8,7 +8,7 @@ import time
 import datetime as dt
 import openai
 
-with open("token.txt") as f1, open("openai.txt") as f2:
+with open("token.txt", 'r') as f1, open("openai.txt", 'r') as f2:
     TOKEN = f1.read().strip()
     TOKEN_AI = f2.read().strip()
 
