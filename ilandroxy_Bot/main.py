@@ -2411,8 +2411,8 @@ def mylessons(message):
 def list(message):
     if message.chat.id in PrivateMe:
         message_text = 'Список студентов:\n'
-        for i in Students:
-            message_text += f'#{Students[i][3]}\n'
+        for x in sorted(S):
+            message_text += f'#{x[0][3]}\n'
         bot.send_message(message.chat.id, message_text, parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")

@@ -1236,36 +1236,6 @@ print(F(1, 9) * F(9, 17))
 
 '''
 
-def cache3(func):
-   cache = func()
-   count = 0
-   def wrapper():
-       nonlocal count
-       if count < 4:
-           return cache
-       else:
-           count = 0
-           return func()
-    return wrapper
 
-
-@cache3
-def heavy():
-    print('Сложные вычисления')
-    return 1
-
-
-print(heavy())
-# Сложные вычисления
-# 1
-print(heavy())
-# 1
-print(heavy())
-# 1
-
-# Опять кеш устарел, надо вычислять заново
-print(heavy())
-# Сложные вычисления
-# 1
 
 
