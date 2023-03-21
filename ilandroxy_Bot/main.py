@@ -1355,8 +1355,6 @@ def step(call):
 
     # region call.data для Оплаты абонемента  send_price_group
     elif call.data == 'send_price_group':
-        markup0 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-        markup0.add(types.KeyboardButton('Подтвердить оплату'))
         bot.send_photo(call.message.chat.id, open("photo/price2.png", "rb"))
 
         message_text_2 = f"*Мои реквизиты для перевода*\n\n*Перевод по номеру телефона:* \n" \
@@ -1366,8 +1364,7 @@ def step(call):
                          f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
                          f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
                          f"[Перевод на карту Тинькофф](https://www.tinkoff.ru/rm/andrianov.ilya18/x0KX062685)"
-        bot.send_message(call.message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True,
-                         reply_markup=markup0)
+        bot.send_message(call.message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True)
 
         bot.send_photo(call.message.chat.id, open("photo/payment_qr.jpg", "rb"))
         markup = types.InlineKeyboardMarkup(row_width=1)
