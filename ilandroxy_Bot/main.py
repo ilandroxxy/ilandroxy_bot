@@ -3167,11 +3167,28 @@ def mess(message):
             btn1 = types.KeyboardButton('Планирование оплат 🤑')
             btn2 = types.KeyboardButton('Словарь с расписанием 📅')
             btn3 = types.KeyboardButton('Отправить файлы db 💾')
-            btn4 = types.KeyboardButton('Отменить ⛔')
-            markup.add(btn1, btn2, btn3, btn4)
+            btn4 = types.KeyboardButton('Все данные студентов ✍️')
+            btn5 = types.KeyboardButton('Отменить ⛔')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
 
             bot.send_message(message.chat.id, '🤖 Отправляю кнопки со статистикой:', reply_markup=markup)
     # endregion Кнопка [статистика]
+
+    elif get_message_bot in ('все данные студентов ✍️', 'все данные студентов'):
+        if message.chat.id in Me:
+            sql = sqlite3.connect('analytics.db')
+            cursor = sql.cursor()
+            cursor.execute(f"SELECT * FROM students")
+            records = cursor.fetchall()
+            count = 1
+            send_message = 'Список всех студентов из db: \n'
+            for row in records:
+                s = [str(i) for i in row]
+                send_message += f'{count}. {" ".join(s)}\n'
+                count += 1
+            bot.send_message(message.chat.id, send_message, parse_mode='Markdown')
+        else:
+            bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 
     # region Кнопка [Cловарь с расписанием 📅]
     elif get_message_bot == 'словарь с расписанием 📅':
