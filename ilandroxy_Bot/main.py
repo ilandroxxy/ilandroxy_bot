@@ -2630,8 +2630,9 @@ def mess(message):
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
         btn1 = types.KeyboardButton('🙋‍ Персональные уроки')
         btn2 = types.KeyboardButton('🙋‍️🤷‍ Групповые занятия')
-        btn3 = types.KeyboardButton('↩️ Вернуться назад')
-        markup.add(btn1, btn2, btn3)
+        btn3 = types.KeyboardButton('🙅‍ Перенести урок')
+        btn4 = types.KeyboardButton('↩️ Вернуться назад')
+        markup.add(btn1, btn2, btn3, btn4)
         bot.send_message(message.chat.id, 'Выберите какой формат обучения Вас интересует:', reply_markup=markup)
     # endregion Кнопка: [Записаться на урок]
 
@@ -2654,8 +2655,7 @@ def mess(message):
         markup = types.InlineKeyboardMarkup(row_width=1)
         markup.add(types.InlineKeyboardButton("planerka.app", url="https://planerka.app/meet/ilandroxy/group"))
         message_text = f"Воспользуйтесь удобным сервисом [planerka.app](https://planerka.space/) " \
-                       f"*для записи на групповое занятие*. Обращаю Ваше внимание, что группы рассчитаны не более чем на 4 человека. " \
-                       f"Так же могу заметить, что выгоднее сразу приходить с одноклассниками, чтобы начинать подготовку в равных условиях!\n\n" \
+                       f"*для записи на групповое занятие*. Обращаю Ваше внимание, что групповые занятия рассчитаны не более чем на 4 человека. " \
                        f"Просто выберите подходящее время/группу и *напишите пару слов о себе*. \n\n" \
                        f"❗Ваша карточка отобразится в моем календаре и я напишу Вам 🙏"
         bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
@@ -2663,6 +2663,30 @@ def mess(message):
         pic = open("photo/calendly2.jpg", 'rb')
         bot.send_photo(message.chat.id, pic, reply_markup=markup)
     # endregion Кнопка: [Групповые занятия]
+
+    # region Кнопка: [Перенести урок] +
+    elif get_message_bot in ('🙅‍ перенести урок', 'перенести урок'):
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+        records = cursor.fetchone()
+
+        if records is None:
+            bot.send_message(message.chat.id, "Извините, эта функция доступна только студентам' 👨‍💻")
+        else:
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton("planerka.app", url="https://planerka.app/meet/ilandroxy/perenos"))
+            message_text = f"Воспользуйтесь удобным сервисом [planerka.app](https://planerka.space/) " \
+                           f"для переноса нашего занятия. \n\n" \
+                           f"❗Ваша карточка отобразится в моем календаре и я напишу Вам 🙏"
+            bot.send_message(message.chat.id, message_text, parse_mode="Markdown", disable_web_page_preview=True)
+
+            pic = open("photo/calendly.jpg", 'rb')
+            bot.send_photo(message.chat.id, pic, reply_markup=markup)
+        sql.commit()
+        cursor.close()
+    # endregion Кнопка: [Перенести урок]
 
     # region Кнопка: [Получить файл с урока]
     elif get_message_bot == "получить файл с урока":
