@@ -1,4 +1,3 @@
-# region import и API key
 import random
 import telebot
 from telebot import types
@@ -12,72 +11,18 @@ with open("token.txt", 'r') as f1, open("openai.txt", 'r') as f2:
     TOKEN = f1.read().strip()
     TOKEN_AI = f2.read().strip()
 
-# bot = telebot.TeleBot(f'{TOKEN}')
+bot = telebot.TeleBot(f'{TOKEN}')
 openai.api_key = f'{TOKEN_AI}'
-bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
-# endregion import и API key
+# bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
 
-# region Словарь с данными студентов
-MondayStudents = {
-    1477701439: ["Valeria.py", '15:00-16:00', 4000//4, "Валерия", 4],
-    1029532016: ['Maria.py', "20:00-21:00", 8000 // 8, "Мария", 8],
-    659796558: ['Ivan.py', '21:00-22:00', 1000, "Иван", 1000],
-    1237149613: ['Nikita3.py', "22:00-23:00", 9600//8, "Никита3", 8]}
-TuesdayStudents = {
-    1949653479: ['Yanina.py', '11:00-12:00', 4800//8, "Янина", 8],
-    1649389148: ['Slava.py', "15:00-16:30", 8000//8, "Слава", 8],
-    789322200: ['Katya.py', "16:30-17:30", 4000//4, "Екатерина", 4],
-    1208542295: ['Sasha.py', '18:30-19:30', 4800//8, "Александра", 8],
-    644645774: ['Stasya.py', "19:30-21:00", 10200 // 8, "Стася", 8],
-    1763801774: ['Kirill.py', "21:00-22:00", 3600 // 4, "Кирилл", 4],
-    774094112: ['Denis.py', "21:00-22:00", 6800 // 4, "Денис", 8],
-    804184353: ['Islam.py', '22:00-23:00', 5400//4, "Ислам", 4]}
-ThursdayStudents = {
-    431685002: ['Vsevolod.py', '15:00-16:00', 5400//4, "Всеволод", 4],
-    5242003138: ['Dima.py', '16:00-17:00', 4000//4, "Дмитрий", 4],
-    1187852992: ['Aleksandr_2.py', "17:00-18:00", 9600//8, "Александр2", 8],
-    816859380: ['Sergey.py', '19:00-20:00', 9600//8, 'Сергей', 8],
-    811476623:  ["Georgie.py", "20:00-21:00", 4800//4, "Георгий", 4],
-    799740089: ["Bulat.py", "21:00-22:00", 4000//4, "Булат", 4],
-    1537718492: ["Aleksandr.py", "22:00-23:00", 8000//8, "Александр", 8]}
-FridayStudents = {
-    575882793: ['Artem.py', '15:00-16:00', 9600//8, 'Артем', 8],
-    719571990: ['Stepan.py', "16:00-17:00", 6800//8, "Степан", 8],
-    1454117859: ['Diana', "17:00-18:00", 4800 // 8, "Диана", 8],
-    986539147: ['Danil.py', '19:00-20:00', 4000 // 4, "Данил", 4],
-    659796558: ['Ivan.py', '20:00-21:00', 1000, "Иван", 1000]}
-SaturdayStudents = {
-    826004697: ['Nikita.py', '14:00-15:00', 4000//4, "Никита", 4],
-    1347259493: ['Andrey.py', '15:45-17:15', 1500, 'Андрей', 1000],
-    1314375732: ['Vasiliy.py', "17:30-18:30", 6800 // 8, "Василий", 8],
-    5148819382: ['Tatyana.py', "18:30-20:00", 10200//8, "Татьяна", 8],
-    1763801774: ['Kirill.py', "21:00-22:00", 3600 // 4, "Кирилл", 4],
-    774094112: ['Denis.py', "21:00-22:00", 6800 // 4, "Денис", 8],
-    871237277: ['Vladek.py', "22:10-23:10", 4800//8, "Владек", 8],
-    594009302: ['Nikita2.py', "22:10-23:10", 4800//8, "Никита2", 8],
+PrivateMe = {1891281816: "Рабочий аккаунт", 438879394: 'Илья', -1001822573914: "Homework", -1001819293687: "Lessons"}
 
-    438879394: ['Ilya.py', '14:00', 0, "Илья", 1, 1891281816]}
-
-Me = {1949653479: ['Yanina.py', '11:00-12:00', 4800//8, "Янина", 8],
-      1891281816: ['', '00:00', 0, "iРепетитор", 5]}
-
-PrivateMe = {1891281816: "Рабочий аккаунт",
-             438879394: 'Илья',
-             -1001822573914: "Homework",
-             -1001819293687: "Lessons"}
-
-Students = MondayStudents | TuesdayStudents | ThursdayStudents | FridayStudents | SaturdayStudents
-
-S = []
-for k, v in sorted(Students.items()):
-    S.append((v, k))
-# endregion Словарь с данными студентов
 
 # region Функция для корректного отображения даты
 def my_time(timer: str) -> str:
     '''
-:param timer: nsk_now.strftime('%A %d %B %Y')
-:return: пример #Среда #25.Января.2023
+    :param timer: nsk_now.strftime('%A %d %B %Y')
+    :return: пример #Среда #25.Января.2023
     '''
     month_dict = {'January': 'Января',
                   'February': 'Февраля',
@@ -104,6 +49,25 @@ def my_time(timer: str) -> str:
 
     datetime_date = timer.split()
     my_date = f'#{day_dict[datetime_date[0]]} #{datetime_date[1]}{month_dict[datetime_date[2]]}{datetime_date[3]}'
+    return my_date
+
+def my_day(timer: str) -> str:
+    '''
+    :param timer: nsk_now.strftime('%A %d %B %Y')
+    :return: пример #Среда #25.Января.2023
+    '''
+
+    day_dict = {'Monday': 'Понедельник',
+                'Tuesday': 'Вторник',
+                'Wednesday': 'Среда',
+                'Thursday': 'Четверг',
+                'Friday': 'Пятница',
+                'Saturday': 'Суббота',
+                'Sunday': 'Воскресенье'
+                }
+
+    datetime_date = timer.split()
+    my_date = f'#{day_dict[datetime_date[0]]}'
     return my_date
 # endregion функция для корректного отображения даты
 
@@ -485,8 +449,14 @@ def step(call):
                          parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup2)
     # endregion call.data для Теоретических задач
 
-    # region call.data для Теоретической домашки
+    # region call.data для Теоретической домашки +
     elif call.data == 'firstclass':
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {call.message.chat.id}")
+        students = cursor.fetchone()
+
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         markup.add(types.KeyboardButton('Отменить ⛔'))
         bot.send_message(call.message.chat.id,
@@ -498,7 +468,7 @@ def step(call):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
                     bot.send_message(-1001822573914,
-                                     f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                     f'#{students[4]} получил домашку:',
                                      parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -548,7 +518,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                    bot.send_message(-1001822573914, f'#{students[4]} получил домашку:',
                                      parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -599,7 +569,7 @@ def step(call):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
                     bot.send_message(-1001822573914,
-                                     f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                     f'#{students[4]} получил домашку:',
                                      parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -648,7 +618,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    bot.send_message(-1001822573914, f'#{Students[call.message.chat.id][3]} получил домашку:',
+                    bot.send_message(-1001822573914, f'#{students[4]} получил домашку:',
                                      parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -698,7 +668,7 @@ def step(call):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
                     bot.send_message(-1001822573914,
-                                     f'#{Students[call.message.chat.id][3]} получил домашку:',
+                                     f'#{students[4]} получил домашку:',
                                      parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -747,7 +717,7 @@ def step(call):
         def message_input(message):
             if message.text != 'Отменить ⛔':
                 if call.message.chat.id != 1891281816:
-                    send_message = f'#{Students[call.message.chat.id][3]} получил домашку:'
+                    send_message = f'#{students[4]} получил домашку:'
                     bot.send_message(-1001822573914, send_message, parse_mode='Markdown')
                 n = int(message.text)
                 M = []
@@ -787,8 +757,14 @@ def step(call):
         bot.register_next_step_handler(call.message, message_input)
     # endregion call.data для теоретической домашки
 
-    # region call.data для КЕГЭ
+    # region call.data для КЕГЭ +
     elif call.data == 'kg':
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {call.message.chat.id}")
+        students = cursor.fetchone()
+
         message_text = "Эта команда выдает рандомное задание из сборника Полякова (КЕГЭ)\n\n[Читать правила оформления домашки](https://www.notion.so/ilandroxxy/8234ee61967a4cbe8a232b745cff0b9a)"
         markup = types.InlineKeyboardMarkup(row_width=5)
         markup.add(types.InlineKeyboardButton("1", callback_data="kg1"),
@@ -1006,21 +982,26 @@ def step(call):
                      2681, 2682, 2683, 2684, 2685, 2686, 2687,
                      2688, 2689, 2690, 2691, 2692, 2693, 2694,
                      2710, 2711, 2712, 2713]}
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {call.message.chat.id}")
+        students = cursor.fetchone()
 
         type = call.data[2:]
         x = random.randint(0, len(kg[type]))
         link = f'({type}) КЕГЭ: Задача [{kg[type][x]}](https://kpolyakov.spb.ru/school/ege/gen.php?action=viewTopic&topicId={kg[type][x]})'
-        if call.message.chat.id in Students:
+        if call.message.chat.id == students[0]:
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
-            bot.send_message(-1001822573914, f"#{Students[call.message.chat.id][3]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
+            bot.send_message(-1001822573914, f"#{students[4]}  [Написать сообщение](tg://user?id={call.message.chat.id})\n"
                              f"Получил домашку КЕГЭ ({type}): [{kg[type][x]}](https://kpolyakov.spb.ru/school/ege/gen.php?action=viewTopic&topicId={kg[type][x]})",
                              parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
+        elif call.message.chat.id == 1891281816:
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
     # endregion call.data для КЕГЭ
 
-    # region call.data для Решу ЕГЭ
+    # region call.data для Решу ЕГЭ +
     elif call.data == 'hw':
         message_text = "Эта команда выдает рандомное задание с Решу ЕГЭ\n\n" \
                        "Помимо этого, мне приходит уведомление с номерами выпавших задач.\n\n" \
@@ -1067,7 +1048,13 @@ def step(call):
              27932, 28077, 28102, 38597, 27802, 28158,
              27780, 27826]
 
-        if call.message.chat.id in Students:
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {call.message.chat.id}")
+        students = cursor.fetchone()
+
+        if call.message.chat.id == students[0]:
             link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
             link = f'Задача типа (20): [{M[x] + 1}]({s}{M[x] + 1})'
@@ -1076,12 +1063,12 @@ def step(call):
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
 
             bot.send_message(-1001822573914,
-                             f"#{Students[call.message.chat.id][3]}  "
+                             f"#{students[4]}  "
                              f"[Написать сообщение](tg://user?id={call.message.chat.id})\n"
                              f"Получил домашку ({type}): [{M[x]}]({s}{M[x]}), [{M[x] + 1}]({s}{M[x] + 1}), "
                              f"[{M[x] + 2}]({s}{M[x] + 2})",
                              parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
+        elif call.message.chat.id == 1891281816:
             link = f'Задача типа (19): [{M[x]}]({s}{M[x]})'
             bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
             link = f'Задача типа (20): [{M[x] + 1}]({s}{M[x] + 1})'
@@ -1240,29 +1227,32 @@ def step(call):
                      37162, 47024, 46985, 35916, 33106, 38961, 27889, 38604,
                      36001, 39256, 28130, 40743, 27990, 41002, 36882, 28129,
                      29675, 27890, 27989, 33772, 36040, 45261, 33199]}
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {call.message.chat.id}")
+        students = cursor.fetchone()
 
         type = call.data[2:]
         x = random.randint(0, len(hw[type]))
         link = f'({type}) Решу ЕГЭ: Задача [{hw[type][x]}](inf-ege.sdamgia.ru/problem?id={hw[type][x]})'
-        if call.message.chat.id in Students:
+        if call.message.chat.id == students[0]:
             bot.send_message(call.message.chat.id,
                              link,
                              parse_mode='Markdown',
                              disable_web_page_preview=True)
 
             bot.send_message(-1001822573914,
-                             f"#{Students[call.message.chat.id][3]}  "
+                             f"#{students[4]}  "
                              f"[Написать сообщение](tg://user?id={call.message.chat.id})\n"
                              f"Получил домашку Решу ЕГЭ ({type}): "
                              f"[{hw[type][x]}](inf-ege.sdamgia.ru/problem?id={hw[type][x]})",
                              parse_mode='Markdown', disable_web_page_preview=True)
-        elif call.message.chat.id in Me:
-            bot.send_message(call.message.chat.id, link,
-                             parse_mode='Markdown',
-                             disable_web_page_preview=True)
+        elif call.message.chat.id == 1891281816:
+            bot.send_message(call.message.chat.id, link, parse_mode='Markdown', disable_web_page_preview=True)
     # endregion call.data для Решу ЕГЭ
 
-    # region call.data для Отправки Homework
+    # region call.data для Отправки Homework +
     elif call.data == 'sendhomeworks':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
         markup.add(types.KeyboardButton('Отменить ⛔'))
@@ -1273,7 +1263,11 @@ def step(call):
                          '*Обратите внимание, сообщение в Telegram ограничено 4096 символами!*',
                          parse_mode='Markdown', reply_markup=markup)
 
-        file_name = f'homeworks/{Students[call.message.chat.id][3]}_homework.txt'
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {call.message.chat.id}")
+        students = cursor.fetchone()
 
         @bot.message_handler(content_types=['text'])
         def message_input(message):
@@ -1301,13 +1295,13 @@ def step(call):
                                      "Длина файла превышена, удалите лишние строки!",
                                      reply_markup=markup)
 
-                f = open(file_name, 'w')
-                f.write(message.text)
-                f = open(file_name, 'rb')
-                bot.send_document(-1001822573914, f)
-                bot.send_message(-1001822573914,
-                                 f"#{Students[call.message.chat.id][3]} отправил домашку.",
-                                 reply_markup=markup)
+                file_name = f'homeworks/{students[4]}_homework.txt'
+                with open(file_name, 'w') as f1:
+                    f1.write(message.text)
+
+                with open(file_name, 'rb') as f2:
+                    bot.send_document(-1001822573914, f2)
+                bot.send_message(-1001822573914, f"#{students[4]} отправил домашку.", reply_markup=markup)
                 bot.send_message(call.message.chat.id, "🤖 Файл доставлен, спасибо!")
             else:
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -2090,7 +2084,13 @@ def link_send_price(message):
 # region Команда [useful] + todo: можно добавить материалов
 @bot.message_handler(commands=['useful'])
 def useful(message):
-    if message.chat.id in Students or message.chat.id in Me:
+    sql = sqlite3.connect('analytics.db')
+    cursor = sql.cursor()
+
+    cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+    students = cursor.fetchone()
+
+    if message.chat.id == 1891281816 or message.chat.id == students[0]:
         message_text = 'Со своими студентами я решил поделиться шпаргалками от *Яндекс Практикума*, ' \
                        'в котором сейчас прохожу обучение по специальности `Python` `developer`.\n\n' \
                        'Постепенно список файлов будет пополняться, но *хочу отметить, что для ' \
@@ -2112,7 +2112,13 @@ def useful(message):
 # region Команда [gdz] +
 @bot.message_handler(commands=['gdz'])
 def gdz(message):
-    if message.chat.id in Students or message.chat.id in Me:
+    sql = sqlite3.connect('analytics.db')
+    cursor = sql.cursor()
+
+    cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+    students = cursor.fetchone()
+
+    if message.chat.id == 1891281816 or message.chat.id == students[0]:
         # 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟
         message_text = 'Наборы задачек на отработку теории Python 👇 😅'
         markup = types.InlineKeyboardMarkup(row_width=3)
@@ -2149,7 +2155,13 @@ def gdz(message):
 # region Команда [homework] +
 @bot.message_handler(commands=['homework'])
 def homework(message):
-    if message.chat.id in Me or message.chat.id in Students:
+    sql = sqlite3.connect('analytics.db')
+    cursor = sql.cursor()
+
+    cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+    students = cursor.fetchone()
+
+    if message.chat.id == 1891281816 or message.chat.id == students[0]:
         markup2 = types.InlineKeyboardMarkup(row_width=1)
         markup2.add(types.InlineKeyboardButton("🐍 Задачи на теорию Python", callback_data="th"),
                     types.InlineKeyboardButton("🪤 Получить задачи с Решу ЕГЭ", callback_data="hw"),
@@ -2159,8 +2171,7 @@ def homework(message):
         bot.send_sticker(message.chat.id, sti, reply_markup=markup2)
 
     else:
-        bot.send_message(message.chat.id,
-                         "Извините, эта функция доступна только "
+        bot.send_message(message.chat.id, "Извините, эта функция доступна только "
                          "моим ученикам, [запишитесь на урок](https://clck.ru/33J5xF)",
                          parse_mode="Markdown")
 # endregion Команда [homework]
@@ -2197,14 +2208,21 @@ def getorder(message):
     bot.register_next_step_handler(message, message_input)
 # endregion Команда [getorder]
 
-# region Команда: [today] + #todo: заменить английские слова на русские
+# region Команда: [today] +
 @bot.message_handler(commands=['today'])
 def today(message):
+    sql = sqlite3.connect('analytics.db')
+    cursor = sql.cursor()
+
+    cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+    students = cursor.fetchone()
+
     if message.chat.id == 1891281816:
         send_pic = open('photo/today.jpg', 'rb')
         bot.send_photo(message.chat.id, send_pic)
 
         day = time.strftime('%A')
+        today = my_day(day)
         if day in ('Wednesday', 'Sunday'):
             bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ")
         else:
@@ -2213,14 +2231,14 @@ def today(message):
 
             cursor.execute(f"SELECT id, name, date, day FROM students")
             records = cursor.fetchall()
-            send_message = f'Список уроков на {day}: *'
+            send_message = f'Список уроков на {today}: *'
             for row in records:
                 if row[3] == day:
                     send_message += f'[{row[1]}](tg://user?id={row[0]}) время урока: {row[2]} *'
             send_message = [i for i in send_message.split('*')]
             bot.send_message(message.chat.id, '\n'.join(send_message), parse_mode='Markdown')
 
-    elif message.chat.id in Students:
+    elif message.chat.id == students[0]:
         send_pic = open('photo/today.jpg', 'rb')
         bot.send_photo(message.chat.id, send_pic)
         bot.send_message(message.chat.id, "Поглядим на Ваше расписание 🤖 ", parse_mode='Markdown')
@@ -2233,7 +2251,7 @@ def today(message):
 
         for row in records:
             if row[0] == message.chat.id:
-                bot.send_message(message.chat.id, f'{row[3]}, время урока: {row[2]} (по Нск)', parse_mode='Markdown')
+                bot.send_message(message.chat.id, f'{my_day(row[3])}, время урока: {row[2]} (по Нск)', parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команда: [today]
@@ -2250,27 +2268,41 @@ def reviews(message):
     bot.send_message(message.chat.id, 'Еще больше отзывов 👉 /reviews', parse_mode='Markdown', reply_markup=markup)
 # endregion Команда: [reviews]
 
-# region Команда: [mylessons]
+# region Команда: [mylessons] +
 @bot.message_handler(commands=['mylessons'])
 def mylessons(message):
+    sql = sqlite3.connect('analytics.db')
+    cursor = sql.cursor()
+
+    cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+    students = cursor.fetchone()
+
     if message.chat.id == 1891281816:
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-        btn1 = types.KeyboardButton('Отменить ⛔')
-        markup.add(btn1)
+        markup.add(types.KeyboardButton('Отменить ⛔'))
 
-        day = 'Все студенты: *'
-        for x in sorted(S):
-            day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
-        M_day = [i for i in day.split('*')]
-        message_text_day = '\n'.join(M_day)
-        bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
+        cursor.execute(f"SELECT id, name FROM students")
+        records = cursor.fetchall()
+        send_message = 'Все студенты: *'
+        for row in records:
+            send_message += f'[{row[1]}](tg://user?id={row[0]}): {row[0]} *'
 
+        send_message = '\n'.join([i for i in send_message.split('*')])
+        bot.send_message(message.chat.id, send_message, parse_mode='Markdown', reply_markup=markup)
+        cursor.close()
         @bot.message_handler(content_types=['text'])
         def message_input(message):
             text_message = message.text
 
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+            btn1 = types.KeyboardButton('Контакты')
+            btn2 = types.KeyboardButton('Репетитор')
+            btn3 = types.KeyboardButton('Мои проекты')
+            btn4 = types.KeyboardButton('Записаться на урок')
+            btn5 = types.KeyboardButton('Получить файл с урока')
+            markup.add(btn1, btn2, btn3, btn4, btn5)
+
             if text_message != 'Отменить ⛔':
-                user_id = int(text_message)
                 sql = sqlite3.connect('analytics.db')
                 cursor = sql.cursor()
 
@@ -2282,77 +2314,57 @@ def mylessons(message):
                                                            )""")
                 sql.commit()
 
-                cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
-                records = cursor.fetchone()
+                cursor.execute(f"SELECT * FROM students WHERE id = {int(text_message)}")
+                students = cursor.fetchone()
+                cursor.execute(f"SELECT * FROM tickets WHERE id = {int(text_message)}")
+                record = cursor.fetchone()
 
-                if records is None:
-                    bot.send_message(message.chat.id,
-                                     'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
+                if record is None:
+                    bot.send_message(message.chat.id, 'Такого пользователя нет в db tickets..Абонемент отсутсвует или не продлен!')
                 else:
-                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                    btn1 = types.KeyboardButton('Контакты')
-                    btn2 = types.KeyboardButton('Репетитор')
-                    btn3 = types.KeyboardButton('Мои проекты')
-                    btn4 = types.KeyboardButton('Записаться на урок')
-                    btn5 = types.KeyboardButton('Получить файл с урока')
-                    markup.add(btn1, btn2, btn3, btn4, btn5)
-
-                    bot.send_message(message.chat.id,
-                                     f'🤖 Доброго времени суток, Илья!\n'
-                                     f'Я все посчитал, вот записи по абонементу студента '
-                                     f'#{Students[user_id][3]} 📊📈🧮\n\n{records[3]}',
-                                     parse_mode='Markdown')
-                    bot.send_message(message.chat.id,
-                                     f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*',
-                                     parse_mode='Markdown', reply_markup=markup)
+                    bot.send_message(message.chat.id, f'🤖 Доброго времени суток, Илья!\n'
+                                                      f'Я все посчитал, вот записи по абонементу студента '
+                                                      f'#{record[1]} 📊📈🧮\n\n{record[3]}',
+                                                      parse_mode='Markdown')
+                    bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{students[5] - record[2]} шт*',
+                                                      parse_mode='Markdown', reply_markup=markup)
                 cursor.close()
             else:
-                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                btn1 = types.KeyboardButton('Контакты')
-                btn2 = types.KeyboardButton('Репетитор')
-                btn3 = types.KeyboardButton('Мои проекты')
-                btn4 = types.KeyboardButton('Записаться на урок')
-                btn5 = types.KeyboardButton('Получить файл с урока')
-                markup.add(btn1, btn2, btn3, btn4, btn5)
                 bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
-
         bot.register_next_step_handler(message, message_input)
-    elif message.chat.id in Students:
-        user_id = message.chat.id
+    elif message.chat.id == students[0]:
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
 
-        cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+        cursor.execute(f"SELECT * FROM tickets WHERE id = {message.chat.id}")
         records = cursor.fetchone()
 
         if records is None:
             bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по всем вопросам пишите @ilandroxy')
         else:
-            bot.send_message(message.chat.id,
-                             f'🤖 Доброго времени суток, #{Students[user_id][3]}!\n'
-                             f'Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n'
-                             f'{records[3]}', parse_mode='Markdown')
-            bot.send_message(message.chat.id,
-                             f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{Students[user_id][4] - records[2]} шт*',
-                             parse_mode='Markdown')
+            bot.send_message(message.chat.id, f'🤖 Доброго времени суток, #{students[4]}!\n'
+                                              f'Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n'
+                                              f'{records[3]}', parse_mode='Markdown')
+            bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{students[5] - records[2]} шт*',
+                                              parse_mode='Markdown')
         cursor.close()
 
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команда: [mylessons]
 
-# region Команда: [list] + todo: можно придумать штуку с сортировкой через список
+# region Команда: [list] +
 @bot.message_handler(commands=['list'])
 def list(message):
     if message.chat.id in PrivateMe:
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
 
-        cursor.execute(f"SELECT id, name, date, day FROM students")
+        cursor.execute(f"SELECT name, id FROM students")
         records = cursor.fetchall()
         send_message = 'Список студентов:\n'
-        for row in records:
-            send_message += f'#{row[1]}\n'
+        for row in sorted(records):
+            send_message += f'#{row[0]} [написать](tg://user?id={row[1]}) {row[1]}\n'
         bot.send_message(message.chat.id, send_message, parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
@@ -2399,12 +2411,19 @@ def mess(message):
         btn4 = types.KeyboardButton('Записаться на урок')
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
+
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+        students = cursor.fetchone()
+
         bot.send_message(message.chat.id, f"Cпасибо, записал 🤖\nПроверить, что все сработало\n👉/mylessons", reply_markup=markup)
-        bot.send_message(1891281816, f"{Students[message.chat.id][3]} подтвердил оплату ✅", reply_markup=markup)
+        bot.send_message(1891281816, f"{students[4]} подтвердил оплату ✅", reply_markup=markup)
 
         now = dt.datetime.utcnow()
         date = my_time(now.strftime('%A %d %B %Y'))
-        bot.send_message(-1001819293687, f"✅ #{Students[message.chat.id][3]} *абонемент оплачен*.\nДата: {date}", parse_mode='Markdown')
+        bot.send_message(-1001819293687, f"✅ #{students[4]} *абонемент оплачен*.\nДата: {date}", parse_mode='Markdown')
 
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
@@ -2417,28 +2436,27 @@ def mess(message):
                                            )""")
         sql.commit()
 
-        user_id = message.chat.id
-        cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+        cursor.execute(f"SELECT * FROM tickets WHERE id = {message.chat.id}")
         records = cursor.fetchone()
 
         if records is None:
-            name = Students[user_id][3]
+            name = students[4]
             count = 0
-            mess = f"✅ #{Students[message.chat.id][3]} абонемент *оплачен*.\nДата: {date}\n\n"
-            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            mess = f"✅ #{students[4]} абонемент *оплачен*.\nДата: {date}\n\n"
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (message.chat.id, name, count, mess))
             sql.commit()
         else:
-            name = Students[user_id][3]
+            name = students[4]
             count = records[2]
-            newmess = f"✅ #{Students[message.chat.id][3]} абонемент *оплачен*.\nДата: {date}\n\n"
+            newmess = f"✅ #{students[4]} абонемент *оплачен*.\nДата: {date}\n\n"
             mess = records[3] + newmess
-            cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
-            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            cursor.execute(f"DELETE FROM tickets WHERE id = {message.chat.id}")
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (message.chat.id, name, count, mess))
             sql.commit()
             cursor.close()
     # endregion Кнопки: [Подтвердить оплату абонемента]
 
-    # region Кнопки: [Да, все получается ✅]
+    # region Кнопки: [Да, все получается ✅] +
     elif get_message_bot == 'да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -2452,17 +2470,17 @@ def mess(message):
         now = dt.datetime.utcnow()
         date = my_time(now.strftime('%A %d %B %Y'))
 
-        bot.send_message(-1001819293687,
-                         f"{date}\n\n#{Students[message.chat.id][3]}",
-                         parse_mode='Markdown')
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+        students = cursor.fetchone()
+
+        bot.send_message(-1001819293687, f"{date}\n\n#{students[4]}", parse_mode='Markdown')
 
         markup2 = types.InlineKeyboardMarkup(row_width=3)
         markup2.add(types.InlineKeyboardButton('OK', callback_data='lesson'))
-        bot.send_message(1891281816,
-                         f"✅ {Students[message.chat.id][3]} – Урок будет\n"
-                         f"[Написать сообщение](tg://user?id={message.chat.id})",
-                         parse_mode='Markdown')
-
+        bot.send_message(1891281816, f"✅ {students[4]} – Урок будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
         sql = sqlite3.connect('analytics.db')
         cursor = sql.cursor()
@@ -2475,76 +2493,74 @@ def mess(message):
                                     )""")
         sql.commit()
 
-        user_id = message.chat.id
-        cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
+        cursor.execute(f"SELECT * FROM tickets WHERE id = {message.chat.id}")
         records = cursor.fetchone()
 
         if records is None:
-            name = Students[user_id][3]
+            name = students[4]
             count = 1
             mess = f"Занятие №{count}\nДата: {date} \n\n"
-            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (message.chat.id, name, count, mess))
 
-            if count == Students[user_id][4]:
+            if count == students[5]:
                 markup_price = types.InlineKeyboardMarkup(row_width=3)
                 markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент', callback_data='send_price'))
 
-                bot.send_message(-1001819293687,
-                                 f"⛔ #{Students[user_id][3]} абонемент *закончился*.\n"
-                                 f"[Написать сообщение](tg://user?id={user_id})\n\n"
-                                 f"История:\n{mess}", parse_mode='Markdown')
-                bot.send_message(user_id,
-                                 f"Доброго времени суток, #{Students[user_id][3]}!\n\n"
-                                 f"🤖 Я посчитал, что Ваш абонемент заканчивается, сегодняшний урок последний!\n\n 🧮 Давайте проверим:\n\n"
-                                 f"{mess}", parse_mode='Markdown', reply_markup=markup_price)
-                cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+                bot.send_message(-1001819293687, f"⛔ #{students[4]} абонемент *закончился*.\n"
+                                                 f"[Написать сообщение](tg://user?id={message.chat.id})\n\n"
+                                                 f"История:\n{mess}", parse_mode='Markdown')
+                bot.send_message(message.chat.id, f"Доброго времени суток, #{students[4]}!\n\n"
+                                                  f"🤖 Я посчитал, что Ваш абонемент заканчивается, сегодняшний урок последний!\n\n 🧮 Давайте проверим:\n\n"
+                                                  f"{mess}", parse_mode='Markdown', reply_markup=markup_price)
+                cursor.execute(f"DELETE FROM tickets WHERE id = {message.chat.id}")
             sql.commit()
         else:
-            name = Students[user_id][3]
+            name = students[4]
             count = records[2] + 1
             newmess = f"*Занятие №{count}*\nДата: {date} \n\n"
             mess = records[3] + newmess
-            cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
-            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
+            cursor.execute(f"DELETE FROM tickets WHERE id = {message.chat.id}")
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (message.chat.id, name, count, mess))
 
-            if count == Students[user_id][4]:
+            if count == students[5]:
                 markup_price = types.InlineKeyboardMarkup(row_width=3)
                 markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент',
                                                             callback_data='send_price'))
 
-                bot.send_message(-1001819293687,
-                                 f"⛔ #{Students[user_id][3]} *абонемент закончился*.\n"
-                                 f"[Написать сообщение](tg://user?id={user_id})\n\n"
-                                 f"История:\n{mess}", parse_mode='Markdown')
-                bot.send_message(user_id,
-                                 f"Доброго времени суток, #{Students[user_id][3]}!\n\n"
-                                 f"🤖 Я посчитал, что Ваш абонемент заканчивается, "
-                                 f"сегодняшний урок последний!\n\n 🧮 Давайте проверим:\t"
-                                 f"{mess}", parse_mode='Markdown', reply_markup=markup_price)
-                cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
+                bot.send_message(-1001819293687, f"⛔ #{students[4]} *абонемент закончился*.\n"
+                                                 f"[Написать сообщение](tg://user?id={message.chat.id})\n\n"
+                                                 f"История:\n{mess}", parse_mode='Markdown')
+                bot.send_message(message.chat.id, f"Доброго времени суток, #{students[4]}!\n\n"
+                                                  f"🤖 Я посчитал, что Ваш абонемент заканчивается, "
+                                                  f"сегодняшний урок последний!\n\n 🧮 Давайте проверим:\t"
+                                                  f"{mess}", parse_mode='Markdown', reply_markup=markup_price)
+                cursor.execute(f"DELETE FROM tickets WHERE id = {message.chat.id}")
             sql.commit()
             cursor.close()
     # endregion Кнопки: [Да, все получается ✅]
 
-    # region Кнопки: [Нет, не получится ⛔]
+    # region Кнопки: [Нет, не получится ⛔] +
     elif get_message_bot == 'нет, не получится ⛔':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         markup.add(types.KeyboardButton('Отменить ⛔'))
 
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+        students = cursor.fetchone()
+
         markup2 = types.InlineKeyboardMarkup(row_width=1)
         markup2.add(types.InlineKeyboardButton("Форма для переноса урока", url="https://planerka.app/meet/ilandroxy/perenos"))
 
-        bot.send_message(message.chat.id, f"Попробуем перенести урок? 👇",
-                         reply_markup=markup2, parse_mode='Markdown')
+        bot.send_message(message.chat.id, f"Попробуем перенести урок? 👇", reply_markup=markup2, parse_mode='Markdown')
 
-        bot.send_message(1891281816, f"⛔ {Students[message.chat.id][3]} – Урока не будет\n"
-                         f"[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+        bot.send_message(1891281816, f"⛔ {students[4]} – Урока не будет\n[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
 
-        bot.send_message(message.chat.id, f"Или просто отменим? 🤔👇",
-                         reply_markup=markup, parse_mode='Markdown')
+        bot.send_message(message.chat.id, f"Или просто отменим? 🤔👇", reply_markup=markup, parse_mode='Markdown')
     # endregion Кнопки: [Нет, не получится ⛔]
 
-    # region Кнопки: [Какая-то ошибка]
+    # region Кнопки: [Какая-то ошибка] +
     elif get_message_bot == 'какая-то ошибка, у нас сегодня нет урока ⚙️':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
         btn1 = types.KeyboardButton('Контакты')
@@ -2554,8 +2570,14 @@ def mess(message):
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+        students = cursor.fetchone()
+
         bot.send_message(message.chat.id, f" 🤖 Sorry, ошибка будет исправлена в ближайшее время!", reply_markup=markup)
-        bot.send_message(1891281816, f"‼️ {Students[message.chat.id][3]} – что-то не так с расписанием, "
+        bot.send_message(1891281816, f"‼️ {students[4]} – что-то не так с расписанием, "
                                      f"надо проверить.\n[Написать сообщение](tg://user?id={message.chat.id})",
                                      parse_mode='Markdown')
     # endregion Кнопки: [Какая-то ошибка]
@@ -2570,10 +2592,16 @@ def mess(message):
         btn5 = types.KeyboardButton('Получить файл с урока')
         markup.add(btn1, btn2, btn3, btn4, btn5)
 
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+        students = cursor.fetchone()
+
 
         bot.send_message(message.chat.id, f"Спасибо, что читаете 🤖", reply_markup=markup)
-        bot.send_message(1891281816, f"🤖 {Students[message.chat.id][3]} – Уведомлен \n"
-                                     f"[Написать сообщение](tg://user?id={message.chat.id})", parse_mode='Markdown')
+        bot.send_message(1891281816, f"🤖 {students[4]} – Уведомлен \n[Написать сообщение](tg://user?id={message.chat.id})",
+                                     parse_mode='Markdown')
     # endregion Кнопки: [Прочитано ✅]
 
     # region Кнопка: [Контакты] +
@@ -2688,37 +2716,18 @@ def mess(message):
         cursor.close()
     # endregion Кнопка: [Перенести урок]
 
-    # region Кнопка: [Получить файл с урока]
+    # region Кнопка: [Получить файл с урока] +
     elif get_message_bot == "получить файл с урока":
 
-        if message.chat.id == 1454117859:
-            markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton(f"Ссылка на Miro", url=f"https://miro.com/app/board/uXjVODix7KA=/"))
-            sti = open('photo/SendFileSticker.tgs', 'rb')
-            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
 
-        elif message.chat.id in Students:
-            key = message.chat.id
-            messgae_text = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
-            bot.send_message(message.chat.id, messgae_text)
+        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
+        students = cursor.fetchone()
 
-            pic = open('photo/history.jpeg', 'rb')
-            bot.send_photo(message.chat.id, pic)
-
-            bot.send_message(message.chat.id,
-                             "Перейдя по ссылке на сервис [GitHub](https://clck.ru/33J6gS) "
-                             "можно обнаружить кнопку History, которая дает доступ к истории изменения ваших файлов.",
-                             parse_mode='Markdown', disable_web_page_preview=True)
-
-            markup = types.InlineKeyboardMarkup(row_width=1)
-            markup.add(types.InlineKeyboardButton(f"Твой файл: {Students[key][0]}", url=f"https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/{Students[key][0]}"))
-            sti = open('photo/SendFileSticker.tgs', 'rb')
-            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
-
-        elif message.chat.id in Me:
-            messgae_text = "Воспользуйтесь командой " \
-                           "/homework чтобы получить домашнее задание."
-            bot.send_message(message.chat.id, messgae_text)
+        if message.chat.id == 1891281816:
+            send_message = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, send_message)
 
             pic = open('photo/history.jpeg', 'rb')
             bot.send_photo(message.chat.id, pic)
@@ -2733,6 +2742,22 @@ def mess(message):
             sti = open('photo/SendFileSticker.tgs', 'rb')
             bot.send_sticker(message.chat.id, sti, reply_markup=markup)
 
+        elif message.chat.id == students[0]:
+            send_message = "Воспользуйтесь командой /homework чтобы получить домашнее задание."
+            bot.send_message(message.chat.id, send_message)
+
+            pic = open('photo/history.jpeg', 'rb')
+            bot.send_photo(message.chat.id, pic)
+
+            bot.send_message(message.chat.id,
+                             "Перейдя по ссылке на сервис [GitHub](https://clck.ru/33J6gS) "
+                             "можно обнаружить кнопку History, которая дает доступ к истории изменения ваших файлов.",
+                             parse_mode='Markdown', disable_web_page_preview=True)
+
+            markup = types.InlineKeyboardMarkup(row_width=1)
+            markup.add(types.InlineKeyboardButton(f"Твой файл: {students[1]}", url=f"https://github.com/ilandroxxy/ilandroxy_bot/blob/main/ilandroxy_Bot/lessons/{students[1]}"))
+            sti = open('photo/SendFileSticker.tgs', 'rb')
+            bot.send_sticker(message.chat.id, sti, reply_markup=markup)
         else:
             message_text = 'Извините, по-моему вас нет в системе! Ожидайте...'
             bot.send_message(message.chat.id, message_text)
@@ -2798,50 +2823,47 @@ def mess(message):
 
     ########## Приватные кнопки ##########
 
-    # region Кнопка [Запросить оплату]
+    # region Кнопка [Запросить оплату] +
     elif get_message_bot == "запросить оплату":
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             markup.add(types.KeyboardButton('Отменить ⛔'))
 
-            day = 'Все студенты: *'
-            for x in sorted(S):
-                day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
-            M_day = [i for i in day.split('*')]
-            message_text_day = '\n'.join(M_day)
-            bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
+            sql = sqlite3.connect('analytics.db')
+            cursor = sql.cursor()
+
+            cursor.execute(f"SELECT id, name FROM students")
+            records = cursor.fetchall()
+            send_message = 'Все студенты: *'
+            for row in records:
+                send_message += f'[{row[1]}](tg://user?id={row[0]}): {row[0]} *'
+
+            send_message = '\n'.join([i for i in send_message.split('*')])
+            bot.send_message(message.chat.id, send_message, parse_mode='Markdown', reply_markup=markup)
 
             @bot.message_handler(content_types=['text'])
             def message_input(message):
                 text_message = message.text
 
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                btn1 = types.KeyboardButton('Контакты')
+                btn2 = types.KeyboardButton('Репетитор')
+                btn3 = types.KeyboardButton('Мои проекты')
+                btn4 = types.KeyboardButton('Записаться на урок')
+                btn5 = types.KeyboardButton('Получить файл с урока')
+                markup.add(btn1, btn2, btn3, btn4, btn5)
+
                 if text_message != 'Отменить ⛔':
                     message_text_students = [int(i) for i in text_message.split()]
-                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                    btn1 = types.KeyboardButton('Контакты')
-                    btn2 = types.KeyboardButton('Репетитор')
-                    btn3 = types.KeyboardButton('Мои проекты')
-                    btn4 = types.KeyboardButton('Записаться на урок')
-                    btn5 = types.KeyboardButton('Получить файл с урока')
-                    markup.add(btn1, btn2, btn3, btn4, btn5)
                     bot.send_message(1891281816, f" 🤖 Я отправил сообщение, ждем ответов.",
                                      parse_mode='Markdown', reply_markup=markup)
 
                     for key in message_text_students:
                         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-                        btn1 = types.KeyboardButton('Подтвердить оплату абонемента ❗')
-                        markup.add(btn1)
-                        bot.send_message(key,
-                                         f" 🤖 Привет!\nЭто подтверждение нужно для ведения бухгалтерии 📊📈🧮\n\n",
-                                         parse_mode='Markdown', reply_markup=markup)
+                        markup.add(types.KeyboardButton('Подтвердить оплату абонемента ❗'))
+                        bot.send_message(key, f" 🤖 Привет!\nЭто подтверждение нужно для ведения бухгалтерии 📊📈🧮\n\n",
+                                              parse_mode='Markdown', reply_markup=markup)
                 else:
-                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                    btn1 = types.KeyboardButton('Контакты')
-                    btn2 = types.KeyboardButton('Репетитор')
-                    btn3 = types.KeyboardButton('Мои проекты')
-                    btn4 = types.KeyboardButton('Записаться на урок')
-                    btn5 = types.KeyboardButton('Получить файл с урока')
-                    markup.add(btn1, btn2, btn3, btn4, btn5)
                     bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
             bot.register_next_step_handler(message, message_input)
 
@@ -2849,18 +2871,24 @@ def mess(message):
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [запросить оплату]
 
-    # region Кнопка [Редактрировать db]
+    # region Кнопка [Редактрировать db] +
     elif get_message_bot == 'редактрировать db':
         if message.chat.id == 1891281816:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
             markup.add(types.KeyboardButton('Отменить ⛔'))
 
-            day = 'Все студенты: *'
-            for x in sorted(S):
-                day += f'[{x[0][3]}](tg://user?id={x[-1]}): {x[-1]} *'
-            M_day = [i for i in day.split('*')]
-            message_text_day = '\n'.join(M_day)
-            bot.send_message(message.chat.id, message_text_day, parse_mode='Markdown', reply_markup=markup)
+            sql = sqlite3.connect('analytics.db')
+            cursor = sql.cursor()
+
+            cursor.execute(f"SELECT id, name FROM students")
+            records = cursor.fetchall()
+            send_message = 'Все студенты: *'
+            for row in records:
+                send_message += f'[{row[1]}](tg://user?id={row[0]}): {row[0]} *'
+
+            send_message = [i for i in send_message.split('*')]
+            send_message = '\n'.join(send_message)
+            bot.send_message(message.chat.id, send_message, parse_mode='Markdown', reply_markup=markup)
 
             @bot.message_handler(content_types=['text'])
             def message_input(message):
@@ -2887,8 +2915,7 @@ def mess(message):
                                          'Абонемент отсутствует или не продлен!')
                     else:
                         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-                        btn1 = types.KeyboardButton('Отменить ⛔')
-                        markup.add(btn1)
+                        markup.add(types.KeyboardButton('Отменить ⛔'))
 
                         bot.send_message(message.chat.id,
                                          f'Высылаю запись на редактирование, просто измените '
@@ -2901,12 +2928,18 @@ def mess(message):
                         @bot.message_handler(content_types=['text'])
                         def message_input(message):
                             text_message = message.text
+                            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                            btn1 = types.KeyboardButton('Контакты')
+                            btn2 = types.KeyboardButton('Репетитор')
+                            btn3 = types.KeyboardButton('Мои проекты')
+                            btn4 = types.KeyboardButton('Записаться на урок')
+                            btn5 = types.KeyboardButton('Получить файл с урока')
+                            markup.add(btn1, btn2, btn3, btn4, btn5)
 
                             if text_message != 'Отменить ⛔':
                                 sql = sqlite3.connect('analytics.db')
                                 cursor = sql.cursor()
                                 cursor.execute(f"SELECT * FROM tickets WHERE id = {user_id}")
-                                records = cursor.fetchone()
 
                                 cursor.execute(f"DELETE FROM tickets WHERE id = {user_id}")
 
@@ -2914,29 +2947,10 @@ def mess(message):
                                 count = int(text_message[-1])
 
                                 cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (user_id, name, count, mess))
-                                sql.commit()
-                                cursor.close()
 
-                                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                                btn1 = types.KeyboardButton('Контакты')
-                                btn2 = types.KeyboardButton('Репетитор')
-                                btn3 = types.KeyboardButton('Мои проекты')
-                                btn4 = types.KeyboardButton('Записаться на урок')
-                                btn5 = types.KeyboardButton('Получить файл с урока')
-                                markup.add(btn1, btn2, btn3, btn4, btn5)
-
-                                bot.send_message(message.chat.id,
-                                                 'Запись была заменена успешно\n'
-                                                 'Проверить 👉 /mylessons',
+                                bot.send_message(message.chat.id, 'Запись была заменена успешно\nПроверить 👉 /mylessons',
                                                  parse_mode='Markdown', reply_markup=markup)
                             else:
-                                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                                btn1 = types.KeyboardButton('Контакты')
-                                btn2 = types.KeyboardButton('Репетитор')
-                                btn3 = types.KeyboardButton('Мои проекты')
-                                btn4 = types.KeyboardButton('Записаться на урок')
-                                btn5 = types.KeyboardButton('Получить файл с урока')
-                                markup.add(btn1, btn2, btn3, btn4, btn5)
                                 bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
                         bot.register_next_step_handler(message, message_input)
@@ -2956,9 +2970,9 @@ def mess(message):
             bot.register_next_step_handler(message, message_input)
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [редактрировать db]
+    # endregion Кнопка [Редактрировать db]
 
-    # region Кнопка [Оповещение тета-тет] +-
+    # region Кнопка [Оповещение тета-тет] +
     elif get_message_bot == 'оповещение тета-тет':
         if message.chat.id == 1891281816:
             markup0 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -2973,8 +2987,7 @@ def mess(message):
             for row in records:
                 send_message += f'[{row[1]}](tg://user?id={row[0]}): {row[0]} *'
 
-            send_message = [i for i in send_message.split('*')]
-            send_message = '\n'.join(send_message)
+            send_message = '\n'.join([i for i in send_message.split('*')])
             bot.send_message(message.chat.id, send_message, parse_mode='Markdown', reply_markup=markup0)
 
             @bot.message_handler(content_types=['text'])
@@ -3007,11 +3020,11 @@ def mess(message):
 
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
-    # endregion Кнопка [оповещение тета-тет]
+    # endregion Кнопка [оповещение тета-тет] +
 
-    # region Кнопка [Отправить оповещение]
+    # region Кнопка [Отправить оповещение] +-
     elif get_message_bot == 'отправить оповещение':
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
             btn1 = types.KeyboardButton('Контакты')
             btn2 = types.KeyboardButton('Репетитор')
@@ -3020,130 +3033,34 @@ def mess(message):
             btn5 = types.KeyboardButton('Получить файл с урока')
             markup.add(btn1, btn2, btn3, btn4, btn5)
 
-            day = time.strftime('%A')
+            today = time.strftime('%A')
 
-            if day == 'Monday':
-                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-                btn1 = types.KeyboardButton('Да, все получается ✅')
-                btn2 = types.KeyboardButton('Нет, не получится ⛔')
-                btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока ⚙️')
-                markup.add(btn1, btn2, btn3)
-                bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
-                for key in MondayStudents:
-                    bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n"
-                                          f"Урок в {MondayStudents[key][1]} по Нск. \n\n",
-                                     parse_mode='Markdown', reply_markup=markup)
-                temp = 'Список студентов: *'
-                for key in MondayStudents:
-                    temp += f'[{MondayStudents[key][3]}](tg://user?id={key}) время урока: {MondayStudents[key][1]} *'
+            sql = sqlite3.connect('analytics.db')
+            cursor = sql.cursor()
 
-                M = [i for i in temp.split('*')]
-                message_text = '\n'.join(M)
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
-                bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
-
-            if day == 'Tuesday':
-                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-                btn1 = types.KeyboardButton('Да, все получается ✅')
-                btn2 = types.KeyboardButton('Нет, не получится ⛔')
-                btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока ⚙️')
-                markup.add(btn1, btn2, btn3)
-                bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
-                for key in TuesdayStudents:
-                    bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n"
-                                          f"Урок в {TuesdayStudents[key][1]} по Нск. \n\n",
-                                     parse_mode='Markdown', reply_markup=markup)
-
-                temp = 'Список студентов: *'
-                for key in TuesdayStudents:
-                    temp += f'[{TuesdayStudents[key][3]}](tg://user?id={key}) время урока: {TuesdayStudents[key][1]} *'
-
-                M = [i for i in temp.split('*')]
-                message_text = '\n'.join(M)
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
-                bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
-
-            if day == 'Wednesday':
+            cursor.execute(f"SELECT * FROM students")
+            records = cursor.fetchall()
+            if records is None:
                 bot.send_message(message.chat.id, "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ", reply_markup=markup)
-
-            if day == 'Thursday':
+            else:
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
                 btn1 = types.KeyboardButton('Да, все получается ✅')
                 btn2 = types.KeyboardButton('Нет, не получится ⛔')
                 btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока ⚙️')
                 markup.add(btn1, btn2, btn3)
-                bot.send_message(message.chat.id,
-                                 f" 🤖 Я отправил сообщение, ждем ответов.",
-                                 parse_mode='Markdown')
-                for key in ThursdayStudents:
-                    bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n"
-                                          f"Урок в {ThursdayStudents[key][1]} по Нск. \n\n",
-                                     parse_mode='Markdown', reply_markup=markup)
+                bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.", parse_mode='Markdown')
 
-                temp = 'Список студентов: *'
-                for key in ThursdayStudents:
-                    temp += f'[{ThursdayStudents[key][3]}](tg://user?id={key}) время урока: {ThursdayStudents[key][1]} *'
+                send_message = 'Список студентов: *'
+                for row in records:
+                    if row[7] == today:
+                        send_message += f'[{row[4]}](tg://user?id={row[0]}) время урока: {row[2]} *'
+                        bot.send_message(row[0], f" 🤖 Привет!\nСегодня занимаемся?\nУрок в {row[2]} по Нск.\n\n",
+                                                 parse_mode='Markdown', reply_markup=markup)
 
-                M = [i for i in temp.split('*')]
+                M = [i for i in send_message.split('*')]
                 message_text = '\n'.join(M)
                 bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
                 bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
-
-            if day == 'Friday':
-                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-                btn1 = types.KeyboardButton('Да, все получается ✅')
-                btn2 = types.KeyboardButton('Нет, не получится ⛔')
-                btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока ⚙️')
-                markup.add(btn1, btn2, btn3)
-                bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.",
-                                 parse_mode='Markdown')
-                for key in FridayStudents:
-                    bot.send_message(key, f" 🤖 Привет!\nСегодня занимаемся?\n"
-                                          f"Урок в {FridayStudents[key][1]} по Нск. \n\n",
-                                     parse_mode='Markdown', reply_markup=markup)
-                temp = 'Список студентов: *'
-                for key in FridayStudents:
-                    temp += f'[{FridayStudents[key][3]}](tg://user?id={key}) время урока: {FridayStudents[key][1]} *'
-
-                M = [i for i in temp.split('*')]
-                message_text = '\n'.join(M)
-                bot.send_message(message.chat.id, message_text, parse_mode='Markdown', reply_markup=markup)
-                bot.send_message(-1001819293687, message_text, parse_mode='Markdown')
-
-            if day == 'Saturday':
-                markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-                btn1 = types.KeyboardButton('Да, все получается ✅')
-                btn2 = types.KeyboardButton('Нет, не получится ⛔')
-                btn3 = types.KeyboardButton('Какая-то ошибка, у нас сегодня нет урока ⚙️')
-                markup.add(btn1, btn2, btn3)
-                bot.send_message(message.chat.id, f" 🤖 Я отправил сообщение, ждем ответов.",
-                                 parse_mode='Markdown')
-                for key in SaturdayStudents:
-                    bot.send_message(key,
-                                     f" 🤖 Привет!\nСегодня занимаемся?\n"
-                                     f"Урок в {SaturdayStudents[key][1]} по Нск. \n\n",
-                                     parse_mode='Markdown',
-                                     reply_markup=markup)
-
-                temp = 'Список студентов: *'
-                for key in SaturdayStudents:
-                    temp += f'[{SaturdayStudents[key][3]}](tg://user?id={key}) время урока: {SaturdayStudents[key][1]} *'
-
-                M = [i for i in temp.split('*')]
-                message_text = '\n'.join(M)
-                bot.send_message(message.chat.id,
-                                 message_text,
-                                 parse_mode='Markdown',
-                                 reply_markup=markup)
-                bot.send_message(-1001819293687,
-                                 message_text,
-                                 parse_mode='Markdown')
-
-            if day == 'Sunday':
-                bot.send_message(message.chat.id,
-                                 "А сегодня выходной! \nИди отдыхай  🙌 ☺️ ",
-                                 reply_markup=markup)
-
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [отправить оповещение]
@@ -3186,7 +3103,7 @@ def mess(message):
 
     # region Кнопка [Статистика] +
     elif get_message_bot == 'статистика':
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
             btn1 = types.KeyboardButton('Планирование оплат 🤑')
             btn2 = types.KeyboardButton('Словарь с расписанием 📅')
@@ -3198,25 +3115,52 @@ def mess(message):
             bot.send_message(message.chat.id, '🤖 Отправляю кнопки со статистикой:', reply_markup=markup)
     # endregion Кнопка [статистика]
 
+    # region Кнопка [Все данные студентов ✍️] +
     elif get_message_bot in ('все данные студентов ✍️', 'все данные студентов'):
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             sql = sqlite3.connect('analytics.db')
             cursor = sql.cursor()
-            cursor.execute(f"SELECT * FROM students")
+
+            cursor.execute(f"SELECT * FROM students ORDER BY day")
             records = cursor.fetchall()
             count = 1
             send_message = 'Список всех студентов из db: \n'
+            my_dict = {}
             for row in records:
                 s = [str(i) for i in row]
-                send_message += f'{count}. {" ".join(s)}\n'
+                send_message += f'{count}. #{s[4]}\n [ {" ".join(s)} ]\n\n'
+                my_dict[count] = s
                 count += 1
-            bot.send_message(message.chat.id, send_message, parse_mode='Markdown')
+            bot.send_message(message.chat.id, send_message)
+            markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
+            markup.add(types.KeyboardButton('Отменить ⛔'))
+
+            bot.send_message(message.chat.id, "Введите номер студента, данные которого, нужно получить:", reply_markup=markup)
+
+            @bot.message_handler(content_types=['text'])
+            def message_input(message):
+
+                if message.text != 'Отменить ⛔':
+                    bot.send_message(message.chat.id, " ".join(my_dict[int(message.text)]))
+                else:
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                    btn1 = types.KeyboardButton('Контакты')
+                    btn2 = types.KeyboardButton('Репетитор')
+                    btn3 = types.KeyboardButton('Мои проекты')
+                    btn4 = types.KeyboardButton('Записаться на урок')
+                    btn5 = types.KeyboardButton('Получить файл с урока')
+                    markup.add(btn1, btn2, btn3, btn4, btn5)
+                    bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
+
+            bot.register_next_step_handler(message, message_input)
+
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
+    # endregion Кнопка [Все данные студентов ✍️] +
 
     # region Кнопка [Cловарь с расписанием 📅]
     elif get_message_bot == 'словарь с расписанием 📅':
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             sql = sqlite3.connect('analytics.db')
             cursor = sql.cursor()
 
@@ -3266,7 +3210,7 @@ def mess(message):
 
     # region Кнопка [Планирование оплат 🤑]
     elif get_message_bot == 'планирование оплат 🤑':
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             sql = sqlite3.connect('analytics.db')
             cursor = sql.cursor()
 
@@ -3374,7 +3318,7 @@ def mess(message):
 
     # region Кнопка [Отправить файлы db 💾] +
     elif get_message_bot == 'отправить файлы db 💾':
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             sql = sqlite3.connect('analytics.db')
             cursor = sql.cursor()
 
@@ -3408,11 +3352,18 @@ def mess(message):
 
             bot.send_message(1891281816,
                              f" 🤖 Итак, я готов добавить ученика.\nВведите данные о студенте через пробел, используя пример:\n"
-                             f"[id filename date price name count parent_id]", reply_markup=markup)
+                             f'[id filename date price name count parent_id]\n\nИли напишите [id], чтобы удалить заись студента', reply_markup=markup)
 
             @bot.message_handler(content_types=['text'])
             def message_input(message):
                 if message.text != 'Отменить ⛔':
+                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+                    btn1 = types.KeyboardButton('Контакты')
+                    btn2 = types.KeyboardButton('Репетитор')
+                    btn3 = types.KeyboardButton('Мои проекты')
+                    btn4 = types.KeyboardButton('Записаться на урок')
+                    btn5 = types.KeyboardButton('Получить файл с урока')
+                    markup.add(btn1, btn2, btn3, btn4, btn5)
 
                     sql = sqlite3.connect('analytics.db')
                     cursor = sql.cursor()
@@ -3430,53 +3381,52 @@ def mess(message):
                     sql.commit()
 
                     mess = message.text.strip().split()
-                    id = int(mess[0])
-                    filename = mess[1]
-                    date = mess[2]
-                    price = int(mess[3])
-                    name = mess[4]
-                    count = int(mess[5])
-                    parent_id = int(mess[6])
-                    day = mess[7]
+                    if len(mess) == 1:
+                        id = int(mess[0])
+                        cursor.execute(f"SELECT * FROM students WHERE id = {id}")
+                        users_records = cursor.fetchone()
 
-                    cursor.execute(f"SELECT * FROM students WHERE id = {id}")
-                    users_records = cursor.fetchone()
-
-                    if users_records is None:
-                        cursor.execute(f"INSERT INTO students VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
-                                       (id, filename, date, price, name, count, parent_id, day))
+                        if users_records is None:
+                            bot.send_message(message.chat.id, 'Пользователя нет в БД')
+                        else:
+                            cursor.execute(f"DELETE FROM students WHERE id = {id}")
+                            bot.send_message(message.chat.id, 'Пользователь успешно удален из БД, проверьте это написав боту: ')
+                            bot.send_message(message.chat.id, 'Все данные студентов')
+                        sql.commit()
+                        cursor.close()
                     else:
-                        cursor.execute(f"DELETE FROM students WHERE id = {id}")
-                        cursor.execute(f"INSERT INTO students VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
-                                       (id, filename, date, price, name, count, parent_id, day))
-                    sql.commit()
-                    cursor.close()
+                        id = int(mess[0])
+                        filename = mess[1]
+                        date = mess[2]
+                        price = int(mess[3])
+                        name = mess[4]
+                        count = int(mess[5])
+                        parent_id = int(mess[6])
+                        day = mess[7]
 
-                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                    btn1 = types.KeyboardButton('Контакты')
-                    btn2 = types.KeyboardButton('Репетитор')
-                    btn3 = types.KeyboardButton('Мои проекты')
-                    btn4 = types.KeyboardButton('Записаться на урок')
-                    btn5 = types.KeyboardButton('Получить файл с урока')
-                    markup.add(btn1, btn2, btn3, btn4, btn5)
+                        cursor.execute(f"SELECT * FROM students WHERE id = {id}")
+                        users_records = cursor.fetchone()
 
-                    bot.send_message(1891281816, f" 🤖 Изменения успешно добавлены!", reply_markup=markup)
+                        if users_records is None:
+                            cursor.execute(f"INSERT INTO students VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
+                                           (id, filename, date, price, name, count, parent_id, day))
+                        else:
+                            cursor.execute(f"DELETE FROM students WHERE id = {id}")
+                            cursor.execute(f"INSERT INTO students VALUES(?, ?, ?, ?, ?, ?, ?, ?);",
+                                           (id, filename, date, price, name, count, parent_id, day))
+                        sql.commit()
+                        cursor.close()
+
+                        bot.send_message(1891281816, f" 🤖 Изменения успешно добавлены!", reply_markup=markup)
                 else:
-                    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-                    btn1 = types.KeyboardButton('Контакты')
-                    btn2 = types.KeyboardButton('Репетитор')
-                    btn3 = types.KeyboardButton('Мои проекты')
-                    btn4 = types.KeyboardButton('Записаться на урок')
-                    btn5 = types.KeyboardButton('Получить файл с урока')
-                    markup.add(btn1, btn2, btn3, btn4, btn5)
                     bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
 
             bot.register_next_step_handler(message, message_input)
     # endregion Кнопка [Добавить ученика]
 
-    # region Кнопка [github]
+    # region Кнопка [github] +
     elif get_message_bot == 'github':
-        if message.chat.id in Me:
+        if message.chat.id in PrivateMe:
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
             btn1 = types.KeyboardButton('Контакты')
             btn2 = types.KeyboardButton('Репетитор')
@@ -3485,62 +3435,20 @@ def mess(message):
             btn5 = types.KeyboardButton('Получить файл с урока')
             markup.add(btn1, btn2, btn3, btn4, btn5)
 
-            day = time.strftime('%A')
-            if day == 'Monday':
-                for key in MondayStudents:
-                    bot.send_message(key,
-                                     f" 🤖 Обновил конспекты с уроков на GitHub",
-                                     parse_mode='Markdown')
-                bot.send_message(1891281816,
-                                 "🤖 Отправил уведомление ученикам",
-                                 parse_mode='Markdown',
-                                 reply_markup=markup)
+            today = time.strftime('%A')
 
-            elif day == 'Tuesday':
-                for key in TuesdayStudents:
-                    bot.send_message(key,
-                                     f" 🤖 Обновил конспекты с уроков на GitHub",
-                                     parse_mode='Markdown')
-                bot.send_message(1891281816,
-                                 "🤖 Отправил уведомление ученикам",
-                                 parse_mode='Markdown',
-                                 reply_markup=markup)
+            sql = sqlite3.connect('analytics.db')
+            cursor = sql.cursor()
 
-            elif day == 'Thursday':
-                for key in ThursdayStudents:
-                    bot.send_message(key,
-                                     f" 🤖 Обновил конспекты с уроков на GitHub",
-                                     parse_mode='Markdown')
-                bot.send_message(1891281816,
-                                 "🤖 Отправил уведомление ученикам",
-                                 parse_mode='Markdown',
-                                 reply_markup=markup)
+            cursor.execute(f"SELECT * FROM students")
+            records = cursor.fetchall()
 
-            elif day == 'Friday':
-                for key in FridayStudents:
-                    bot.send_message(key,
-                                     f" 🤖 Обновил конспекты с уроков на GitHub",
-                                     parse_mode='Markdown')
-                bot.send_message(1891281816,
-                                 "🤖 Отправил уведомление ученикам",
-                                 parse_mode='Markdown',
-                                 reply_markup=markup)
-
-            elif day == 'Saturday':
-                for key in SaturdayStudents:
-                    bot.send_message(key,
-                                     f" 🤖 Обновил конспекты с уроков на GitHub",
-                                     parse_mode='Markdown')
-                bot.send_message(1891281816,
-                                 "🤖 Отправил уведомление ученикам",
-                                 parse_mode='Markdown',
-                                 reply_markup=markup)
-
-            else:
-                bot.send_message(1891281816,
-                                 "🤖 Сегодня вообще-то выходной!",
-                                 parse_mode='Markdown',
-                                 reply_markup=markup)
+            for row in records:
+                if row[7] == today:
+                    bot.send_message(row[0], f" 🤖 Обновил конспекты с уроков на GitHub",
+                                             parse_mode='Markdown')
+                    bot.send_message(1891281816, "🤖 Отправил уведомление ученикам",
+                                                 parse_mode='Markdown', reply_markup=markup)
         else:
             bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
     # endregion Кнопка [github]
