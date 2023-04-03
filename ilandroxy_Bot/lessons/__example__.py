@@ -1239,7 +1239,10 @@ print(F(1, 9) * F(9, 17))
 
 
 
+summ = sum([int(i) for i in '12345'])
+print(summ)  # 15
 
+summ = sum([int(i) for i in input('Введите числовую строку: ')])
 
 
 
