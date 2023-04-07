@@ -11,9 +11,9 @@ with open("token.txt", 'r') as f1, open("openai.txt", 'r') as f2:
     TOKEN = f1.read().strip()
     TOKEN_AI = f2.read().strip()
 
-# bot = telebot.TeleBot(f'{TOKEN}')
+bot = telebot.TeleBot(f'{TOKEN}')
 openai.api_key = f'{TOKEN_AI}'
-bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
+# bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
 
 PrivateMe = {1891281816: "Рабочий аккаунт", 438879394: 'Илья', -1001822573914: "Homework", -1001819293687: "Lessons"}
 
