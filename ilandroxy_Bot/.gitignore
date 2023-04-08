@@ -7,8 +7,11 @@ __pycache__/
 *.so
 *.db
 *.csv
-*.txt
+token.txt
+openai.txt
 *.zip
+.idea/
+.DS_Store
 
 # Distribution / packaging
 .Python

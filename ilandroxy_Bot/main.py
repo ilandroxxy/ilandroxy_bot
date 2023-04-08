@@ -11,9 +11,9 @@ with open("token.txt", 'r') as f1, open("openai.txt", 'r') as f2:
     TOKEN = f1.read().strip()
     TOKEN_AI = f2.read().strip()
 
-bot = telebot.TeleBot(f'{TOKEN}')
+# bot = telebot.TeleBot(f'{TOKEN}')
 openai.api_key = f'{TOKEN_AI}'
-# bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
+bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
 
 PrivateMe = {1891281816: "Рабочий аккаунт", 438879394: 'Илья', -1001822573914: "Homework", -1001819293687: "Lessons"}
 
@@ -2199,8 +2199,14 @@ def mylessons(message):
     sql = sqlite3.connect('analytics.db')
     cursor = sql.cursor()
 
-    cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
-    students = cursor.fetchone()
+
+    cursor.execute(f"SELECT * FROM students")
+    students = cursor.fetchall()
+    M = []
+    for student in students:
+        M.append(student)
+    print(M)
+
 
     if message.chat.id == 1891281816:
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
@@ -2257,40 +2263,23 @@ def mylessons(message):
             else:
                 bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
         bot.register_next_step_handler(message, message_input)
-    elif message.chat.id == students[0]:
-        sql = sqlite3.connect('analytics.db')
-        cursor = sql.cursor()
+    for student in M:
+        if message.chat.id == student[0] or message.chat.id == student[6]:
+            sql = sqlite3.connect('analytics.db')
+            cursor = sql.cursor()
 
-        cursor.execute(f"SELECT * FROM tickets WHERE id = {message.chat.id}")
-        records = cursor.fetchone()
+            cursor.execute(f"SELECT * FROM tickets WHERE id = {student[0]}")
+            records = cursor.fetchone()
 
-        if records is None:
-            bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по всем вопросам пишите @ilandroxy')
-        else:
-            bot.send_message(message.chat.id, f'🤖 Доброго времени суток, #{students[4]}!\n'
-                                              f'Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n'
-                                              f'{records[3]}', parse_mode='Markdown')
-            bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{students[5] - records[2]} шт*',
-                                              parse_mode='Markdown')
-        cursor.close()
-    elif message.chat.id == students[6]:
-        print(students[6])
-        sql = sqlite3.connect('analytics.db')
-        cursor = sql.cursor()
-
-        cursor.execute(f"SELECT * FROM tickets WHERE id = {students[0]}")
-        records = cursor.fetchone()
-
-        if records is None:
-            bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по всем вопросам пишите @ilandroxy')
-        else:
-            bot.send_message(message.chat.id, f'🤖 Доброго времени суток, #{students[4]}!\n'
-                                              f'Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n'
-                                              f'{records[3]}', parse_mode='Markdown')
-            bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{students[5] - records[2]} шт*',
-                                              parse_mode='Markdown')
-        cursor.close()
-
+            if records is None:
+                bot.send_message(message.chat.id, 'Абонемент отсутсвует или не продлен, по всем вопросам пишите @ilandroxy')
+            else:
+                bot.send_message(message.chat.id, f'🤖 Доброго времени суток, #{records[1]}!\n'
+                                                  f'Я все посчитал, вот записи по Вашему абонементу 📊📈🧮\n\n'
+                                                  f'{records[3]}', parse_mode='Markdown')
+                bot.send_message(message.chat.id, f'👨‍💻 Кол-во оставшихся занятий в абонементе: *{student[5] - records[2]} шт*',
+                                                  parse_mode='Markdown')
+            cursor.close()
     else:
         bot.send_message(message.chat.id, "Извините, у вас нет прав доступа 👨‍💻")
 # endregion Команда: [mylessons]
