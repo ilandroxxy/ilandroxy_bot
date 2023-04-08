@@ -2640,7 +2640,7 @@ def mess(message):
         records = cursor.fetchone()
 
         if records is None:
-            bot.send_message(message.chat.id, "Извините, эта функция доступна только студентам' 👨‍💻")
+            bot.send_message(message.chat.id, "Извините, эта функция доступна только студентам 👨‍💻")
         else:
             markup = types.InlineKeyboardMarkup(row_width=1)
             markup.add(types.InlineKeyboardButton("planerka.app", url="https://planerka.app/meet/ilandroxy/perenos"))
