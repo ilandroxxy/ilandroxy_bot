@@ -1,4 +1,3 @@
-
 '''
 MondayStudents = {1477701439: ["Valeria.py", '15:00', 1000, "Валерия", 1000],
                   768734764: ["Bogdan.py", '16:30', 3600//4, "Богдан", 4],
@@ -250,7 +249,6 @@ print(s)  # 0001
 # Сколько разных значений будет показано на экране автомата при последовательном вводе всех натуральных чисел от 10 до 1000?
 
 
-
 # Как убрать первую единицу
 # s = '10001000'  # при переводе 136
 #
@@ -265,7 +263,6 @@ print(s)  # 0001
 #
 # x = int(input())
 # print(x)
-
 
 
 # Тип 24 № 27696
@@ -307,10 +304,6 @@ for i in range(len(f)-1):
 print(m)
 '''
 # Ответ: 7
-
-
-
-
 
 
 # Тип 5 № 46963
@@ -364,14 +357,6 @@ for n in range(2, 100000 + 1):
         break
 '''
 # Ответ: 511
-
-
-
-
-
-
-
-
 
 
 # Тип 5 № 16882
@@ -465,7 +450,6 @@ for n in range(0, 255+1):
 # Ответ: 72
 
 
-
 # Тип 25 № 35999
 # Найдите все натуральные числа N, принадлежащие отрезку [200_000_000;400_000_000],
 # которые можно представить в виде N=2**m·3**n, где m — чётное число, n — нечётное число.
@@ -500,8 +484,6 @@ for i in range(n):
 print(*R)
 '''
 
-
-
 # region Тип 25 № 29673  Большие числа
 '''
 # Назовём нетривиальным делителем натурального числа его делитель, не равный единице и самому числу.
@@ -530,7 +512,6 @@ for x in range(105, 122+1):
 # endregion Тип 25 № 29673
 
 
-
 # Тип 25 № 35914
 # Найдите все натуральные числа, принадлежащие отрезку [45000000;50000000], у которых ровно пять различных нечётных делителей (количество чётных делителей может быть любым).
 # В ответе перечислите найденные числа в порядке возрастания.
@@ -553,9 +534,6 @@ for i in range(45000000, 50000001):
     if int(p**0.25) in simple and (int(p**0.25))**4 == p:
         print(i)
         '''
-
-
-
 
 # Пост:
 M = [1, 2, 3, 4, 5]
@@ -582,8 +560,6 @@ for i in range(0, len(M)):
 # Тип 17 № 38951
 
 # Тип 17 № 37360
-
-
 
 
 # Пост:
@@ -677,7 +653,6 @@ print(*R)
 # print(result)
 
 
-
 '''
 a = int(input())
 b = int(input())
@@ -704,7 +679,6 @@ else:
     print('NO')
 '''
 
-
 '''
 n = int(input())
 result = []
@@ -721,8 +695,6 @@ if all(result) == True:
 else:
     print('NO')
 '''
-
-
 
 '''
 0.0 0.0
@@ -768,7 +740,6 @@ def product_of_odds(data):
     pass
 
 '''
-
 
 '''
 with open(f'file.txt', 'r', encoding='utf-8') as f:
@@ -829,7 +800,6 @@ if len(result) == 2:
 else:
     print(f'Составное число\nДелители: {result}')
 '''
-
 
 # import turtle as t
 # t.left(90)
@@ -962,7 +932,6 @@ for x in sorted(S):
     print(x)
 '''
 
-
 # Определите количество пятизначных чисел, записанных в восьмеричной системе счисления,
 # в записи которых только одна цифра 6, при этом никакая нечётная цифра не стоит рядом с цифрой 6
 '''
@@ -986,7 +955,6 @@ for a in '1234567':
 print(counter)
 '''
 # Ответ: 2961
-
 
 
 """
@@ -1083,7 +1051,6 @@ print("Number of such numbers:", count)
 print("Integer part of average:", integer_part_of_average)
 '''
 
-
 '''
 for n in range(2, 1000):
     temp = n
@@ -1128,7 +1095,6 @@ def F(n):
 print(F(5))
 '''
 
-
 '''
 def F(n):
     if n == 1:
@@ -1151,9 +1117,6 @@ for x in '0123456789abcde':
             exit()ssh-keygen
 '''
 
-
-
-
 # Тип 25 № 29673 Добавить в вариант Назовём нетривиальным делителем натурального числа его делитель,
 # не равный единице и самому числу. Например, у числа 6 есть два нетривиальных делителя: 2 и 3. Найдите все
 # натуральные числа, принадлежащие отрезку [123456789; 223456789] и имеющие ровно три нетривиальных делителя. Для
@@ -1175,7 +1138,6 @@ for x in range(123456789, 223456789+1):
         print(x, max(dl))
 '''
 
-
 '''
 for x in range(123456789, 223456789+1):
     dl = set()
@@ -1187,7 +1149,6 @@ for x in range(123456789, 223456789+1):
     if len(dl) == 3:
         print(x, max(dl))
 '''
-
 
 '''
 def D(x):
@@ -1235,8 +1196,6 @@ def F(a, b, memo={}):
 print(F(1, 9) * F(9, 17))
 
 '''
-
-
 
 '''
 summ = sum([int(i) for i in '12345'])
@@ -1303,8 +1262,6 @@ sred = sum(A) / len(A)
 # тождественно истинна при любом натуральном значении переменной x.
 
 
-
-
 # № 5938 (Уровень: Средний)
 # (Д. Статный) Исполнитель Калькулятор преобразует число, записанное на экране.
 # У исполнителя есть три команды, которым присвоены номера:
@@ -1327,21 +1284,65 @@ def F(a, b, h):
 
 print(F(2, 404, 1))
 '''
+
+
 # Показать ответ: 319
 
+# def power_of_two(x):
+#   return any((x == 2 ** i) for i in range(0, int(x**0.5)+1))
+# def power_of_two(x):
+#     i = 0
+#     square = int(x ** 0.5) + 1
+#     while i <= square:
+#         if x == 2 ** i:
+#             return True
+#         i += 1
+#     return False
+
+# def power_of_two(x):
+#     while x > 0 and x % 2 == 0:
+#         x //= 2
+#     return x == 1
 
 
-s = 'uihuiHUI'
-print(s.upper())
+'''
+def power_of_two(x):
+    return bin(x)[2:].count('1') == 1
+    
+print(power_of_two(128))
+'''
 
+'''
+# def sort_by_length(arr):
+#     return sorted(arr, key=len)
 
+def sort_by_length(arr):
+    return sorted(arr, key=lambda x: len(x))
 
+print(sort_by_length())
+'''
 
+'''
+def valid_parentheses(paren_str):
+    if paren_str.count('(') == paren_str.count(')'):
+        if len(paren_str.replace('()', '')) != 0:
+            return False
+    return True
+'''
 
+'''
+def valid_parentheses(paren_str):
+    while '()' in paren_str:
+        paren_str = paren_str.replace('()', '')
+    return len(paren_str) == 0
 
+print(valid_parentheses('()()()'))
+'''
 
-
-
+def keep_order(ary, val):
+    ary.append(val)
+    ary.sort()
+    return ary.index(val)
 
 
 
