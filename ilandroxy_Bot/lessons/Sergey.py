@@ -1,140 +1,286 @@
 
 # region Домашка: ******************************************************************
 
-'''Тип 17 № 37373
-M = [int(i) for i in open('17.txt')]
+'''
+Тип 17 № 37336
+file = [int(i) for i in open('17.txt')]
 c = 0
-maxraz = -999
-for i in range(len(M) - 1):
-    for y in range(i + 1, len(M)):
-        if (max(M[i], M[y]) - min(M[i], M[y])) % 36 == 0 and (M[i] % 13 == 0 or M[y] % 13 == 0):
-                c += 1
-                if max(M[i], M[y]) - min(M[i], M[y]) > maxraz:
-                    maxraz = max(M[i], M[y]) - min(M[i], M[y])
-print(c, maxraz)
+maxsum = -9999999
+for x in range(len(file) - 1):
+    if file[x] % 3 == 0 or file[x + 1] % 3 == 0:
+        c += 1
+        maxsum = max(maxsum, file[x] + file[x + 1])
+print(c, maxsum)
 '''
 
-'''Тип 17 № 37337
-M = [int(i) for i in open('17.txt')]
-maxim = -9999
+'''
+Тип 17 № 37337
+file = [int(i) for i in open('17.txt')]
 c = 0
-for i in range(len(M) - 1):
-    for j in range(i + 1, len(M)):
-        if M[i] % 160 != M[j] % 160 and (M[i] % 7 == 0 or M[j] % 7 == 0):
+maxsum = -99999
+for x in range(len(file) - 1):
+    for y in range(x+1, len(file)):
+        if ((file[x] % 160) != (file[y] % 160)) and (file[x] % 7 == 0 or file[y] % 7 == 0):
             c += 1
-            if maxim < M[i] + M[j]:
-                maxim = M[i] + M[j]
-print(c, maxim)
+            maxsum = max(maxsum, file[x] + file[y])
+print(c, maxsum)
 '''
 
-'''Тип 17 № 37371
-M = [int(i) for i in open('17.txt')]
-c = 0
-maxim = -9999
-for i in range(len(M) - 1):
-    for j in range(i + 1, len(M)):
-        if (max(M[i], M[j]) - min(M[i], M[j])) % 60 == 0:
-            c += 1
-            maxim = max(maxim, max(M[i], M[j]) - min(M[i], M[j]))
-print(c, maxim)
 '''
+Тип 17 № 37340
+file = [int(i) for i in open('17.txt')]
+c = 0
+maxsum = -99999
+for x in range(len(file) - 1):
+    for y in range(x+1, len(file)):
+        if (((file[x] - file[y]) % 2 == 0)) and (file[x] % 31 == 0 or file[y] % 31 == 0):
+            c += 1
+            maxsum = max(maxsum, file[x] + file[y])
+print(c, maxsum)
+'''
+
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
 
-M = [1, 2, 3, 4, 5]
+# Тип 24 № 27697 i
+# Текстовый файл состоит не более чем из 10**6 символов L, D и R.
+# Определите длину самой длинной последовательности, состоящей из символов D.
+# Хотя бы один символ D находится в последовательности.
 '''
-print(M[3])
-print(M[3:])  # все что справа
-print(M[:3])  # все что слева
-print(M[::-1])
+# Вариант 1
+s = open('24.txt').readline()
+count = 1  # длина промежуточной последовательности
+maxi_count = 0  # длина наибольшей последовательности
+for i in range(0, len(s)-1):
+    if s[i] == 'D' and s[i+1] == 'D':
+        count += 1
+        maxi_count = max(maxi_count, count)
+    else:
+        count = 1
+print(maxi_count)
 
-# for i in range(len(M)-1):
-#     print(f'{M[i]}{M[i+1]}', end=' ')
+# Вариант 2.1
+s = open('24.txt').readline()
+s = s.replace('L', ' ').replace('R', ' ')
+M = [len(i) for i in s.split()]
+print(max(M))
 
-for i in range(len(M)-1):
-    print(M[i:i+2], end=' ')
+# print(len(max(M, key=len)))
+# print(len(max(M, key=lambda x: len(x))))
+
+# Вариант 2.2
+print(max([len(i) for i in open('24.txt').readline().replace('L', ' ').replace('R', ' ').split()]))
+
+# Вариант 3
+s = open('24.txt').readline()
+print(s)
+print(len('DDDDDDDDDDD'))
 '''
+# Ответ: 11
 
-# 3. В данной задаче под парой подразумевается два различных элемента последовательности.
-# 12 13 14 15
-# 23 24 25
-# 34 35
-# 45
-'''   
-for i in range(0, len(M)):
-    for j in range(i+1, len(M)):
-        print(f'{M[i]}{M[j]}', end=' ')
-    print()
 
-for i in range(0, len(M)):
-    for j in range(0, len(M)):
-        if i < j:
-            print(f'{M[i]}{M[j]}', end=' ')
-    print()
+# Тип 24 № 27689
+# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+# Определите максимальную длину цепочки вида XYZXYZXYZ...
+# (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
+'''
+s = open('24.txt').readline()
+print(s)
+print(len('XYZXYZXYZXYZX'))
+'''
+# Ответ: 13
 
+
+# Тип 24 № 40740
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC...Z).
+# Определите максимальное количество идущих подряд символов,
+# среди которых нет ни одной буквы A и при этом не менее трёх букв E.
+'''
+s = open('24.txt').readline()
+s = s.replace('A', ' ')
+M = [len(i) for i in s.split() if i.count('E') >= 3]
+print(max(M))
+'''
+# Ответ: 282
+
+
+# Тип 24 № 36037 i
+# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
+# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
+'''
+s = open('24.txt').readline()
+s = s.replace('XZZY', ' ')
+M = [len(i) for i in s.split()]
+print(3 + max(M) + 3)
+'''
+# Ответ: 1713
+
+
+# Тип 24 № 27421 i
+# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+# Определите максимальное количество идущих подряд символов, среди которых каждые два соседних различны.
+'''
+s = open('24.txt').readline()
+count = 1
+maxi = 0
+for i in range(0, len(s)-1):
+    if s[i] != s[i+1]:
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
+'''
+# Ответ: 35
+
+
+# Тип 24 № 47228
+# Текстовый файл состоит из символов A, C, D, F и O.
+#
+# Определите максимальное количество идущих подряд пар символов вида
+# согласная + гласная.
+'''
+s = open('24.txt').readline()
+M = 'CA DA FA CO DO FO'.split()
+print(M)
 for x in M:
-    for y in M:
-        if x < y:
-            print(f'{x}{y}', end=' ')
-    print()
+    s = s.replace(x, '*')
+for x in 'ACDFO':
+    s = s.replace(x, ' ')
+M = [len(i) for i in s.split()]
+print(max(M))
 '''
+# Ответ: 95
 
 
-# Тип 9 № 33088
-# Электронная таблица содержит результаты ежечасного измерения температуры воздуха на протяжении трёх
-# месяцев. Определите, сколько раз за время наблюдений суточные колебания температуры (разность между максимальной и
-# минимальной температурой в течение суток) были меньше 14 градусов.
+# Тип 24 № 48445
+# Текстовый файл содержит только буквы A, C, D, F, O.
+# Определите максимальное количество идущих подряд групп символов вида
+# согласная + согласная + гласная.
 '''
+import itertools
+M = []
+for s in itertools.product('ACDFO', repeat=3):
+    if s[0] in 'CDF' and s[1] in 'CDF' and s[2] in 'AO':
+        s = ''.join(s)
+        M.append(s)
+
+s = open('24.txt').readline()
+for x in M:
+    s = s.replace(x, '*')
+for x in 'ACDFO':
+    s = s.replace(x, ' ')
+M = [len(i) for i in s.split()]
+print(max(M))
+'''
+# Ответ: 5
+
+
+# Тип 24 № 33769 i
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите символ, который чаще всего встречается в файле после двух одинаковых символов.
+'''
+s = open('24.txt').readline()
+M = []
+for i in range(0, len(s)-2):
+    if s[i] == s[i+1]:
+        M.append(s[i+2])
+
+ALPHABET = sorted('QWERTYUIOPASDFGHJKLZXCVBNM')
+print(ALPHABET)
+
+# import string
+# ALPHABET = string.ascii_uppercase
+# print(ALPHABET)
+
+R = []
+for a in ALPHABET:
+    R.append([M.count(a), a])
+print(max(R))
+'''
+# Ответ: K
+
+
+# Тип 24 № 29672
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+# Определите количество строк, в которых буква E встречается чаще, чем буква A.
+'''
+# Вариант 1
 count = 0
-for s in open('9.txt'):
-    M = [float(i) for i in s.replace(',', '.').split()]
-    if max(M) - min(M) < 14:
+for s in open('24.txt'):
+    if s.count('E') > s.count('A'):
         count += 1
 print(count)
+
+# Вариант 2
+print(len([s for s in open('24.txt') if s.count('E') > s.count('A')]))
 '''
-# Ответ: 6
+# Ответ: 467
 
+
+# Тип 24 № 35482 i
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+#
+# - Необходимо найти строку, содержащую наименьшее количество букв G
+# (если таких строк несколько, надо взять ту, которая находится в файле раньше);
+
+# - И определить, какая буква встречается в этой строке чаще всего.
+# Если таких букв несколько, надо взять ту, которая позже стоит в алфавите.
 '''
-M = [1, 4, 5,23,43 ,423]
-M.sort()
-print(M)
+mini = 9999
+r = ''
+for s in open('24.txt'):
+    if mini > s.count('G'):  # надо взять ту, которая находится в файле раньше
+        mini = s.count('G')
+        r = s
 
-A = [1, 5, 6,34,4 ,5,45, 4]
-print(sorted(A))
-print(A)
+ALPHABET = sorted('QWERTYUIOPASDFGHJKLZXCVBNM')
+maxi = -9999
+for a in ALPHABET:
+    if maxi <= r.count(a):  # надо взять ту, которая позже стоит в алфавите
+        maxi = r.count(a)
+        print(maxi, a)
 '''
+# Ответ: Т
 
 
-# КЕГЭ № 6897 OpenFIPI (Уровень: Средний)
-# Откройте файл электронной таблицы, содержащей в каждой строке четыре натуральных числа.
-# Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
+# Тип 24 № 36879
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
 #
-# – наибольшее из четырёх чисел меньше суммы трёх других;
-#
-# – четыре числа нельзя разбить на две пары чисел с равными суммами.
-#
-# В ответе запишите только число.
+# - В строках, содержащих менее 25 букв G, нужно определить;
+# - B вывести максимальное расстояние между одинаковыми буквами в одной строке.
 
-import itertools
-count = 0
-for s in open('9.txt'):
-    # M = sorted([int(i) for i in s.split()])
-    # if M[3] < M[0] + M[1] + M[2]:
-    M = [int(i) for i in s.split()]
-    if max(M) < sum(M) - max(M):
-        # if all(A[0] + A[1] != A[2] + A[3] for A in itertools.permutations(M, 4)):
-        # if all(sum(A[:2]) != sum(A[2:]) for A in itertools.permutations(M, 4)):
-        if any(sum(A[:2]) == sum(A[2:]) for A in itertools.permutations(M, 4)) == False:
-            count += 1
-print(count)
+# Вариант 1
+'''
+M = []
+for s in open('24.txt'):
+    if s.count('G') < 25:
+        M.append(s)
 
-# Ответ: 2396
+ALPHABET = sorted('QWERTYUIOPASDFGHJKLZXCVBNM')
+
+maxi = 0
+for x in M:
+    for a in ALPHABET:
+        maxi = max(maxi, x.rindex(a) - x.index(a))
+print(maxi)
+'''
+# Вариант 2
+'''
+ALPHABET = sorted('QWERTYUIOPASDFGHJKLZXCVBNM')
+
+maxi = 0
+for s in open('24.txt'):
+    if s.count('G') < 25:
+        for a in ALPHABET:
+            maxi = max(maxi, s.rindex(a) - s.index(a))
+print(maxi)
+'''
+# Ответ: 1001
 
 
-# M = [int(i) for i in open('9.txt').read().split()]
-# print(M)
 
 
 
@@ -142,6 +288,6 @@ print(count)
 # endregion Урок: ******************************************************************
 
 
-# todo: Сергей = [2, 5, 8, 9, 12, 14, 15, 16, 17, 23, 25]
+# todo: Сергей = [2, 5, 8, 9, 12, 14, 15, 16, 17, 23, 24, 25]
 # на прошлом уроке: Разбирали 9-ые номера работа с txt файлами
-# на следующем уроке:
+# на следующем уроке: Теория игр

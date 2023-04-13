@@ -1,4 +1,6 @@
 import random
+from string import *
+
 
 def who_is_name():
     names = [i for i in input('Введите имена студентов: ').split()]
@@ -7,9 +9,11 @@ def who_is_name():
 
 
 def valid_parentheses(paren_str):
-    if paren_str.count('(') == paren_str.count(')'):
-        while '()' in paren_str:
-            paren_str = paren_str.replace('()', '', 1)
-        if len(paren_str) == 0:
-            return True
-    return False
+    s = (ascii_letters + digits + punctuation).replace('()', ' ')
+    for x in s:
+        paren_str = paren_str.replace(x, '')
+
+    while '()' in paren_str:
+        paren_str = paren_str.replace('()', '')
+    return len(paren_str) == 0
+

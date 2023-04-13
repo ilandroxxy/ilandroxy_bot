@@ -1338,6 +1338,9 @@ def valid_parentheses(paren_str):
 
 print(valid_parentheses('()()()'))
 '''
+import string
+s = string.ascii_letters + string.digits + string.punctuation
+print(s)
 
 def keep_order(ary, val):
     ary.append(val)
@@ -1345,7 +1348,24 @@ def keep_order(ary, val):
     return ary.index(val)
 
 
+s = '012345'
+count = 0
+for a in '12345':
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        temp = a + b + c + d + e + f
+                        if temp.count('2') == 1:
+                            if all(x not in temp for x in '12 21 32 23 52 25'.split()):
+                                count += 1
+print(count)
 
+my_dict = {0: 'один', 2: 'два', 3: 'три', 4: 'четыре', 5: 'пять', 6: 'шесть', 7: 'семь', 8: 'восемь', 9: 'девять'}
+s = input('Введите строку: ')
+for x in s:
+    if x in my_dict.keys():
 
 
 
