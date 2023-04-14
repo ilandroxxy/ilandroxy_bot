@@ -156,10 +156,35 @@ for s in open('9.txt'):
 print(count)
 '''
 # Ответ: 456
+'''
+M = [int(i) for i in open('17.txt')]
+A = [i for i in M if abs(i) % 10 == 3]
+count = 0
+maxi_sum = 0
+for i in range(0, len(M)-1):
+    if ((abs(M[i]) % 10 == 3 and abs(M[i + 1]) % 10 != 3) or (abs(M[i]) % 10 != 3 and abs(M[i + 1]) % 10 == 3)):
+        if (M[i]**2 + M[i+1]**2) >= max(A)**2:
+            count += 1
+            maxi_sum = max(maxi_sum, M[i] ** 2 + M[i + 1] ** 2)
+print(count, maxi_sum)
+'''
+
+count = 0
+maxi_sum = 0
+M = [int(i) for i in open('17.txt')]
+A = [i for i in M if abs(i) % 10 == 7]
+for i in range(0, len(M)-1):
+    if (M[i] % 7 == 0) + (M[i+1] % 7 == 0) == 1:
+    # if (M[i] % 7 == 0 and M[i+1] % 7 != 0) or (M[i] % 7 != 0 and M[i+1] % 7 == 0):
+        if abs(M[i]) % 10 == abs(M[i+1]) % 10:
+            if (M[i]**2 + M[i+1]**2) <= min(A)**2:
+                count += 1
+                maxi_sum = max(maxi_sum, M[i] ** 2 + M[i + 1] ** 2)
+print(count, maxi_sum)
 
 # endregion Урок: ******************************************************************************
 
 
 # todo: Артем = [2, 5, 8, 9, 12, 14, 15, 16, 17, 23, 25]
-# на прошлом уроке: Повторили 16 аналитические номера, 25 номера с масками, 15 номера с отрезками
+# на прошлом уроке: Разбирали задачки с домашки, номера: 9, 17
 # на следующем уроке: Разбираем 17 и 9 номера
