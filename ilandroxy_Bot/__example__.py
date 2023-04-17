@@ -1338,6 +1338,8 @@ def valid_parentheses(paren_str):
 
 print(valid_parentheses('()()()'))
 '''
+
+'''
 import string
 s = string.ascii_letters + string.digits + string.punctuation
 print(s)
@@ -1346,27 +1348,62 @@ def keep_order(ary, val):
     ary.append(val)
     ary.sort()
     return ary.index(val)
+'''
+
+# s = '012345'
+# count = 0
+# for a in '12345':
+#     for b in s:
+#         for c in s:
+#             for d in s:
+#                 for e in s:
+#                     for f in s:
+#                         temp = a + b + c + d + e + f
+#                         if temp.count('2') == 1:
+#                             if all(x not in temp for x in '12 21 32 23 52 25'.split()):
+#                                 count += 1
+# print(count)
+#
+# my_dict = {0: 'один', 2: 'два', 3: 'три', 4: 'четыре', 5: 'пять', 6: 'шесть', 7: 'семь', 8: 'восемь', 9: 'девять'}
+# s = input('Введите строку: ')
+# for x in s:
+#     if x in my_dict.keys():
 
 
-s = '012345'
-count = 0
-for a in '12345':
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        temp = a + b + c + d + e + f
-                        if temp.count('2') == 1:
-                            if all(x not in temp for x in '12 21 32 23 52 25'.split()):
-                                count += 1
-print(count)
+# № 6998 (Уровень: Средний)
+# Генератор паролей составляет пароль длиной 7 символов из набора букв {Q, W, E, R, T, Y, N, O}.
+#
+# При генерации пароля отбрасываются пароли, в которых содержится подстрока QWERTY
+# и все пароли, в которых один и тот же символ встречается более чем 2 раза.
+#
+# Сколько всего различных паролей может составить данный генератор?
 
-my_dict = {0: 'один', 2: 'два', 3: 'три', 4: 'четыре', 5: 'пять', 6: 'шесть', 7: 'семь', 8: 'восемь', 9: 'девять'}
-s = input('Введите строку: ')
-for x in s:
-    if x in my_dict.keys():
+# Никто не оценил данную запись
+# Тимур оценил(а) данную запись
+# Тимур и Артур оценили данную запись
+# Тимур, Артур и Руслан оценили данную запись
+# Тимур, Артур и 2 других оценили данную запись
+# Тимур, Артур и 3 других оценили данную запись
+# Тимур, Артур и 6 других оценили данную запись
 
 
+# Вера Мелихова
+# 4 месяца назад
+# 1 если длина списка меньше 1, то возвращаем -1
+#
+# 2 ищем минимальный элемент, из списка numbers, ключ лямбда abs(x-number)
+#
+# 3. возвращаем ИНДЕКС этого элемента а не сам элемент!!
+
+def index_of_nearest(numbers, number):
+    if len(numbers) < 1:
+        return -1
+    mini = 99999999
+    for x in numbers:
+        if mini > abs(x-number):
+            mini = x
+    return numbers.index(mini)
+
+print(index_of_nearest([9, 5, 3, 2, 11], 4))
 
 
