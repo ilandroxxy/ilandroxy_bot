@@ -11,12 +11,12 @@ with open("token.txt", 'r') as f1, open("openai.txt", 'r') as f2:
     TOKEN = f1.read().strip()
     TOKEN_AI = f2.read().strip()
 
-# bot = telebot.TeleBot(f'{TOKEN}')
+bot = telebot.TeleBot(f'{TOKEN}')
 openai.api_key = f'{TOKEN_AI}'
-bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
+# bot = telebot.TeleBot("5734914555:AAETPQsfcDp2H7XJVJfdqpnvpVeMrLLmNso")
 
 PrivateMe = {1891281816: "Рабочий аккаунт", 438879394: 'Илья', -1001822573914: "Homework", -1001819293687: "Lessons"}
-
+BUTTON = {}
 
 # region Функция для корректного отображения даты
 def my_time(timer: str) -> str:
@@ -1317,10 +1317,69 @@ def step(call):
         bot.register_next_step_handler(call.message, message_input)
     # endregion call.data для отправки Homework
 
+    # region call.data Подтвердить оплату абонемента
+    elif call.data == 'get_pay':
+        bot.delete_message(call.message.chat.id, BUTTON[call.message.chat.id].message_id)
+        BUTTON[call.message.chat.id] = 0
+
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
+        btn1 = types.KeyboardButton('Контакты')
+        btn2 = types.KeyboardButton('Репетитор')
+        btn3 = types.KeyboardButton('Мои проекты')
+        btn4 = types.KeyboardButton('Записаться на урок')
+        btn5 = types.KeyboardButton('Получить файл с урока')
+        markup.add(btn1, btn2, btn3, btn4, btn5)
+
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute(f"SELECT * FROM students WHERE id = {call.message.chat.id}")
+        students = cursor.fetchone()
+
+        bot.send_message(call.message.chat.id, f"Cпасибо, записал 🤖\nПроверить, что все сработало\n👉/mylessons",
+                         reply_markup=markup)
+        bot.send_message(1891281816, f"{students[4]} подтвердил оплату ✅", reply_markup=markup)
+
+        now = dt.datetime.utcnow()
+        date = my_time(now.strftime('%A %d %B %Y'))
+        bot.send_message(-1001819293687, f"✅ #{students[4]} *абонемент оплачен*.\nДата: {date}", parse_mode='Markdown')
+
+        sql = sqlite3.connect('analytics.db')
+        cursor = sql.cursor()
+
+        cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
+                                                       id INTEGER,
+                                                       name TEXT,
+                                                       count INTEGER,
+                                                       mess TEXT
+                                                   )""")
+        sql.commit()
+
+        cursor.execute(f"SELECT * FROM tickets WHERE id = {call.message.chat.id}")
+        records = cursor.fetchone()
+
+        if records is None:
+            name = students[4]
+            count = 0
+            mess = f"✅ #{students[4]} абонемент *оплачен*.\nДата: {date}\n\n"
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (call.message.chat.id, name, count, mess))
+            sql.commit()
+        else:
+            name = students[4]
+            count = records[2]
+            newmess = f"✅ #{students[4]} абонемент *оплачен*.\nДата: {date}\n\n"
+            mess = records[3] + newmess
+            cursor.execute(f"DELETE FROM tickets WHERE id = {call.message.chat.id}")
+            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (call.message.chat.id, name, count, mess))
+            sql.commit()
+            cursor.close()
+    # endregion call.data Подтвердить оплату абонемента
+
     # region call.data для Оплаты абонемента  +
     elif call.data == 'send_price':
-        markup0 = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-        markup0.add(types.KeyboardButton('Подтвердить оплату'))
+
+        markup0 = types.InlineKeyboardMarkup(row_width=3)
+        markup0.add(types.InlineKeyboardButton('Подтвердить оплату абонемента', callback_data='get_pay'))
 
         message_text_1 = f"*Первое занятие БЕСПЛАТНО*,\n" \
                          f"на нем я определю уровень знаний, и мы вместе подбираем оптимальный абонемент!"
@@ -1336,7 +1395,8 @@ def step(call):
                          f"Получатель: `Андрианов` `Илья` `Алексеевич`\n\n" \
                          f"После оплаты скидываю вам чек, работаю официально через НПД (`Самозанятый`).\n\n" \
                          f"[Перевод на карту Тинькофф](https://www.tinkoff.ru/rm/andrianov.ilya18/x0KX062685)"
-        bot.send_message(call.message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup0)
+        bot_message_id  = bot.send_message(call.message.chat.id, message_text_2, parse_mode="Markdown", disable_web_page_preview=True, reply_markup=markup0)
+        BUTTON[call.message.chat.id] = bot_message_id
 
         bot.send_photo(call.message.chat.id, open("photo/payment_qr.jpg", "rb"))
         markup = types.InlineKeyboardMarkup(row_width=1)
@@ -2333,60 +2393,6 @@ def mess(message):
         bot.send_photo(message.chat.id, pic_1, reply_markup=markup2)
     # endregion Кнопка: [Что умеет этот бот]
 
-    # region Кнопки: [Подтвердить оплату абонемента ]
-    elif get_message_bot in ('подтвердить оплату абонемента ❗', 'оплачено', 'подтвердить оплату'):
-        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
-        btn1 = types.KeyboardButton('Контакты')
-        btn2 = types.KeyboardButton('Репетитор')
-        btn3 = types.KeyboardButton('Мои проекты')
-        btn4 = types.KeyboardButton('Записаться на урок')
-        btn5 = types.KeyboardButton('Получить файл с урока')
-        markup.add(btn1, btn2, btn3, btn4, btn5)
-
-        sql = sqlite3.connect('analytics.db')
-        cursor = sql.cursor()
-
-        cursor.execute(f"SELECT * FROM students WHERE id = {message.chat.id}")
-        students = cursor.fetchone()
-
-        bot.send_message(message.chat.id, f"Cпасибо, записал 🤖\nПроверить, что все сработало\n👉/mylessons", reply_markup=markup)
-        bot.send_message(1891281816, f"{students[4]} подтвердил оплату ✅", reply_markup=markup)
-
-        now = dt.datetime.utcnow()
-        date = my_time(now.strftime('%A %d %B %Y'))
-        bot.send_message(-1001819293687, f"✅ #{students[4]} *абонемент оплачен*.\nДата: {date}", parse_mode='Markdown')
-
-        sql = sqlite3.connect('analytics.db')
-        cursor = sql.cursor()
-
-        cursor.execute("""CREATE TABLE IF NOT EXISTS tickets(
-                                               id INTEGER,
-                                               name TEXT,
-                                               count INTEGER,
-                                               mess TEXT
-                                           )""")
-        sql.commit()
-
-        cursor.execute(f"SELECT * FROM tickets WHERE id = {message.chat.id}")
-        records = cursor.fetchone()
-
-        if records is None:
-            name = students[4]
-            count = 0
-            mess = f"✅ #{students[4]} абонемент *оплачен*.\nДата: {date}\n\n"
-            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (message.chat.id, name, count, mess))
-            sql.commit()
-        else:
-            name = students[4]
-            count = records[2]
-            newmess = f"✅ #{students[4]} абонемент *оплачен*.\nДата: {date}\n\n"
-            mess = records[3] + newmess
-            cursor.execute(f"DELETE FROM tickets WHERE id = {message.chat.id}")
-            cursor.execute(f"INSERT INTO tickets VALUES(?, ?, ?, ?);", (message.chat.id, name, count, mess))
-            sql.commit()
-            cursor.close()
-    # endregion Кнопки: [Подтвердить оплату абонемента]
-
     # region Кнопки: [Да, все получается ✅] +
     elif get_message_bot == 'да, все получается ✅':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=3)
@@ -2455,8 +2461,7 @@ def mess(message):
 
             if count == students[5]:
                 markup_price = types.InlineKeyboardMarkup(row_width=3)
-                markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент',
-                                                            callback_data='send_price'))
+                markup_price.add(types.InlineKeyboardButton('Оплатить новый абонемент', callback_data='send_price'))
 
                 bot.send_message(-1001819293687, f"⛔ #{students[4]} *абонемент закончился*.\n"
                                                  f"[Написать сообщение](tg://user?id={message.chat.id})\n\n"
@@ -2798,10 +2803,10 @@ def mess(message):
                                      parse_mode='Markdown', reply_markup=markup)
 
                     for key in message_text_students:
-                        markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1, one_time_keyboard=True)
-                        markup.add(types.KeyboardButton('Подтвердить оплату абонемента ❗'))
-                        bot.send_message(key, f" 🤖 Привет!\nЭто подтверждение нужно для ведения бухгалтерии 📊📈🧮\n\n",
-                                              parse_mode='Markdown', reply_markup=markup)
+                        markup = types.InlineKeyboardMarkup(row_width=3)
+                        markup.add(types.InlineKeyboardButton('Подтвердить оплату абонемента', callback_data='get_pay'))
+                        bot_message_id = bot.send_message(key, f" 🤖 Привет!\nЭто подтверждение нужно для ведения бухгалтерии 📊📈🧮\n\n", reply_markup=markup)
+                        BUTTON[key] = bot_message_id
                 else:
                     bot.send_message(message.chat.id, f"Команда успешно отменена ⛔", reply_markup=markup)
             bot.register_next_step_handler(message, message_input)

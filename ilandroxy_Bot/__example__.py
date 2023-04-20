@@ -1394,7 +1394,7 @@ def keep_order(ary, val):
 # 2 ищем минимальный элемент, из списка numbers, ключ лямбда abs(x-number)
 #
 # 3. возвращаем ИНДЕКС этого элемента а не сам элемент!!
-
+'''
 def index_of_nearest(numbers, number):
     if len(numbers) < 1:
         return -1
@@ -1406,4 +1406,35 @@ def index_of_nearest(numbers, number):
 
 print(index_of_nearest([9, 5, 3, 2, 11], 4))
 
+'''
 
+'''
+import itertools
+A = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+count = 0
+for M in itertools.product(A, repeat=6):
+    if sum(M[:3]) == sum(M[3:]):
+        if len(set(M[:3])) == 3 and len(set(M[3:])) == 3 :
+            if any(i in M[:3] for i in M[3:]):
+                if M[:3] != M[3:]:
+                    count += 1
+print(count)
+'''
+
+# Обозначим через ДЕЛ(n, m) утверждение "натуральное число n делится без остатка на натуральное число m".
+# Для какого наибольшего натурального числа А формула
+
+#  тождественно истинна (то есть принимает значение 1 при любом натуральном значении переменной х)?
+
+A = set()
+
+def f(x, A):
+    return ((x in A) <= (x**2 <= 25)) and ((x ** 2 <= 9) <= (x in A))
+
+
+
+
+for x in range(-1000,1000):
+    if not f(x, A):
+        A.add(x)
+print(len(A) - 1)
