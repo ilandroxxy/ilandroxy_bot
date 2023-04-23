@@ -17,3 +17,5 @@ def valid_parentheses(paren_str):
         paren_str = paren_str.replace('()', '')
     return len(paren_str) == 0
 
+if __name__ == '__main__':
+    print("Hello, world!")
