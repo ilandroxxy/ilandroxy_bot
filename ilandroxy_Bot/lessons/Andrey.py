@@ -69,21 +69,28 @@ print(min(R))
 # записью искомого числа R. Укажите такое наименьшее число N, для которого результат работы данного алгоритма больше числа 77.
 # В ответе это число запишите в десятичной системе счисления.
 
+#
+# for n in range(1, 1000):
+#     s = bin(n)[2:]
+#     for i in range(2):
+#         s = s + str((s.count('1') + s.count('0')) % 2)
+#     r = int(s, 2)
+#     if r > 77:
+#         print(n)
+#         break
+'''
+M = list(map(str.upper, 'beegeek'))
+print(M)
 
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    for i in range(2):
-        s = s + str((s.count('1') + s.count('0')) % 2)
-    r = int(s, 2)
-    if r > 77:
-        print(n)
-        break
+my_dict = {'bee': 1, 'geek': 2}
+print(my_dict['geek'])
+'''
+numbers = (1, 2, 3, 4)
 
+next(numbers)
+next(numbers)
 
-
-
-
-
+print(next(numbers))
 
 
 
