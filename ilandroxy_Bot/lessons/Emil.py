@@ -6,192 +6,447 @@
 
 # region Урок: ******************************************************************
 
-# № 5664 Вариант 09.01.23 (Уровень: Базовый)
-# (А. Игнатюк) В каждой строке электронной таблицы содержится 3 натуральных числа.
-# Необходимо найти количество строк, где хотя бы одно любое произведение двух чисел оканчивается на 4.
+# 2
 '''
+print('x y z w')
+
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                if not (((x <= y) == (z <= w)) or (x and w)):
+                    print(x, y, z, w)
+'''
+# zyxw
+
+# Тип 5 № 17324
+# Автомат обрабатывает натуральное число N по следующему алгоритму:
+#
+# 1. Строится двоичная запись числа N.
+# 2. Удаляется первая слева единица и все следующие непосредственно за ней нули.
+# Если после этого в числе не остаётся цифр, результат этого действия считается равным нулю.
+# 3. Полученное число переводится в десятичную запись.
+# 4. Новое число вычитается из исходного, полученная разность выводится на экран.
+#
+# Сколько разных значений будет показано на экране автомата при
+# последовательном вводе всех натуральных чисел от 10 до 1000?
+'''
+m = []
+a = set()
+for i in range(10, 1001):
+    n = bin(i)[2:]
+
+    n = n[1:]
+
+    n = int(n, 2)
+    m.append(i - n)
+    a.add(i - n)
+print(len(set(m)))
+print(len(a))
+'''
+# 991
+
+
+# Тип 8 № 16886
+# Матвей составляет 6-буквенные коды из букв М, А, Т, В, Е, Й.
+# Каждую букву нужно использовать ровно 1 раз,
+# при этом код не может начинаться с буквы Й и не может содержать сочетания АЕ.
+# Сколько различных кодов может составить Матвей?
+'''
+alphabet = 'МАТВЕЙ'
+count = 0
+for a in alphabet:
+    for b in alphabet:
+        for c in alphabet:
+            for d in alphabet:
+                for e in alphabet:
+                    for f in alphabet:
+                        slovo = a + b + c + d + e + f
+                        if len(set(slovo)) == len(slovo):
+                            if a != 'Й' and "АЕ" not in slovo:
+                                count += 1
+print(count)
+
+
 import itertools
 count = 0
-for s in open('9.txt'):
-    M = [int(i) for i in s.split()]
-    # if (M[0] * M[1]) % 10 == 4 or (M[0] * M[1]) % 10 == 4 or ...
-    if any((A[0] * A[1]) % 10 == 4 for A in itertools.permutations(M, 2)):
+for s in itertools.product('МАТВЕЙ', repeat=6):
+    slovo = ''.join(s)
+    if len(set(slovo)) == len(slovo):
+        if slovo[0] != 'Й' and "АЕ" not in slovo:
+            count += 1
+print(count)
+
+
+import itertools
+count = 0
+for s in itertools.permutations('МАТВЕЙ', 6):
+    slovo = ''.join(s)
+    if slovo[0] != 'Й' and "АЕ" not in slovo:
         count += 1
 print(count)
 '''
-# Ответ: 965
 
-
-# № 5670 Вариант 09.01.23 (Уровень: Базовый)
-# (М. Ишимов) Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без остатка на натуральное число m».
-#
-# Обозначим через СУММБОЛ(s, d) утверждение «сумма целых чисел s и d больше 0».
-#
-# Для какого наименьшего натурального числа А формула
-#
-# (x + A ≥ 160) \/ (ДЕЛ(x, 7) → ¬СУММБОЛ(x, -17))
-#
-# тождественно истинна (т.е. принимает значение 1) при любом натуральном значении переменной х?
 '''
-def F(x, A):
-    return (x + A >= 160) or ((x % 7 == 0) <= ((x + (-17)) <= 0))
+import itertools
+c = 0
+for s in itertools.permutations('МАТВЕЙ', 6):
+    slovo = ''.join(s)
+    if s[0] != 'Й' and 'АЕ' not in slovo:
+        c += 1
+print(c)
+'''
 
-for A in range(1, 10000):
-    flag = True
-    for x in range(1, 1000):
-        if F(x, A) == False:
-            flag = False
-            break
-    if flag == True:
-        print(A)
-        break
 
-def F(x, A):
-    return (x + A >= 160) or ((x % 7 == 0) <= ((x + (-17)) <= 0))
+'''
+alphabet = sorted('ПАРУС')
+print(alphabet)  # ['А', 'П', 'Р', 'С', 'У']
 
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 1000)):
-        print(A)
-        break
+ALPHABET = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(ALPHABET[:8])  # получили алфавит 8-ричной
+print(ALPHABET[:16])  # получили алфавит 16-ричной
+'''
 
-def F(x, A):
-    return (x + A >= 160) or ((x % 7 == 0) <= ((x + (-17)) <= 0))
+# 12
+'''
+s = 1000 * '9'
+while '999' in s or '888' in s:
+    if '888' in s:
+        s = s.replace('888', '9', 1)
+    else:
+        s = s.replace('999', '8', 1)
+print(s)
+'''
+# 8899
+
+# 14
+'''
+y = 4 ** 2020 + 2 ** 2017 - 15
+y = bin(y)
+y = str(y)
+print(y.count('1'))
+'''
+# 2015
+
+# 15
+'''
+a = set([int(i) for i in range(-1000, 1000)])
+
+
+def f(x, a):
+    return ((x in a) <= (x ** 2 <= 100)) and ((x ** 2 <= 64) <= (x in a))
+
+
+for x in range(-1000, 1000):
+    if not f(x, a):
+        a.remove(x)
+print(len(a) - 1)
+'''
+
+# Тип 15 № 15803
+# На числовой прямой задан отрезок A. Известно, что формула
+#
+# ((x ∈ A) → (x**2 ≤ 100)) ∧ ((x**2 ≤ 64) → (x ∈ A))
+#
+# тождественно истинна при любом вещественном x. Какую наибольшую длину может иметь отрезок A?
+'''
+def F(x, a1, a2):
+    A = a1 <= x <= a2
+    return (A <= (x**2 <= 100)) and ((x**2 <= 64) <= A)
 
 R = []
-for A in range(1, 10000):
-    if all(F(x, A) for x in range(1, 1000)):
-        R.append(A)
-print(min(R))
-
-
-print(min([A for A in range(1, 1000) if all(((x + A >= 160) or ((x % 7 == 0) <= ((x + (-17)) <= 0))) for x in range(1, 1000))]))
+M = [i/4 for i in range(-100*4, 100*4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2-a1)
+print(max(R))
 '''
-# Показать ответ: 139
+# 20
 
 
-# № 5672 Вариант 09.01.23 (Уровень: Базовый)
-# (М. Ишимов) В файле содержится последовательность натуральных чисел.
-# Элементы последовательности могут принимать целые значения от 1 до 10 000 включительно.
-# Определите количество пар последовательности, в которых оба числа не меньше всех чисел последовательности,
-# которые кратны 73. Гарантируется, что такой элемент в последовательности есть.
-# В ответе запишите количество найденных пар, затем максимальную из сумм элементов таких пар.
-# В данной задаче под парой подразумевается два идущих подряд элемента последовательности.
+# Тип 15 № 11119
+# На числовой прямой даны два отрезка: P = [20, 50] и Q = [30,65]. Отрезок A таков, что формул
+#
+# ¬(x ∈ A) → ((x ∈ P) →¬ (x ∈ Q))
+#
+# истинна при любом значении переменной x. Какова наименьшая возможная длина отрезка A?
+'''
+def F(x, a1, a2):
+    P = 20 <= x <= 50
+    Q = 30 <= x <= 65
+    A = a1 <= x <= a2
+    return (not A) <= (P <= (not Q))
+
+R = []
+M = [i/10 for i in range(10*10, 70*10)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2-a1)
+print(min(R))
+'''
+
+
+
+# 16
+'''
+def f(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return f(n - 1) + n
+
+
+print(f(40))
+'''
+# 820
+
+
+# Тип 11 № 5237
+# При регистрации в компьютерной системе каждому пользователю выдаётся идентификатор, состоящий из 10 символов,
+# первый и последний из которых — одна из 18 букв, а остальные — цифры (допускается использование 10 десятичных цифр).
+#
+# Каждый такой идентификатор в компьютерной программе записывается минимально возможным и одинаковым целым количеством
+# байт (при этом используют посимвольное кодирование; все цифры кодируются одинаковым и минимально возможным количеством
+# бит, все буквы также кодируются одинаковым и минимально возможным количеством бит).
+#
+# Определите объём памяти, отводимый этой программой для записи 25 идентификаторов. (Ответ дайте в байтах.)
+
+# I = pixels  * i
+# Colors = 2 ** i
+'''
+symbols1 = 2  # pixels
+alphabet1 = 18  # Colors
+i1 = 5
+
+symbols2 = 8
+alphabet2 = 10
+i2 = 4
+
+bit = symbols2 * i2 + symbols1 * i1  # I
+print(bit / 8)
+byte = 6
+
+print(25 * byte)
+'''
+# Ответ: 150
+
+
+# Тип 17 №
+# 40733
+# Файл содержит последовательность неотрицательных целых чисел, не превышающих 10000.
+# Назовём парой два идущих подряд элемента последовательности.
+# Определите количество пар, в которых хотя бы один из двух элементов делится на 3 и хотя бы один из двух элементов
+# меньше среднего арифметического всех чётных элементов последовательности.
+# В ответе запишите два числа: сначала количество найденных пар, а затем — максимальную сумму элементов таких пар.
 '''
 M = [int(i) for i in open('17.txt')]
-A = [i for i in M if i % 73 == 0 and i >= 73]
+A = [i for i in M if i % 2 == 0]
+sred = sum(A) / len(A)  # среднего арифметического всех чётных элементов последовательности
 count = 0
-maxi = 0
-for i in range(0, len(M)-1):
-    if all(M[i] >= x for x in A) and all(M[i+1] >= x for x in A):
-        count += 1
-        maxi = max(maxi, M[i] + M[i+1])
-        if maxi < M[i] + M[i+1]: 
-            maxi = M[i] + M[i+1]
+maxi = -99999999
+for i in range(len(M) - 1):
+    if M[i] % 3 == 0 or M[i+1] % 3 == 0:
+        if M[i] < sred or M[i+1] < sred:
+            count += 1
+            maxi = max(maxi, M[i] + M[i+1])
 print(count, maxi)
-'''
-'''
-s = [int(i) for i in open('17.txt')]
-m = 0
+
+
 c = 0
-a = [i for i in s if i % 73 == 0 and i >= 73]
-for i in range(0, len(s)-1):
-    if all(s[i] >= x for x in a) and all(s[i+1] >= x for x in a):
+mn = 0
+m = [int(i) for i in open('17.txt')]
+a = [i for i in m if i % 2 == 0]
+sum = sum(a)/len(a)
+for i in range(len(m) - 1):
+    if (m[i] % 3 == 0 or m[i + 1] % 3 == 0) and (m[i] < sum or m[i + 1] < sum):
         c += 1
-        if s[i] + s[i+1] > m:
-            m = s[i] + s[i]
-print(c, m)
-'''
-# Ответ: 161 19678
-
-
-# № 5677 Вариант 09.01.23 (Уровень: Средний)
-# (А. Игнатюк) В текстовом файле дана последовательность латинских букв.
-# Необходимо найти в этой последовательности самую длинную подстроку, состоящую из комбинации DAD,
-# при этом первый и последний элементы могут быть неполными. Например ADDADDADDADD.
-#
-# В ответе укажите количество символов, составляющих наибольшую длину подходящей подстроки.
-'''
-s = open('24.txt').readline()
-print(s)
-# Ответ: 99
-
-# DAD
-print(len('DADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDA'))
-
-# DDAD
-print(len('DDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDA'))
-
-# ADDAD
-print(len('ADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDADDA'))
+        if (m[i] + m[i + 1]) > mn:
+            mn = (m[i] + m[i + 1])
+print(c, mn)
 '''
 
+'''
+f = open('17.txt').readlines()
+for i in range(len(f)):
+    f[i] = f[i][:-1]
+    f[i] = int(f[i])
+for i in range(len(f) - 3):
+    s = (f[i] + f[i + 1] + f[i + 2] + f[i + 3]) / 4
+    if (f[i] % 3 == 0 or f[i + 1] % 3 == 0) and (f[i] < s or f[i + 1] < s):
+        c += 1
+    if f[i] + f[i + 1] > mn or f[i + 2] + f[i + 3] > mn:
+        mn = f[i] + f[i + 1]
+print(mn, c)
+'''
+# 19795 2481
+
+# 19, 20, 21
+'''
+def f(x, y, h):
+    if x + y >= 69 and 3 == h:
+        return 1
+    elif x + y < 69 and 3 == h:
+        return 0
+    elif x + y >= 69 and 3 > h:
+        return 0
+    else:
+        if h % 2 == 0:
+            return f(x + 1, y, h + 1) or f(x * 3, y, h + 1) or f(x, y + 1, h + 1) or f(x, y * 2, h + 1)
+        else:
+            return f(x + 1, y, h + 1) or f(x * 3, y, h + 1) or f(x, y + 1, h + 1) or f(x, y * 2, h + 1)
+
+
+for x in range(1, 59):
+    if f(x, 10, 1) == 1:
+        print(x)
+        break
+'''
+
+# 7
+# 20
+'''
+def f(x, y, h):
+    if x + y >= 69 and 4 == h:
+        return 1
+    elif x + y < 69 and 4 == h:
+        return 0
+    elif x + y >= 69 and 4 > h:
+        return 0
+    else:
+        if h % 2 != 0:
+            return f(x + 1, y, h + 1) or f(x * 3, y, h + 1) or f(x, y + 1, h + 1) or f(x, y * 2, h + 1)
+        else:
+            return f(x + 1, y, h + 1) and f(x * 3, y, h + 1) and f(x, y + 1, h + 1) and f(x, y * 2, h + 1)
+
+
+for x in range(1, 59):
+    if f(x, 10, 1) == 1:
+        print(x)
 
 '''
-import string
-ALPHABET = string.ascii_uppercase
-s = open('24.txt').readline()
-# s = 'FASEAEANPCVESEAEAEADDNPC'
-s = s.replace('EA', '**').replace('NPC', '***')
-for x in ALPHABET:
-    s = s.replace(x, ' ')
-M = [len(i) for i in s.split()]
+# 1619
+
+# 21
+'''
+def f(x, y, h):
+    if x + y >= 69 and (3 == h or h == 5):
+        return 1
+    elif x + y < 69 and 5 == h:
+        return 0
+    elif x + y >= 69 and 5 > h:
+        return 0
+    else:
+        if h % 2 == 0:
+            return f(x + 1, y, h + 1) or f(x * 3, y, h + 1) or f(x, y + 1, h + 1) or f(x, y * 2, h + 1)
+        else:
+            return f(x + 1, y, h + 1) and f(x * 3, y, h + 1) and f(x, y + 1, h + 1) and f(x, y * 2, h + 1)
+
+
+def f1(x, y, h):
+    if x + y >= 69 and 3 == h:
+        return 1
+    elif x + y < 69 and 3 == h:
+        return 0
+    elif x + y >= 69 and 3 > h:
+        return 0
+    else:
+        if h % 2 == 0:
+            return f1(x + 1, y, h + 1) or f1(x * 3, y, h + 1) or f1(x, y + 1, h + 1) or f1(x, y * 2, h + 1)
+        else:
+            return f1(x + 1, y, h + 1) and f1(x * 3, y, h + 1) and f1(x, y + 1, h + 1) and f1(x, y * 2, h + 1)
+
+
+for x in range(1, 59):
+    if f(x, 10, 1) == 1:
+        print(x)
+for x in range(1, 59):
+    if f1(x, 10, 1) == 1:
+        print(x)
+
+'''
+#18
+
+#23
+'''
+def f(x, y):
+    if x > y:
+        return 0
+    if x == y:
+        return 1
+    else:
+        return f(x + 1, y) + f(x + 2, y) + f(x * 2, y)
+print(f(3, 10)*f(10,12))
+'''
+
+'''
+def f(x, y):
+    if x >= y:
+        return x == y
+    return f(x + 1, y) + f(x + 2, y) + f(x * 2, y)
+print(f(3, 10)*f(10,12))
+'''
+# Ответ: 60
+
+# Тип 24 № 36037
+# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
+# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
+# Для выполнения этого задания следует написать программу.
+# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
+
+# X ZZYOOOOXZZ Y
+'''
+f = open('24.txt').readline()
+M = [len(i) for i in f.split('XZZY')]
+print(max(M)+6)
+
+f = open('24.txt').readline()
+f = f.replace('XZZY', 'XZZ ZZY')
+M = [len(i) for i in f.split()]
 print(max(M))
 '''
 
+
+# № 8510 Апробация 17.05 (Уровень: Средний)
+# Текстовый файл состоит из символов, обозначающих прописные буквы латинского алфавита.
+# Определите максимальное количество идущих подряд символов, среди которых никакие две буквы из
+# набора букв N, O и P (с учетом повторений) не записаны подряд.
+# Для выполнения этого задания следует написать программу.
 '''
-print(range.__doc__)
-print(help(range))
+import itertools
+pair = []
+for s in itertools.product('NOP', repeat=2):
+    pair.append(''.join(s))
 
-M = []
-print(M.append.__doc__)
-print(help(M.append))
+f = open('24.txt').readline()
+for x in pair:
+    f = f.replace(x, '* *')
+M = [len(i) for i in f.split()]
+print(max(M))
 '''
+# Ответ: 58
 
-
-# № 5678 Вариант 09.01.23 (Уровень: Средний)
-# (М. Ишимов) Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
-#
-# · символ «?» означает ровно одну произвольную цифру;
-# · символ «*» означает любую последовательность цифр произвольной длины;
-# в том числе «*» может задавать и пустую последовательность.
-
-# Среди натуральных чисел, не превышающих 10**8, найдите все числа, которые делятся
-# на сумму нечётных цифр числа и соответствующие маске 124*5*79.
-# В ответе запишите в первом столбце таблицы все найденные числа в порядке возрастания,
-# а во втором столбце – сумму всех цифр этого числа.
 '''
-print(10**8)
-print('1245**79')
-
-import itertools as it
-M = []
-for l in range(0, 2+1):
-    for s in it.product('0123456789', repeat=l):
-        s = ''.join(s)
-        M.append(s)
-
-R = []
-for x in M:
-    for y in M:
-        A = int(f'124{x}5{y}79')
-        if A < 10 ** 8:
-            nechet = sum([int(i) for i in str(A) if int(i) % 2 != 0])
-            if A % nechet == 0:
-                R.append([A, sum([int(i) for i in str(A)])])
-
-for x in sorted(R):
-    print(*x)
+c = 0
+f = open('24.txt').readline()
+f = f.replace('XZZY', '/')
+m = []
+for i in range(len(f)):
+    if f[i] != '/':
+        c += 1
+    else:
+        m.append(c)
+        c = 6
+print(max(m))
 '''
-# Показать ответ:
-# 1249579 37
-# 12409579 37
-# 12452979 39
-# 12456179 35
+#1713
+
 
 
 # endregion Урок: ******************************************************************
 
 
 # todo: Эмиль = []
-# на прошлом уроке: #пробник Пообщались, познакомились. Парень хороший, самоучка и много что умеет решать. Нужно проработать: 3,8,15,17,19-21,24,25,26,27 номера.
+# на прошлом уроке: Разбирали вариант с домашки, номера: 2, 5, 8, 15, 11, 17, 23, 24, 25
 # на следующем уроке:
