@@ -7,370 +7,207 @@
 
 # region Урок: ******************************************************************
 
-# № 8511 Апробация 17.05 (Уровень: Базовый)
-# Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
-# – символ «?» означает ровно одну произвольную цифру;
-# – символ «*» означает любую последовательность цифр произвольной длины;
-# в том числе «*» может задавать и пустую последовательность.
 
-# Например, маске 123*4?5 соответствуют числа 123405 и 12300405.
-
-# Среди натуральных чисел, не превышающих 10**8, найдите все числа,
-# соответствующие маске 12??15*6, делящиеся на 253 без остатка.
-# В ответе запишите в первом столбце таблицы все найденные числа
-# в порядке возрастания, а во втором столбце – соответствующие им результаты деления этих чисел на 253.
-# Количество строк в таблице для ответа избыточно.
-'''
-import itertools
-M = []
-for l in range(0, 1+1):
-    for s in itertools.product('0123456789', repeat=l):
-        s = ''.join(s)
-        M.append(s)
-
-R = []
-for x in '0123456789':
-    for y in '0123456789':
-        for z in M:     # перебираем маску "*"
-            A = int(f'12{x}{y}15{z}6')
-            if A < 10**8:
-                if A % 253 == 0:
-                    R.append([A, A // 253])
-
-for x in sorted(R):
-    print(*x)
-'''
-
-# Вариант 2
-'''
-from fnmatch import *
-for x in range(253, 10**8, 253):
-    if fnmatch(str(x), '12??15*6'):
-        print(x, x//253)
-'''
-# Ответ:
-# 1278156 5052
-# 12531596 49532
-# 12741586 50362
-# 12951576 51192
-
-
-
-# № 6210 (Уровень: Средний)
-# (Н. Сафронов) Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
-#
-# — символ «?» означает ровно одну произвольную цифру;
-# — символ «*» означает любую последовательность цифр произвольной длины;
-# в том числе «*» может задавать и пустую последовательность.
-#
-# Найдите все натуральные числа, не превосходящие 107, для которых выполняются одновременно все условия:
-#
-# • соответствуют маске *2?2*;
-# • являются палиндромами;
-# • делятся на число 53 без остатка;
-# • количество делителей больше 30.
-#
-# В ответе запишите в первом столбце таблицы все найденные числа в порядке возрастания,
-# а во втором столбце — сумму делителей.
-'''
-from fnmatch import *
-for x in range(53, 10**7, 53):
-    if fnmatch(str(x), '*2?2*'):  # • соответствуют маске *2?2*;
-        if str(x) == str(x)[::-1]: # • являются палиндромами;
-            # делятся на число 53 без остатка; (уже выполнено)
-            divisors = set()
-            for j in range(1, int(x**0.5)+1):
-                if x % j == 0:
-                    divisors.add(j)
-                    divisors.add(x//j)
-            if len(divisors) > 30:  # • количество делителей больше 30.
-                print(x, sum(divisors))
-'''
-# Показать ответ
-# 212212 508032
-# 2527252 5588352
-# 4282824 13789440
-# 4626264 11787120
-# 8125218 19595520
-# 8824288 19908504
-
-
-#
-# № 6095 /dev/inf 02.2023 (Уровень: Базовый)
-# (А. Рогов) Назовём маской числа последовательность цифр, в которой также могут встречаться следующие символы:
-#
-# – символ «?» означает ровно одну произвольную цифру;
-# – символ «*» означает любую последовательность цифр произвольной длины;
-# в том числе «*» может задавать и пустую последовательность.
-#
-# Например, маске 123*4?5 соответствуют числа 123405 и 12300405.
-#
-# Среди натуральных чисел, не превышающих 108, найдите все числа,
-# соответствующие маске *15*7424, которые делятся без остатка только на одно из чисел 111, 113, 127.
-#
-# В ответе запишите в первом столбце таблицы все найденные числа
-# в порядке возрастания, а во втором столбце – соответствующие им результаты
-# деления этих чисел на одно из чисел 111, 113, 127, на которое число делится без остатка.
-'''
-from fnmatch import *
-R = []
-for x in range(111, 10**8, 111):
-    if fnmatch(str(x), '*15*7424'):
-        R.append([x, x//111])
-
-for x in range(113, 10**8, 113):
-    if fnmatch(str(x), '*15*7424'):
-        R.append([x, x//113])
-
-for x in range(127, 10**8, 127):
-    if fnmatch(str(x), '*15*7424'):
-        R.append([x, x//127])
-
-for x in sorted(R):
-    print(x)
-'''
-# Показать ответ
-# 1587424 14048
-# 15147424 134048
-# 15227424 137184
-# 15457424 121712
-# 28157424 221712
-# 85157424 767184
-'''
-print(12 * 8)
-
-import turtle as t
-t.left(90)
-t.speed(30)
-l = 10
-
-for _ in range(70):
-    t.forward(8 * l)
-    t.right(30)
-
-t.done()
-'''
-# Ответ: 96
-
-'''
-import turtle as t
-
-t.left(90)
-t.speed(30)
-l = 20
-
-for _ in range(2):
-    t.forward(9 * l)
-    t.right(90)
-    t.forward(15 * l)
-    t.right(90)
-
-t.up()
-t.forward(12 * l)
-t.right(90)
-t.down()
-for _ in range(2):
-    t.forward(6 * l)
-    t.right(90)
-    t.forward(12 * l)
-    t.right(90)
-
-t.done()
-'''
-
-#16
-'''
-def F(n):
-    if n >= 10000:
-        return n
-    if n < 10000 and n % 2 == 0:
-        return F(n + 2) - 3
-    if n < 10000 and n % 2 != 0:
-        return F(n + 2) + 1
-
-print(F(94) - F(80))  # RecursionError: maximum recursion depth exceeded
-'''
-'''
-# F(80) = F(82) - 3
-# F(82) = F(84) - 3
-# F(84) = F(86) - 3
-# F(86) = F(88) - 3
-# F(88) = F(90) - 3
-# F(90) = F(92) - 3
-# F(92) = F(94) - 3   -  F(94)
-print(-3 * 7)
-'''
-# Ответ: -21
-
-
-
-#23
-'''
-def F(a, b):
-    if a < b:
-        return 0
-    elif a == b:
-        return 1
-    else:
-        return F(a - 2, b) + F(a // 2, b)
-
-print(F(28, 10) * F(10, 1))
-
-
-
-def F(a, b):
-    if a <= b:
-        return a == b
-    return F(a - 2, b) + F(a // 2, b)
-
-print(F(28, 10) * F(10, 1))
-'''
-# Ответ:  36
-
-#5
+# 9
 '''
 count = 0
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    summ = s.count('1')
-    if summ % 2 == 0:
-        s = '10' + s
-    else:
-        s = '11' + s
-
-    summ1 = s.count('1')
-
-    if summ1 % 2 != 0:
-        s = s + '11'
-    else:
-        s = s + '00'
-
-    r = int(s, 2)
-    if r < 860:
+for s in open('9.txt'):
+    M = [int(i) for i in s.split()]
+    if len(set(M)) == 5 and all(M.count(x) <= 2 for x in M):
+        copied = (sum(M) - sum(set(M))) * 2
+        sred_copied = copied / 4
+        sred = (sum(M) - copied) / 3
+        if sred_copied > sred:
+            count += 1
+print(count)
+'''
+'''
+count = 0
+for s in open('9.txt'):
+    M = [int(i) for i in s.split()]
+    copied = [x for x in M if M.count(x) == 2]
+    another = [x for x in M if M.count(x) == 1]
+    if len(copied) == 0 or len(another) == 0:
+        continue
+    flag1 = len(set(copied)) == 2 and len(another) == 3
+    flag2 = sum(copied)/len(copied) > sum(another)/len(another)
+    if flag1 + flag2 == 2:
         count += 1
 print(count)
 '''
-# Ответ: 47
 
 
-# 5
-'''
-R = []
-for n in range(1, 30):
-    s = bin(n)[2:]
-    summ = s.count('1')
-    if summ % 2 == 0:
-        s = '10' + s[:-2] + '00'
-    else:
-        s = '11' + s[:-2] + '11'
-    r = int(s, 2)
-    R.append(r)
-
-print(max(R))
-'''
-# Ответ: 127
-
-
-# 8 5218
+# № 7697 (Уровень: Базовый)
+# (Грачев Н.) Откройте файл электронной таблицы, содержащей в каждой строке
+# пять натуральных чисел. Определите количество строк таблицы, содержащих числа,
+# для которых выполнены хотя бы одно условие:
+# – все числа в строке равны 18;
+# – сумма всех чисел строки делится на 18 без остатка.
+# В ответе запишите только число.
 '''
 count = 0
-s = 'АРБУЗ'
+for s in open('9.txt'):
+    M = [int(i) for i in s.split()]
+    if all(i == 18 for i in M) or sum(M) % 18 == 0:
+        count += 1
+print(count)
+'''
+# Показать ответ: 923
+
+
+# № 7674 (Уровень: Сложный)
+# (В. Рыбальченко) В файле содержится 5 чисел.
+# Определите количество строк, в которых есть 3 числа, которые не повторяются,
+# а среднее значение неповторяющихся чисел, меньше среднего значения повторяющихся чисел.
+# В ответ укажите найденное количество строк.
+'''
+count = 0
+for s in open('9.txt'):
+    M = [int(i) for i in s.split()]
+    copied = [x for x in M if M.count(x) == 2]
+    another = [x for x in M if M.count(x) == 1]
+
+    if len(copied) == 0 or len(another) == 0:
+        continue
+    if sum(another) / len(another) < sum(copied) / len(copied):
+        count += 1
+print(count)
+'''
+# Показать ответ: 344
+
+
+# 17
+'''
+M = [int(i) for i in open('17.txt')]
+MAXIMUM = max([i for i in M if abs(i) % 100 == 17])
+
+count = 0
+maxi = -99999
+for i in range(0, len(M)-2):
+    if sum([len(str(abs(x))) == 3 for x in [M[i], M[i+1], M[i+2]]]) == 1:
+        print(M[i], M[i+1], M[i+2])
+        if M[i] + M[i+1] + M[i+2] < MAXIMUM:
+            count += 1
+            maxi = max(maxi, M[i] + M[i+1] + M[i+2])
+print(count, maxi)
+'''
+
+# № 8504 Апробация 17.05 (Уровень: Базовый)
+# В файле содержится последовательность натуральных чисел. Элементы последовательности могут принимать целые
+# значения от 1 до 100 000 включительно. Определите количество пар последовательности, в которых хотя бы один
+# из элементов является трёхзначным числом, а сумма элементов пары кратна минимальному трёхзначному элементу
+# последовательности, оканчивающемуся на 5. В ответе запишите количество найденных пар, затем максимальную из сумм
+# элементов таких пар. В данной задаче под парой подразумевается два идущих подряд элемента последовательности.
+'''
+M = [int(i) for i in open('17.txt')]
+MINIMUM = min([i for i in M if abs(i) % 10 == 5 and len(str(abs(i))) == 3])
+
+count = 0
+maxi = -99999
+for i in range(0, len(M)-1):
+    if len(str(abs(M[i]))) == 3 or len(str(abs(M[i+1]))) == 3:
+    # if sum([len(str(abs(x))) == 3 for x in [M[i], M[i+1]]]) >= 1:
+        if (M[i] + M[i+1]) % MINIMUM == 0:
+            count += 1
+            maxi = max(maxi, M[i] + M[i+1])
+print(count, maxi)
+'''
+
+'''
+# i   0    1    2    3    4    5    6
+M = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+# -i -7   -6   -5   -4   -3   -2   -1
+
+print(M[::])  # ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+print(M[2:])  # ['c', 'd', 'e', 'f', 'g']
+print(M[:2])  # ['a', 'b']
+print(M[::-1])  # ['g', 'f', 'e', 'd', 'c', 'b', 'a']
+
+# Уберем первые два элемента
+print(M[2:])
+
+# Последние три элемента
+print(M[-3:])  # ['e', 'f', 'g']
+
+# Поменяем элемент посередине на '8'
+print(M[:len(M) // 2] + ['*'] + M[(len(M) // 2) + 1:])
+# ['a', 'b', 'c', '*', 'e', 'f', 'g']
+'''
+
+
+# 24
+'''
+s = open('24.txt').readline()
+s = 'HHHHHHHHHHHHHHAAABBBHHHHHHCCACACAHHHHHHHACHHHHHHHHHHHHCBB'  # example
+s = s.replace('A', 'C').replace('B', 'C')
+while 'CC' in s:
+    s = s.replace('CC', 'C C')
+print(s)  # HHHHHHHHHHHHHHC CC CC CHHHHHHC CC CC CCHHHHHHHC
+M = [len(i) for i in s.split()]
+print(max(M))
+'''
+
+'''
+s = open('24.txt').readline()
+# s = 'HHHHHHHHHHHHHHAAABBBHHHHHHCCACACAHHHHHHHACHHHHHHHHHHHHCBB'
+count = 1
+maxi = 1
+a = ['AA', 'AB', 'AC', 'BA', 'BB', 'BC', 'CA', 'CB', 'CC']
+for i in range(len(s) - 1):
+    if (s[i] + s[i + 1]) not in a:
+        count += 1
+        maxi = max(maxi, count)
+    else:
+        count = 1
+print(maxi)
+'''
+
+'''
+s = sorted('ПЯТНИЦА')
+k = 1
+count = 0
 for a in s:
     for b in s:
         for c in s:
             for d in s:
                 for e in s:
                     for f in s:
-                        temp = a + b + c + d + e + f
-                        if temp.count('А') == 3:
-                            if 'АА' in temp and 'ААА' not in temp:
+                        slovo = a + b + c + d + e + f
+                        if a != 'Ц' and slovo.count('И') == 2:
+                            if k % 2 != 0:
                                 count += 1
-print(count)
-'''
-# Ответ: 768
-
-
-# 8 4613
-'''
-count = 0
-s = '012345678'
-for a in '2468':    # строго кроме 0
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    temp = a + b + c + d + e
-                    if int(a) % 2 == 0:
-                        if e not in '18':  # if e != '1' or e != '8':
-                            if temp.count('3') <= 1:
-                                count += 1
-print(count)
-'''
-# Ответ: 18944
-
-
-#
-# № 1950 (Уровень: Базовый)
-# (И. Женецкий) Абдурахман составляет 8-буквенные слова из букв П, И, Т, О, Н, Я, Г, А,
-# причём гласная буква не может стоять в начале слова, а также рядом с гласной буквой.
-# Буквы в слове могут повторяться. Сколько таких слов может составить Абдурахман?
-'''
-from itertools import *
-count = 0
-for s in product('ПИТОНЯГА', repeat=8):
-    temp = ''.join(s)
-    if temp[0] not in 'ИОЯА':
-        if all(x not in temp for x in 'ИИ ИО ОИ ИЯ ЯИ АИ ИА ОЯ ЯО АО ОА ЯА АЯ АА ОО ЯЯ'.split()):
-            count += 1
+                                print(k, slovo)
+                        k += 1
 print(count)
 '''
 
 '''
 from itertools import *
+k = 1
 count = 0
-for s in product('ПИТОНЯГА', repeat=8):
-    temp = ''.join(s)
-    if temp[0] not in 'ИОЯА':
-        if all(''.join(x) not in temp for x in product('ИОЯА', repeat=2)):
+for s in product(sorted('ПЯТНИЦА'), repeat=6):
+    slovo = ''.join(s)
+    if slovo[0] != 'Ц' and slovo.count('И') == 2:
+        if k % 2 != 0:
             count += 1
+    k += 1
 print(count)
 '''
-# Показать ответ: 2228224
 
-
-# 14
 '''
-for x in '0123456789AB':
-    for y in '0123456789AB':
-        if int(y, 12) > 2 and int(x, 12) % 9 == 0:
-            T = int(f'4A{x}', 12) + int(f'{y}1B23', 12)
-            if T % 6 == 0:
-                print(2 * (int(x, 12) + int(y, 12)))
-                exit()
+for n in range(4, 10000):
+    s = '5' + '2'*n
+    while '52' in s or '1122' in s or '2222' in s:
+        if '52' in s:
+             s = s.replace('52', '11', 1)
+        if '2222' in s:
+             s = s.replace('2222', '5', 1)
+        if '1122' in s:
+            s = s.replace('1122', '25', 1)
+    if sum([int(i) for i in s]) == 64:
+        print(n)
+        break
 '''
-# Ответ: 24
-
-
-# 14
-'''
-def my_int(M: list, n):
-    r = 0
-    M.reverse()
-    for i in range(0, len(M)):
-        r += M[i] * n ** i
-    return r
-
-for x in range(0, 80):
-    A = my_int([3, x, 7, 5], 80)
-    B = my_int([1, 4, x, 0], 80)
-
-    if (A + B) % 17 == 0:
-        print((A + B) // 17)
-'''
-# Ответ: 146405
-
-
-
 
 
 # endregion Урок: ******************************************************************
