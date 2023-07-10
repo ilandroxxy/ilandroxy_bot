@@ -1,128 +1,174 @@
 
 # region Домашка: ******************************************************************
 
+'''
+num1 = int(input())
+num2 = int(input())
+num3 = int(input())
+
+sum = num1 + num2 + num3
+
+print(sum)
+'''
+
+
+'''
+num = int(input())
+
+nextnum = num + 1
+prevnum = num - 1
+
+print("Следующее число после", num, ":", nextnum)
+print("Предыдущее число перед", num, ":", prevnum)
+'''
+
+
+'''
+edge_length = int(input())
+
+volume = edge_length ** 3
+surface_area = 6 * (edge_length ** 2)
+
+
+# print("Объем куба:", volume)
+# print("Площадь полной поверхности куба:", surface_area)
+
+print(f"Объем куба: {volume}")
+print(f"Площадь полной поверхности куба: {surface_area}")
+'''
+
+
+# № 8941 Джобс 02.06.2023 (Уровень: Средний)
+'''
+team_name = input()
+
+length = len(team_name)
+
+print(f"Футбольная команда {team_name} имеет длину {length} символов.")
+'''
 
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
 
-# Арифметические действия в Python
-'''
-a = 7
-b = 2
-
-print(f"{a} + {b} = {a+b} \n"
-      f"{a} - {b} = {a-b} \n"
-      f"{a} * {b} = {a*b} \n")
-
-print(f"{a} / {b} = {a/b} - обычное вещественное деление \n"
-      f"{a} // {b} = {a//b} - целочисленное деление (только целая часть) \n"
-      f"{a} % {b} = {a%b} - остаток от деления\n")
-
-print(f"Возведем {a} в степень {b}: {a ** b}")
-print(f"Взять квадратный корень от 16: {16 ** 0.5}")
-print(f"Взять кубический корень от 27: {27 ** (1/3)}")
-'''
-
-
-
-# Как работать с встроенными библиотеками в Python
-'''
-import turtle  # - пригодится в 6 номере, для построения номера с черепахой
-import itertools  # - пригодится в 8, 9, 24, 25 - импортируем методы product, permutation (камбинаторика)
-import functools, sys  # - одна из (любая) может пригодиться в 16 номере для расширения глубины рекурсии
-import fnmatch  # - пригодится для 25-го номера с масками (подстановка строк)
-import math
-import random
-
-print()
-
-import math
-print(math.sqrt(16))
-
-from math import sqrt, floor, fabs
-print(sqrt(16))
-
-from math import *
-print(lcm(4, 2))
-
-import math as m
-print(m.sqrt(16))
-
-import useful
-print(useful.ALPHABET)
-
-print()
-'''
-
-# Решим пару примеров
-'''
-# Ввели число, нужно проверить, что выполняются оба условия, что число x четное и кратно 8
+# Проверьте, что число трехзначное:
+"""
 x = int(input('x: '))
-if x % 2 == 0 and x % 8 == 0:
-      print('YES')
-
-
-# Найдите все числа до 100, для которых выполняются оба условия:
-result = []
-for x in range(0, 100+1):
-      if x % 2 == 0 and x % 8 == 0 and x != 0:
-            result.append(x)
-print(result)
 '''
-
-
-# Условные операторы if, elif, else
-'''
-# import turtle
-# turtle.dot(5)
-# turtle.done()
-
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0 and y > 0:  # если
-      print('Первая четверть')
-elif x < 0 and y > 0:
-      print('Вторая четверть')
-elif x < 0 and y < 0:
-      print('Третья четверть')
-elif x > 0 and y < 0:
-      print('Четвертая четверть')
-else:  # иначе
-      print('Лежит на какой-то оси')
-      
-      
-if x > 0:
-      if y > 0:  # x > 0 and y > 0
-            print(1)
-      else:   # x > 0 and y <= 0
-            print(2)
+if 100 <= abs(x) <= 999:
+    print('YES')
 else:
-      if y > 0:  # x <= 0 and y > 0
-            print(4)
-      else:  # x <= 0 and y <= 0
-            print(3)
+    print('NO')
+'''
+if len(str(abs(x))) == 3:
+    print('YES')
+else:
+    print('NO')
+"""
+
+# Циклы for, while: повтори n раз, циклы с условием, бесконечные
+
+# Циклы for
+
+# i  0  1  2  3  4  5  6  7  8  9
+M = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+#  -10 -9 -8 -7 -6 -5 -4 -3 -2 -1
+
+# print(M[7])
+# print(M[-7])
+'''
+print(f'Первый элемент списка: {M[0]} и последний элемент списка: {M[-1]}')
+
+for x in M:  # просто пробигаем все элементы списка (строки, кортежа, множества) напрямую
+    print(x)
+
+for i in range(len(M)):  # пробежали элементы списка через его индексы
+    print(M[i])
+'''
+
+'''
+for i in range(10):  # range(START=0, STOP=(10-1), STEP=1)
+    print(i)
+
+for i in range(2, 10):  # range(START=2, STOP=(10-1), STEP=1)
+    print(i)
+
+for i in range(2, 10, 2):  # range(START=2, STOP=(10-1), STEP=2)
+    print(i)
+
+for i in range(10, 2, -1):  # range(START=10, STOP=(2-1), STEP=-1)
+    print(i)   # если есть потребность пройти от большего к меньшему
 '''
 
 
-#
-# № 8489 Апробация 17.05 (Уровень: Базовый)
-# Миша заполнял таблицу истинности логической функции
-# F= ((w→y)→(x≡y))∨¬z, но успел заполнить лишь фрагмент из трёх различных её строк, даже не указав,
-# какому столбцу таблицы соответствует каждая из переменных
+# Перебор элементов последовательности для 17-го номера
+'''
+M = [1, 2, 3, 4, 5]
 
-# w,x,y,z.
-print('x y z w F')
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                # F = ((w <= y) <= (x == y)) or (not z)
-                F = (not(y <= z)) or ((not x) <= (not w)) or x
-                if F == False:
-                    print(x, y, z, w, F)
+# В данной задаче под парой подразумевается два идущих подряд элемента последовательности.
+# 12 23 34 45
+for i in range(0, len(M)-1):
+    print(f"{M[i]}{M[i+1]}", end=' ')
+print()
+
+    # IndexError: list index out of range
+
+# В данной задаче под тройкой подразумевается три идущих подряд элемента последовательности.
+# 123 234 345
+for i in range(0, len(M)-2):
+    print(f"{M[i]}{M[i+1]}{M[i+2]}", end=' ')
+print()
+
+# В данной задаче под парой подразумевается два различных элемента последовательности.
+# 12 13 14 15
+# 23 24 25
+# 34 35
+# 45
+for i in range(0, len(M)):
+    for j in range(i+1, len(M)):
+        print(f"{M[i]}{M[j]}", end=' ')
+    print()
+'''
+
+
+# Цикл while с условием:
+'''
+for i in range(2, 10+1, 2):  # range(START=2, STOP=(10-1), STEP=2)
+    print(i, end=' ')
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')
+    i += 2
+'''
+
+# Бесконечный цикл
+ALPHABET = sorted("0123456789QWERTYUIOPASDFGHJKLZXCVBNM")
+
+while True:
+    case = int(input('\n\ncase 1: Перевод из 10-ной в N-ную\n'
+                     'case 2: Перевод из N-ной в 10-ную\n'
+                     'case 0: exit\n'
+                     'case: '))
+    if case == 1:
+        x = int(input('Введите число для перевода: '))
+        temp = x
+        n = int(input('В какую систему счисления будем переводить: '))
+        M = []
+        while x > 0:
+            M.append(ALPHABET[x % n])
+            x //= n
+        M.reverse()
+        print(f'Перевели число {temp} из 10-ной в {n}-ную систему счисления, результат: {"".join(M)}')
+
+    elif case == 2:
+        # todo: Попробовать реализовать дома или на след. уроке
+        pass
+
+    elif case == 0:
+        break
 
 
 # endregion Урок: ******************************************************************
@@ -130,5 +176,5 @@ for x in range(2):
 
 # todo: Василий = []
 # todo:   КЕГЭ  = []
-# на прошлом уроке: Обсудили арифметические действия в Python, работу с библиотеками и условные операторы. Порешали 2-ой номер.
+# на прошлом уроке: Поговорили про комментарии, устройства проекта PyCharm и разобрали циклы for, while
 # на следующем уроке:
