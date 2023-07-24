@@ -1,134 +1,150 @@
 
 # region Домашка: ******************************************************************
 
+# список чисел
+'''
+num = int(input("Введите число m: "))
+result = list(range(1, num+1))
+print(result)
+'''
 
+# список делителей
+'''
+num = int(input("Введите число п: "))
+divisors = []
+for i in range(1, num+1):
+    if num % i == 0:
+        divisors.append(i)
+
+print(divisors)  # сортировка чисел
+'''
+
+'''
+numbers_str = input("Введите строку с числами через пробел: ")
+numbers_list = [int(num) for num in numbers_str.split()]
+# numbers_list = list(map(int, numbers_str.split()))
+# print(list(map(int, numbers_str.split())))
+print(numbers_list)
+
+min_index = numbers_list.index(min(numbers_list))
+max_index = numbers_list.index(max(numbers_list))
+numbers_list[min_index], numbers_list[max_index] = numbers_list[max_index], numbers_list[min_index]
+print(numbers_list)  # список четных
+'''
+
+'''
+num = int(input("Введите четное число n: "))
+# evennumbers = list(range(2, num+1, 2))
+evennumbers = [num for num in range(2, num+1, 2)]
+print(evennumbers)
+'''
+
+'''
+print(numbers_list)
+numbers_str = input("Введите строку с числами: ")
+num = int(input("Введите четное число п: "))
+evennumbers = list(range(2, num+1, 2))
+print(evennumbers)
+numbers_list = list(map(int, numbers_str.split()))
+
+ascending_order = sorted(numbers_list)
+descending_order = sorted(numbers_list, reverse=True)
+
+print("По возрастанию:", ascending_order)
+print("По убыванию:", descending_order)
+'''
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
-
-# Задача: Принадлежность 1
 '''
-x = int(input('x: '))
-# if x > -1 and x < 17:
-if -1 < x < 17:
-    print(True)
-else:
-    print(False)
-'''
-
-
-# Високосный год
-'''
-year = int(input('Введите год: '))
-if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
-    print(True)
-else:
-    print(False)
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = 
+                if not F == :
+                    print(x, y, z, w, F)
 '''
 
-# Dog Age
+# № 9825 Основная волна 27.06.23 (Уровень: Базовый)
+# (x→(z≡w))∨¬(y→w)
 '''
-dog_age = int(input("Введите возраст вашей собаки: "))
-if dog_age <= 2:
-    print(f'Возраст вашей собаки в человеческих годах: {dog_age * 10.5}')
-else:
-    print('Возраст вашей собаки в человеческих годах:', 2 * 10.5 + (dog_age - 2) * 4)
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x <= (z == w)) or (not(y <= w))
+                if not F:
+                    print(x, y, z, w, F)
 '''
 
 
-
+# № 9771 Основная волна 20.06.23 (Уровень: Базовый)
+# F=(y→x)∧¬z∧w
 '''
-m = int(input('m: '))
-p = int(input('p: '))  # две аналогичные записи
-n = int(input('n: '))
-'''
-# Популяция
-'''
-m, p, n = [int(i) for i in input().split()]
-
-for day in range(1, n+1):  # range(START, STOP, STEP)
-    print(day, m)
-    m += (m / 100) * p
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (y <= x) and (not z) and w
+                if F:
+                    print(x, y, z, w, F)
 '''
 
-# Без нулей
+# № 7023 Danov2303 (Уровень: Базовый)
+# (А.Богданов) ¬(((¬w→¬y)→¬z)→x)
 '''
-result = 1
-for _ in range(10):
-    x = int(input())
-    if x != 0:
-        result *= x  # result = result * x
-print(f'Произведение всех чисел не равных нулю: {result}')
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (not((((not w) <= (not y)) <= (not z)) <= x))
+                print(x, y, z, w, F)
 '''
 
-# Задачка с коде варс
-'''
-def simple_multiplication(number):
-    if number % 2 == 0:
-        return number * 8
+
+#
+# № 9736 Основная волна 19.06.23 (Уровень: Базовый)
+# На вход алгоритма подаётся натуральное число N.
+# Алгоритм строит по нему новое число R следующим образом.
+# 1. Строится двоичная запись числа N.
+# 2. Далее эта запись обрабатывается по следующему правилу:
+# а) если число N делится на 3, то в этой записи дописываются справа три последние двоичные цифры;
+# б) если число N на 3 не делится, то остаток от деления умножается на 3,
+# переводится в двоичную запись и дописывается в конец числа.
+# Полученная таким образом запись является двоичной записью искомого числа R.
+# 3. Результат переводится в десятичную систему и выводится на экран.
+
+# Например, для исходного числа 12 = 11002 результатом является число
+# 11001002 = 100, а для исходного числа 4 = 1002 результатом является число 100112 = 19.
+# Укажите максимальное число R, не превышающее 170,
+# которое может быть получено с помощью описанного алгоритма.
+
+# В ответе запишите это число в десятичной системе счисления.
+
+result = []
+for n in range(1, 1000):
+    s = bin(n)[2:]  # 1. Строится двоичная запись числа N.
+    if n % 3 == 0:
+        s += s[-3:]
     else:
-        return number * 9
-'''
+        s += bin((n % 3) * 3)[2:]
+    r = int(s, 2)
+    if r < 170:
+        result.append(r)
+print(max(result))
 
-'''
-for i in range(10):
-    if i % 2 == 0:
-        continue
-    print(i)
-'''
-
-# Кол-во пятерок
-'''
-count = 0
-while True:
-    x = int(input())
-    if 1 <= x <= 5:
-        if x == 5:
-            count += 1
-    else:
-        break
-print(count)
-'''
-
-# Список чисел
-'''
-n = int(input())
-L = [i for i in range(1, n+1)]
-print(L)
-
-n = int(input())
-L = []
-for i in range(1, n+1):
-    L.append(i)
-print(L)
-'''
-
-
-# Список делителей
-'''
-divisors = set()
-n = int(input())
-for j in range(1, int(n**0.5)+1):
-    if n % j == 0:
-        divisors.add(j)
-        divisors.add(n // j)
-print(sorted(divisors))
-
-
-divisors = []
-n = int(input())
-for j in range(1, n + 1):
-    if n % j == 0:
-        divisors.append(j)
-print(divisors)
-'''
-
+# Показать ответ: 166
 
 # endregion Урок: ******************************************************************
 
 
-# todo: Василий = []
+# todo: Василий = [2]
 # todo:   КЕГЭ  = []
-# на прошлом уроке: Прорешивали задания на темы: условные операторы, циклы, списки. Догоняем программу с прошлого урока.
-# на следующем уроке: Повторить 2 номер и начать разбирать 5 номер
+# на прошлом уроке: Прорешали полностью 2 номер и затронули 5-ый (чуть-чуть)
+# на следующем уроке:
