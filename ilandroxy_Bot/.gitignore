@@ -12,6 +12,11 @@ openai.txt
 *.zip
 .idea/
 .DS_Store
+lessons/*.txt
+lessons/1__informatika_kege_itpy.py
+.DS_Store
+for_yandex_A.py
+for_yandex_B.py
 
 # Distribution / packaging
 .Python
