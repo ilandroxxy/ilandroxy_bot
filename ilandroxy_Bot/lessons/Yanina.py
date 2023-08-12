@@ -1,4 +1,4 @@
-
+'''
 def NOD(x, y):
     """
 Функция NOD ищет Наибольший общий делитель
@@ -12,14 +12,9 @@ def NOD(x, y):
         if x % j == 0 and y % j == 0:
             max_delit = j
     return max_delit
+'''
 
 
-# print(max.__doc__)
-
-# print(range.__doc__)
-
-# print(M.append.__doc__)
-# print(M.reverse.__doc__)
 
 
 # todo: НОД, НОК, Квадратное уравнение, Квадратный корень, Кубический корень, Факториал, Среднее арифметическое
