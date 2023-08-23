@@ -132,171 +132,6 @@ print('Общее время звучания песен: ', round(minut_count, 
 # endregion Задание 1. Песни — 2
 
 
-# region Задание 2. Криптовалюта
-# Что нужно сделать
-# При работе с API (application programming interface)
-# сайта биржи по криптовалюте вы получили такие данные в виде словаря:
-#
-# data = {
-# "address": "0x544444444444",
-# "ETH": {
-# "balance": 444,
-# "totalIn": 444,
-# "totalOut": 4
-# },
-# "count_txs": 2,
-# "tokens": [
-# {
-# "fst_token_info": {
-# "address": "0x44444",
-# "name": "fdf",
-# "decimals": 0,
-# "symbol": "dsfdsf",
-# "total_supply": "3228562189",
-# "owner": "0x44444",
-# "last_updated": 1519022607901,
-# "issuances_count": 0,
-# "holders_count": 137528,
-# "price": False
-# },
-# "balance": 5000,
-# "totalIn": 0,
-# "total_out": 0
-# },
-# {
-# "sec_token_info": {
-# "address": "0x44444",
-# "name": "ggg",
-# "decimals": "2",
-# "symbol": "fff",
-# "total_supply": "250000000000",
-# "owner": "0x44444",
-# "last_updated": 1520452201,
-# "issuances_count": 0,
-# "holders_count": 20707,
-# "price": False
-# },
-# "balance": 500,
-# "totalIn": 0,
-# "total_out": 0
-# }
-# ]
-# }
-# Теперь необходимо обработать эти данные.
-#
-# Напишите программу, которая выполняет следующий алгоритм действий:
-#
-# Вывести списки ключей и значений словаря.
-# В ETH добавить ключ total_diff со значением 100.
-# Внутри fst_token_info значение ключа name поменять с fdf на doge.
-# Удалить total_out из tokens и присвоить его значение в total_out внутри ETH.
-# Внутри sec_token_info изменить название ключа price на total_price.
-# После выполнения алгоритма выводить результат (словарь) не нужно.
-#
-# Советы и рекомендации
-# Если вы достали из словаря список по ключу, то можете применять к нему методы списка.
-# Например:
-#
-# словарь[“список”].append(123)
-#
-# Python возьмёт из словаря объект по ключу «список» и применит к нему метод append.
-# Эта же логика работает с другими типами данных. Например, если вы достали из словаря словарь,
-# то к нему можно применять методы словаря, а если достали строку — методы строк.
-#
-# Чтобы не запутаться, распечатывайте объект, который получаете в данный момент. Также можно распечатать тип объекта:
-# print(data)
-# print(data[‘ключ’], type(data[‘ключ’]))
-# print(data[‘ключ’][0], type(data[‘ключ’][0]))
-# и так далее.
-#
-# Так вы всегда будете понимать, над каким объектом работаете в данный момент.
-#
-# Что оценивается
-# Результат вычислений корректен.
-# В коде соблюдается порядок действий алгоритма.
-# Не используется других переменных, кроме data.
-
-'''
-data = {
-    "address": "0x544444444444",
-    "ETH": {
-        "balance": 444,
-        "total_in": 444,
-        "total_out": 4
-    },
-    "count_txs": 2,
-    "tokens": [
-        {
-            "fst_token_info": {
-                "address": "0x44444",
-                "name": "fdf",
-                "decimals": 0,
-                "symbol": "dsfdsf",
-                "total_supply": "3228562189",
-                "owner": "0x44444",
-                "last_updated": 1519022607901,
-                "issuances_count": 0,
-                "holders_count": 137528,
-                "price": False
-            },
-            "balance": 5000,
-            "totalIn": 0,
-            "total_out": 0
-        },
-        {
-            "sec_token_info": {
-                "address": "0x44444",
-                "name": "ggg",
-                "decimals": "2",
-                "symbol": "fff",
-                "total_supply": "250000000000",
-                "owner": "0x44444",
-                "last_updated": 1520452201,
-                "issuance's_count": 0,
-                "holders_count": 20707,
-                "price": False
-            },
-            "balance": 500,
-            "totalIn": 0,
-            "total_out": 0
-        }
-    ]
-}
-print('\nСписок ключей и их значений: ')
-for i_elem in data:
-    print(i_elem, "-", data[i_elem])
-print()
-
-print('Добавила новый ключ total_dif в ETH')
-data["ETH"]["total_dif"] = 100
-for i_elem in data:
-    print(i_elem, "-", data[i_elem])
-print()
-
-print('Внутри ключа fst_token_info поменяла значение на с fdf на doge: ')
-data["tokens"][0]["fst_token_info"]["name"] = "doge"
-for i_elem in data:
-    print(i_elem, "-", data[i_elem])
-print()
-
-print("Удалить total_out из tokens и присвоить его значение в total_out внутри ETH: ")
-data["ETH"]["total_out"] = 0
-data["tokens"][0].pop("total_out")
-for i_elem in data:
-    print(i_elem, "-", data[i_elem])
-print()
-
-print('Внутри sec_token_info изменить название ключа price на total_price: ')
-data["tokens"][1]["sec_token_info"]["total_price"] = data["tokens"][1]["sec_token_info"].pop("price")
-for i_elem in data:
-    print(i_elem, "-", data[i_elem])
-print()
-
-'''
-
-# endregion Задание 2. Криптовалюта
-
-
 # region Задание 3. Товары +
 # Что нужно сделать
 # В базе данных магазина вся необходимая информация по товарам
@@ -785,7 +620,7 @@ else:
 # endregion Задание 8. Снова палиндром
 
 
-# region # Работа с библиотеками
+# region # Работа с библиотеками +
 '''
 import math
 print(math.sqrt(16))
@@ -802,8 +637,8 @@ print(sqrt(16))
 # endregion # Работа с библиотеками
 
 
-# region Задание: Словарь программиста https://stepik.org/lesson/488831/step/1?unit=480067
-
+# region Задание: Словарь программиста +
+# https://stepik.org/lesson/488831/step/1?unit=480067
 '''
 n = int(input('Введите кол-во слов в словаре программиста: '))
 programmer_dict = {}
@@ -836,4 +671,194 @@ for _ in range(int(input())):
     print(mydict.get(input().lower(), 'Не найдено'))
 '''
 
-# endregion Задание: Словарь программиста https://stepik.org/lesson/488831/step/1?unit=480067
+# endregion Задание: Словарь программиста https://stepik.org/lesson/488831/step/1?unit=480067 +
+
+
+# region Задача про палиндром +
+'''
+def is_poly(string: str) -> int:
+    char_dict: dict = {}
+    for i_sym in string:    # 12312345
+        char_dict[i_sym] = char_dict.get(i_sym, 0) + 1
+        print(char_dict)  # {'1': 2, '2': 2, '3': 2, '4': 1, '5': 1}
+
+    odd_count: int = 0
+    for i_value in char_dict.values():  # 2, 2, 2, 1, 1
+        if i_value % 2 != 0:
+            odd_count += 1  
+    return odd_count
+
+
+my_string: str = input('Введите строку: ')  # 12312345
+if is_poly(my_string) <= 1:
+    print('Можно сделать палиндромом')
+else:
+    print('Нельзя сделать палиндромом')
+'''
+# endregion Задача про палиндром
+
+
+# region Задача 3. Универсальная программа
+# Что нужно сделать
+# Напишите функцию, возвращающую список элементов итерируемого объекта
+# (кортежа, строки, списка, словаря), у которых индекс — это простое число.
+#
+# Для проверки на простое число напишите отдельную функцию is_prime.
+#
+# Необязательное усложнение: сделайте так, чтобы основная
+# функция состояла только из оператора return и так же возвращала список.
+#
+# Пример вызова функции:
+# print(crypto([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+# Ответ в консоли: [2, 3, 5, 7]
+#
+# Пример вызова функции:
+# print(crypto('О Дивный Новый мир!'))
+# Ответ в консоли: ['Д', 'и', 'н', 'й', 'в', 'й', 'р']
+#
+# Советы и рекомендации
+# Для нумерации элементов используйте функцию enumerate. Это позволит работать одинаково со всеми структурами данных.
+'''
+def old_get_divisors(num):
+    divisors = []
+    for i in range(1, num+1):
+        if num % i == 0:
+            divisors.append(i)
+    return sorted(divisors)
+
+
+def get_divisors(num):
+    divisors = set()
+    for i in range(1, int(num ** 0.5) + 1):
+        if num % i == 0:
+            divisors.add(i)
+            divisors.add(num // i)
+    return sorted(divisors)
+    
+x = 2000000000
+print(get_divisors(x))
+print(old_get_divisors(x))
+'''
+
+'''
+def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def crypto(iterable):
+    if isinstance(iterable, dict):
+        iterable = iterable.values()
+    return [elem for i, elem in enumerate(iterable) if is_prime(i)]
+
+
+print(crypto({0: 'е', 1: 'о', 2: 'ч', 3: 'ы', 4: 'в', 5: 'н', 6: 'д', 7: 'а', 8: 'ш', 9: 'ц'}))
+print(crypto([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+print(crypto('О Дивный Новый мир!'))
+'''
+# endregion Хочу разобрать эту задачу: Задача 2. Универсальная программа
+
+
+# region Задача 2. Универсальная программа +
+#
+# Один заказчик попросил нас написать небольшой скрипт для своих криптографических нужд.
+# При этом он заранее предупредил, что скрипт должен уметь работать с любым итерируемым типом данных.
+#
+# Напишите функцию, которая возвращает список из элементов итерируемого
+# объекта (кортежа, строки, списка, словаря), у которых индекс чётный.
+#
+# Пример 1:
+# Допустим, есть такая строка: 'О Дивный Новый мир!'
+# Результат: ['О', 'Д', 'в', 'ы', ' ', 'о', 'ы', ' ', 'и', '!']
+#
+#
+#
+# Пример 2:
+# Допустим, есть такой список: [100, 200, 300, 'буква', 0, 2, 'а']
+# Результат: [100, 300, 0, 'а']
+#
+#
+#
+# Примечание: для проверки типа можно использовать функцию
+#
+# isinstance(<элемент>, <тип данных>), которая возвращает True, если элемент принадлежит к этому типу данных,
+# и возвращает False в противном случае.
+'''
+def return_even_elements(data):
+    result = []
+    if isinstance(data, dict):
+        data = data.values()
+    for index, value in enumerate(data):
+        if index % 2 == 0:
+            result.append(value)
+    return result
+
+print(return_even_elements('О Дивный Новый мир!'))
+print(return_even_elements([100, 200, 300, 'буква', 0, 2, 'а']))
+print(return_even_elements({0: 'е', 1: 'о', 2: 'ч', 3: 'ы', 4: 'в', 5: 'н', 6: 'д', 7: 'а', 8: 'ш', 9: 'ц'}))
+'''
+# endregion Задача 3. Универсальная программа
+
+
+# region Как убрать все символы пунктуации +
+'''
+import string
+message = input()
+get_message_bot = message.lower().strip()
+for sym in string.punctuation:
+    get_message_bot = get_message_bot.replace(sym, '')
+print(get_message_bot)
+'''
+# endregion как убрать все символы пунктуации
+
+
+# region Задача 3. Неправильный код +
+# Дан код, в котором должно происходить следующее: изначально есть кортеж из пяти чисел.
+# Затем вызывается функция, которая получает на вход кортеж чисел, генерирует случайный индекс
+# и случайное значение, а затем по этим индексу и значению меняет сам кортеж.
+# Функция должна возвращать кортеж и случайное значение.
+#
+# В основном коде функция используется два раза, и на экран два раза выводится новый
+# кортеж и случайное значение. Причём второй раз выводится сумма первого случайного значения и второго.
+#
+# Однако код, который вам дали, оказался нерабочим. Исправьте его в соответствии с описанием.
+'''
+import random
+
+
+def change(nums: tuple):  # (1, 2, 3, 4, 5)
+    index = random.randint(0, len(nums)-1)
+    value = random.randint(100, 1000)
+    nums = list(nums)  # В списках можно менять значения по индексу, а в кортежах нельзя
+    nums[index] = value
+    return tuple(nums), value
+
+
+# i        0  1  2  3  4
+my_nums = (1, 2, 3, 4, 5)
+print(my_nums)
+new_nums, rand_val_1 = change(my_nums)
+print(new_nums, rand_val_1)
+new_nums_2, rand_val_2 = change(new_nums)
+print(new_nums_2, rand_val_1 + rand_val_2)
+'''
+# endregion Задача 3. Неправильный код
+
+# region Задача 5. Сортировка кортежа +
+'''
+def tpl_sort(my_tuple: tuple) -> tuple:
+    for num in my_tuple:
+        if not isinstance(num, int):
+            return my_tuple
+    return tuple(sorted(my_tuple))
+'''
+# endregion Задача 5.
+
+
+# todo: Мария
+# на прошлом уроке:  Прорешали все задачи с вопросами скиллбокс, а именно: Задача про палиндром, Задача 3. Универсальная программа, Как убрать все символы пунктуации, Задача 3. Неправильный код, Задача 5. Сортировка кортежа.
+# на следующем уроке:
