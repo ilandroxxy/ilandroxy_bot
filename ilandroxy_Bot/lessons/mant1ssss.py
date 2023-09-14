@@ -1,154 +1,162 @@
 
 # region Домашка: ******************************************************************
 
-'''
-abc = int(input())
-a = abc//100
-b = (abc - a*100)//10
-c = (abc - a*100) % 10
-print(f'a: {a}, b: {b}, c: {c}')
-print(f'Сумма цифр = {a+b+c}')
-print(f'Произведение цифр = {a*b*c}')
-'''
-# Сумма цифр = 6
-# Произведение цифр = 6
 
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
 
-# Четыре типа подключения библиотек в Python
+# Циклы while и for
+# Циклы - какое-то повторяющееся действие
+
+# Циклы for - это цикл "повтори n раз"
 '''
-import math  # самый базовый способ подключения библиотеки, но придется везде таскать название 
-print(math.sqrt(16))
+for x in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(x, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-import math as m  # можно сократить название библиотеки - поменять ее имя
-print(m.sqrt(16))  
+for x in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(x, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
-from math import sqrt, pow  # импортируем только определенные нужные нам методы из библиотеки
-print(sqrt(16))
+for x in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8
+print()
 
-from math import *  # оператор раскрытия * - достает все методы из библиотеки
-print(sqrt(16))
-'''
+for x in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8 10
+print()
 
-# Список библиотек, которые мы будем использовать на экзамене:
-'''
-import os
-import functools
-
-import itertools
-import math
-import turtle
-import fnmatch
-import string
-
-print(string.ascii_uppercase)  # ABCDEFGHIJKLMNOPQRSTUVWXYZ
-'''
-
-# Импортируем свою библиотеку
-'''
-import useful
-
-import useful as u
-print(u.OrelReshka())
-'''
-
-# Условные операторы
-'''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0 and y > 0:  # if - если
-    print('Первая четверть')
-elif x > 0 and y < 0:  # elif - иначе если
-    print('Четвертая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:
-    print('Третья четверть')
-else:  # else - иначе
-    print('Лежит на осях')
-'''
-
-# Каскадные условия
-'''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0:
-    if y > 0:  # x > 0 and y > 0
-        print('Первая четверть')
-    else:  # x > 0 and y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0 and y > 0
-        print('Вторая четверть')
-    else:  # x <= 0 and y <= 0
-        print('Третья четверть')
+for x in range(10, 0, -1):  # range(START=10, STOP=0+1, STEP=-1)
+    print(x, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
 '''
 
 
-# Условные связки:
-# and - все условия должны выполняться
-# or - хотя бы одно из условий должно выполняться
-# not - инверсия - меняет значение на противоположное
+# Пробежать список (строку) используя функцию range() и len()
 '''
-flag = True
-print(not flag)  # False
-'''
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# i  01234
+s = 'abcde'
 
-'''
-flag = True
-M = []
-while flag:
-    x = int(input('x: '))
+for i in range(len(M)):   # len() - это длина коллекции (то есть кол-во ее элементов)
+    print(i, end=' ')  # 0 1 2 3 4
+print()
 
-    if x == 0:
-        flag = False
-    else:
-        M.append(x)
-        print(M)
-'''
+for i in range(len(M)):
+    print(M[i], end=' ')  # a b c d e
+print()
 
+for i in range(len(s)):
+    print(s[i], end=' ')  # a b c d e
+print()
 
-# Мини калькулятор:
-'''
-a = int(input('a: '))
-s = input('s: ')
-b = int(input('b: '))
-
-if s == '+':
-    print(f'{a} {s} {b} = {a + b}')
+# Если перед нами стоит задача, поменять все элементы списка (или часть из них),
+# то это придется делать через цикл for in range()
+for i in range(len(M)):
+    if i % 2 == 0:  # если позиция четная, то удваиваем 
+        M[i] = M[i] * 2
+    elif i % 2 != 0:  # если нечетная, то утраиваем
+        M[i] = M[i] * 3
+print(M)  # ['aa', 'bbb', 'cc', 'ddd', 'ee']
+print(*M)  # aa bbb cc ddd ee  -  * это оператор раскрытия
 '''
 
-
+# Перебираем элементы коллекции, напрямую
 '''
-import random
-import time
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# i  01234
+s = 'abcde'
+    
+for x in M:
+    print(x, end=' ')  # a b c d e 
+print()
 
-pas = 'qwerty'
-password = input('Введите ваш пароль: ')
-count = 0
+for x in s:
+    print(x, end=' ')  # a b c d e 
+print()
+'''
+
+# Цикл while - это цикл с условием "пока выполняется поставленное условие - делай"
+'''
+for x in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8 10
+print()
+
+x = 2
+while x <= 10: 
+    print(x, end=' ')  # # 2 4 6 8 10
+    x += 2
+'''
+
+# Бесконечный цикл
+'''
+k = 1
 while True:
-    if count == 2:
-        a = random.randint(1, 100)
-        b = random.randint(1, 100)
-        x = int(input(f'Решите пример: {a} + {b} = '))
-        if x == a + b:
-            print('Проверка пройдена успешна!')
-            count = 0
-        else:
-            print('Повторите попытку через 5 минут.')
-            time.sleep(5*60)
-
-    if pas == password:
-        print('Welcome!')
-        break
-    password = input('Неверный пароль, попробуйте снова: ')
-    count += 1
+    print(k)
+    k += 1
 '''
+
+
+# Перевод из 10-ной в n-ную систему счисления
+'''
+x = int(input('Введите 10-ное число: '))
+n = int(input('Введите n-ную систему счисления: '))
+M = []
+while x > 0:
+    M.append(x % n)
+    x //= n  # x = x // n
+M.reverse()  # M = M[::-1]
+print(*M)
+'''
+
+'''
+print(int('1000', 2))  # 8
+
+x = int(input('Введите 10-ное число: '))
+n = int(input('Введите n-ную систему счисления: '))
+s = ''
+while x > 0:
+    s += str(x % n)
+    x //= n  # x = x // n
+s = s[::-1]
+print(s)
+
+print(int(s, 2))  # 8
+'''
+
+
+# Мини калькулятор для перевода в разные системы счисления
+
+ALPHABET = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+while True:
+    case = input('\ncase 1: Перевод из 10-ной в n-ную систему. \n'
+                 'case 2: Перевод из n-ной в 10-ную систему. \n'
+                 'case 0: exit\n')
+
+    if case == '1':
+        x = int(input('Введите 10-ное число: '))
+        n = int(input('Введите n-ную систему счисления: '))
+        s = ''
+        while x > 0:
+            s += ALPHABET[x % n]
+            x //= n
+        s = s[::-1]
+        print(f'Результат перевода: {s}')
+
+    elif case == '2':
+        s = input('Введите n-ное число: ')
+        n = int(input('Введите n-ную систему счисления: '))
+        print(f'Результат перевода: {int(s, n)}')
+
+    elif case == '0':
+        break
+
 
 # endregion Урок: ******************************************************************
 
