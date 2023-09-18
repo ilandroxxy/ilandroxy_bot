@@ -1,129 +1,58 @@
 
 # region Домашка: ************************************************************
 
-
-# КЕГЭ № 8146 /dev/inf 05.23 (Уровень: Базовый) (А. Рогов)
 #
-# Логическая функция F задаётся выражением (¬z ≡ ¬y) ∨ (¬x ∧ y) ∨ w.
-# Дан частично заполненный фрагмент, содержащий неповторяющиеся строки таблицы истинности функции F.
-'''
-print('x y z w F')
-for x in range(2):
-   for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = ((not z) == (not y)) or ((not x) and y) or w  # (¬z ≡ ¬y) ∨ (¬x ∧ y) ∨ w
-                if F == 0:
-                    print(x, y, z, w, F)
-'''
+# ((x → y ) ∧ (y → w)) ∨ (z ≡ ( x ∨ y))
+# https://inf-ege.sdamgia.ru/problem?id=15787
 
-
-# КЕГЭ № 2664 Пробный 02.2022 /dev/inf Base level (Уровень: Базовый)
 #
-# Миша заполнял таблицу истинности функции (x ∨ y) ∧ (x → ¬z) ∧ ¬w,
-# но успел заполнить лишь фрагмент из трёх различных её строк, даже не указав,
-# какому столбцу таблицы соответствует каждая из переменных w, x, y, z.
-'''
-print('x y z w F')
-for x in range(2):
-   for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = (x or y) and (x <= (not z)) and (not w)
-                if F == True:
-                    print(x, y, z, w, F)
-'''
+# (x ≡ ( w ∨ y)) ∨ ((w → z ) ∧ (y → w))
+# https://inf-ege.sdamgia.ru/problem?id=15814
 
-
-# КЕГЭ № 5057 (Уровень: Средний)
 #
-# Логическая функция F задаётся выражением: (w → (y ≡ z)) ∧ (y ≡ (z → x)).
-# Дан частично заполненный фрагмент, содержащий неповторяющиеся строки таблицы истинности функции F.
-# Определите, какому столбцу таблицы истинности соответствует каждая из переменных w, x, y, z.
-'''
-print('x y z w F')
-for x in range(2):
-   for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = (w <= (y == z)) and (y == (z <= x))
-                print(x, y, z, w, int(F))
-'''
+# (z ∧ y) ∨ ((x → z ) ≡ (y → w))
+# https://inf-ege.sdamgia.ru/problem?id=15939
+
+#
+# ((y → x) ≡ (x → w)) ∧ (z ∨ x)
+# https://inf-ege.sdamgia.ru/problem?id=16431
+
+#
+# (x≡¬y)→(z≡(y∨w))
+# https://inf-ege.sdamgia.ru/problem?id=16878
+
+#
+# ((x ∧ y) ∨ (y ∧ z)) ≡ ((x → w) ∧ (w → z))
+# https://inf-ege.sdamgia.ru/problem?id=17320
+
+#
+# (z ∧ y) ∨ ((x → z ) ≡ (y → w))
+# https://inf-ege.sdamgia.ru/problem?id=15939
+
+#
+# (x ∧ ¬y) ∨ (y ≡ z ) ∨ w
+# https://inf-ege.sdamgia.ru/problem?id=15970
+
+#
+#  ((x → y) ≡ (y → z)) ∧ (y ∨ w)
+# https://inf-ege.sdamgia.ru/problem?id=16377
+
+#
+# ((y → x) ≡ (x → w)) ∧ (z ∨ x)
+# https://inf-ege.sdamgia.ru/problem?id=16431
+
+
+
 
 # endregion Домашка: ************************************************************
 
 
 # region Урок: ************************************************************
 
-# Теория str() - string - строк
-'''
-# Строковый тип данных необходим для хранения символов, знаков (цифр в том числе), слова, текстов и тд
-a = '5'
-print(a * 10)  # 5555555555 - просто дублируются
-# print(a + 4)  # TypeError: can only concatenate str (not "int") to str
-print(int(a) + 4)  # 9 - но получилось только из-за конвертирования - поменяли тип данных для a
-b = 'f5'
-# print(int(b) + 4)  # ValueError: invalid literal for int() with base 10: 'f5'
-'''
-
-'''
-# i  0123456
-s = 'abcdefg'
-# -i -7-6-5-4-3-2-1
-
-print(s[4])  # e
-print(s[-3])  # e
-
-# Нельзя менять элементы через индекс
-# s[4] = '45645'  # TypeError: 'str' object does not support item assignment
-
-print(len(s))  # 7 - длина строки, то есть 7 символов внутри
-'''
-
-# Методы строк:
-'''
-s = '1abcdefg1'
-
-print(s.count('1'))  # 1 - кол-во вхождений элемента строки
-print(s.index('1'))  # 0 - выводит индекс первого найденного значения
-print(s.rindex('1'))  # 8 -выводит индекс крайнего правого найденного значения
-
-for x in s:
-    if x.isdigit():
-        print(x)
-
-ip = '193.34.53.3'
-print(ip.split('.'))  # ['193', '34', '53', '3']
-print([int(num) for num in ip.split('.')])  # [193, 34, 53, 3]
-
-B = ip.split('.')  # B = ['193', '34', '53', '3']
-print(' '.join(B))  # 193 34 53 3
-print('*'.join(B))  # 193*34*53*3
-print(',,'.join(B))  # 193,,34,,53,,3
-
-# Заменяет вхождение подстроки на другую строку
-s = 'adcdcdcdg'
-s = s.replace('c', '*')
-print(s)  # ab*d*e*fg
-s = s.replace('d', '+', 2)
-print(s)  # a+*+*d*dg
-'''
-
-
-# Срезы строк
-'''
-s = 'abcdefg'
-print(s[2:])  # cdefg
-print(s[:2])  # ab
-print(s[2:4])  # cd
-print(s[::])  # abcdefg
-print(s[::2])  # aceg
-print(s[::-1])  # gfedcba - переворот строки
-'''
 
 # endregion Урок: ************************************************************
 
 
 # todo: Евгений = [2.1, 8.1]
-# на прошлом уроке: Обсудили новый формат Степик домашек и прорешали 2-ой номер ЕГЭ.
+# на прошлом уроке:
 # на следующем уроке:

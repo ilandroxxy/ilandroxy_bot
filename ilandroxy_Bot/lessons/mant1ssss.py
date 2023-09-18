@@ -1,162 +1,72 @@
 
 # region Домашка: ******************************************************************
 
+# Век живи - век учись.
+# 10
+'''
+s = 'Век живи - век учись.'
+n = 10
+for i in range(n):
+    print(f'{i+1}. {s}')
+'''
 
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
 
-# Циклы while и for
-# Циклы - какое-то повторяющееся действие
-
-# Циклы for - это цикл "повтори n раз"
+# Тип 2 №33174
+# Логическая функция F задаётся выражением ((x → y) ≡ (w → x)) ∧ (z → w).
+# На рисунке приведён частично заполненный фрагмент таблицы истинности функции F, содержащий неповторяющиеся строки.
+# Определите, какому столбцу таблицы истинности функции F соответствует каждая из переменных x, y, z, w.
 '''
-for x in range(10):  # range(START=0, STOP=10-1, STEP=1)
-    print(x, end=' ')  # 0 1 2 3 4 5 6 7 8 9
-print()
-
-for x in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
-    print(x, end=' ')  # 2 3 4 5 6 7 8 9
-print()
-
-for x in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
-    print(x, end=' ')  # 2 4 6 8
-print()
-
-for x in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(x, end=' ')  # 2 4 6 8 10
-print()
-
-for x in range(10, 0, -1):  # range(START=10, STOP=0+1, STEP=-1)
-    print(x, end=' ')  # 10 9 8 7 6 5 4 3 2 1
-print()
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((x <= y) == (w <= x)) and (z <= w)
+                if F:
+                    print(x, y, z, w, F)
 '''
 
-
-# Пробежать список (строку) используя функцию range() и len()
+# Шаблон:
 '''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# i  01234
-s = 'abcde'
-
-for i in range(len(M)):   # len() - это длина коллекции (то есть кол-во ее элементов)
-    print(i, end=' ')  # 0 1 2 3 4
-print()
-
-for i in range(len(M)):
-    print(M[i], end=' ')  # a b c d e
-print()
-
-for i in range(len(s)):
-    print(s[i], end=' ')  # a b c d e
-print()
-
-# Если перед нами стоит задача, поменять все элементы списка (или часть из них),
-# то это придется делать через цикл for in range()
-for i in range(len(M)):
-    if i % 2 == 0:  # если позиция четная, то удваиваем 
-        M[i] = M[i] * 2
-    elif i % 2 != 0:  # если нечетная, то утраиваем
-        M[i] = M[i] * 3
-print(M)  # ['aa', 'bbb', 'cc', 'ddd', 'ee']
-print(*M)  # aa bbb cc ddd ee  -  * это оператор раскрытия
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = pass
+                if F == pass:
+                    print(x, y, z, w, F)
 '''
 
-# Перебираем элементы коллекции, напрямую
+# Тип 2 №27371
+# Логическая функция F задаётся выражением
+# ((x ∧ ¬y) → (¬z ∨ ¬w)) ∧ ((w → x) ∨ y).
 '''
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-# i  01234
-s = 'abcde'
-    
-for x in M:
-    print(x, end=' ')  # a b c d e 
-print()
-
-for x in s:
-    print(x, end=' ')  # a b c d e 
-print()
-'''
-
-# Цикл while - это цикл с условием "пока выполняется поставленное условие - делай"
-'''
-for x in range(2, 10+1, 2):  # range(START=2, STOP=11-1, STEP=2)
-    print(x, end=' ')  # 2 4 6 8 10
-print()
-
-x = 2
-while x <= 10: 
-    print(x, end=' ')  # # 2 4 6 8 10
-    x += 2
-'''
-
-# Бесконечный цикл
-'''
-k = 1
-while True:
-    print(k)
-    k += 1
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((x and (not y)) <= ((not z) or (not w))) and ((w <= x) or y)
+                if (not F):
+                    print(x, y, z, w, int(F))
 '''
 
 
-# Перевод из 10-ной в n-ную систему счисления
-'''
-x = int(input('Введите 10-ное число: '))
-n = int(input('Введите n-ную систему счисления: '))
-M = []
-while x > 0:
-    M.append(x % n)
-    x //= n  # x = x // n
-M.reverse()  # M = M[::-1]
-print(*M)
-'''
+# Тип 2 №48423
+# Логическая функция F задаётся выражением: (x → (y ≡ w)) ∧ (y ≡ (w → z))
 
-'''
-print(int('1000', 2))  # 8
-
-x = int(input('Введите 10-ное число: '))
-n = int(input('Введите n-ную систему счисления: '))
-s = ''
-while x > 0:
-    s += str(x % n)
-    x //= n  # x = x // n
-s = s[::-1]
-print(s)
-
-print(int(s, 2))  # 8
-'''
-
-
-# Мини калькулятор для перевода в разные системы счисления
-
-ALPHABET = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-# ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-while True:
-    case = input('\ncase 1: Перевод из 10-ной в n-ную систему. \n'
-                 'case 2: Перевод из n-ной в 10-ную систему. \n'
-                 'case 0: exit\n')
-
-    if case == '1':
-        x = int(input('Введите 10-ное число: '))
-        n = int(input('Введите n-ную систему счисления: '))
-        s = ''
-        while x > 0:
-            s += ALPHABET[x % n]
-            x //= n
-        s = s[::-1]
-        print(f'Результат перевода: {s}')
-
-    elif case == '2':
-        s = input('Введите n-ное число: ')
-        n = int(input('Введите n-ную систему счисления: '))
-        print(f'Результат перевода: {int(s, n)}')
-
-    elif case == '0':
-        break
-
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x <= (y == w)) and (y == (w <= z))
+                print(x, y, z, w, int(F))
 
 # endregion Урок: ******************************************************************
 
