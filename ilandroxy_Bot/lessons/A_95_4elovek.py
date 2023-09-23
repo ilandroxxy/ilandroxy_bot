@@ -1,5 +1,4 @@
 
-
 # region Домашка: ***************************************************************
 
 
@@ -8,141 +7,176 @@
 
 # region Урок: ******************************************************************
 
-# Условные операторы (ветвление): if, elif, else
+# Циклы for и while
+# Цикл - это действие, которое повторяется n раз или пока выполняется поставленное условие
+
+# Цикл for: "повтори n-раз", "пробеги от 2 до 10"
 '''
-x = int(input('x: '))
-y = int(input('y: '))
+for i in range(10):  # [0, 10)  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-# and - связки "и" (то есть все условия должны быть истинными)
+for i in range(2, 10):  # [2, 10)  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')   # 2 3 4 5 6 7 8 9
+print()
 
-if x > 0 and y > 0:  # if (если)
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:  # elif (иначе если)
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:  # else (иначе)
-    print('Точка лежит на осях')
-'''
+for i in range(2, 10, 2):  # [2, 10)  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')   # 2 4 6 8
+print()
 
-
-# Каскадные условные операторы
-'''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0:
-    if y > 0:  # x > 0 and y > 0
-        print('Первая четверть')
-    else:  # x > 0 and y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0 and y > 0
-        print('Вторая четверть')
-    else:  # x <= 0 and y <= 0
-        print('Третья четверть')
+for i in range(10, 0, -1):  # [10, 0)  # range(START=10, STOP=0+1, STEP=-1)
+    print(i, end=' ')   # 10 9 8 7 6 5 4 3 2 1
+print()
 '''
 
+# Берем элементы списков/строк через индексы
 '''
-x = int(input('Введите четное число: '))
-if x % 2 == 0:
-    print(x)
-else:
-    print('Число нечетное.')
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+# i  01234
+s = 'abcde'
+
+for i in range(len(M)):  # len(M) - функция возвращает длину списка M (кол-во элементов внутри).
+    print(i, end=' ')  # 0 1 2 3 4
+print()
+
+for i in range(len(M)):
+    print(M[i], end=' ')  # a b c d e
+print()
+
+for i in range(len(s)):
+    print(s[i], end=' ')  # a b c d e
+print()
 '''
 
+# Меняем элементы списка через индексы
 '''
-a = int(input('a: '))
-s = input('s: ')
-b = int(input('b: '))
-if s == '+':
-    print(f'{a} {s} {b} = {a+b}')
-elif s == '-':
-    print(f'{a} {s} {b} = {a - b}')
-elif s == '*':
-    print(f'{a} {s} {b} = {a * b}')
-elif s == '/':
-    try:
-        print(f'{a} {s} {b} = {a / b}')    # ZeroDivisionError
-    except ZeroDivisionError:
-        print('На ноль делить нельзя!')
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
 '''
 
-
+# Берем элементы списков/строк напрямую (без индексов)
 '''
-try:
-    a = int(input('a: '))
-    s = input('s: ')
-    b = int(input('b: '))
-    
-    if s == '+':
-        print(f'{a} {s} {b} = {a+b}')
-    elif s == '-':
-        print(f'{a} {s} {b} = {a - b}')
-    elif s == '*':
-        print(f'{a} {s} {b} = {a * b}')
-    elif s == '/':
-        print(f'{a} {s} {b} = {a / b}')    # ZeroDivisionError
-except Exception as e:
-    print(f'Сработала ошибка: {e}')
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+
+# i  01234
+s = 'abcde'
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+for x in s:
+    print(x, end=' ')  # a b c d e
+print()
 '''
 
-# Логические связки or, and, not
+# Вложенные (каскадные) циклы
 '''
-a = 5
-b = 6
-c = -6
-if (a > 0 or b > 0) and c > 0:
-    print('YES')
-else:
-    print('NO')
+s = 'xyz'
+for a in s:
+    for b in s:
+        print(a, b)
+'''
+# x x
+# x y
+# x z
+# y x
+# y y
+# y z
+# z x
+# z y
+# z z
+
+# Цикл while - цикл с условием, то есть работать будет "пока выполняется условие", бесконечный цикл
+'''
+for i in range(2, 10+1, 2):  # [2, 10)  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')   # 2 4 6 8 10 
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10 
+    i += 2
 '''
 
+# Сделать перевод из 10-ной в 2-ную систему счисления
 '''
-flag = True
-print(not flag)  # False
-
-# Заполните список введнными числами, пока не будет передан 0
+x = int(input('Число (10-ное) для перевода: '))
+n = int(input('Система счисления: '))
 
 M = []
-while flag:
-    print(M)
-    x = int(input('x: '))
-    if x == 0:
-        flag = False
-    M.append(x)
+while x > 0:
+    M.append(x % n)
+    x //= n
+M.reverse()
+print(M)
 '''
 
-# Напишите программу, которая принимает возраст от пользователя
-# и выводит сообщение "Вам можно смотреть этот фильм", если возраст больше или равен 18,
-# и "Вы слишком молоды для просмотра этого фильма", если возраст меньше 18.
 '''
-year = int(input())
-if year >= 18:
-    print('Вам можно смотреть этот фильм')
-else:
-    print('Вы слишком молоды для просмотра этого фильма')
-'''
+x = int(input('Число (10-ное) для перевода: '))
+n = int(input('Система счисления: '))
 
-
-# Напишите программу, которая принимает три положительных числа и определяет вид треугольника,
-# длины сторон которого равны введенным числам.
-'''
-a = int(input())
-b = int(input())
-c = int(input())
-
-if a == b == c:
-    print('Равносторонний')
-elif a == b or a == c or b == c:
-    print('Равнобедренный')
-else:
-    print('Разносторонний')
+s = ''
+while x > 0:
+    s += str(x % n)
+    x //= n
+s = s[::-1]  # срез в обратную сторону
+print(s)
+print(int(s, n))
 '''
 
+'''
+k = 1
+while True:
+    k += 1
+    print(k)
+    if k == 1000000:
+        break
+'''
 
+'''
+import string
+ALPHABET = string.digits + string.ascii_uppercase
+print(ALPHABET)
+
+ALPHABET2 = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(ALPHABET2)
+
+while True:
+    case = input('\ncase 1: Перевод из 10-ной в n-ную систему счисления. \n'
+                 'case 2: Перевод из n-ной в 10-ную систему счисления. \n'
+                 'case 0: exit \n')
+
+    if case == '1':
+        x = int(input('Число (10-ное) для перевода: '))
+        n = int(input('Система счисления: '))
+
+        s = ''
+        while x > 0:
+            s += ALPHABET[x % n]
+            x //= n
+        s = s[::-1]
+        print(f'Результат перевода: {s}')
+
+    elif case == '2':
+        s = input('Число (n-ное) для перевода: ')
+        n = int(input('Система счисления (n-ная): '))
+
+        print(f'Результат перевода: {int(s, n)}')
+        
+    elif case == '3':
+        pass  # Перевод из n-ной в k-тую
+
+    elif case == '0':
+        break
+'''
 # endregion Урок: ***************************************************************
 
 
@@ -150,5 +184,3 @@ else:
 # todo: КЕГЭ  = []
 # на прошлом уроке:
 # на следующем уроке:
-
-
