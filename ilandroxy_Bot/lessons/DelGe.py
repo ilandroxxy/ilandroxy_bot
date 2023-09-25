@@ -1,47 +1,28 @@
 
 # region Домашка: ************************************************************
+'''
+s = input()
+print(f"Символ + встречается {s.count('+')} раз")
+print(f"Символ * встречается {s.count('*')} раз")
+'''
 
-#
-# ((x → y ) ∧ (y → w)) ∨ (z ≡ ( x ∨ y))
-# https://inf-ege.sdamgia.ru/problem?id=15787
+# На  вход программе подается одна строка состоящая из цифр.
+# Напишите программу, которая считает сумму цифр данной строки.
 
-#
-# (x ≡ ( w ∨ y)) ∨ ((w → z ) ∧ (y → w))
-# https://inf-ege.sdamgia.ru/problem?id=15814
-
-#
-# (z ∧ y) ∨ ((x → z ) ≡ (y → w))
-# https://inf-ege.sdamgia.ru/problem?id=15939
-
-#
-# ((y → x) ≡ (x → w)) ∧ (z ∨ x)
-# https://inf-ege.sdamgia.ru/problem?id=16431
-
-#
-# (x≡¬y)→(z≡(y∨w))
-# https://inf-ege.sdamgia.ru/problem?id=16878
-
-#
-# ((x ∧ y) ∨ (y ∧ z)) ≡ ((x → w) ∧ (w → z))
-# https://inf-ege.sdamgia.ru/problem?id=17320
-
-#
-# (z ∧ y) ∨ ((x → z ) ≡ (y → w))
-# https://inf-ege.sdamgia.ru/problem?id=15939
-
-#
-# (x ∧ ¬y) ∨ (y ≡ z ) ∨ w
-# https://inf-ege.sdamgia.ru/problem?id=15970
-
-#
-#  ((x → y) ≡ (y → z)) ∧ (y ∨ w)
-# https://inf-ege.sdamgia.ru/problem?id=16377
-
-#
-# ((y → x) ≡ (x → w)) ∧ (z ∨ x)
-# https://inf-ege.sdamgia.ru/problem?id=16431
+num = input()  # str
+summ = 0
+for i in range(len(num)):  # 0, 1, 2, 3
+    summ += int(num[i])
+print(summ)
 
 
+print(sum([int(x) for x in input()]))
+
+n = int(input())
+if (n%4 == 0 and n%100 == 0) or (n%400 == 0):
+    print("Да")
+else:
+    print('Нет')
 
 
 # endregion Домашка: ************************************************************
