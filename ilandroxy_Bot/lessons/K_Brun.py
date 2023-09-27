@@ -7,143 +7,183 @@
 
 # region Урок: ******************************************************************
 
-# Использование библиотек при подготовке
+# Цикл - какое-то действие повторяющееся n раз
 
-# Список библиотек, которые мы будем использовать в процессе подготовки
+# Цикл for: "цикл повтори n раз", "пробеги от a до b"
 '''
-import math
-import ipaddress  # для 13-го номера
-import itertools  # для 8, 24, 17, 9
-import turtle  # для 6-го номера
-import fnmatch  # для 25-го номера
-import functools
-import os  # могут пригодиться в 16-ом номере, чтобы увеличить глубину рекурсии
-import string
+for i in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+print()
 
-print(string.punctuation)  # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-'''
+for i in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(i, end=' ')  # 2 3 4 5 6 7 8 9
+print()
 
+for i in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8
+print()
 
-# Как использовать и подключать библиотеки?
-'''
-import math  # через math. мы можем посмотреть на содержимое библиотеки, но везде придется таскать за собой math.
-print(math.sqrt(16))
+for i in range(2, 10+1, 2):  # range(START=2, STOP=10+1-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-import math as m  # аналогичный пример, но math переименовали в m или любую другую переменную
-print(m.sqrt(16))
-
-from math import sqrt, log, factorial  # подключаем только необходимые нам функции
-print(sqrt(16))
-
-from math import *  # * - это оператор раскрытия, то есть подключаем все функции разом!
-print(sqrt(16))
+for i in range(10, 0, -1):  # range(START=10, STOP=0+1, STEP=-1)
+    print(i, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
 '''
 
-
-# Что делать, если не помнишь что делает та или иная функция
+# Обращение к элементам списка и строки через их индексы
 '''
-import math as m
-print(m.factorial(5))  # 120
+#  i  0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
 
-# 1.
-# Навести курсор на функцию и зажать комбинацию клавиш (cmd) ctrl + B
+# Получили все элементы списка
+for i in range(len(M)):  # len(M) - функция len() выводит длину списка/строки/.. (то есть кол-во элементов)
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
 
-# 2.
-print(m.factorial.__doc__)  # Find n!. Raise a ValueError if x is negative or non-integral.
+# Изменили элементы списка через их индексы
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+print(*M)  #  b cc ddd eeee
 
-# 3.
-print(help(m.factorial))
-# Help on built-in function factorial in module math:
-# 
-# factorial(n, /)
-#     Find n!.
-#     
-#     Raise a ValueError if x is negative or non-integral.
-# 
-# None
-'''
+# индексы расположены аналогично
+s = 'abcde'
 
-# Условные операторы (ветвление): if, elif, else
-'''
-x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0 and y > 0:  # if (если)
-    print('Первая четверть')
-elif x < 0 and y > 0:
-    print('Вторая четверть')
-elif x < 0 and y < 0:  # elif (иначе если) 
-    print('Третья четверть')
-elif x > 0 and y < 0:
-    print('Четвертая четверть')
-else:  # else (иначе)
-    print('Лежит на оси. ')
+# Получили все элементы строки
+for i in range(len(s)):
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(s[i], end=' ')  # a b c d e
+print()
 '''
 
-
-# Каскадные условные операторы (вложенность)
+# Обращение к элементам списка и строки напрямую через их значение
 '''
-x = int(input('x: '))
-y = int(input('y: '))
+#  i  0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
 
-if x > 0:
-    if y > 0:  # x > 0 and y > 0
-        print('Первая четверть')
-    else:  # x > 0 and y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0 and y > 0
-        print('Вторая четверть')
-    else:  # x <= 0 and y <= 0
-        print('Третья четверть')
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+s = 'abcde'
+
+for x in s:
+    print(x, end=' ')  # a b c d e
+print()
+
+L = [1, 342, 4, 324, 32, 432, 4, 32, 423, 123, 123, 12, 321, 321, 312, 23, 123, 12, 23, 123, 213, 13]
+# 1. Выведите на экран все четные числа
+# 2. Выведите список всех четных чисtл
+R = []
+for x in L:
+    if x % 2 == 0:
+        print(x, end=' ')  # 1. 342 4 324 32 432 4 32 12 312 12
+        R.append(x)
+print()
+print(R)  # 2. [342, 4, 324, 32, 432, 4, 32, 12, 312, 12]
 '''
 
-
-# Условные связки: and, or, not
+# Цикл while: "цикл выполняет действие, ПОКА условие выполняется", "Бесконечный цикл"
 '''
-# and - гарантирует, что все условия выполнимы
+for i in range(2, 10+1, 2):  # range(START=2, STOP=10+1-1, STEP=2)
+    print(i, end=' ')  # 2 4 6 8 10
+print()
 
-# or - хотя бы одно из условий должно выполняться
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 0 1 2 3 4 5 6 7 8 9
+    i += 2  # i = i + 1
+'''
 
-a = 7
-b = -8
-if a > 0 or b > 0:
-    print(True)
-
-
-flag = True
-print(not flag)  # False (просто инверсия)
-
+# Задание: Перевести число 8 в 2-ную систему счисления
+# Перевод в 2-ную систему счисления через списки
+'''
+x = 8
+n = 2
 M = []
-while flag:  # пока flag == True
-    print(M)
-    x = int(input('x: '))
-    if x == 0:
-        flag = False
-    M.append(x)
+while x > 0:
+    M.append(x % n)
+    x //= n
+M.reverse()
+print(M)
+
+print(bin(8)[2:])  # есть встроенная функция перевода в 2-ную
 '''
 
-# Сачок для ловли ошибок
+# Для замены больших чисел на буквы, нам нужен алфавит, рассмотрим два варианта:
 '''
+import string
+ALPHABET1 = string.digits + string.ascii_uppercase  # 0123456789 + ABCDEFGHIJKLMNOPQRSTUVWXYZ
+print(ALPHABET1)  # '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+ALPHABET2 = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(ALPHABET2)  # ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+
+# Перевод в n-ную систему счисления через строки
+x = int(input('x: '))
+n = int(input('n: '))
+s = ''
+while x > 0:
+    s += ALPHABET1[x % n]
+    x //= n
+s = s[::-1]
+print(s)
+'''
+
+# Бесконечный цикл
+'''
+k = 1
 while True:
-    try:
-        a = int(input('\n\na: '))
-        s = input('s: ')
-        b = int(input('b: '))
-        if s == '+':
-            print(f'{a} + {b} = {a+b}')
-        elif s == '-':
-            print(f'{a} - {b} ={a-b}')
-        elif s == '*':
-            print(f'{a} * {b} = {a*b}')
-        elif s == '/':
-            print(f'{a} / {b} = {a/b}')
-        else:
-            print('Введите корректный символ операции: +, -, *, /')
-    except Exception as e:
-        print(f'Поймали ошибку: {e}')
+    k += 1
+    print(k)
 '''
-# ZeroDivisionError: division by zero
+
+
+# break и continue
+'''
+for x in range(0, 100+1):
+    if x % 2 != 0:  # нечетное
+        continue  # прерывает итерацию цикла, то есть его шаг
+    if x == 50:
+        break  # прерывает только тот цикл в котором сейчас находится
+    print(x)
+'''
+
+ALPHABET = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# Напишем маленький калькулятор систем счисления:
+while True:
+    case = input('\ncase 1: Перевод из 10-ной в n-ную систему счисления \n'
+                 'case 2: Перевод из n-ной в 10-ную систему счисления \n'
+                 'case 3: Перевод из k-ой в n-ную систему счисления \n'
+                 'case 0: exit \n')
+    if case == '1':
+        x = int(input('Введите 10-ное число: '))
+        x2 = x
+        n = int(input('Ведите n-ную систему счисления: '))
+        s = ''
+        while x2 > 0:
+            s += ALPHABET[x2 % n]
+            x2 //= n
+        s = s[::-1]
+        print(f'Результат перевода числа {x} из 10-ной в {n}-ную систему: {s}')
+
+    elif case == '2':
+        n = int(input('Ведите n-ную систему счисления: '))
+        s = input(f'Введите число в {n}-ной системе счисления: ')
+        x = int(s, n)  # то это встроенная функция для перевода из n-ной системы счисления в 10-ную
+        print(f'Результат перевода числа {s} из {n}-ной в 10-ную систему: {x}')
+
+    elif case == '3':
+        pass
+
+    elif case == '0':
+        break
 
 # endregion Урок: ******************************************************************
 

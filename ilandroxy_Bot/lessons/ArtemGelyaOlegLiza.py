@@ -1,235 +1,281 @@
 
 # region Домашка: ******************************************************************
 
-# Напишите программу, в которой рассчитывается сумма
-# и произведение цифр положительного трёхзначного числа.
+# https://stepik.org/lesson/1051610/step/6?unit=1060696
 '''
-num = input()  # трёхзначное
-a = int(num[0])
-b = int(num[1])
-c = int(num[2])
-print(f'Сумма цифр числа {num}: {a + b + c}')
-print(f'Произведение цифр числа {num}: {a * b * c}')
+a = int(input())
+b = int(input())
+c = int(input())
+if a == b == c:
+    print('Равносторонний')
+elif a == b or b == c or a == c:
+    print('Равнобедренный')
+else:
+    print('Разносторонний')
 '''
-
-'''
-a, b, c = [int(x) for x in input()]
-print(f'Сумма цифр числа: {a + b + c}')
-print(f'Произведение цифр числа: {a * b * c}')
-'''
-
-'''
-num = int(input())     # 345
-a = num // 100
-b = (345 // 10) % 10
-c = num % 10
-print(f'Сумма цифр числа: {a + b + c}')
-print(f'Произведение цифр числа: {a * b * c}')
-'''
-
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
 
-# Какие библиотеки будем использовать при подготовке
+# Цикл - какое-то повторяющееся действие, например "повтори n раз"
+
+
+# Цикл for: "повтори n раз", "пробеги от a до b"
+
+# Цикл for с использованием функции range()
 '''
-import math
-import turtle  # для решения 6-го номера
-import ipaddress  # для решения 13-го номера
-import fnmatch  # для решения 25-го номера
-import os
-import functools  # могут пригодиться при решении 16-го номера
-import itertools  # 8, 24, 17, 9
-import string
-
-print(string.punctuation)  # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-'''
-
-
-# Как правильно использовать библиотеки в Пайтон
-'''
-import math  # Плюсы: что через math. можно посмотреть содержимое библиотеки, придется везде тоскать с собой math.
-print(math.sqrt(16))
-
-import math as m  # По факту - мы просто переименовали библиотеку
-print(m.sqrt(16))
-
-from math import sqrt, log, pow  # подключаем только необходимые нам функции
-print(sqrt(16))
-
-from math import *  # * - это оператор раскрытия, то есть достаем сразу все функции
-print(factorial(5))
-'''
-
-
-'''
-import math as m
-print(m.sqrt(16))
-
-print(m.factorial(5))
-# 1. Навести курсов на функцию и использовать сочетание клавиш (cmd) ctrl + B
-
-# 2.
-print(m.factorial.__doc__)  # Find n!. Raise a ValueError if x is negative or non-integral.
-
-# 3.
-print(help(m.factorial))
-# Help on built-in function factorial in module math:
-#
-# factorial(n, /)
-#     Find n!.
-#
-#     Raise a ValueError if x is negative or non-integral.
-#
-# None
-
-print(print.__doc__)
-'''
-
-
-weather = 'облачно'
-temperature = 24
-print(f'Сегодня, отличная погодна, {weather}, а температура {temperature} градусов!')
-
-# Базовая арифметика
-'''
-a = 7
-b = 2
-print(f'{a} + {b} = {a+b} \n'
-      f'{a} - {b} = {a-b} \n'
-      f'{a} * {b} = {a*b}')
-
-print()  # в функции print() присутствует один символ "\n"
-
-print(f'{a} / {b} = {a/b} - Обыкновенное вещественное деление (дроби) \n'
-      f'{a} // {b} = {a//b} - Целочисленное деление, то есть взятие только целой части\n'
-      f'{a} % {b} = {a%b}')
-
+for x in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(x, end=' ')  # 0 1 2 3 4 5 6 7 8 9
 print()
 
-print(f'Возведите число {a} в степень {b}: {a} ** {b} = {a**b} \n'
-      f'Возьмем квадратный корень от 16: 16 ** (1/2) = {16 ** (1/2)} \n'
-      f'Возьмем кубический корень от 27: 27 ** (1/3) = {27 ** (1/3)}')
-import math as m
-print(m.sqrt(16))
+for x in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(x, end=' ')  # 2 3 4 5 6 7 8 9
+print()
+
+for x in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8
+print()
+
+# Возьмите все четные числа до 30 включительно
+for x in range(0, 30+1, 2):
+    print(x, end=' ')  # 0 2 4 6 8 10 12 14 16 18 20 22 24 26 28 30
+print()
+
+# Возьмите все нечетные числа до 30 включительно
+for x in range(1, 30+1, 2):
+    print(x, end=' ')  # 1 3 5 7 9 11 13 15 17 19 21 23 25 27 29
+print()
+
+for x in range(10, 0, -1):  # range(START=10, STOP=0+1, STEP=-1)
+    print(x, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
 '''
 
 '''
-n = int(input('Введите число n: '))
-if n % 2 == 0:
-      print('Число четное')
-else:
-      print('Нечетное ')
+for _ in range(5):  # можно написать _ , если переменная нам не нужна
+    print('Привет')
+    
+for i in range(5):  # можно использовать название переменной для нумерации
+    print(f'{i+1}) Привет')
 '''
 
-# Поиск делителей числа:
+# Через функцию range мы можем брать элементы списка и менять элементы списка
 '''
-num = int(input('num: '))
-divisors = []
-for j in range(1, num+1):
-      if num % j == 0:
-            divisors.append(j)
-print(divisors)  # [1, 2, 3, 4, 6, 8, 12, 24]
-'''
+#  i  0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
 
-# Вводится пятизначное число и нужно разбить его на цифры
-# Пример: 83587 = 8 3 5 8 7
-'''
-num = 83587
-a = num // 10000
-b = (num // 1000) % 10
-c = (num % 1000) // 100
-d = (num % 100) // 10
-e = num % 10
-print(a, b, c, d, e)
-'''
+for i in range(len(M)):  # Функция len() - выводит длину списка/строки/кортежа.. (кол-во элементов)
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+print()
 
+for i in range(-1, -len(M)-1, -1):
+    # print(i, end=' ')  # -1 -2 -3 -4 -5
+    print(M[i], end=' ')  # e d c b a 
+print()
 
-# Условные операторы (ветвление): if, elif, else
-'''
-x = -5
-y = 6
-
-if x > 0 and y > 0:  # if (если)
-      print('Первая четверть')
-elif x < 0 and y > 0:
-      print('Вторая четверть')
-elif x < 0 and y < 0:  # elif (иначе если)
-      print('Третья четверть')
-elif x > 0 and y < 0:
-      print('Четваря четверть')
-else:  # else (иначе)
-      print('Лежит на оси.')
+for i in range(len(M)):
+    M[i] = M[i] * i  # ['', 'b', 'cc', 'ddd', 'eeee']
+print(M)
 '''
 
+# Через функцию range мы можем брать элементы строк
+'''
+s = 'abcde'
 
-# Каскадные условные операторы (вложенность)
+for i in range(len(s)):
+    print(s[i], end=' ')  # a b c d e
+print()
+'''
+
+# Взаимодействие с элементами списка/строки/.. напрямую через их значение
+'''
+M = ['a', 'b', 'c', 'd', 'e']
+s = 'abcde'
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+for x in s:
+    print(x, end=' ')  # a b c d e
+print()
+
+from random import randint
+M = [randint(0, 100) for _ in range(50)]
+# 1. Вывести на экран все четные элементы набора чисел
+# 2. Вывести список со всеми четными элементами
+R = []
+for x in M:
+    if x % 2 == 0:
+        print(x, end=' ')  # 98 10 60 4 52 82 26 26 16 8 22 28 32 64 70 42 100 68 78 24 
+        R.append(x)
+print()
+print(R)  # [70, 50, 62, 54, 54, 54, 24, 4, 66, 60, 96, 84, 80, 68, 74, 48, 46, 62, 18, 8, 84, 92, 32]
+'''
+
+
+# Цикл while: "повторяй, ПОКА условие выполняется", "Бесконечный цикл"
+'''
+for x in range(2, 10+1, 2):  # range(START=2, STOP=10+1-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8 10 
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10 
+    i += 2  # i = i + 1   # i -= 2, i //= 2, i **= 2
+print()
+'''
+
+
+# Задание: Перевести число 8 в 2-ную систему счисления
+'''
+x = 8
+n = 2
+M = []
+while x > 0:
+    M.append(x % n)
+    x //= n
+M.reverse()
+print(M)
+
+print(bin(8)[2:])  # встроенная функция для перевода в 2-ную систему счисления
+'''
+
+# Для замены больших чисел на буквы, нам нужен алфавит, рассмотрим два варианта создания:
+'''
+import string
+ALPHABET1 = string.digits + string.ascii_uppercase
+print(ALPHABET1)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+ALPHABET2 = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(ALPHABET2)  # ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+print(len(ALPHABET2))  # 36
+'''
+
+# Перевод из 10-ной в n-ную систему счисления, но через СТРОКИ
 '''
 x = int(input('x: '))
-y = int(input('y: '))
-
-if x > 0:
-    if y > 0:  # x > 0 and y > 0
-        print('Первая четверть')
-    else:  # x > 0 and y <= 0
-        print('Четвертая четверть')
-else:
-    if y > 0:  # x <= 0 and y > 0
-        print('Вторая четверть')
-    elif y < 0:
-        print('Третья четверть')
-    else:  
-        print('Лежит на оси')
+n = int(input('n: '))
+s = ''
+while x > 0:
+    s += ALPHABET2[x % n]
+    x //= n
+s = s[::-1]
+print(s)
 '''
 
-# Логические связки: and, or, not
+# Бесконечный цикл
 '''
-a = 7
-b = 7
-c = -5
-if a > 0 and b > 0 and c > 0:
-    print(1)
-elif (a > 0 or b > 0) and c > 0:
-    print(2)
-else:
-    print(3)
-'''
-
-'''
-flag = True
-print(not flag)  # False
-
-M = []
-while flag:  # пока flag == True
-    print(M)
-    x = int(input('x: '))
-    if x == 0:
-        flag = False  # exit()
-    M.append(x)
-'''
-
-
-# Соберем мини калькулятор
-'''
+k = 1
 while True:
-    try:
-        a = int(input('\n\na: '))
-        s = input('s: ')
-        b = int(input('b: '))
-
-        if s == '+':
-            print(f'{a} + {b} = {a+b}')
-        elif s == '-':
-            print(f'{a} - {b} = {a-b}')
-        elif s == '*':
-            print(f'{a} * {b} = {a*b}')
-        elif s == '/':
-            print(f'{a} / {b} = {a/b}')
-    except Exception as e:
-        print(f'Что-то пошло не так, ошибка: {e}')
+    k += 1
+    print(k)
 '''
-# ZeroDivisionError: division by zero
+
+# Рассмотрим break и continue
+'''
+for x in range(0, 100+1):
+    if x % 2 != 0:
+        continue
+    if x == 50:
+        break
+    print(x)
+print('КОНЕЦ')
+'''
+
+# Напишем простой консольный калькулятор перевода в разные системы счисления
+'''
+ALPHABET = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+while True:
+
+    case = input('\ncase 1: Перевод из 10-ной в n-ную систему счисления \n'
+                 'case 2: Перевод из n-ной в 10-ную систему счисления \n'
+                 'case 3: Перевод из k-ной в n-ную систему счисления \n'
+                 'case 0: exit \n')
+
+    if case == '1':
+        x = int(input('Введем число в 10-ной системе: '))
+        x2 = x
+        n = int(input('Введем n-ную систему: '))
+        s = ''
+        while x2 > 0:
+            s += ALPHABET[x2 % n]
+            x2 //= n
+        s = s[::-1]
+        print(f'Результат перевода числа {x} в {n}-ную систему счисления: {s}')
+
+    elif case == '2':
+        n = int(input('Введите n-ную систему счисления: '))
+        s = input(f'Введите число в {n}-ной системе счисления: ')
+        x = int(s, n)
+        print(f'Результат перевода числа {s} из {n}-ной системы счисления в 10-ную: {x}')
+
+    elif case == '3':
+        n = int(input('Введите n-ную систему счисления: '))
+        s = input(f'Введите число в {n}-ной системе счисления: ')
+        k = int(input('Введите k-ную систему счисления: '))
+        x = int(s, n)
+        x2 = x
+        r = ''
+        while x2 > 0:
+            r += ALPHABET[x2 % k]
+            x2 //= k
+        r = r[::-1]
+        print(f'Результат перевода числа {s} из {n}-ной системы счисления в {k}-ную: {r}')
+
+    elif case == '0':
+        break
+'''
+
+# Проверка пароля пользователя
+'''
+import random
+import time
+
+pas = 'qwerty'
+password = input('Введите пароль: \n')
+count = 0
+while True:
+    if pas == password:
+        print('Welcome')
+        break
+    count += 1
+    if count == 3:
+        print('Подозрительные действия, пройдите проверку на робота!')
+        a = random.randint(0, 100)
+        b = random.randint(0, 100)
+        x = int(input(f'{a} + {b} == '))
+        if x == a + b:
+            count = 0
+            print('Проверка на работа пройдена успешно! \n\n')
+        else:
+            print('Проверка не пройдена, попробуйте через 5 минут!')
+            time.sleep(60*5)
+
+    password = input('Неверный пароль, попробуйте снова: \n')
+'''
+
+#  ¬x    --->  (not x)  - отрицание (инверсия)
+# x ∧ y  --->  x and y  - конъюнкция (логическое умножение)
+# x ∨ y  --->  x or y  - дизъюнкция (логическое сложение)
+# x → y  --->  x <= y  - импликация
+# x ≡ y  --->  x == y  - тождество (сравнение)
+
+# ((¬x ∨ z) ≡ (y ∧ ¬w)) → (z ∧ y)
+# (((not x) or z) == (y and (not w))) <= (z and y)
+
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (((not x) or z) == (y and (not w))) <= (z and y)
+                if not F:
+                    print(x, y, z, w, F)
 
 
 # endregion Урок: ******************************************************************
