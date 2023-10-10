@@ -1,117 +1,216 @@
 
 # region Домашка: ******************************************************************
-'''
-a = int(input())
-b = int(input())
-print(f'{a} + {b} = {a + b}')
-print(f'{a} - {b} = {a - b}')
-e = a * b
-f = a % b
-print(a, "*", b, '=', e)
-print(a, "%", b, '=', f)
-'''
 
-'''
-x = int(input())  # 768
-a = x // 100
-b = (x % 100) // 10
-c = x % 10
-print(f'Сумма цифр = {a + b + c}')
-print('Произведение цифр =', a * c * b)
-'''
-
-'''
-a = int(input())
-b = int(input())
-c = int(input())
-print(f'{a + b + c}')
-'''
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
 
-# Как работать с функцией print()
-# Задача написать текст: "Сегодня отличная погода - облачно, а температура 24 градуса!"
+# Циклы while и for: Цикл - повторяющееся действие
+
+# Цикл for: "Повтори n раз", "Пробеги от a до b"
 '''
-weather = 'облачно'  # str()
-temperature = int(input('Введите температуру: '))  # int()
-print("Сегодня отличная", weather, "- облачно, а температура", temperature, "градуса!")
-print("Сегодня отличная " + weather + " - облачно, а температура " + str(temperature) + " градуса!")
-print("Сегодня отличная {} - облачно, а температура {} градуса!".format(weather, temperature))
-print(f"Сегодня отличная {weather} - облачно, а температура {temperature} градуса!")
-# TypeError: can only concatenate str (not "int") to str
-'''
-
-
-# Базовая арифметика Пайтон
-'''
-print(f'Прочитал книжку "Война и мир" ')
-
-a = 7
-b = 2
-print(f'{a} + {b} = {a+b} \n'  # \n символ перехода на новую строчку в консоли
-      f'{a} - {b} = {a-b} \n'
-      f'{a} * {b} = {a*b}')
-
-print()  # '\n' в пустом принте присутствует
-
-print(f'{a} / {b} = {a/b} - вещественное деление (получает float дробь) \n'  
-      f'{a} // {b} = {a//b} - целочисленное деление, только целая часть \n'
-      f'Округление по математическим правилам: {a} / {b} = {round(a / b)}\n'
-      f'{a} % {b} = {a%b} - остаток от деления (от обыкновенной дроби)')
-
+# Работа цикла for с использованием функции range()
+for x in range(10):  # range(START=0, STOP=10-1, STEP=1)
+    print(x, end=' ')  # 0 1 2 3 4 5 6 7 8 9
 print()
 
-n = int(input('n: '))
-if n % 2 == 0:  # если делится на 2 без остатка, то число n четное
-      print('Четное!')
-else:
-      print('Нечетное')
-
+for x in range(2, 10):  # range(START=2, STOP=10-1, STEP=1)
+    print(x, end=' ')  # 2 3 4 5 6 7 8 9
 print()
 
-import math
-print(math.sqrt(16))
-print(f'Возведите {a} в степень {b}: {a} ** {b} = {a ** b} \n'
-      f'Возьмите квадратный корень от числа 16: 16 ** (1/2) = {16 ** (1/2)} \n'
-      f'Возьмите кубический корень от числа 27: 27 ** (1/3) = {27 ** (1/3)} ')
+for x in range(2, 10, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8
+print()
+
+for x in range(2, 10+1, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8 10
+print()
+
+for x in range(10, 0, -1):
+    print(x, end=' ')  # 10 9 8 7 6 5 4 3 2 1
+print()
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+
+s = 'abcde'
+
+print(M[0], M[-1])   # взятие крайнего левого и крайнего правого элементов
+print(s[0], s[-1])  # a e
+
+for i in range(0, len(M)):  # len(M) - это функция возвращающая длину последовательности (кол-во элементов)
+    # print(i, end=' ')  # 0 1 2 3 4
+    print(M[i], end=' ')  # a b c d e
+    # Получаем элементы списка через индексы
+print()
+
+for i in range(len(s)):
+    print(s[i], end=' ')  # a b c d e
+print()
+
+# В чем разница использования индексов через функцию range для списков и строк?
+# Ответ: в списках через индексы можно менять элементы, а в строках/кортежах нельзя
+
+# i   0    1    2    3    4
+M = ['a', 'b', 'c', 'd', 'e']
+# -i -5   -4   -3   -2   -1
+
+for i in range(len(M)):
+    M[i] = M[i] * i
+print(M)  # ['', 'b', 'cc', 'ddd', 'eeee']
+
+
+# Можно обращаться (брать) к элементам последовательности напрямую
+
+M = ['a', 'b', 'c', 'd', 'e']
+s = 'abcde'
+
+for x in M:
+    print(x, end=' ')  # a b c d e
+print()
+
+import random
+L = [random.randint(1, 100) for _ in range(10)]  # [90, 17, 72, 79, 68, 52, 51, 17, 17, 24]
+print(L)
+
+# Задача: взять все четные элементы списка
+for x in L:
+    if x % 2 == 0:
+        print(x, end=' ')
+print()
 '''
 
 
-# Условные операторы, ветвление: if, elif, else
+# Цикл while: "Повторяй действие ПОКА условие выполняется", "Бесконечный цикл"
 '''
-x = -6
-y = -7
-if x > 0 and y > 0:  # if - если
-      print('1')
-elif x < 0 and y > 0:
-      print('2')
-elif x < 0 and y < 0:  # elif - иначе если
-      print('3')
-elif x > 0 and y < 0:
-      print('4')
-else:  # else - иначе
-      print('Лежит на осях')
+for x in range(2, 10+1, 2):  # range(START=2, STOP=10-1, STEP=2)
+    print(x, end=' ')  # 2 4 6 8 10 
+print()
+
+i = 2
+while i <= 10:
+    print(i, end=' ')  # 2 4 6 8 10 
+    i += 2
+print()
 '''
 
+
+# Перевод из 10-ной в 2-ную систему счисления
 '''
-# Не кратен:
-x = 7
-if x % 2 != 0:
-      print('Не кратен 2-ум')
+x = 8
+M = []
+while x > 0:
+    M.append(x % 2)  # метод списков, который добавляет новый элемент в конец списка
+    x //= 2
+M.reverse()  # это метод списков, разворачивающий все элементы в обратном порядке
+print(M)
 '''
 
-# Логические связки: and, or, not
+# Перевод из 10-ной в n-ную систему счисления
 '''
-a = -7
-b = -8
-if a > 0 and b > 0:
-      print('YES 1')
-if a > 0 or b > 0:
-      print('YES 2')
-else:
-      print('NO')
+x = int(input())
+n = int(input())
+M = []
+while x > 0:
+    M.append(x % n)  # метод списков, который добавляет новый элемент в конец списка
+    x //= n
+M.reverse()  # это метод списков, разворачивающий все элементы в обратном порядке
+print(M)
+'''
+
+# Перевод из 10-ной в n-ную через строки
+'''
+import string as st
+alphabet1 = st.digits + st.ascii_uppercase
+print(alphabet1)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+alphabet2 = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+
+x = int(input())
+n = int(input())
+s = ''
+while x > 0:
+    s += alphabet1[x % n]
+    x //= n
+s = s[::-1]  # срез элементов строки в обратном порядке
+print(s)
+'''
+
+
+# break и continue
+'''
+for x in range(100):
+    if x == 50:
+        break
+    if x % 2 != 0:
+        continue
+    print(x)
+'''
+
+# Бесконечные циклы
+'''
+k = 1
+while True:
+    k += 1
+    print(k)
+'''
+
+
+# программа для проверки пароля
+'''
+import random
+import time
+pas = 'qwerty'
+count = 0
+password = input('Введите пароль для проверки: ')
+while True:
+    if pas == password:
+        print('Welcome!')
+        break
+    password = input('Пароль неверный, попробуйте снова: ')
+    count += 1
+    if count == 2:
+        print('Подозрительная попытка входа, пройдите проверку на робота, решив пример: ')
+        a = random.randint(1, 100)
+        b = random.randint(1, 100)
+        x = int(input(f'{a} + {b} = '))
+        if x == a + b:
+            count = 0
+            print('Проверка пройдена успешно!')
+        else:
+            print('Проверка на робота не пройдена, повторите через 5 минут: ')
+            time.sleep(5*60)
+'''
+
+
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+while True:
+    case = input('\n\ncase 1: Перевод из 10-ной в n-ную: \n'
+                 'case 2: \n'
+                 'case 3: \n'
+                 'case 0: exit \n')
+
+    if case == '1':
+        x = int(input('Введите 10-ное число для перевода: '))
+        n = int(input('Введите систему счисления в которую будем переводить: '))
+        s = ''
+        while x > 0:
+            s += alphabet[x % n]
+            x //= n
+        s = s[::-1]  # срез элементов строки в обратном порядке
+        print(f'Результат перевода: {s}')
+
+    elif case == '2':
+        pass
+
+    elif case == '3':
+        pass
+
+    elif case == '0':
+        break
 '''
 # endregion Урок: ******************************************************************
 
