@@ -1,98 +1,164 @@
 
 # region Домашка: ******************************************************************
 
-# # ((x → y ) ∧ (y → w)) ∨ (z ≡ ( x ∨ y))
-# F=((X <= Y) and (y<=w)) or (z==(x or y))
-# https://inf-ege.sdamgia.ru/problem?id=15787
-#
-# # (x ≡ ( w ∨ y)) ∨ ((w → z ) ∧ (y → w))
-# F=(x==(w or y)) or ((w<=z) and (y<=w))
-# https://inf-ege.sdamgia.ru/problem?id=15814
-#
-# # (z ∧ y) ∨ ((x → z ) ≡ (y → w))
-# F=(z and y) or ((x<=z)==(y<=w))
-# https://inf-ege.sdamgia.ru/problem?id=15939
-#
-# # ((y → x) ≡ (x → w)) ∧ (z ∨ x)
-# F= ((y <= x) == (x <= w)) and (z or x)
-# https://inf-ege.sdamgia.ru/problem?id=16431
-#
-# # (x≡¬y)→(z≡(y∨w))
-# F=(x == (not y))<=(z == (y or w))
-# https://inf-ege.sdamgia.ru/problem?id=16878
-#
-# # ((x ∧ y) ∨ (y ∧ z)) ≡ ((x → w) ∧ (w → z))
-# F=((x and  y)or(y and z)) == ((x<=w) and (w<=z))
-# https://inf-ege.sdamgia.ru/problem?id=17320
-#
-# # (z ∧ y) ∨ ((x → z ) ≡ (y → w))
-# F=(z and y) or ((x<=z) == (y<=w))
-# https://inf-ege.sdamgia.ru/problem?id=15939
-#
-# # (x ∧ ¬y) ∨ (y ≡ z ) ∨ w
-# F=(x and (not y)) or (y == z) or w
-# https://inf-ege.sdamgia.ru/problem?id=15970
-#
-# #  ((x → y) ≡ (y → z)) ∧ (y ∨ w)
-# F=((x<=y) == (y<=z)) and (y or w)
-# https://inf-ege.sdamgia.ru/problem?id=16377
-#
-# # ((y → x) ≡ (x → w)) ∧ (z ∨ x)
-# F=((y<=x) == (x<=w)) and (z or x)
-# https://inf-ege.sdamgia.ru/problem?id=16431
-
-
-x, y, z, w = 1, 1, 1, 1
-# ¬(((x → y ∧ w) ∧ (z → x ∨ y)) ≡ w)
-F = not(((x <= (y and w)) and (z <= (x or y))) == w)
-
 # endregion Домашка: ******************************************************************
 
 
 # region Урок: ******************************************************************
 
-# Тип 2 №56502
-# Логическая функция F задаётся выражением:
-# ((x→y)∨(z→w))∧((z≡y)→(w≡x))
-'''
-print('x y z w F')
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = ((x <= y) or (z <= w)) and ((z == y) <= (w == x))
-                if not F:
-                    print(x, y, z, w, int(F))
+# Тип 6 №59829
+# В начальный момент Черепаха находится в начале координат,
+# её голова направлена вдоль положительного направления оси ординат, хвост опущен.
+
+# Черепахе был дан для исполнения следующий алгоритм:
+# Повтори 2 [Вперёд 9 Направо 90 Вперёд 15 Направо 90]
+# Поднять хвост
+# Вперёд 12 Направо 90
+# Опустить хвост
+# Повтори 2 [Вперёд 6 Направо 90 Вперёд 12 Направо 90]
+#
+# Определите, сколько точек с целочисленными координатами будут находиться внутри объединения фигур,
+# ограниченных заданными алгоритмом линиями, не включая точки на границах этого объединения.
 
 '''
+import turtle as t
 
-# Тип 2 №51971
-# Логическая функция F задаётся выражением:
-# (x≡¬y)→((z→¬w)∧(w→y))
-'''
-print('x y z w F')
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = (x == (not y)) <= ((z <= (not w)) and (w <= y))
-                print(x, y, z, w, int(F))
+# Меняем скорость отрисовки
+t.tracer(0)     # быстрая отрисовка фигуры
+
+t.left(90)
+l = 30
+
+# Повтори 2 [Вперёд 9 Направо 90 Вперёд 15 Направо 90]
+for i in range(2):
+    t.forward(9 * l)
+    t.right(90)
+    t.forward(15 * l)
+    t.right(90)
+
+# Поднять хвост
+t.up()
+
+# Вперёд 12 Направо 90
+t.forward(12 * l)
+t.right(90)
+
+# Опустить хвост
+t.down()
+
+# Меняем цвет пера
+t.color('green')
+
+# Повтори 2 [Вперёд 6 Направо 90 Вперёд 12 Направо 90]
+for i in range(2):
+    t.forward(6 * l)
+    t.right(90)
+    t.forward(12 * l)
+    t.right(90)
+
+t.up()
+for x in range(0, 16):
+    for y in range(0, 16):
+        t.goto(x * l, y * l)
+        t.dot(2, 'red')
+
+t.done()
 '''
 
-#  ((y → z) ∨ (¬x ∧ w)) ≡ (w ≡ z)
-print('x y z w F')
-for x in range(2):
-    for y in range(2):
-        for z in range(2):
-            for w in range(2):
-                F = ((y <= z) or ((not x) and w)) == (w == z)
-                if F:
-                    print(x, y, z, w, int(F))
+
+# todo Вспомнить как решается через canvas
+'''
+import turtle as t
+
+# Меняем скорость отрисовки
+t.speed(5)
+
+t.left(90)
+l = 30
+
+# Повтори 2 [Вперёд 9 Направо 90 Вперёд 15 Направо 90]
+t.begin_fill()
+for i in range(2):
+    t.forward(9 * l)
+    t.right(90)
+    t.forward(15 * l)
+    t.right(90)
+t.end_fill()
+# Поднять хвост
+t.up()
+
+# Вперёд 12 Направо 90
+t.forward(12 * l)
+t.right(90)
+
+# Опустить хвост
+t.down()
+
+t.begin_fill()
+# Повтори 2 [Вперёд 6 Направо 90 Вперёд 12 Направо 90]
+for i in range(2):
+    t.forward(6 * l)
+    t.right(90)
+    t.forward(12 * l)
+    t.right(90)
+t.end_fill()
+
+count = 0
+canvas = t.getcanvas()
+for x in range(-100 * l, 100 * l, l):
+    for y in range(-100 * l, 100 * l, l):
+        z = canvas.find_overlapping(x, y, x, y)
+        if len(z) == 1 and z[0] == 5:
+            count += 1
+print(count)
+
+t.done()
+'''
+
+
+# Тип 6 №55802
+# В начальный момент Черепаха находится в начале координат и направлена вверх
+# (вдоль положительного направления оси ординат), хвост опущен.
+# Черепахе был дан для исполнения следующий алгоритм:
+
+# Направо 315
+# Повтори 7 [Вперёд 16 Направо 45 Вперёд 8 Направо 135]
+#
+# Определите, сколько точек с целочисленными координатами будет находиться внутри фигуры,
+# ограниченной заданным алгоритмом линиями, не включая точки на линиях.
+'''
+import turtle as t
+
+t.left(90)
+l = 20
+
+t.begin_fill()
+t.right(315)
+for i in range(2):
+    t.forward(16 * l)
+    t.right(45)
+    t.forward(8 * l)
+    t.right(135)
+t.end_fill()
+
+count = 0
+canvas = t.getcanvas()
+for x in range(-100*l, 100*l, l):
+    for y in range(-100*l, 100*l, l):
+        z = canvas.find_overlapping(x, y, x, y)
+        if len(z) == 1 and z[0] == 5:
+            count += 1
+print(count)
+
+t.done()
+'''
+
+# Ответ: 77
 
 # endregion Урок: ******************************************************************
 
 
-# todo: Екатерина = []
+# todo: Екатерина = [2.1, 6.1]
 # todo: КЕГЭ  = []
 # на прошлом уроке:
 # на следующем уроке:
