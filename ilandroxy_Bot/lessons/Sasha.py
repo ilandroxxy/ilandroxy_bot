@@ -5,22 +5,19 @@
 
 # region Урок: ************************************************************
 
-import sqlite3 as sq
+'''
+kol_byte_na_symbol = int(input('Вводим бит и считаем кол-во байт на 1 символ: ')) // 8  # 16
+stroka = input('Строка с названиями: ')      # D, Io, Ada, Java, Swift, Python, ColdFusion
+kol_symbols = (int(input('Введите разность от сходного: ')) - (2 * kol_byte_na_symbol)) // kol_byte_na_symbol
+
+new_s = stroka.split(', ')
+for slovo in new_s:
+    if len(slovo) == kol_symbols:
+        print(slovo)
+'''
 
 
-db = sq.connect("sqlite.db")
-cur = db.cursor()
 
-cur.execute("""CREATE TABLE IF NOT EXISTS users(
-                            user_id INTEGER,
-                            username TEXT,
-                            name TEXT)
-                """)
-db.commit()
-cur.execute("INSERT INTO users VALUES(?, ?, ?)", (1232142, 'ilandroxxy', 'Ilya'))
-db.commit()
-
-# endregion db_start()
 
 
 # endregion Урок: ************************************************************
