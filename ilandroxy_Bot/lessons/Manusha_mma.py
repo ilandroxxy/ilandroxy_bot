@@ -956,6 +956,4 @@ file = open(path_to_first, encoding='utf8')
 
 file_2 = open(path_to_second, encoding='utf8')
 
-# todo: Мария
-# на прошлом уроке:
 # на следующем уроке:

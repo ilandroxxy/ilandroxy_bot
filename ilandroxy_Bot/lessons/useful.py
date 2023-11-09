@@ -36,5 +36,10 @@ def MyConvert(x: int, n: int) -> str:
     return ''.join(M)
 
 
+def OrelReshka():
+    results = ['Орел 🪙', 'Решка 🪙']
+    return random.choice(results)
+
+
 if __name__ == '__main__':
     print("Hello, world!")
