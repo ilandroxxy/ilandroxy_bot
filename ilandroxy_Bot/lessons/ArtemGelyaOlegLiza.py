@@ -1,67 +1,63 @@
 
 # region Домашка: ******************************************************************
 
-# № 2573 (Уровень: Средний)
-# Дана программа для исполнителя Редактор:
-#
-# ПОКА нашлось(55555)
-#    заменить(55555, 88)
-#    заменить(888, 55)
-# КОНЕЦ ПОКА
-# Известно, что начальная строка состоит более чем из 300 цифр 5 и не содержит других цифр.
-# При какой наименьшей длине исходной строки результат работы этой программы будет содержать
-# наибольшее возможное число цифр 5?
-'''
-R = []
-maxi = 0
-for i in range(301, 500):
-    s = i * '5'
-    while '55555' in s:
-        s = s.replace('55555', '88', 1)
-        s = s.replace('888', '55', 1)
-    if maxi < s.count('5'):
-        maxi = s.count('5')
-        R.append(i)
-        # print(i, maxi)
-print(max(R))
-'''
-
-
-# № 5632 (Уровень: Средний) (М. Ишимов)
-#
-# Операнды арифметического выражения записаны в системе счисления с основанием 21.
-#
-# 32yxA_21 + 16y18_21
-#
-# В записи чисел переменными х и у обозначены две неизвестные цифры из алфавита
-# 21-ричной системы счисления. Определите наименьшее значение х, при котором значение
-# данного арифметического выражения кратно 12_10 при любом нечётном значении у.
-# Для найденного значения х вычислите частное от деления
-# значения арифметического выражения на 12_10 при у = 7
-# и укажите его в ответе в десятичной системе счисления.
-# Основание системы счисления в ответе указывать не нужно.
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-
-for x in alphabet[:21]:
-    if all((int(f'32{y}{x}A', 21) + int(f'16{y}18', 21)) % 12 == 0 for y in alphabet[1:21:2]):
-        print((int(f'32{7}{x}A', 21) + int(f'16{7}18', 21)) // 12)
-        break
-'''
+# КЕГЭ № 5268 (Уровень: Средний) (С. Якунин)
+# Дмитрий составляет слова, переставляя буквы в слове АМФИБРАХИЙ.
+# Сколько различных слов, содержащих ИИФАА или ААФИИ, может составить Дмитрий?
 
 '''
-import math as m
-print(m.lcm(4, 20))
-
-from math import *  # лучше так не подключать библиотеки 
-
-def lcm(a, b):
-    return None
+from itertools import permutations
+my_set = set()
+for x in permutations('АМФИБРАХИЙ'):
+    slovo = ''.join(x)
+    if 'ИИФАА' in slovo or 'ААФИИ' in slovo:
+        my_set.add(slovo)
+print(len(my_set))
+'''
+'''
+from itertools import permutations
+words = permutations('АМФИБРАХИЙ')
+k = set()
+for w in words:
+    word = ''.join(w)
+    if 'ИИФАА' in word or 'ААФИИ' in word:
+        k.add(word)
+print(len(k))
 '''
 
+
+# print('02 20 04 40 06 60 24 42 26 62 46 64 13 31 15 51 17 71 35 53 37 73 57 75'.split())
+
+# # КЕГЭ № 4320 (Уровень: Средний)
+# # Сколько существует восьмеричных шестизначных чисел, в которых все цифры различны,
+# # никакие две чётные или две нечётные цифры не стоят рядом и десятичная запись которых делится на 5?
 '''
-maxi = 0
-print(max([1, 2, 3, 4]))
+from itertools import permutations
+count = 0
+for x in permutations('01234567', 6):
+    num = ''.join(x)
+    if int(num, 8) % 5 == 0:
+        if all(pair not in num for pair in '02 20 04 40 06 60 24 42 26 62 46 64 13 31 15 51 17 71 35 53 37 73 57 75'.split()):
+            if num[0] != '0':
+                count += 1
+print(count)
+
+
+
+from itertools import permutations
+PAIRS = []
+for x in permutations('01234567', 2):
+    if (x[0] in '0246' and x[1] in '0246') or (x[0] in '1357' and x[1] in '1357'):
+        PAIRS.append(''.join(x))
+
+count = 0
+for x in permutations('01234567', 6):
+    num = ''.join(x)
+    if int(num, 8) % 5 == 0:
+        if all(pair not in num for pair in PAIRS):
+            if num[0] != '0':
+                count += 1
+print(count)
 '''
 
 # endregion Домашка: ******************************************************************
@@ -69,382 +65,334 @@ print(max([1, 2, 3, 4]))
 
 # region Урок: ******************************************************************
 
-# Тип 8 №8658
-# Все 5-буквенные слова, составленные из букв А, Н, П, записаны в алфавитном порядке.
-#
-# Вот начало списка:
-# 1. ААААА
-# 2. ААААН
-# 3. ААААП
-# 4. АААНА
-# 5. АААНН
-#
-# Запишите слово, которое стоит на 201-м месте от начала списка.
+# Создание своих функций в Пайтон
 '''
-s = sorted('АНП')
-# print(s)  # ['А', 'Н', 'П']
-k = 1
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    if k == 201:
-                        print(k, slovo)
-                    k += 1
-
-# Вариант 2
-from itertools import product
-k = 1
-for s in product(sorted('АНП'), repeat=5):
-    slovo = ''.join(s)
-    if k == 201:
-        print(k, slovo)
-    k += 1
-'''
-# Ответ: ПННАП
-
-
-# Тип 8 №19059
-# Все 4-буквенные слова, в составе которых могут быть буквы Н, О, Т, К, И,
-# записаны в алфавитном порядке и пронумерованы, начиная с 1.
-#
-# Ниже приведено начало списка.
-# 1. ИИИИ
-# 2. ИИИК
-# 3. ИИИН
-# 4. ИИИО
-# 5. ИИИТ
-# 6. ИИКИ
-#
-# Под каким номером в списке идёт первое слово, которое начинается с буквы О?
-'''
-from itertools import product
-k = 1
-for s in product(sorted('НОТКИ'),  repeat=4):
-    slovo = ''.join(s)
-    if slovo[0] == 'О':
-        print(k, slovo)
-        break
-    k += 1
-'''
-# Ответ: 376
-
-
-# Указал на ошибку в условии 59744
-
-# Тип 8 №59744
-# Евгений составляет 6-буквенные слова из букв М, У, Ж, Ч, И, Н, А.
-# Каждая из букв может встречаться в слове ровно один раз, причём первой буквой не может быть Ч,
-# буква Ж должна встречаться не менее 1 раза и номер слова должен быть нечётный.
-#
-# Сколько различных слов может составить Евгений?
-'''
-from itertools import permutations
-count = 0
-k = 1
-for s in permutations('МУЖЧИНА', 6):
-    slovo = ''.join(s)
-    if slovo[0] != 'Ч' and slovo.count('Ж') >= 1:
-        k += 1
-        if k % 2 != 0:
-            count += 1
-print(count)
-
-# Вариант 2
-s = 'МУЖЧИНА'
-k = 1
-count = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        slovo = a + b + c + d + e + f
-                        if len(set(slovo)) == len(slovo):
-                            if slovo[0] != 'Ч' and slovo.count('Ж') >= 1:
-                                k += 1
-                                if k % 2 != 0:
-                                    count += 1
-print(count)
-'''
-# Ответ: Ответ: 1860
-
-
-# Тип 8 №48456
-# Определите количество шестизначных чисел, записанных в девятеричной системе счисления,
-# в записи которых ровно одна цифра 4 и ровно две нечётные цифры.
-'''
-s = '012345678'
-count = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        num = a + b + c + d + e + f
-                        if num[0] != '0' or a != '0':
-                            if num.count('4') == 1:
-                                nechet = [int(x) for x in num if int(x) % 2 != 0]
-                                if len(nechet) == 2:
-                                    # print(num, nechet)
-                                    count += 1
-print(count)
-
-# Вариант 2
-from itertools import product
-count = 0
-for s in product('012345678', repeat=6):
-    num = ''.join(s)
-    if num[0] != '0':
-        if num.count('4') == 1:
-            nechet = [int(x) for x in num if int(x) % 2 != 0]
-            if len(nechet) == 2:
-                # print(num, nechet)
-                count += 1
-print(count)
-'''
-# Ответ: 53760
-
-
-# Отправил новый вариант решения на Решу ЕГЭ
-
-# Тип 8 №27009
-# Николай составляет 4-буквенные коды из букв Н, И, К, О, Л, А, Й.
-# Каждую букву можно использовать любое количество раз, при этом код не может начинаться с буквы Й
-# и должен содержать хотя бы одну гласную.
-# Сколько различных кодов может составить Николай?
-'''
-# Вариант 1
-from itertools import product
-count = 0
-for s in product('НИКОЛАЙ', repeat=4):
-    slovo = ''.join(s)
-    if slovo[0] != 'Й':
-        if any(x in slovo for x in 'ИОА'):
-            count += 1
-print(count)
-
-# Вариант 2
-s = 'НИКОЛАЙ'
-count = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                slovo = a + b + c + d
-                if slovo[0] != 'Й':
-                    if any(x in slovo for x in 'ИОА'):
-                        print(slovo)
-                        count += 1
-print(count)
-'''
-# Ответ: 1866
-
-
-# Сообщил об ошибке на Решу ЕГЭ
-# Тип 8 №58237
-# Сколько существует различных четырёхзначных чисел, записанных в семеричной системе счисления,
-# в записи которых цифры следуют слева направо в строго убывающем порядке?
-
-
-# Каждую цифру можно использовать только один раз*
-'''
-from itertools import product
-count = 0
-for num in product('0123456', repeat=4):
-    if list(num) == sorted(num, reverse=True):
-        print(num)
-        count += 1
-print(count)
-
-
-from itertools import permutations
-count = 0
-for num in permutations('0123456', 4):
-    if list(num) == sorted(num, reverse=True):
-        print(num)
-        count += 1
-print(count)
-'''
-'''
-from itertools import product
-alphabet = '0123456'
-ap=[]
-for i in product(alphabet, repeat=4):
-    if i[0] > i[1] > i[2] > i[3]:  # Каждую цифру можно использовать только один раз*
-        ap.append(i)
-print(len(ap))
-'''
-# Ответ: 35 / 210
-
-
-# Тип 8 №47005
-# Светлана составляет коды из букв слова ПАРАБОЛА. Код должен состоять из 8 букв,
-# и каждая буква в нём должна встречаться столько же раз, сколько в заданном слове.
-# Кроме того, в коде не должны стоять рядом две гласные и две согласные буквы.
-# Сколько кодов может составить Светлана?
-'''
-from itertools import permutations
-
-P = []
-for s in permutations('ПРБЛ', 2):
-    pair = ''.join(s)
-    P.append(pair)
-
-count = set()
-for s in permutations('ПАРАБОЛА', 8):
-    slovo = ''.join(s)
-    if all(pair not in slovo for pair in ['АА', 'АО', 'ОА'] + P):
-        count.add(slovo)
-print(len(count))
-'''
-# Ответ: 192
-
-# Тип 8№ 59832
-# Игорь составляет пятизначные числа, используя цифры девятеричной системы счисления. Сколько различных чисел
-# может составить Игорь, в которых ровно две цифры 3 и нечётные цифры не стоят рядом с цифрой 2?
-'''
-count = 0
-s = '012345678'
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    num = a + b + c + d + e
-                    if num[0] != '0':
-                        if num.count('3') == 2:
-                            if all(pair not in num for pair in '12 21 32 23 52 25 72 27'.split()):
-                                count += 1
-print(count)
-'''
-# Ответ: 3352
-
-
-# № 9777 Основная волна 20.06.23 (Уровень: Базовый)
-# Все пятибуквенные слова, составленные из букв К, О, М, П, Ь, Ю, Т, Е, Р,
-# записаны в алфавитном порядке и пронумерованы.
-# Вот начало списка:
-# 1. ЕЕЕЕЕ
-# 2. ЕЕЕЕК
-# 3. ЕЕЕЕМ
-# 4. ЕЕЕЕО
-# 5. ЕЕЕЕП
-# 6. ЕЕЕЕР
-# 7. ЕЕЕЕТ
-# 8. ЕЕЕЕЬ
-#
-# Под каким номером в списке стоит последнее слово с нечётным номером, которое не начинается с буквы Ь
-# и содержит ровно две буквы К?
-'''
-s = sorted('КОМПЬЮТЕР')
-k = 1
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    if k % 2 != 0 and slovo[0] != 'Ь' and slovo.count('К') == 2:
-                        print(k, slovo)
-                    k += 1
-'''
-# Ответ: 58979
-
-'''
-# print(help(range))
-print(range.__doc__)
-'''
-# range(stop) -> range object
-# range(start, stop[, step]) -> range object
-#
-# Return an object that produces a sequence of integers from start (inclusive)
-# to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.
-# start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.
-# These are exactly the valid indices for a list of 4 elements.
-# When step is given, it specifies the increment (or decrement).
-
-'''
-def Prime(x: int) -> bool:
-    """
-    Функция Prime проверяет число и дает ответ, простое оно или составное
-    :param x: Принимает целое число x
-    :return: Возвращает bool значение: True - если простое, False - если составное
-    """
-    for j in range(2, x):
-        if x % j == 0:
-            return False
-    return True
-
-result = Prime(7)
-print(result)
-'''
-'''
-print(Prime.__doc__)
-'''
-#   Функция Prime проверяет число и дает ответ, простое оно или составное
-#   :param x: Принимает целое число x
-#   :return: Возвращает bool значение: True - если простое, False - если составное
-
-
-# Напишем свою функцию Суммы
-''''
 M = [1, 2, 3]
-print(max(M))
 print(sum(M))
+print(max(M))
 
 print(max(1, 2, 3))
-# print(sum(1, 2, 3)) - не работает
-# TypeError: sum() takes at most 2 arguments (3 given)
+# print(sum(1, 2, 3))
+'''
 
-def my_summ(*args):
+'''
+def my_sum(*args):
+    """
+    print(type(args))  # <class 'tuple'>
+    print(args)  # (1, 2, 3)
+    """
     summ = 0
     for x in args:
         summ += x
     return summ
-    # return sum(args)
 
 
-print(my_summ(1, 2, 3))
+print(my_sum(1, 2, 3))
+'''
+
+'''
+def NOD(x, y):
+    r = 1
+    for j in range(1, min(x, y)+1):
+        if x % j == 0 and y % j == 0:
+            r = j
+    return r
+
+
+print(NOD(3, 14))
+print(NOD(15, 45))
 '''
 
 
-# Функция поиска делителей числа:
+# Тип 25 №27852
+# Напишите программу, которая ищет среди целых чисел, принадлежащих числовому
+# отрезку [185311; 185330], числа, имеющие ровно четыре различных натуральных делителя.
+# Для каждого найденного числа запишите эти четыре делителя в четыре
+# соседних столбцана экране с новой строки.
+# Делители в строке должны следовать в порядке возрастания.
 '''
-def Divisors(x: int) -> list:   # 24
+def Divisors(x: int):
     divisors = []
     for j in range(1, x+1):
         if x % j == 0:
             divisors.append(j)
     return divisors
 
-
-def Modified_Divisors(x: int) -> list:   # 24
-    divisors = set()
-    for j in range(1, int(x**0.5)+1):
-        if x % j == 0:
-            divisors.add(j)
-            divisors.add(x // j)
-    return sorted(divisors)
-
-
-print(Divisors(24))   # [1, 2, 3, 4, 6, 8, 12, 24]
-print(Modified_Divisors(16))
-
-for n in range(1000000000, 1000000100):
-    print(n, len(Modified_Divisors(1000000000)))
-
-print(Modified_Divisors(1000000000))
-print(Divisors(1000000000))
+for n in range(185311, 185330+1):
+    divisors = Divisors(n)
+    if len(divisors) == 4:
+        print(*divisors)
 '''
+
+# Тип 16 №4724
+# Алгоритм вычисления значения функции F(n).
+# где n — натуральное число, задан следующими соотношениями:
+#
+# F(1) = 1;
+# F(n) = F(n-1) * (n+1), при n > 1.
+#
+# Чему равно значение функции F(5)? В ответе запишите только натуральное число.
+'''
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return F(n-1) * (n+1)
+
+print(F(5))
+'''
+# Ответ: 360
+
+
+# Тип 16 №6779
+# Алгоритм вычисления значений функций F(n) и G(n), где n — натуральное число, задан следующими соотношениями:
+#
+# F(1) = 1;
+# G(1) = 1;
+#
+# F(n) = F(n – 1) – G(n – 1),
+# G(n) = F(n–1) + G(n – 1), при n ≥ 2
+#
+# Чему равно значение величины F(5)/G(5)?
+# В ответе запишите только натуральное число.
+'''
+def F(n):
+    if n == 1:
+        return 1
+    if n >= 2:
+        return F(n - 1) + G(n - 1)
+
+def G(n):
+    if n == 1:
+        return 1
+    if n >= 2:
+        return F(n - 1) + G(n - 1)
+
+print(F(5) / G(5))
+'''
+# Ответ: 1
+
+
+# Тип 16 №36871
+# Алгоритм вычисления значения функции F(n),
+# где n — целое неотрицательное число, задан следующими соотношениями:
+#
+# F(0) = 0;
+# F(n) = F(n / 2), если n > 0 и при этом чётно;
+# F(n) = 1 + F(n − 1), если n нечётно.
+#
+# Сколько существует таких чисел n, что 1 ≤ n ≤ 1000 и F(n) = 3?
+'''
+def F(n):
+    if n == 0:
+        return 0
+    if n > 0 and n % 2 == 0:
+        return F(n / 2)
+    if n % 2 != 0:
+        return 1 + F(n - 1)
+
+
+count = 0
+for n in range(1, 1000+1):
+    if F(n) == 3:
+        count += 1
+print(count)
+
+# Вариант 2
+print(len([n for n in range(1, 1000+1) if F(n) == 3]))
+'''
+# Ответ: 120
+
+
+# Тип 16 №59841
+# Задан алгоритм вычисления функции F(n), где n— натуральное число:
+#
+# F(n)=7, при n<7;
+# F(n)=2n+F(n−1), если n≥7.
+#
+# Чему равно значение функции F(2024)−F(2022)?
+'''
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n < 7:
+        return 7
+    if n >= 7:
+        return 2*n + F(n-1)
+
+
+print(F(2024) - F(2022))
+# RecursionError: maximum recursion depth exceeded
+
+# F(2024) = 2*2024 + F(2023)
+# F(2023) = 2*2023 + F(2022)  -  F(2022)
+print(2*2024 + 2*2023)
+'''
+# Ответ: 8094
+
+
+# Тип 23 №59768
+# 1. Прибавить 1
+# 2. Прибавить 2
+# 3. Умножить на 3
+
+# Сколько существует программ, для которых при исходном числе 3 результатом является число 25,
+# и при этом траектория вычислений содержит число 10 и не содержит число 17?
+'''
+def F(a, b):
+    if a > b or a == 17:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+
+print(F(3, 10) * F(10, 25))
+
+
+def F(a, b):
+    if a >= b or a == 17:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+
+print(F(3, 10) * F(10, 25))
+'''
+# Ответ: 6006
+
+
+# Тип 23 №61403
+# A. Прибавить 1
+# B. Умножить на 2
+# C. Возвести в квадрат
+#
+#  Сколько существует программ, которые преобразуют исходное число 3 в число 25
+#  и при этом траектория вычислений не содержит числа 14?
+'''
+def F(a, b):
+    if a >= b or a == 14:
+        return a == b
+    return F(a+1, b) + F(a*2, b) + F(a**2, b)
+
+
+print(F(3, 25))
+'''
+# Ответ: 26
+
+
+# Тип 23 №58214
+# 1. Вычти 1;
+# 2. Найди целую часть от деления на 3.
+
+# Сколько существует программ, для которых при исходном числе 67 результатом является число 5,
+# и при этом траектория вычислений содержит число 33?
+'''
+def F(a, b):
+    if a <= b:
+        return a == b
+    return F(a-1, b) + F(a//3, b)
+
+print(F(67, 33) * F(33, 5))
+'''
+# Ответ: 20
+
+'''
+def my_bit_conuction(x, y):
+    x_2 = bin(x)[2:]
+    y_2 = bin(y)[2:]
+    print(x_2, y_2)
+    while len(x_2) != len(y_2):
+        if len(x_2) < len(y_2):
+            x_2 = '0' + x_2
+        else:
+            y_2 = '0' + y_2
+
+    r = ''
+    for i in range(len(x_2)):
+        if x_2[i] == '1' and y_2[i] == '1':
+            r += '1'
+        else:
+            r += '0'
+    return int(r, 2)
+
+print(my_bit_conuction(14, 5))
+'''
+
+
+
+# Тип 15 №9804
+# Обозначим через m & n поразрядную конъюнкцию неотрицательных целых чисел m и n.
+#
+# Так, например, 14 & 5 = 1110_2 & 0101_2 = 0100_2 = 4.
+# Для какого наименьшего неотрицательного целого числа А формула
+#
+# x & 29 ≠ 0 → (x & 17 = 0 → x & А ≠ 0)
+#
+# тождественно истинна (т. е. принимает значение 1 при любом неотрицательном целом значении переменной x)?
+'''
+def F(x, A):
+    return (x & 29 != 0) <= ((x & 17 == 0) <= (x & A != 0))
+
+
+for A in range(0, 1000):
+    flag = True
+    for x in range(0, 10000):
+        if F(x, A) == False:
+            flag = False
+            break
+    if flag == True:
+        print(A)
+        break
+
+
+# Вариант 2
+
+def F(x, A):
+    return (x & 29 != 0) <= ((x & 17 == 0) <= (x & A != 0))
+
+
+for A in range(0, 1000):
+    if all(F(x, A) for x in range(0, 10000)):
+        print(A)
+        break
+
+
+# Вариант 3
+def F(x, A):
+    return (x & 29 != 0) <= ((x & 17 == 0) <= (x & A != 0))
+
+R = []
+for A in range(0, 1000):
+    if all(F(x, A) for x in range(0, 10000)):
+        R.append(A)
+print(min(R))
+
+# Вариант 4
+print(min([A for A in range(0, 1000) if all(((x & 29 != 0) <= ((x & 17 == 0) <= (x & A != 0))) for x in range(0, 10000))]))
+'''
+
+
+# Тип 15 №28554
+# Для какого наибольшего целого неотрицательного числа А выражение
+#
+# (x*y < 140) ∨ (y > A) ∨ (x > A)
+#
+# тождественно истинно, т.е. принимает значение 1 при любых целых неотрицательных x и y?
+
+def F(x, y, A):
+    return (x*y < 140) or (y > A) or (x > A)
+
+R = []
+for A in range(0, 1000):
+    if all(F(x, y, A) for x in range(100) for y in range(100)):
+        R.append(A)
+print(max(R))
 
 # endregion Урок: ******************************************************************
 
 
-# GOAL = [2.1, 5.1, 6.1, 8.1, 12.1, 14.1]
+# GOAL = [2.1, 5.1, 6.1, 8.1, 12.1, 14.1, 16.2, 23.1]
 # КЕГЭ  = []
 # на следующем уроке:
