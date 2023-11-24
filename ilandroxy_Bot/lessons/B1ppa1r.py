@@ -5,178 +5,125 @@
 
 # region Урок: ******************************************************************
 
-# Тип 8 №59744
-# Евгений составляет 6-буквенные слова из букв М, У, Ж, Ч, И, Н, А.
-# Каждая из букв может встречаться в слове ровно один раз, причём первой буквой не может быть Ч,
-# буква Ж должна встречаться не менее 1 раза и номер слова должен быть нечётный.
-# Сколько различных слов может составить Евгений?
+# Тип 16 №4658
+# Алгоритм вычисления значения функции F(n), где n – натуральное число, задан следующими соотношениями:
+# F(1) = 1
+# F(2) = 1
+# F(n) = F(n–1) * n − 2 * F(n–2), при n >2
+# Чему равно значение функции F(6)?
+# В ответе запишите только натуральное число.
 '''
-s = 'МУЖЧИНА'
-count = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        slovo = a + b + c + d + e + f
-                        if len(slovo) == len(set(slovo)):  # Каждая из букв может встречаться в слове ровно один раз
-                            if a != 'Ч' and slovo.count('Ж') >= 1:
-                                count += 1
-print(count / 2)
+def F(n):
+    if n == 1:
+        return 1
+    if n == 2:
+        return 1
+    if n > 2:
+        return F(n-1) * n - 2 * F(n-2)
+
+print(F(6))
 '''
-# Ответ: 1860
+# Ответ: 44
 
 
-# Тип 8 №27295
-# Света составляет 5-буквенные коды из букв С, В, Е, Т, А.
-# Каждую букву нужно использовать ровно один раз, при этом нельзя ставить рядом две гласные.
-# Сколько различных кодов может составить Света?
+# Тип 16 №4657
+# Алгоритм вычисления значения функции F(n) и G(n), где n – натуральное число, задан следующими соотношениями:
+# F(1) = 1
+# F(n) = 2 * G(n–1) + 5 * n, при n >1
+# G(1) = 1
+# G(n) = F(n–1) + 2 * n, при n >1
+# Чему равно значение функции F(4) + G(4)?
+# В ответе запишите только натуральное число.
 '''
-from itertools import permutations
-count = 0
-for s in permutations('СВЕТА', 5):
-    slovo = ''.join(s)
-    if all(pair not in slovo for pair in ['ЕА', 'АЕ']):
-        count += 1
-print(count)
+def F(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return 2 * G(n-1) + 5 * n
 
+def G(n):
+    if n == 1:
+        return 1
+    if n > 1:
+        return F(n-1) + 2 * n
 
-from itertools import permutations
-count = 0
-for s in permutations('СВЕТА', 5):
-    slovo = ''.join(s)
-    if all(pair not in slovo for pair in 'ЕА АЕ'.split()):
-        count += 1
-print(count)
-
-
-from itertools import permutations
-count = 0
-for s in permutations('СВЕТА', 5):
-    slovo = ''.join(s)
-    if 'ЕА' not in slovo and 'АЕ' not in slovo:
-        count += 1
-print(count)
-
-
-from itertools import permutations
-count = 0
-for s in permutations('СВЕТА', 5):
-    slovo = ''.join(s)
-    flag = True
-    for pair in ['ЕА', 'АЕ']:
-        if pair in slovo:
-            flag = False
-    if flag == True:
-        count += 1
-print(count)
-
-
-s = 'СВЕТА'
-count = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    if len(slovo) == len(set(slovo)):
-                        if all(pair not in slovo for pair in 'ЕА АЕ'.split()):
-                            count += 1
-print(count)
+print(F(4) + G(4))
 '''
-# Ответ: 72
+# Ответ: 89
 
 
-# Тип 8 №58475
-# Виктор составляет коды из букв, входящих в слово ВИКТОР. Каждая буква должна входить в код ровно один раз.
-# Все возможные коды Виктор записывает в алфавитном порядке и нумерует. Начало списка выглядит так
-# 1. ВИКОРТ
-# 2. ВИКОТР
-# 3. ВИКРОТ
+# Тип 16 №60258
+# Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:
 #
-# Какой код будет записан под номером 266?
+# F(n)=n при n>2024;
+# F(n)=n·F(n+1), если n≤2024.
+#
+# Чему равно значение выражения F(2022) / F(2024)?
 '''
-from itertools import permutations
-k = 1
-for s in permutations(sorted('ВИКТОР')):
-    slovo = ''.join(s)
-    if k == 266:
-        print(k, slovo)
-    k += 1
+def F(n):
+    if n > 2024:
+        return n
+    if n <= 2024:
+        return n * F(n+1)
 
-import itertools
-alphabet = "ВИКОРТ"
-ar = itertools.permutations(alphabet)
-arl = []
-for e in ar:
-    arl.append(list(e))
-print(*arl[265])
-'''
-# Ответ: КИВОТР
-
-
-'''
-# i  0  1  2  3  4
-M = [1, 2, 3, 4, 5]
-# 12 23 34 45
-
-for i in range(len(M)-1):
-    print(f'{M[i]}{M[i+1]}', end=' ')
-print()
-
-for i in range(len(M)-2):
-    print(f'{M[i]}{M[i+1]}{M[i+2]}', end=' ')
-print()
+print(F(2022) / F(2024))  # 4090506
 '''
 
+# Тип 16 №59757
+# Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:
+#
+# F(n)=10, при n<11;
+#
+# F(n)=n+F(n−1), если n≥11.
+#
+# Чему равно значение выражения F(2024)−F(2022)?
 
-# Тип 8 №59742
-# Определите количество четырехзначных чисел, записанных в десятичной системе счисления,
-# в записи которых все цифры различны и никакие две чётные и две нечётные цифры не стоят рядом.
 '''
-# Вариант 1
-from itertools import permutations
-count = 0
-for s in permutations([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 4):
-    if s[0] != 0:
-        if all((s[i] + s[i+1]) % 2 == 1 for i in range(len(s)-1)):
-            count += 1
-print(count)
+import sys
+sys.setrecursionlimit(10000)
 
-# Вариант 2
-from itertools import permutations
-count = 0
-for s in permutations([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 4):
-    if s[0] != 0:
-        if all(s[i] % 2 != s[i+1] % 2 for i in range(len(s)-1)):
-            count += 1
-print(count)
+def F(n):
+    if n < 11:
+        return 10
+    if n >= 11:
+        return n + F(n-1)
 
-# Вариант 3
-count = 0
-s = '0123456789'
-s1 = '13579'
-s2 = '02468'
-for a in s1:
-    for b in s2:
-        for c in s1:
-            for d in s2:
-                slovo = a + b + c + d
-                if len(slovo) == len(set(slovo)):
-                    count += 1
-for a in s2:
-    for b in s1:
-        for c in s2:
-            for d in s1:
-                slovo = a + b + c + d
-                if a != '0':
-                    if len(slovo) == len(set(slovo)):
-                        count += 1
-print(count)
+
+print(F(2024) - F(2022))  # 4047
+# RecursionError: maximum recursion depth exceeded
+
+# Решение руками:
+# F(2024) = 2024 + F(2023)
+# F(2023) = 2023 + F(2022) - F(2022)
+print(2024 + 2023)
 '''
-# Ответ: 720
+
+# Тип 23 №4985
+# 1. прибавь 1,
+# 2. прибавь 3.
+# Сколько существует программ, которые число 7 преобразуют в число 20?
+'''
+def F(start, stop):
+    if start > stop:
+        return 0
+    elif start == stop:
+        return 1
+    else:
+        return F(start+1, stop) + F(start+3, stop)
+
+
+print(F(7, 20))
+'''
+'''
+def F(start, stop):
+    if start >= stop:
+        return start == stop
+    return F(start+1, stop) + F(start+3, stop)
+
+
+print(F(7, 20))
+'''
+# Ответ: 88
 
 
 
