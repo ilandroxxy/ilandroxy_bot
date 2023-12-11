@@ -1,141 +1,170 @@
 # region Домашка: ************************************************************
-'''
-from itertools import permutations
-for elem in permutations('123'):
-    s = ''.join(elem)
-    print(s)
 
-from itertools import product
-for elem in product('123', repeat=3):
-    s = ''.join(elem)
-    print(s)
-'''
-
-# КЕГЭ № 2573 (Уровень: Средний)
-# Дана программа для исполнителя Редактор:
-#
-# ПОКА нашлось(55555)
-#    заменить(55555, 88)
-#    заменить(888, 55)
-# КОНЕЦ ПОКА
-# Известно, что начальная строка состоит более чем из 300 цифр 5
-# и не содержит других цифр.
-# При какой наименьшей длине исходной строки результат работы этой
-# программы будет содержать наибольшее возможное число цифр 5?
-'''
-def my_prime(n):
-    for j in range(2, n):
-        if n % j == 0:
-            return False
-    return True
-
-
-def my_sum(s):
-    return sum([int(x) for x in s])
-
-
-from itertools import product
-for n in range(41, 50):
-    for elem in product('12', repeat=n):
-        s = '0' + ''.join(elem)
-        summ_0 = my_sum(s)
-        while '01' in s or '02' in s:
-            s = s.replace('02', '1110', 1)
-            s = s.replace('01', '220', 1)
-        if my_prime(my_sum(s)):
-            print(summ_0)
-'''
-# Ответ: 42
 
 # endregion Домашка: ************************************************************
 
 # region Урок: ************************************************************
 
-# Тип 8 №15795
-# Все четырёхбуквенные слова, составленные из букв П, А, Р, У, С,
-# записаны в алфавитном порядке и пронумерованы, начиная с 1.
-# Начало списка выглядит так:
-# 1.  АААА
-# 2.  АААП
-# 3.  АААР
-# 4.  АААС
-# 5.  АААУ
-# 6.  ААПА
+# Тип 8 №3228
+# Все 5-буквенные слова, составленные из букв А, О, У, записаны в алфавитном порядке.
+# Вот начало списка:
+# 1. ААААА
+# 2. ААААО
+# 3. ААААУ
+# 4. АААОА
 #
-# Под каким номером в списке идёт первое слово, в котором нет буквы А?
-
+# Укажите номер слова УАУАУ.
 '''
-s = sorted('ПАРУС')
-k = 1
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                slovo = a + b + c + d
-                if 'А' not in slovo:    # if slovo.count('А') == 0:
-                    print(k, slovo)
-                    exit()
-                k += 1
-'''
-'''
-from itertools import product
-k = 1
-for elem in product(sorted('ПАРУС'), repeat=4):
-    slovo = ''.join(elem)
-    if 'А' not in slovo:  # if slovo.count('А') == 0:
-        print(k, slovo)
-        exit()
-    k += 1
-'''
-# Ответ: 157
-
-
-# Тип 8 №59713
-# Составляют 5-буквенные слова из букв слова ПЯТНИЦА.
-# Найти количество слов, которые не начинаются с Н и в которых есть только одна буква Я.
-# Буквы в слове могут повторяться.
-'''
-s = 'ПЯТНИЦА'
-count = 0
+s = sorted('АОУ')
+num = 1
 for a in s:
     for b in s:
         for c in s:
             for d in s:
                 for e in s:
                     slovo = a + b + c + d + e
-                    if a != 'Н':
-                        if slovo.count('Я') == 1:
-                            count += 1
+                    if slovo == 'УАУАУ':
+                        print(num, slovo)
+                    num += 1
+
+
+# Вариант 2
+from itertools import product
+num = 1
+for var in product(sorted('АОУ'), repeat=5):
+    slovo = ''.join(var)
+    if slovo == 'УАУАУ':
+        print(num, slovo)
+    num += 1
+'''
+# Ответ: 183
+
+
+# Тип 8 №11306
+# Вася составляет 4-буквенные слова, в которых есть только буквы Б, Р, О, Н, Х, И,
+# причём буква Х используется в каждом слове, и только 1 раз.
+# Каждая из других допустимых букв может встречаться
+# в слове любое количество раз или не встречаться совсем.
+# Сколько существует таких слов, которые может написать Вася?
+'''
+s = 'БРОНХИ'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                slovo = a + b + c + d
+                if slovo.count('Х') == 1:
+                    count += 1
 print(count)
 
-
+# Вариант 2
 from itertools import product
 count = 0
-for elem in product('ПЯТНИЦА', repeat=5):
-    slovo = ''.join(elem)
-    if slovo[0] != 'Н':
-        if slovo.count('Я') == 1:
-            count += 1
-print(count)
-'''
-# Ответ: 5616
-
-
-# Тип 8 №58237
-# Сколько существует различных четырёхзначных чисел, записанных в семеричной системе счисления,
-# в записи которых цифры следуют слева направо в строго убывающем порядке?
-'''
-count = 0
-from itertools import permutations
-for elem in permutations('0123456', 4):
-    if list(elem) == sorted(elem, reverse=True):
+for var in product('БРОНХИ', repeat=4):
+    slovo = ''.join(var)
+    if slovo.count('Х') == 1:
         count += 1
 print(count)
+
+# Вариант 3
+print(len([1 for var in product('БРОНХИ', repeat=4) if ''.join(var).count('Х') == 1]))
 '''
-# Ответ: 35
+# Ответ: 500
 
-# todo продолжить рассматривать 8-ые номера и 14-ый номер
 
+# Тип 8 №27236
+# Андрей составляет 4-буквенные коды из букв А, Н, Д, Р, Е, Й.
+# Каждую букву можно использовать любое количество раз, при
+# этом код не может начинаться с буквы Й и должен содержать хотя бы одну гласную.
+# Сколько различных кодов может составить Андрей?
+'''
+s = 'АНДРЕЙ'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                slovo = a + b + c + d
+                if a != 'Й' and any(x in slovo for x in 'АЕ'):
+                    count += 1
+print(count)
+
+# Вариант 2
+from itertools import product
+count = 0
+for var in product('АНДРЕЙ', repeat=4):
+    slovo = ''.join(var)
+    if slovo[0] != 'Й' and any(x in slovo for x in 'АЕ'):
+        count += 1
+print(count)
+
+# Вариант 3
+print(len([1 for var in product('АНДРЕЙ', repeat=4) if ''.join(var)[0] != 'Й' and any(x in ''.join(var) for x in 'АЕ')]))
+'''
+# Ответ: 888
+
+
+# Тип 8 №47005
+# Светлана составляет коды из букв слова ПАРАБОЛА. Код должен состоять из 8 букв,
+# и каждая буква в нём должна встречаться столько же раз, сколько в заданном слове.
+# Кроме того, в коде не должны стоять рядом две гласные и две согласные буквы.
+# Сколько кодов может составить Светлана?
+'''
+s = 'ПАРАБОЛА'
+s1 = 'ПРБЛ'
+s2 = 'АО'
+count = set()
+for a in s1:
+    for b in s2:
+        for c in s1:
+            for d in s2:
+                for e in s1:
+                    for f in s2:
+                        for g in s1:
+                            for h in s2:
+                                slovo = a + b + c + d + e + f + g + h
+                                if len(set(slovo)) == 6 and slovo.count('А') == 3:
+                                    count.add(slovo)
+print(len(count) * 2)
+
+
+from itertools import permutations
+s1 = 'ПРБЛ'
+s2 = 'АО'
+count = set()
+for var in permutations('ПАРАБОЛА', 8):
+    slovo = ''.join(var)
+    if all((slovo[i] in s1 and slovo[i+1] in s2) or (slovo[i+1] in s1 and slovo[i] in s2) for i in range(len(slovo)-1)):
+        count.add(slovo)
+print(len(count))
+'''
+# Ответ: 192
+
+'''
+M = [1, 1, 1, 2, 3, 2, 2, 2, 3, 3, 3, 3, 1]
+print(set(M))  # {1, 2, 3}
+'''
+
+
+# Тип 8 №58235
+# Сколько существует различных трёхзначных чисел, записанных в четверичной системе счисления,
+# в записи которых сумма первой и последней цифры строго больше цифры стоящей по середине?
+'''
+s = '0123'
+count = 0
+for a in s:
+    for b in s:
+        for c in s:
+            num = a + b + c
+            if num[0] != '0':
+                if int(a) + int(c) > int(b):
+                    count += 1
+print(count)
+'''
+# Ответ: 38
+
+# todo Разбираем домашку по 8 номерам и начинаем 5 номер.
 # endregion Урок: ************************************************************
 
 
