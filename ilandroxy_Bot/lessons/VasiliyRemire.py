@@ -7,20 +7,25 @@
 
 # region Урок: ******************************************************************
 
-# КЕГЭ № 5496(Уровень: Средний)
-#
-# Текстовый файл содержит только буквы A, C, D, F, O.
-# Определите длину самой длинной цепочки символов, которая начинается и заканчивается буквой D,
-# а между двумя последовательными буквами D содержит не более двух букв O и произвольное количество других букв.
 
+# todo Разобраться почему три варианта решения 17, 18, 19
+'''
 s = open('24.txt').readline()
-s = s.replace('D', 'D D')
-maxi = 0
-for x in s.split():
-    if x.count('O') <= 2:
-        if maxi < len(x):
-            maxi = len(x)
-            print(maxi)
+s = s.replace('B', 'A').replace('C', 'A').replace('9', '8')
+
+while 'AA' in s: s = s.replace('AA', 'A A')
+while '88' in s: s = s.replace('88', '8 8')
+print(max(len(x) for x in s.split()))
+'''
+
+s = open('24.txt').readline().upper()
+s = s.replace('TXA', '***').replace('XY', '**').replace('XA', '**')
+for a in set(s):
+    if a != '*':
+        s = s.replace(a, ' ')
+print(s)
+print(max([len(x) for x in s.split()]))
+
 # endregion Урок: ******************************************************************
 
 
