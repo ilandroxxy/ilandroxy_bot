@@ -6,51 +6,118 @@
 
 # region Урок: ******************************************************************
 
-# Логические связки:
-# # (a < b) and (b < c) - гарантируе, что все условия выполняются
-# # (a < b) or (b < c) - говорт о том, что хотя бы одно условие выполняется
-# # (a < b) ^ (b < c) - гарантирует, что только одно из условий выполняется
-
-
+# Тип 2 №29187
+# Логическая функция F задаётся выражением (w → y) ∧ (¬y ≡ x) ∧ (x ∨ z).
+# На рисунке приведён частично заполненный фрагмент таблицы истинности функции F, содержащий неповторяющиеся строки.
+# Определите, какому столбцу таблицы истинности функции F соответствует каждая из переменных x, y, z, w.
 '''
-summa = 10
-summa += 5  # summa = summa + 5
-print(summa)
-
-proizved = 10
-proizved *= 5
-print(proizved)
-'''
-
-'''
-n = int(input())  # 125
-
-mini = 9999999
-maxi = -9999999
-
-while n > 0:
-    x = n % 10
-    n //= 10
-    print(x)
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (w <= y) and ((not y) == x) and (x or z)
+                if F:
+                    print(x, y, z, w, int(F))
 '''
 
-# сумму его цифр;
-# количество цифр в нем;
-# произведение его цифр;
-# среднее арифметическое его цифр;
-# его первую цифру;
-# сумму его первой и последней цифры.
+# Тип 2 №55798
+# Логическая функция F задаётся выражением:
+# (x∧¬y)∨(y≡z)∨¬w.
+# На рисунке приведён фрагмент таблицы истинности функции F,
+# содержащий неповторяющиеся наборы аргументов.
+'''
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x and (not y)) or (y == z) or (not w)
+                if not F:
+                    print(x, y, z, w, int(F))
+'''
 
-import math
+# Тип 2 №16805
+# Логическая функция F задаётся выражением (¬x ≡ z) → (y ≡ (w ∨ x))
+'''
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((not x) == z) <= (y == (w or x))
+                if not F:
+                    print(x, y, z, w, int(F))
+'''
 
-n = int(input())   # 12345
-N = [int(x) for x in str(n)]  # TypeError: 'int' object is not iterable
-print(sum(N))  # сумму его цифр;
-print(len(N))  # количество цифр в нем;
-print(math.prod(N))  # произведение его цифр;
-print(sum(N) / len(N))  # среднее арифметическое его цифр;
-print(N[0])  # его первую цифру;
-print(N[0] + N[-1])
+
+# Тип 2 №18430
+# Миша заполнял таблицу истинности функции (x ∧ y) ∨ (y ≡ z) ∨ w
+'''
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x and y) or (y == z) or w
+                if not F:
+                    print(x, y, z, w, int(F))
+'''
+
+
+# Тип 2 №33472
+# Логическая функция F задаётся выражением (w → x) ∧ ((y → z) ≡ (x → y))
+'''
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (w <= x) and ((y <= z) == (x <= y))
+                if F:
+                    print(x, y, z, w, int(F))
+'''
+
+
+# Тип 2 №59707
+# Миша заполнял таблицу истинности логической функции F:
+# (x ∨¬ y) ∧ ¬(y ≡ z) ∧ ¬w
+'''
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = (x or (not y)) and (not(y == z)) and (not w)
+                if F:
+                    print(x, y, z, w, int(F))
+'''
+
+# Тип 2 №33174
+# Логическая функция F задаётся выражением ((x → y) ≡ (w → x)) ∧ (z → w)
+'''
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((x <= y) == (w <= x)) and (z <= w)
+                if F:
+                    print(x, y, z, w, int(F))
+'''
+
+
+# Тип 2 №15912
+# Логическая функция F задаётся выражением ((x → y ) ≡ (z → w)) ∨ (x ∧ w)
+
+print('x y z w F')
+for x in range(2):
+    for y in range(2):
+        for z in range(2):
+            for w in range(2):
+                F = ((x <= y ) == (z <= w)) or (x and w)
+                if not F:
+                    print(x, y, z, w, int(F))
 
 # endregion Урок: ******************************************************************
 
