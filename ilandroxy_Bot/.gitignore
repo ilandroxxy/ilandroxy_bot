@@ -7,14 +7,16 @@ __pycache__/
 *.so
 *.db
 *.csv
+lessons/*.txt
 token.txt
 openai.txt
+9.txt
 main.py
 *.zip
 .idea/
 .DS_Store/
 /lessons/*.txt
-lessons/**/*.txt
+/lessons/**/*.txt
 
 
 # Distribution / packaging
@@ -34,6 +36,7 @@ lib64/
 parts/
 sdist/
 venv/
+lessons/*.txt
 var/
 wheels/
 pip-wheel-metadata/

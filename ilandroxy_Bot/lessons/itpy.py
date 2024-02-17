@@ -1,11 +1,20 @@
 
+# ️0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣
+
+
+my_list = ['apple ', 'banana ', '', ' orange']
+print(any('a' in x for x in my_list))
+print(all('' in x for x in my_list))
+print(all(len(x) > 0 for x in my_list))
+print(any(len(x) > 0 for x in my_list))
+
 
 
 # Тип 13 №16815
 # Для узла с IP-адресом 98.162.71.94 адрес сети равен 98.162.71.64.
 # Чему равно наибольшее количество возможных адресов в этой сети?
 
-
+'''
 from ipaddress import *
 for mask in range(32+1):
     net = ip_network(f'98.162.71.94/{mask}', 0)
@@ -13,7 +22,7 @@ for mask in range(32+1):
 
     # 98.162.71.64/26 64
     # 98.162.71.64/27 32
-
+'''
 
 
 
