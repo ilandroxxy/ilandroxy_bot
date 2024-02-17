@@ -8,10 +8,12 @@ __pycache__/
 *.db
 *.csv
 token.txt
-openai.txtgit a
+openai.txt
+main.py
 *.zip
 .idea/
-.DS_Store
+.DS_Store/
+/lessons/*.txt
 lessons/**/*.txt
 
 

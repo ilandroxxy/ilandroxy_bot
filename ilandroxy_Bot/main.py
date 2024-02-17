@@ -1483,7 +1483,7 @@ def start(message):
     pic_2 = open("photo/menu.jpg", 'rb')
     bot.send_photo(message.chat.id, pic_2)
 
-    order_message = f'✅ #Новыйпользователь\nName: {message.from_user.first_name}\nUsername: @{message.from_user.username}\n' \
+    order_message = f'✅ #Новыйпользователь\nName: [{message.from_user.first_name}]\nUsername: @[{message.from_user.username}]\n' \
                     f'User ID: {message.chat.id}\n[Написать сообщение](tg://user?id={message.chat.id})'
     bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
 # endregion Команда [start]
@@ -1553,7 +1553,7 @@ def help(message):
             pic_2 = open("photo/menu.jpg", 'rb')
             bot.send_photo(message.chat.id, pic_2)
 
-            order_message = f'✅ #Новыйпользователь\nName: {message.from_user.first_name}\nUsername: @{message.from_user.username}\n' \
+            order_message = f'✅ #Новыйпользователь\nName: [{message.from_user.first_name}]\nUsername: @[{message.from_user.username}]\n' \
                             f'User ID: {message.chat.id}\n[Написать сообщение](tg://user?id={message.chat.id})'
             bot.send_message(1891281816, order_message, parse_mode='Markdown', disable_web_page_preview=True)
         elif message.text == '/getmyid':
@@ -2072,7 +2072,6 @@ def link_send_price(message):
     bot.send_message(message.chat.id, send_message, reply_markup=markup2, parse_mode='Markdown')
 # endregion Команда [link_send_price]
 
-# todo: link_yandex_project - потом можно будет и удалить )
 # region Команда [link_yandex_project] +
 @bot.message_handler(commands=['link_yandex_project'])
 def link_yandex_project(message):
@@ -2084,7 +2083,7 @@ def link_yandex_project(message):
 # endregion Команда [link_yandex_project] +
 
 
-# region Команда [useful] + todo: можно добавить материалов
+# region Команда [useful] +
 @bot.message_handler(commands=['useful'])
 def useful(message):
     sql = sqlite3.connect('analytics.db')
