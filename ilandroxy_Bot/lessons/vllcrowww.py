@@ -1,190 +1,157 @@
 # region Домашка: ***************************************************************
-'''
-s = [int(x) for x in open('17.txt')]
-c = max(x for x in s if len(str(abs(x))) == 3)
-M = []
-for i in range(len(s)-1):
-    x, y = s[i], s[i+1]
-    # if(s[i]*s[i+1]) % c == 0 and (((100 <= s[i] <= 999) + (100 <= s[i+1] <= 999)) == 1):
-    if(x * y) % c == 0 and ((len(str(abs(x))) == 3) + (len(str(abs(y))) == 3)) == 1:
-        M.append(x * y)
 
-print(len(M), min(M))
-'''
+# КЕГЭ № 8609 (Уровень: Базовый) (Л. Шастин)
+#
+# Откройте файл электронной таблицы, содержащей в каждой строке пять натуральных чисел.
+# Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
+# - каждое число в строке встречается по одному разу,
+# - удвоенная сумма максимального и минимального значений не превышает утроенной суммы оставшихся чисел.
+
+count = 0
+for s in open('9.txt'):
+    M = sorted([int(x) for x in s.split()])
+    if len(M) == len(set(M)):
+        if 2 * (M[-1] + M[0]) <= (M[1] + M[2] + M[3]) * 3:
+            count += 1
+print(count)
+
+
+
 # endregion Домашка: ************************************************************
 
 
 # region Урок: ******************************************************************
 
+# Решение 9 номеров с температурами (вещественными числами)
 '''
-import math
-
-M = [1, 2, 3, 4, 5]
-print(sum(M))  # 15
-print(math.prod(M))  # 120
-
-print(math.sqrt(16))  # 4.0
-print(16 ** (1/2))  # аналог
-
-print(math.factorial(5))  # 120
-
-print(math.fabs(-20))  # 20.0
-print(abs(-20))  # аналог
-
-print(math.gcd(12, 24))  # 12  -  НОД
-print(math.lcm(12, 24))  # 24  -  НОК
-
-print(math.pi)  # 3.141592653589793
-
-print(math.floor(3.141592))  # 3 - округление вниз
-print(math.ceil(3.141592))  # 4 - округление вверх
-
-print(math.ceil.__doc__)
-# Return the ceiling of x as an Integral.
-#
-# This is the smallest integer >= x.
-'''
-
-'''
-from math import gcd
-print(gcd(115, gcd(78, 51)))
-
-
-from math import gcd
-print(gcd(78, gcd(115, 51)))
-
-
-from math import gcd
-print(gcd(115, 78, 51))
-
-
-from math import gcd
-print(gcd(24, 12, 8))
-'''
-
-
-# Тип 9 №52180
-# В каждой строке электронной таблицы записаны пять натуральных чисел.
-# Определите, сколько в таблице строк, для которых выполнены следующие условия:
-# — все числа в строке различны;
-# — чётных чисел больше, чем нечётных;
-# — сумма чётных чисел меньше суммы нечётных.
-# В ответе запишите число — количество строк, для которых выполнены эти условия.
-'''
-# Для которых выполнены все следующие условия:
 count = 0
 for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    if len(M) == len(set(M)):  # — все числа в строке различны;
-        chet = [x for x in M if x % 2 == 0]
-        nechet = [x for x in M if x % 2 != 0]
-        if len(chet) > len(nechet):
-            if sum(chet) < sum(nechet):
-                count += 1
-print(count)
-
-# Ответ: 241
+    M = [float(x) for x in s.replace(',', '.').split()]
+    # ValueError: could not convert string to float: '14,5'
+    print(M)
+    # [14.5, 45.3, 12.3, 123.3]
+    # [312.3, 21.3, 124.6, 12.0]
+'''
 
 
-# Для которых выполнено только одно из условий:
-count = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    flag = 0
-    if len(M) == len(set(M)):
-        flag += 1
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if len(chet) > len(nechet):
-        flag += 1
-    if sum(chet) < sum(nechet):
-        flag += 1
-    if flag == 1:
+# 24 номера простые задачи
+
+
+# Тип 24 №27688
+# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+# Определите длину самой длинной последовательности, состоящей из символов Z.
+# Хотя бы один символ Z находится в последовательности.
+'''
+# Вариант 1
+s = open('24.txt').readline()
+count = 1
+max_count = 0
+for i in range(len(s)-1):
+    # if s[i] == 'Z' and s[i+1] == 'Z':
+    if s[i:i+2] == 'ZZ':
         count += 1
-print(count)
-
-# Ответ: 2608
-
-
-# Для которых выполнено хотя бы одно из условий:
-count = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    flag = 0
-    if len(M) == len(set(M)):
-        flag += 1
-    chet = [x for x in M if x % 2 == 0]
-    nechet = [x for x in M if x % 2 != 0]
-    if len(chet) > len(nechet):
-        flag += 1
-    if sum(chet) < sum(nechet):
-        flag += 1
-    if flag > 0:
-        count += 1
-print(count)
-'''
-# Ответ: 6228
-
-
-# Тип 9 №63025
-# Откройте файл электронной таблицы, содержащей в каждой строке шесть натуральных чисел.
-# Определите количество строк таблицы, для чисел которых
-# одновременно выполнены все следующие условия:
-# — в строке есть повторяющиеся числа;
-# — максимальное число в строке не повторяется;
-# — сумма всех повторяющихся чисел в строке больше максимального числа этой строки.
-# При подсчёте суммы повторяющихся чисел каждое число учитывается столько раз, сколько оно встречается.
-# В ответе запишите число — количество строк, удовлетворяющих заданным условиям.
-'''
-count = 0
-for s in open('9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    if len(M) != len(set(M)):
-        # if M[-1] != M[-2]:
-        if M.count(M[-1]) == 1:
-            copied = [x for x in M if M.count(x) > 1]
-            if sum(copied) > M[-1]:
-                count += 1
-print(count)
+        max_count = max(max_count, count)
+    else:
+        count = 1
+print(max_count)
 
 # Вариант 2
-count = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    if len(M) != len(set(M)):
-        if M.count(max(M)) == 1:
-            copied = [x for x in M if M.count(x) > 1]
-            if sum(copied) > max(M):
-                count += 1
-print(count)
+s = open('24.txt').readline()
+s = s.replace('X', ' ').replace('Y', ' ')
+maxi = 0
+for x in s.split():
+    maxi = max(maxi, len(x))
+print(maxi)
+
+# Вариант 2.2
+s = open('24.txt').readline()
+s = s.replace('X', ' ').replace('Y', ' ')
+print(max([len(x) for x in s.split()]))
+
+# Вариант 2.3
+print(max([len(x) for x in open('24.txt').readline().replace('X', ' ').replace('Y', ' ').split()]))
+
+
+# Вариант 3 через сочетание клавиш ctrl + F
+print(open('24.txt').readline())
+print(len('ZZZZZZZ'))
 '''
-# Ответ: 941
+# Ответ: 7
 
 
-# Тип 9 №47213
-# Откройте файл электронной таблицы, содержащей в каждой строке шесть натуральных чисел.
-# Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
-# — в строке только одно число повторяется ровно два раза, остальные числа различны;
-# — среднее арифметическое неповторяющихся чисел строки не больше суммы повторяющихся чисел.
-# В ответе запишите только число.
+# Тип 24 №36037
+# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
+# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
 '''
-count = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    copied = [x for x in M if M.count(x) > 1]
-    not_copied = [x for x in M if M.count(x) == 1]
-    if len(copied) == 2:
-        if (sum(not_copied) / len(not_copied)) <= (sum(copied)):
-            count += 1
-print(count)
+s = open('24.txt').readline()
+s = s.replace('XZZY', 'XZZ ZZY')
+print(max([len(x) for x in s.split()]))
 '''
-# Ответ: 2241
+# Ответ: 1713
 
 
+# Тип 24 №45258
+# Текстовый файл состоит из символов A, B и C.
+# Определите максимальное количество идущих подряд пар символов AB или CB в прилагаемом файле.
+# Искомая подпоследовательность должна состоять только из пар AB, или только из пар CB,
+# или только из пар AB и CB в произвольном порядке следования этих пар.
+'''
+s = open('24.txt').readline()
+s = s.replace('AB', '*').replace('CB', '*')
+s = s.replace('A', ' ').replace('B', ' ').replace('C', ' ')
+print(max([len(x) for x in s.split()]))
+'''
+# Ответ: 65
+
+
+# Тип 24 №27689
+# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+# Определите максимальную длину цепочки вида XYZXYZXYZ...
+# (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
+'''
+print(open('24.txt').readline())
+print(len('XYZXYZXYZXYZX'))
+'''
+# Ответ: 13
+
+
+# Тип 24 №47228
+# Текстовый файл состоит из символов A, C, D, F и O.
+# Определите максимальное количество идущих подряд пар символов вида согласная + гласная.
+'''
+s = open('24.txt').readline()
+for p in 'CA DA FA CO DO FO'.split():
+    s = s.replace(p, '*')
+for x in 'ACDFO':
+    s = s.replace(x, ' ')
+print(max([len(x) for x in s.split()]))
+'''
+# Ответ: 95
+
+
+# Тип 24 №58329
+# Текстовый файл состоит не более чем из 106 символов арабских цифр (0,1,...,9).
+# Определите максимальное количество идущих подряд цифр, среди которых сумма двух идущих подряд чисел
+# больше числа следующего за ними.
+'''
+s = open('24.txt').readline()
+count = 2
+max_count = 0
+for i in range(len(s)-2):
+    # if (int(s[i])+ int(s[i+1])) > int(s[i+2]):
+    a, b, c = [int(x) for x in s[i:i+3]]
+    if (a + b) > c:
+        count += 1
+        max_count = max(max_count, count)
+    else:
+        count = 2
+print(max_count)
+'''
+# Ответ: 33
 
 # endregion Урок: ******************************************************************
 
 
 # Марго = [2.1, 5.1, 6.1, 8.1, 9.1, 12.1, 14.1, 15.1, 16.1, 17.1, 23.1]
 # КЕГЭ  = []
-# на следующем уроке:
+# на следующем уроке: Продолжить разбирать сложные 24 номера с строками и кол-во элементов

@@ -5,72 +5,77 @@
 
 # region Урок: ******************************************************************
 
-# КЕГЭ 13094
+# № 12918 PRO100 ЕГЭ 26.01.24 (Уровень: Средний)
+'''
+for s in open('9.txt'):
+    M = sorted([int(x) for x in s.split()])
+    povtor = [x for x in M if M.count(x) == 2]
+    if len(set(povtor)) == 2:
+        if M.count(max(M)) == 1:
+            if max(M)*min(M) > sum(M[1:-1]):
+                print(sum(M))
+                exit()
+'''
+
+
+# № 12463 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
 '''
 count = 0
-s = '12345678'
-from itertools import product
-for s in product(s, repeat = 9):
-    chislo = ''.join(s)
-    if all([chislo.count(x) <= 3 for x in chislo]):
-        """if all((int(chislo[i])% 2 == 0) != (int(chislo[i+1])% 2 == 0) for i in range(len(chislo) - 1)):"""
-        chislo = chislo.replace('4', '2').replace('6', '2').replace('8', '2')
-        chislo = chislo.replace('3', '1').replace('5', '1').replace('7', '1')
-        if '22' not in chislo and '11' not in chislo:
+for s in open('9.txt'):
+    M = sorted([int(x) for x in s.split()])
+    povtor = [M.count(x) for x in M]
+    copied = [x for x in M if M.count(x) > 1]
+    nepovtor = [x for x in M if M.count(x) == 1]
+    if povtor.count(4) == 4 and povtor.count(1) == 3:
+        if sum(nepovtor)/len(nepovtor)>= max(copied):
             count += 1
 print(count)
 '''
 
 
-# КЕГЭ 11827
+# № 12098 Новогодний вариант (Уровень: Базовый)
 '''
 count = 0
-s = '01234567'
-from itertools import product
-for s in product(s, repeat = 7):
-    chislo = ''.join(s)
-    if chislo[0] != '0':
-        if len([x for x in chislo if int(x) % 2 == 0]) == 2:
-            if all(p not in chislo for p in '17 71 37 73 57 75 77'.split()):
+for s in open('9.txt'):
+    M = [int(x) for x in s.split()]
+    povtor = [x for x in M if M.count(x) == 3]
+    nepovtor = [x for x in M if M.count(x) == 1]
+    if len(set(povtor)) == 1:
+        if povtor[0] % 2 != 0:
+            if nepovtor[0] % 2 == 0:
+                count += 1
+print(count)
+'''
+
+# № 9062 Danov2306 (Уровень: Средний)
+'''
+count = 0
+for s in open('9.txt'):
+    M = [int(x)for x in s.split()]
+    if M[0] != min(M) and M[-1] != min(M) and M[0] != max(M) and M[-1] != max(M):
+        m = sorted([int(x) for x in s.split()])
+        if m[1] != m[2]:
+            if ((max(m)-min(m)) % abs(m[1]-m[2])) == 0:
                 count += 1
 print(count)
 '''
 
 
-# КЕГЭ 11202
+# № 6898 OpenFIPI (Уровень: Базовый)
 '''
 from itertools import permutations
-alphabet = sorted('АССЕМБЛЕР')
 count = 0
-slova = []
-for s in permutations(alphabet):
-    slovo = ''.join(s)
-    if sum([i+1 for i in range(len(slovo)) if slovo[i] in 'АЕ']) == 9:
-        slova.append(s)
-print(len(set(slova)))
-
-'''
-
-
-# Номер КЕГЭ 9363
-'''
-from itertools import permutations
-alphabet = 'ХОЧУНАБЮДЖЕТ'
-count = 0
-slova = []
-for s in permutations(alphabet):
-    slovo = ''.join(s)
-    for x in 'ОУЮЕ':
-        slovo = slovo.replace(x, "A")
-    if 'ААААА' not in slovo:
-        slova.append(slovo)
-print(len(set(slova)))
-
+for s in open('9.txt'):
+    M = [int(x) for x in s.split()]
+    if max(M) < (sum(M) - max(M)):
+        if any((p[0] + p[1]) == (p[2] + p[3]) for p in permutations(M)):
+            count += 1
+print(count)
 '''
 
 # endregion Урок: *******************************************************************
 
 
 # Марк = [1.1, 2.1, 3.1, 6.1, 4.1, 5.1, 7.1, 8.1, 9.1, 12.1, 14.1, 15.1, 16.1, 17.1, 22.1, 23.1, 24.1, 25.1]
-# КЕГЭ  = [5.1, 8.1, 14.1]
-# на следующем уроке:  На след. уроке добиваем 9 номера
+# КЕГЭ  = [5.1, 8.1, 9.1, 14.1]
+# на следующем уроке:
