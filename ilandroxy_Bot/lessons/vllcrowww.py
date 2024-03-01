@@ -1,153 +1,230 @@
 # region Домашка: ***************************************************************
 
-# КЕГЭ № 8609 (Уровень: Базовый) (Л. Шастин)
-#
-# Откройте файл электронной таблицы, содержащей в каждой строке пять натуральных чисел.
-# Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:
-# - каждое число в строке встречается по одному разу,
-# - удвоенная сумма максимального и минимального значений не превышает утроенной суммы оставшихся чисел.
-
-count = 0
-for s in open('9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    if len(M) == len(set(M)):
-        if 2 * (M[-1] + M[0]) <= (M[1] + M[2] + M[3]) * 3:
-            count += 1
-print(count)
-
-
 
 # endregion Домашка: ************************************************************
 
 
 # region Урок: ******************************************************************
 
-# Решение 9 номеров с температурами (вещественными числами)
+# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
+# Определите в прилагаемом файле максимальное количество идущих подряд символов
+# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 3 раза.
+
+# 'TxxxxxxxxxTxxxxTxxxxxxxTxxxxTxxxxxxTxxxxxTxxxxxTxxxxxxxxxxxxxT'
+# ['', 'xxxxxxxxx', 'xxxx', 'xxxxxxx', 'xxxx', 'xxxxxx', 'xxxxx', 'xxxxx', 'xxxxxxxxxxxxx', '']
+# TxxxxxxxxxTxxxxTxxxxxxx 23
+# xxxxxxxxxTxxxxTxxxxxxxTxxxx 27
+# xxxxTxxxxxxxTxxxxTxxxxxx 24
+# xxxxxxxTxxxxTxxxxxxTxxxxx 25
+# xxxxTxxxxxxTxxxxxTxxxxx 23
+# xxxxxxTxxxxxTxxxxxTxxxxxxxxxxxxx 32
+# xxxxxTxxxxxTxxxxxxxxxxxxxT 26
 '''
-count = 0
-for s in open('9.txt'):
-    M = [float(x) for x in s.replace(',', '.').split()]
-    # ValueError: could not convert string to float: '14,5'
-    print(M)
-    # [14.5, 45.3, 12.3, 123.3]
-    # [312.3, 21.3, 124.6, 12.0]
+s = 'TxxxxxxxxxTxxxxTxxxxxxxTxxxxTxxxxxxTxxxxxTxxxxxTxxxxxxxxxxxxxT'
+s = s.split('T')
+maxi = 0
+for i in range(len(s)-3):
+    # r = s[i] + 'T' + s[i+1] + 'T' + s[i+2] + 'T' + s[i+3]
+    r = 'T'.join(s[i:i+4])
+    if maxi < len(r):
+        maxi = len(r)
+        print(r, len(r))
+print(maxi)
 '''
 
+# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
+# Определите в прилагаемом файле минимальное количество идущих подряд символов
+# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 3 раза.
 
-# 24 номера простые задачи
-
-
-# Тип 24 №27688
-# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
-# Определите длину самой длинной последовательности, состоящей из символов Z.
-# Хотя бы один символ Z находится в последовательности.
+# 'TxxxxxxxxxxxxxTxxxxTxxxxxxxTxxxxTxxxxxxTxxxxxTxxxxxTxxxxxxxxxxxxxT'
+# ['', 'xxxxxxxxx', 'xxxx', 'xxxxxxx', 'xxxx', 'xxxxxx', 'xxxxx', 'xxxxx', 'xxxxxxxxxxxxx', '']
 '''
-# Вариант 1
-s = open('24.txt').readline()
-count = 1
-max_count = 0
+s = 'TxxxxxxxxxxxxxTxxxxTxxxxxxxTxxxxTxxxxxxTxxxxxTxxxxxTxxxxxxxxxxxxxT'
+s = s.split('T')
+mini = 999999999
 for i in range(len(s)-1):
-    # if s[i] == 'Z' and s[i+1] == 'Z':
-    if s[i:i+2] == 'ZZ':
-        count += 1
-        max_count = max(max_count, count)
-    else:
-        count = 1
-print(max_count)
+    r = 'T'.join(s[i:i+2])
+    if mini > len(r):
+        mini = len(r)
+        print(r, len(r))
+print(mini + 2)
+'''
+
+
+# Тип 24 №60266
+# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
+# Определите в прилагаемом файле максимальное количество идущих подряд символов
+# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 100 раз.
+'''
+s = open('24.txt').readline()
+s = s.split('T')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'T'.join(s[i:i+101])
+    if maxi < len(r):
+        maxi = len(r)
+print(maxi)
+'''
+# Ответ: 133
+
+
+# Тип 24 №59794
+# Текстовый файл состоит не более чем из 10**6 символов латинского алфавита.
+# Определите минимальную длину подстроки, содержащую ровно 110 символов "U".
+# Для выполнения этого задания следует написать программу.
+'''
+s = open('24.txt').readline()
+s = s.split('U')
+mini = 999999999
+for i in range(len(s)-108):
+    r = 'U'.join(s[i:i+109])
+    if mini > len(r):
+        mini = len(r)
+print(mini + 2)
+'''
+# Ответ: 1765
+
+
+# Тип 24 №35913
+# Текстовый файл содержит строки различной длины.
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+#
+# Необходимо найти строку, содержащую наименьшее количество букв N
+# (если таких строк несколько, надо взять ту, которая находится в файле раньше),
+# и определить, какая буква встречается в этой строке чаще всего.
+# Если таких букв несколько, надо взять ту, которая позже стоит в алфавите.
+'''
+import string
+alphabet = string.ascii_uppercase
+s = open('24.txt').readlines()
+mini = 99999
+r = ''
+for x in s:
+    if mini > x.count('N'):
+        mini = x.count('N')
+        r = x
+
+R = []
+for a in alphabet:
+    R.append([r.count(a), a])
+print(max(R))
+'''
+# Ответ: Y
+
+
+# Тип 24 №36879
+# Текстовый файл содержит строки различной длины.
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+#
+# В строках, содержащих менее 25 букв G, нужно определить
+# и вывести максимальное расстояние между одинаковыми буквами в одной строке.
+'''
+import string
+alphabet = string.ascii_uppercase
+s = open('24.txt').readlines()
+maxi = 0
+for x in s:
+    if x.count('G') <= 25:
+        for a in alphabet:
+            maxi = max(maxi, x.rindex(a) - x.index(a))
+print(maxi)
+'''
+# Ответ: 1001
+
+
+# Тип 24 №33103
+# Текстовый файл содержит строки различной длины.
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+# Определите количество строк, в которых буква A встречается чаще, чем буква E.
+'''
+s = open('24.txt').readlines()
+cnt = 0
+for x in s:
+    if x.count('A') > x.count('E'):
+        cnt += 1
+print(cnt)
 
 # Вариант 2
+print(len([x for x in open('24.txt').readlines() if x.count('A') > x.count('E')]))
+'''
+# Ответ: 485
+
+
+# Тип 24 №33494
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
+# Определите символ, который чаще всего встречается в файле сразу после буквы E.
+'''
+import string
+alphabet = string.ascii_uppercase
 s = open('24.txt').readline()
-s = s.replace('X', ' ').replace('Y', ' ')
-maxi = 0
-for x in s.split():
-    maxi = max(maxi, len(x))
-print(maxi)
+M = []
+for i in range(len(s)-1):
+    if s[i] == 'E':
+        M.append(s[i+1])
 
-# Вариант 2.2
-s = open('24.txt').readline()
-s = s.replace('X', ' ').replace('Y', ' ')
-print(max([len(x) for x in s.split()]))
+R = []
+for a in alphabet:
+    R.append([M.count(a), a])
 
-# Вариант 2.3
-print(max([len(x) for x in open('24.txt').readline().replace('X', ' ').replace('Y', ' ').split()]))
-
-
-# Вариант 3 через сочетание клавиш ctrl + F
-print(open('24.txt').readline())
-print(len('ZZZZZZZ'))
+print(max(R))
 '''
-# Ответ: 7
+# Ответ: Y
 
 
-# Тип 24 №36037
-# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
-# Определите максимальное количество идущих подряд символов, среди которых нет подстроки XZZY.
+# Тип 24 №55611
+# Текстовый файл содержит строки различной длины, содержащие только заглавные буквы латинского алфавита (ABC…Z).
+# В каждой строке файла определяется буква, которая чаще всего стоит сразу после буквы A,
+# эта буква заносится в отдельный список. Если несколько разных букв встречаются в строке сразу
+# после A одинаковое максимальное количество раз, в список заносятся все эти буквы.
+# Определите, сколько раз встретится в этом списке самая частая в нём буква.
 '''
-s = open('24.txt').readline()
-s = s.replace('XZZY', 'XZZ ZZY')
-print(max([len(x) for x in s.split()]))
+import string
+alphabet = string.ascii_uppercase
+
+R = []
+s = open('24.txt').readlines()
+for x in s:
+    M = []
+    maxi = 0
+    for i in range(len(x)-1):
+        if x[i] == 'A':
+            M.append(x[i+1])
+    for a in alphabet:
+        maxi = max(maxi, M.count(a))
+    for a in alphabet:
+        if M.count(a) == maxi:
+            R.append(a)
+
+A = []
+for a in alphabet:
+    A.append(R.count(a))
+
+print(max(A))
 '''
-# Ответ: 1713
 
 
-# Тип 24 №45258
-# Текстовый файл состоит из символов A, B и C.
-# Определите максимальное количество идущих подряд пар символов AB или CB в прилагаемом файле.
-# Искомая подпоследовательность должна состоять только из пар AB, или только из пар CB,
-# или только из пар AB и CB в произвольном порядке следования этих пар.
+# 23 № 13099 (Уровень: Базовый)
+# A. Вычесть 1
+# B. Умножить на 2
+# C. Умножить на 3
+# Сколько существует программ, которые преобразуют исходное число 3
+# в число 15 и при этом не содержат двух команд A подряд?
+
+# 3 *3 = 9 -1 = 8 *2 = 16 -1 = 15
 '''
-s = open('24.txt').readline()
-s = s.replace('AB', '*').replace('CB', '*')
-s = s.replace('A', ' ').replace('B', ' ').replace('C', ' ')
-print(max([len(x) for x in s.split()]))
-'''
-# Ответ: 65
+def F(a, b, f):
+    if a > b+1:
+        return 0
+    if a == b:
+        return 1
+    if f == 'A':
+        return F(a * 2, b, 'B') + F(a * 3, b, 'C')
+    return F(a-1, b, 'A') + F(a*2, b, 'B') + F(a*3, b, 'C')
 
 
-# Тип 24 №27689
-# Текстовый файл состоит не более чем из 106 символов X, Y и Z.
-# Определите максимальную длину цепочки вида XYZXYZXYZ...
-# (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
+print(F(3, 15, 0))
 '''
-print(open('24.txt').readline())
-print(len('XYZXYZXYZXYZX'))
-'''
-# Ответ: 13
-
-
-# Тип 24 №47228
-# Текстовый файл состоит из символов A, C, D, F и O.
-# Определите максимальное количество идущих подряд пар символов вида согласная + гласная.
-'''
-s = open('24.txt').readline()
-for p in 'CA DA FA CO DO FO'.split():
-    s = s.replace(p, '*')
-for x in 'ACDFO':
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
-'''
-# Ответ: 95
-
-
-# Тип 24 №58329
-# Текстовый файл состоит не более чем из 106 символов арабских цифр (0,1,...,9).
-# Определите максимальное количество идущих подряд цифр, среди которых сумма двух идущих подряд чисел
-# больше числа следующего за ними.
-'''
-s = open('24.txt').readline()
-count = 2
-max_count = 0
-for i in range(len(s)-2):
-    # if (int(s[i])+ int(s[i+1])) > int(s[i+2]):
-    a, b, c = [int(x) for x in s[i:i+3]]
-    if (a + b) > c:
-        count += 1
-        max_count = max(max_count, count)
-    else:
-        count = 2
-print(max_count)
-'''
-# Ответ: 33
+# Ответ: 6
 
 # endregion Урок: ******************************************************************
 
@@ -157,6 +234,6 @@ print(max_count)
 # endregion Разобрать: *************************************************************
 
 
-# Марго = [2.1, 5.1, 6.1, 8.1, 9.1, 12.1, 14.1, 15.1, 16.1, 17.1, 23.1]
+# Марго = [2.1, 5.1, 6.1, 8.1, 9.1, 12.1, 14.1, 15.1, 16.1, 17.1, 23.1, 24.1]
 # КЕГЭ  = []
-# на следующем уроке: Продолжить разбирать сложные 24 номера с строками и кол-во элементов
+# на следующем уроке: Разобрать 25 номера
