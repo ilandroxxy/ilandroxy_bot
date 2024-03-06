@@ -6,316 +6,208 @@
 
 # region Урок: ******************************************************************
 
-# Тип 24 №27695
-# Текстовый файл состоит не более чем из 10**6 символов L, D и R.
-# Определите максимальное количество идущих подряд символов, среди которых каждые два соседних различны.
+# Задание 5
 '''
-s = open('24.txt').readline()
-while 'DD' in s or 'LL' in s or 'RR' in s:
-    s = s.replace('DD', 'D D').replace('RR', 'R R').replace('LL', 'L L')
-print(max([len(x) for x in s.split()]))
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(number, system):
+    result = ''
+    while number > 0:
+        result = alphabet[number % system] + result
+        number //= system
+    return result
+
+
+R = []
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s += s[-2:]
+    else:
+        x = (n % 3) * 5
+        s += convert(x, 3)
+
+    r = int(s, 3)
+    if r < 242:
+        R.append(r)
+
+print(max(R))
+'''
+# Ответ: 230
+
+
+# Задание 6
+'''
+import turtle as t  # переименовали библиотеку в t
+t.tracer(0)
+t.left(90)
+m = 30  # масштаб отрисовки
+
+# Ваш псевдокод по условию
+for _ in range(2):
+    t.forward(19 * m)
+    t.right(90)
+    t.forward(10 * m)
+    t.right(90)
+
+t.up()
+
+t.backward(3 * m)
+t.right(90)
+t.forward(8 * m)
+t.left(90)
+
+t.down()
+t.color('green')
+for _ in range(2):
+    t.forward(32 * m)
+    t.right(90)
+    t.forward(12 * m)
+    t.right(90)
+
+
+t.up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        t.goto(x * m, y * m)
+        t.dot(2, 'red')
+
+t.update()
+t.done()
+'''
+# Ответ: 18
+
+
+# Задание 7
+'''
+# I = pixels * i
+pixels = 2688 * 344
+i = 12 * 2**3  # бит на один символ
+
+I = pixels * i  # бит
+U = 49152  # бит / с
+print(I / U)
+'''
+# Ответ: 1806
+
+# Задание 8
+'''
+cnt = 0
+num = 1
+s = sorted('ПРОГУЛКА')
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    slovo = a + b + c + d + e
+                    if num % 2 == 0 and a != 'Г' and slovo.count('Л') <= 2:
+                        cnt += 1
+                    num += 1
+print(cnt)
 
 # Вариант 2
-s = open('24.txt').readline()
-count = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
+from itertools import product
+cnt = 0
+num = 1
+for v in product(sorted('ПРОГУЛКА'), repeat=5):
+    slovo = ''.join(v)
+    if num % 2 == 0 and slovo[0] != 'Г' and slovo.count('Л') <= 2:
+        cnt += 1
+    num += 1
+print(cnt)
 '''
-# Ответ: 45
+# Ответ: 13951
 
 
-# Тип 24 №52195
-# Текстовый файл содержит только буквы A, C, D, F, O.
-# Определите длину самой длинной цепочки символов, которая начинается
-# и заканчивается буквой D, а между двумя последовательными буквами D
-# содержит не более двух букв O и произвольное количество других букв.
+# Задание 9
 '''
-s = open('24.txt').readline().split('D')
-# s = s.replace('D', ' ')
-count = 1
-maxi = 0
-for i in range(len(s)):
-    if s[i].count('O') <= 2:
-        count += len(s[i]) + 1
-        maxi = max(maxi, count)
-    else:
-        count = 1
-print(maxi)
+cnt = 0
+for s in open('9.txt'):
+    M = [int(x) for x in s.split()]
+    if len([x for x in M if M.count(x) == 2]) == 4:
+        if M.count(max(M)) == 2:
+            print(M)
+            cnt += 1
+print(cnt)
 '''
-# D AFAFAFO D ACACAFA D AFFCACAFOCA D AFC D AFCODAO D
+# Ответ: 88
+
+# Задание 11
+'''
+symbols = 491
+alphabet = 10 + 9575
+# print(alphabet, 2**14)
+i = 14  # бит на один символ
+bit = symbols * i
+print(bit / 8)  # 859.25
+byte = 860
+I = (byte * 23552) / (2 ** 10)
+print(I)
+'''
+# Ответ: 19780
+
+'''
+def F(a1, a2, x):
+    B = 24 <= x <= 90
+    C = 47 <= x <= 115
+    A = a1 <= x <= a2
+    return C <= (((not A) and B) <= (not C))
 
 
-# Тип 24 №46982
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите количество групп из идущих подряд не менее 12 символов,
-# которые начинаются и заканчиваются буквой E и не содержат других
-# букв E (кроме первой и последней) и букв F.
+R = []
+M = [x / 4 for x in range(20 * 4, 120 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(a1, a2, x) for x in M):
+            R.append(a2-a1)
+print(min(R))
 '''
-s = open('24.txt').readline()
-s = s.replace('E', 'E E')
-print(len([x for x in s.split() if 'F' not in x and len(x) >= 12]))
+# Ответ: 43
+
 '''
-# Ответ: 9655
+import sys
+sys.setrecursionlimit(10000)
+
+def F(n):
+    if n <= 11:
+        return 7
+    if n > 11:
+        return n-3 + F(n-1)
+
+print(F(2022) - F(2020))
+
+# F(2022) = 2019 + F(2021)
+# F(2021) = 2018 + F(2020) - F(2020)
+print(2018 + 2019)
+'''
+# Ответ: 4037
 
 
-# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле максимальное количество идущих подряд символов
-# (длину непрерывной подпоследовательности), среди которых символ T встречается не более 3 раз.
-# Для выполнения этого задания следует написать программу.
+# Задание 17
+'''
+M = [int(x) for x in open('17.txt')]
+A = [x for x in M if abs(x) % 10 == 3 and len(str(abs(x))) == 4]
+R = []
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if len([p for p in [x, y, z] if abs(p) % 10 == 3]) != 3:
+        if (x + y + z) >= min(A):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+# Ответ: 4335 186619
 
-# 'TxxxxTxxxxxxTxxxxxxxTxxxTxxxxxTxxxxxxxxTxxxxxxxxxxT'
-# ['', 'xxxx', 'xxxxxx', 'xxxxxxx', 'xxx', 'xxxxx', 'xxxxxxxx', 'xxxxxxxxxx', '']
-# TxxxxTxxxxxxTxxxxxxx 20
-# xxxxTxxxxxxTxxxxxxxTxxx 23
-# xxxxxxTxxxxxxxTxxxTxxxxx 24
-# xxxxxxxTxxxTxxxxxTxxxxxxxx 26
-# xxxTxxxxxTxxxxxxxxTxxxxxxxxxx 29
-# xxxxxTxxxxxxxxTxxxxxxxxxxT 26
+# Задание 24
 '''
-s = 'TxxxxTxxxxxxTxxxxxxxTxxxTxxxxxTxxxxxxxxTxxxxxxxxxxT'
-s = s.split('T')
-maxi = 0
-for i in range(len(s)-3):  # s[i], s[i+1], s[i+2], s[i+3]
-    # r = s[i] + 'T' + s[i+1] + 'T' + s[i+2] + 'T' + s[i+3]
-    r = 'T'.join(s[i:i+4])
-    if maxi < len(r):
-        maxi = len(r)
-        print(r, len(r))
-print(maxi)  # 29
-'''
-
-# Тип 24 №59702
-# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле максимальное количество идущих подряд символов
-# (длину непрерывной подпоследовательности), среди которых символ Y встречается не более 150 раз.
-# Для выполнения этого задания следует написать программу.
-'''
-s = open('24.txt').readline()
-s = s.split('Y')
+s = open('24.txt').readline().split('Y')
 maxi = 0
 for i in range(len(s)-150):
     r = 'Y'.join(s[i:i+151])
-    if maxi < len(r):
-        maxi = len(r)
+    maxi = max(maxi, len(r))
 print(maxi)
 '''
-# Ответ: 244
+# Ответ: 1605
 
-
-# # Текстовый файл состоит не более чем из 10**6 символов латинского аавита.
-# Определите минимальную подстроку, содержащую не менее 3 символов "T".
-# Для выполнения этого задания следует написать программу.
-
-# 'TxxxxxxxxxxTxxxxxxTxxxxxxxTxxxTxxxxxTxxxxxxxxTxxxxxxxxxxxxxT'
-# ['', 'xxxx', 'xxxxxx', 'xxxxxxx', 'xxx', 'xxxxx', 'xxxxxxxx', 'xxxxxxxxxx', '']
-# TTxxxxxxxxxxT 13
-# TxxxxxxxxxxTxxxxxxT 19
-# TxxxxxxTxxxxxxxT 16
-# TxxxxxxxTxxxT 13
-# TxxxTxxxxxT 11
-# TxxxxxTxxxxxxxxT 16
-# TxxxxxxxxTxxxxxxxxxxxxxT 24
-# TxxxxxxxxxxxxxTT 16
-'''
-s = 'TxxxxxxxxxxTxxxxxxTxxxxxxxTxxxTxxxxxTxxxxxxxxTxxxxxxxxxxxxxT'
-s = s.split('T')
-mini = 9999999
-for i in range(len(s)-1):  # s[i], s[i+1]
-    # r = 'T' + s[i] + 'T' + s[i+1] + 'T'
-    r = 'T'.join(s[i:i+2])
-    if mini > len(r):
-        mini = len(r)
-        print(r, mini)
-print(mini + 2)
-'''
-
-
-# Тип 24 №59790
-# Текстовый файл состоит не более чем из 10**6 символов латинского алфавита.
-# Определите минимальную подстроку, содержащую 210 символов "T".
-# Для выполнения этого задания следует написать программу.
-'''
-s = open('24.txt').readline()
-s = s.split('T')
-mini = 9999999
-for i in range(len(s)-208):
-    r = 'T'.join(s[i:i+209])
-    if mini > len(r):
-        mini = len(r)
-print(mini + 2)
-'''
-# Ответ: 3844
-
-
-# Тип 24 №59729
-# Текстовый файл состоит из символов, обозначающих заглавные буквы латинского алфавита.
-# Определите минимальное количество идущих подряд символов,
-# среди которых пара символов T встречается ровно 150 раз.
-'''
-s = open('24.txt').readline()
-mini = 9999999
-M = []
-count = 0
-for i in range(len(s)-1):
-    if s[i:i+2] == 'TT':
-        M.append(i)
-for i in range(len(M)-149):
-    count = M[i+149] - M[i] + 2
-    if mini > count:
-        mini = count
-print(mini)
-'''
-# Ответ: 195560
-
-
-# № 11954 (Уровень: Средний)
-# (PRO100 ЕГЭ) Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле минимальное количество идущих подряд символов
-# (длину непрерывной подпоследовательности), среди которых символ X встречается не менее 500 раз,
-# а символ Y не встречается совсем.
-'''
-s = open('24.txt').readline().split('X')
-mini = 9999999999
-for i in range(len(s)-498):
-    r = 'X'.join(s[i:i+499])
-    if mini > len(r):
-        if 'Y' not in r:
-            mini = len(r)
-print(mini + 2)
-'''
-# Ответ: 68500
-
-
-# Тип 24 №55641
-# Текстовый файл содержит строки различной длины, содержащие только заглавные буквы латинского алфавита (ABC…Z).
-# В каждой строке файла определяется буква, которая чаще всего стоит сразу после буквы T, эта буква
-# заносится в отдельный список. Если несколько разных букв встречаются в строке сразу после Т одинаковое
-# максимальное количество раз, в список заносятся все эти буквы.
-# Определите, сколько раз встретится в этом списке самая частая в нём буква.
-'''
-import string
-s = open('24.txt').readlines()
-# alphabet = sorted('QWERTYUIOPASDFGHJKLZXCVBNM')
-alphabet = string.ascii_uppercase
-R = []
-for x in s:
-    M = []
-    maxi = 0
-    for i in range(len(x)-1):
-        if x[i] == 'T':
-            M.append(x[i+1])
-    for a in alphabet:
-        maxi = max(maxi, M.count(a))
-    for a in alphabet:
-        if M.count(a) == maxi:
-            R.append(a)
-
-A = []
-for a in alphabet:
-    A.append(R.count(a))
-print(max(A))
-'''
-# Ответ: 85
-
-
-# № 13099 (Уровень: Базовый)
-# A. Вычесть 1
-# B. Умножить на 2
-# C. Умножить на 3
-# Сколько существует программ, которые преобразуют исходное число 3
-# в число 15 и при этом не содержат двух команд A подряд?
-'''
-def F(a, b, f):
-    if a > b+1:
-        return 0
-    if a == b:
-        return 1
-    if f == 'A':
-        return F(a * 2, b, 'B') + F(a * 3, b, 'C')
-    return F(a-1, b, 'A') + F(a*2, b, 'B') + F(a*3, b, 'C')
-
-
-print(F(3, 15, 0))
-'''
-# Ответ: 6
-
-
-# № 7011 (Уровень: Средний)
-# A. Прибавь 2
-# B. Прибавь 3
-# С. Умножь на 2
-# Сколько существует программ, для которых при исходном числе 2 результатом будет являться число 40,
-# при этом траектория вычисления не содержит число 28, а также не содержит подпоследовательность команд BACA.
-'''
-def F(a, b, s: str):
-    if a >= b or a == 28:
-        return a == b and 'BACA' not in s
-    return F(a+2, b, s+'A') + F(a+3, b, s+'B') + F(a*2, b, s+'C')
-
-
-print(F(2, 40, ''))
-'''
-# Ответ: 27609
-
-
-# № 4500 (Уровень: Сложный)
-# У исполнителя есть три команды, которым присвоены номера:
-# 1. Прибавь 1
-# 2. Прибавь 2
-# 3. Умножь на 2
-# Сколько существует программ, которые преобразуют исходное число 3 в число 79,
-# и при этом траектория вычислений содержит число 11 и не содержит число 23.
-# Также программа не должна содержать двух команд «Прибавь 1» подряд.
-'''
-from functools import *
-
-@lru_cache(None)
-def F(a, b, f1, f2):
-    if a == 11:
-        f2 = True
-    if a > b or a == 23:
-        return False
-    if a == b:
-        return True and (f2 == True)
-    if f1 == '1':
-        return F(a+2, b, '2', f2) + F(a*2, b, '3', f2)
-    return F(a+1, b, '1', f2) + F(a+2, b, '2', f2) + F(a*2, b, '3', f2)
-
-
-print(F(3, 79, 0, 0))
-'''
-# Ответ: 1015273467 -> 812266767
-
-
-# № 10718 (Уровень: Средний)
-# Алгоритм вычисления значения функции
-# F(n), где n – натуральное число, задан следующими соотношениями:
-# F(n)=2 при n<3;
-# F(n)=2×F(n−2)−F(n−1)+2, если n>2 и при этом n чётно;
-# F(n)=2×F(n−1)+F(n−2)−2, если n>2 и при этом n нечётно.
-# Чему равно значение функции F(170)?
-'''
-from functools import *
-
-@lru_cache(None)
-def F(n):
-    if n < 3:
-        return 2
-    if n > 2 and n % 2 == 0:
-        return 2 * F(n - 2) - F(n - 1) + 2
-    if n > 2 and n % 2 != 0:
-        return 2 * F(n - 1) + F(n - 2) - 2
-
-
-print(F(170))
-'''
-# Ответ: 3596910688800
 
 # endregion Урок: ******************************************************************
 
@@ -338,50 +230,13 @@ for j in f:
 print(max(li.count(l) for l in set(li)))
 '''
 
-
-# № 11607 (Уровень: Базовый)
-# (С. Чайкин) Обозначим через ДЕЛ(n, m) утверждение «натуральное число n делится без остатка на натуральное число m».
-# Для какого наибольшего натурального числа А формула
-# ¬(ДЕЛ(x,263)→ДЕЛ(x,A)) ∧ ДЕЛ(x,71)
-# тождественно ложна (т.е. принимает значение 0) при любом натуральном значении переменной х?
-'''
-def F(x, A):
-    return (not((x % 263 == 0) <= (x % A == 0))) and (x % 71 == 0)
-
-
-for A in range(20000, 1, -1):
-    if all(F(x, A) == False for x in range(1, 40000)):
-        print(A)
-        break
-'''
-# Ответ: 18673
-
-
-# № 10581 (Уровень: Средний)
-# Для узла c IP-адресом 175.122.80.13 адрес подсети равен 175.122.80.0.
-# Сколько существует различных возможных значений маски, если известно, что в этой сети не менее 28 узлов?
-# Ответ запишите в виде десятичного числа.
-
-# Количество единиц в маске подсети указывает, сколько битов адреса IP отведено для сети,
-# а оставшиеся биты - для узлов.
-# Для вычисления количества возможных значений маски подсети можно использовать следующую формулу: 2**n - 2
+# todo Задание 13
 '''
 from ipaddress import *
-for mask in range(32+1):
-    net = ip_network(f'175.122.80.13/{mask}', 0)  # IP-адрес узла & mask = адрес сети (подсети)
-    print(net)
-    # Формула поиска узлов для подсети: 2**n - 2, где n - кол-во битов для узлов
-    # 175.122.80.0/20  32 - 20 = 12 (битов для узлов)  2**12 - 2 = 4094 - подходит
-    # 175.122.80.0/21
-    # 175.122.80.0/22
-    # 175.122.80.0/23
-    # 175.122.80.0/24
-    # 175.122.80.0/25
-    # 175.122.80.0/26
-    # 175.122.80.0/27  32 - 27 = 5 (битов для узлов)   2**5 - 2 = 30 - подходит
-    # 175.122.80.0/28  32 - 28 = 4 (битов для узлов)   2** 4 - 2 = 14  - не подходит, так как узлов менее 28
+
+net = ip_network(f'222.63.131.128/255.255.255.192', 0)
+print(net)
 '''
-# Ответ: 8
 
 # endregion Разобрать: *************************************************************
 
