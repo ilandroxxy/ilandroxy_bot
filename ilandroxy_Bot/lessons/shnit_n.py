@@ -1,159 +1,154 @@
 # region Домашка: ************************************************************
 
-# КЕГЭ № 858 (Уровень: Базовый)
-#
-# Текстовый файл состоит не более чем из 106 заглавных латинских букв (A..Z).
-# Текст разбит на строки различной длины.
-# Определите количество строк, в которых встречается комбинация F*O, где звёздочка обозначает любой символ.
-'''
-count = 0
-s = open('24.txt').readlines()
-A = [f'F{a}O' for a in 'QWERTYUIOPASDFGHJKLZXCVBNM']
-for x in s:
-    if any(a in x for a in A):
-        count += 1
-print(count)
-'''
-# Ответ: 757
 
-
-# КЕГЭ № 7016 (Уровень: Базовый) (Д. Статный)
-# Текстовый файл состоит из букв латинского алфавита и десятичных цифр.
-# Определите максимальную длину подстроки, которая ограничена с одной стороны буквой A,
-# а с другой - D и не содержит других букв A и D внутри.
-'''
-s = open('24.txt').readline()
-s = s.replace('A', 'A A').replace('D', 'D D')
-for x in s.split():
-    print(x)
-print(max([len(x) for x in s.split() if 'A' in x and 'D' in x]))
-'''
-
-# КЕГЭ № 6636 Пробник ИМЦ СПб (Уровень: Базовый)
-# Текстовый файл состоит из цифр 1, 2, 3, 4 и 5. Определите максимальное количество идущих подряд пар символов вида:
-# четная цифра + нечетная цифра в прилагаемом файле.
-'''
-s = open('24.txt').readline()
-count = 1
-max_count = 0
-for i in range(len(s) - 1):
-    x, y = s[i], s[i + 1],
-    if (int(x) % 2 == 0 and int(y) % 2 != 0) or (int(y) % 2 == 0 and int(x) % 2 != 0):
-        count += 1
-        max_count = max(max_count, count)
-    else:
-        count = 1
-print(max_count // 2)
-
-
-s = open('24.txt').readline()
-s = s.replace('3', '1').replace('5', '1')
-s = s.replace('4', '2')
-s = s.replace('21', '*')
-s = s.replace('1', ' ').replace('2', ' ')
-print(max([len(x) for x in s.split()]))
-'''
 # endregion Домашка: ************************************************************
 
 # region Урок: ************************************************************
+"""
+from string import *
+alphabet = digits + ascii_uppercase
 
-# Тип 24 №29672
-# Текстовый файл содержит строки различной длины. Общий объём файла не превышает 1 Мбайт.
-# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
-# Определите количество строк, в которых буква E встречается чаще, чем буква A.
 '''
-count = 0
-s = open('24.txt').readlines()
-for x in s:
-    if x.count('E') > x.count('A'):
-        count += 1
-print(count)
-'''
-# Ответ: 467
-
-
-# Тип 24 №35913
-# Текстовый файл содержит строки различной длины.
-# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
-#
-# Необходимо найти строку, содержащую наименьшее количество букв N (если таких строк несколько,
-# надо взять ту, которая находится в файле раньше), и определить, какая буква встречается в этой строке чаще всего.
-# Если таких букв несколько, надо взять ту, которая позже стоит в алфавите.
-'''
-s = open('24.txt').readlines()
-mini = 999999999
-r = ''
-for x in s:
-    if mini > x.count('N'):
-        mini = x.count('N')
-        r = x
-        print(x.count('N'), r)
-
-for a in sorted(set(r)):
-    print(r.count(a), a)
-'''
-# Ответ: 53 Y
-
-
-# Тип 24 №36879
-# Текстовый файл содержит строки различной длины.
-# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
-#
-# В строках, содержащих менее 25 букв G, нужно определить
-# и вывести максимальное расстояние между одинаковыми буквами в одной строке.
-'''
-s = open('24.txt').readlines()
-maxi = 0
-for x in s:
-    if x.count('G') < 25:
-        for a in 'QWERTYUIOPASDFGHJKLZXCVBNM':
-            maxi = max(maxi, x.rindex(a) - x.index(a))
-print(maxi)
-'''
-# Ответ: 1001
-
-
-# Тип 24 №33526
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите символ, который чаще всего встречается в файле между двумя одинаковыми символами.
-'''
-s = open('24.txt').readline()
-M = []
-for i in range(len(s)-2):
-    if s[i] == s[i+2]:
-        M.append(s[i+1])
-for x in set(M):
-    print(M.count(x), x)
+def convert(number, system):
+    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+    result = ''
+    while number > 0:
+        result += alphabet[number % system]
+        number //= system
+    return result[::-1]
 '''
 
+def convert(number, system):
+    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+    result = ''
+    while number > 0:
+        result = alphabet[number % system] + result
+        number //= system
+    return result
 
-# Тип 24 №33494
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите символ, который чаще всего встречается в файле сразу после буквы E.
+
+print(convert(8, 2))
+"""
+
+# Задание 5
 '''
-s = open('24.txt').readline()
-M = []
-for i in range(len(s)-1):
-    if s[i] == 'E':
-        M.append(s[i+1])
+def convert(number, system):
+    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+    result = ''
+    while number > 0:
+        result = alphabet[number % system] + result
+        number //= system
+    return result
+
+
 R = []
-for x in set(M):
-    R.append([M.count(x), x])
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s += s[-2:]
+    else:
+        x = (n % 3) * 5
+        s += convert(x, 3)
+    r = int(s, 3)
+    if r < 242:
+        R.append(r)
 print(max(R))
 '''
 
 
-# Тип 24 №46982
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите количество групп из идущих подряд не менее 12 символов,
-# которые начинаются и заканчиваются буквой E
-# и не содержат других букв E (кроме первой и последней) и букв F.
+# Задание 12
 '''
-s = open('24.txt').readline()
-s = s.replace('E', ' ')
-print(len([len(x) for x in s.split() if 'F' not in x and len(x) + 2 >= 12]))
+for n in range(4, 10000):
+    s = '5' + '2' * n
+    while '72' in s or '522' in s or '2222' in s:
+        if '72' in s:
+            s = s.replace('72', '22', 1)
+        if '522' in s:
+            s = s.replace('522', '25', 1)
+        if '2222' in s:
+            s = s.replace('2222', '5', 1)
+    summa = sum([int(x) for x in s if x.isdigit()])
+    if summa == 63:
+        print(n)
+        break
 '''
-# Ответ: 9655
+
+# Поиск суммы цифр строки:
+'''
+s = 'ferjikfg12345'
+summa = sum([int(x) for x in s if x.isdigit()])
+print(summa)
+'''
+
+# Задание 9
+'''
+cnt = 0
+for s in open('9.txt'):
+    M = [int(x) for x in s.split()]
+    if len([x for x in M if M.count(x) == 2]) == 4:  # те числа, которые имеют пару
+        if M.count(max(M)) > 1:
+            cnt += 1
+print(cnt)
+'''
+# Ответ: 88
+
+
+# Вариант 17
+'''
+M = [int(x) for x in open('17.txt')]
+A = [x for x in M if abs(x) % 10 == 3 and len(str(abs(x))) == 4]
+cnt = 0
+maxi = 0
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if sum([abs(p) % 10 == 3 for p in [x, y, z]]) <= 2:
+        if (x + y + z) >= min(A):
+            cnt += 1
+            maxi = max(maxi, x + y + z)
+print(cnt, maxi)
+
+
+M = [int(x) for x in open('17.txt')]
+A = [x for x in M if abs(x) % 10 == 3 and len(str(abs(x))) == 4]
+R = []
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if sum([abs(p) % 10 == 3 for p in [x, y, z]]) <= 2:
+        if (x + y + z) >= min(A):
+            R.append(x + y + z)
+print(len(R), max(R))
+'''
+# Ответ: 4335 186619
+
+
+# Вариант 24
+
+# 'xxxxYxxxxxYxxxxxYxxxxxYxxxxxYxxxxxYxxxxx'  не более 3 раз
+# xxxxYxxxxxYxxxxxYxxxxx - максимальное
+
+'''
+s = open('24.txt').readline().split('Y')
+maxi = 0
+for i in range(len(s)-150):
+    r = 'Y'.join(s[i:i+151])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+# Ответ: 1605
+
+# YxxxxxYxxxxxY - минимальное
+# _xxxxx_xxxxx_  .split('Y')
+# _xxxxxYxxxxx_  'Y'.join(s[i:i+2])
+'''
+s = open('24.txt').readline().split('Y')
+mini = 999999
+for i in range(len(s)-148):
+    r = 'Y'.join(s[i:i+149])
+    mini = min(mini, len(r))
+print(mini + 2)
+'''
+# Ответ: 780
+
 
 # endregion Урок: ************************************************************
 

@@ -4,75 +4,52 @@
 
 
 # region Урок: ******************************************************************
+'''
+def per(N, n):
+    s = ''
+    while N > 0:
+        s = str(N % n) + s
+        N //= n
+    return s
 
-# № 12918 PRO100 ЕГЭ 26.01.24 (Уровень: Средний)
-'''
-for s in open('9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    povtor = [x for x in M if M.count(x) == 2]
-    if len(set(povtor)) == 2:
-        if M.count(max(M)) == 1:
-            if max(M)*min(M) > sum(M[1:-1]):
-                print(sum(M))
-                exit()
-'''
+chisla = []
+for N in range(1, 10**5):
+    R = per(N, 4)
+    if len(R) % 2 == 0:
+        R = R[:len(R) // 2] + '0' + R[len(R) // 2:]
+    chislo = int(R, 4)
+    if chislo < 180:
+        chisla.append(N)
+print(max(chisla))
 
-
-# № 12463 PRO100 ЕГЭ 29.12.23 (Уровень: Базовый)
-'''
-count = 0
-for s in open('9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    povtor = [M.count(x) for x in M]
-    copied = [x for x in M if M.count(x) > 1]
-    nepovtor = [x for x in M if M.count(x) == 1]
-    if povtor.count(4) == 4 and povtor.count(1) == 3:
-        if sum(nepovtor)/len(nepovtor)>= max(copied):
-            count += 1
-print(count)
-'''
-
-
-# № 12098 Новогодний вариант (Уровень: Базовый)
-'''
-count = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    povtor = [x for x in M if M.count(x) == 3]
-    nepovtor = [x for x in M if M.count(x) == 1]
-    if len(set(povtor)) == 1:
-        if povtor[0] % 2 != 0:
-            if nepovtor[0] % 2 == 0:
-                count += 1
-print(count)
-'''
-
-# № 9062 Danov2306 (Уровень: Средний)
-'''
-count = 0
-for s in open('9.txt'):
-    M = [int(x)for x in s.split()]
-    if M[0] != min(M) and M[-1] != min(M) and M[0] != max(M) and M[-1] != max(M):
-        m = sorted([int(x) for x in s.split()])
-        if m[1] != m[2]:
-            if ((max(m)-min(m)) % abs(m[1]-m[2])) == 0:
-                count += 1
-print(count)
+for n in range(1, 10**5):
+    n_4 = per(n, 4)
+    count_d = len(n_4)
+    if count_d % 2 == 0:
+        n_4 = n_4[:count_d//2] + '0' + n_4[count_d//2:]
+    r = int(n_4)
+    if r <= 180:
+        print(n)
 '''
 
 
-# № 6898 OpenFIPI (Уровень: Базовый)
-'''
-from itertools import permutations
-count = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    if max(M) < (sum(M) - max(M)):
-        if any((p[0] + p[1]) == (p[2] + p[3]) for p in permutations(M)):
-            count += 1
-print(count)
-'''
-
+from itertools import product
+a1 = '1357'
+a2 = '2468'
+cnt = 0
+for a in a1:
+    for b in a2:
+        for c in a1:
+            for d in a2:
+                for e in a1:
+                    for f in a2:
+                        for g in a1:
+                            for h in a2:
+                                for k in a1:
+                                    s = a + b + c + d + e + f + g + h + k
+                                    if all(s.count(x) <= 3 for x in s):
+                                        cnt += 1
+print(cnt * 2)
 # endregion Урок: *******************************************************************
 
 
