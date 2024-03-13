@@ -6,207 +6,188 @@
 
 # region Урок: ******************************************************************
 
-# Задание 5
+# Файл содержит последовательность натуральных чисел, не превышающих 20 000.
+# Назовём парой два идущих подряд элемента последовательности.
+# Определите количество пар, для которых выполняются следующие условия:
+# – ровно одно число в паре четырёхзначное;
+# – сумма квадратов элементов пары без остатка делится на наименьшее в
+# последовательности трёхзначное число, запись которого заканчивается цифрой 3.
+#
+# В ответе запишите два числа: сначала количество найденных пар,
+# затем максимальную из сумм квадратов элементов таких пар.
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(number, system):
-    result = ''
-    while number > 0:
-        result = alphabet[number % system] + result
-        number //= system
-    return result
-
-
+M = [int(x) for x in open('17.txt')]
+A = [x for x in M if len(str(abs(x))) == 3 and abs(x) % 10 == 3]
+print(A)
 R = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s += s[-2:]
-    else:
-        x = (n % 3) * 5
-        s += convert(x, 3)
-
-    r = int(s, 3)
-    if r < 242:
-        R.append(r)
-
-print(max(R))
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (1000 <= abs(x) <= 9999) != (len(str(abs(y))) == 4):
+        if (x**2 + y**2) % min(A) == 0:
+            R.append(x**2 + y**2)
+print(len(R), max(R))
 '''
-# Ответ: 230
+import readline
 
-
-# Задание 6
+# (Грачев Н.) Текстовый файл состоит из символов D, R и цифр 1, 8.
+# Определите максимальное количество идущих подряд троек символов вида двузначное число + буква в прилагаемом файле.
+# Для выполнения этого задания следует написать программу.
 '''
-import turtle as t  # переименовали библиотеку в t
-t.tracer(0)
-t.left(90)
-m = 30  # масштаб отрисовки
-
-# Ваш псевдокод по условию
-for _ in range(2):
-    t.forward(19 * m)
-    t.right(90)
-    t.forward(10 * m)
-    t.right(90)
-
-t.up()
-
-t.backward(3 * m)
-t.right(90)
-t.forward(8 * m)
-t.left(90)
-
-t.down()
-t.color('green')
-for _ in range(2):
-    t.forward(32 * m)
-    t.right(90)
-    t.forward(12 * m)
-    t.right(90)
+# 18D 18R 81D 81R
+s = open('24.txt').readline()
+s = s.replace('1', '8').replace('R', 'D')
+print(s)
+s = s.replace('88D', '*').replace('D', ' ').replace('8', ' ')
+print(max([len(x) for x in s.split()]))
 
 
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * m, y * m)
-        t.dot(2, 'red')
-
-t.update()
-t.done()
+s = open('24.txt').readline()
+s = s.replace('1', '8').replace('R', 'D')
+print(s)
+# Находим строку через ctrl + F
+s = '88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D88D'
+print(len(s) / 3)
 '''
-# Ответ: 18
 
-
-# Задание 7
+# todo Закинуть разбор на канал
+# (В. Рыбальченко) В файле 9.xlsx в каждой строке содержится 5 целых чисел.
+# Необходимо посчитать количество строк, в которых выполняется оба условия:
+# – Ровно три числа заканчиваются цифрой 3;
+# – Квадрат суммы положительных чисел меньше квадрата суммы отрицательных чисел.
 '''
-# I = pixels * i
-pixels = 2688 * 344
-i = 12 * 2**3  # бит на один символ
+print(-83 % 10)  # 7
 
-I = pixels * i  # бит
-U = 49152  # бит / с
-print(I / U)
-'''
-# Ответ: 1806
-
-# Задание 8
-'''
-cnt = 0
-num = 1
-s = sorted('ПРОГУЛКА')
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    if num % 2 == 0 and a != 'Г' and slovo.count('Л') <= 2:
-                        cnt += 1
-                    num += 1
-print(cnt)
-
-# Вариант 2
-from itertools import product
-cnt = 0
-num = 1
-for v in product(sorted('ПРОГУЛКА'), repeat=5):
-    slovo = ''.join(v)
-    if num % 2 == 0 and slovo[0] != 'Г' and slovo.count('Л') <= 2:
-        cnt += 1
-    num += 1
-print(cnt)
-'''
-# Ответ: 13951
-
-
-# Задание 9
-'''
 cnt = 0
 for s in open('9.txt'):
     M = [int(x) for x in s.split()]
-    if len([x for x in M if M.count(x) == 2]) == 4:
-        if M.count(max(M)) == 2:
-            print(M)
+    if len([x for x in M if abs(x) % 10 == 3]) == 3:
+        A = [x for x in M if x > 0]
+        B = [x for x in M if x < 0]
+        if sum(A) ** 2 < sum(B) ** 2:
             cnt += 1
 print(cnt)
 '''
-# Ответ: 88
+# Ответ: 23
 
-# Задание 11
+# в последовательности находится не более одной гласной (AEIOUY).
+# 'xxxxxxAxxxxxxAxxxxxAxxxxxxAxxxxxx'
+# s = 'xxxxxxAxxxxxxAxxxxxAxxxxxxAxxxxxx'.split('A')
+# ['xxxxxx', 'xxxxxx', 'xxxxx', 'xxxxxx', 'xxxxxx']
+# 'xxxxxxAxxxxxx'
+# 'xxxxxxAxxxxx'
+# 'xxxxxAxxxxxx'
+# 'xxxxxxAxxxxxx'
+
+# Текстовый файл состоит из заглавных букв латинского алфавита.
+# Определите последовательность наибольшей длины в прилагаемом файле,
+# для которой выполняются два условия:
+# символы идут в алфавитном порядке,
+# в последовательности находится не более одной гласной (AEIOUY).
 '''
-symbols = 491
-alphabet = 10 + 9575
-# print(alphabet, 2**14)
-i = 14  # бит на один символ
-bit = symbols * i
-print(bit / 8)  # 859.25
-byte = 860
-I = (byte * 23552) / (2 ** 10)
-print(I)
-'''
-# Ответ: 19780
-
-'''
-def F(a1, a2, x):
-    B = 24 <= x <= 90
-    C = 47 <= x <= 115
-    A = a1 <= x <= a2
-    return C <= (((not A) and B) <= (not C))
-
-
-R = []
-M = [x / 4 for x in range(20 * 4, 120 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(a1, a2, x) for x in M):
-            R.append(a2-a1)
-print(min(R))
-'''
-# Ответ: 43
-
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n <= 11:
-        return 7
-    if n > 11:
-        return n-3 + F(n-1)
-
-print(F(2022) - F(2020))
-
-# F(2022) = 2019 + F(2021)
-# F(2021) = 2018 + F(2020) - F(2020)
-print(2018 + 2019)
-'''
-# Ответ: 4037
-
-
-# Задание 17
-'''
-M = [int(x) for x in open('17.txt')]
-A = [x for x in M if abs(x) % 10 == 3 and len(str(abs(x))) == 4]
-R = []
-for i in range(len(M) - 2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if len([p for p in [x, y, z] if abs(p) % 10 == 3]) != 3:
-        if (x + y + z) >= min(A):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-# Ответ: 4335 186619
-
-# Задание 24
-'''
-s = open('24.txt').readline().split('Y')
+s = open('24.txt').readline()
+for a in 'AEIOUY':
+    s = s.replace(a, '*')
+s = s.split('*')
 maxi = 0
-for i in range(len(s)-150):
-    r = 'Y'.join(s[i:i+151])
-    maxi = max(maxi, len(r))
+for i in range(len(s)-1):
+    x, y = s[i], s[i+1]
+    if maxi < len(x + y) + 1:
+        if list(x+y) == sorted(x+y):
+            maxi = len(x + y) + 1
 print(maxi)
 '''
-# Ответ: 1605
+
+
+# (М. Шагитов) Дана последовательность целых чисел, записанная в файле
+# и содержащая целые числа в диапазоне от -10000 до 10000.
+# Необходимо определить количество пар соседних чисел, где только одно
+# из чисел отрицательно, а их сумма положительна и делится на наименьшее
+# по модулю число в последовательности без остатка.
+# В качестве ответа требуется указать число таких пар и максимальную сумму элементов среди них.
+'''
+M = [int(x) for x in open('17.txt')]
+A = [abs(x) for x in M]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if (x < 0) != (y < 0):
+        if (x + y) > 0 and (x + y) % min(A) == 0:
+            R.append(x + y)
+print(len(R), max(R))
+'''
+
+
+# todo Добавить разбор на канал
+# (Е. Фокин) Текстовый файл состоит не более чем из 10**6 символов и
+# содержит только буквы латинского алфавита и десятичные цифры.
+# Найдите максимальную длину подстроки, ограниченной с двух сторон одним и
+# тем же символом и не содержащей этого символа между ними.
+# В ответе укажите длину найденной строки, включая граничные символы.
+# Например, для строки ABCDABECD ответом будет 6.
+'''
+name = 'Даша'
+print(f'Привет, {name}!')
+print('Привет,', name, '!')
+'''
+'''
+from string import *
+alphabet = digits + ascii_uppercase
+print(alphabet)  # 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+s = open('24.txt').readline()
+maxi = 0
+for a in alphabet:
+    s = s.replace(f'{a}', f'{a} {a}')
+    if maxi < max([len(x) for x in s.split()]):
+        maxi = max([len(x) for x in s.split()])
+        print(a, maxi)
+    s = s.replace(f'{a} {a}', f'{a}')
+'''
+# 9747
+
+
+# todo Разобрать задачку https://stepik.org/lesson/1231755/step/9?unit=1245338
+# (А.Богданов) В файле содержится последовательность натуральных чисел.
+# Рассматриваются все пары элементов, в которых только один элемент чётный,
+# и между элементами пары есть ровно один элемент и он кратен минимальному
+# четному элементу из всех элементов последовательности.
+# Найти количество таких пар и пару с минимальной суммой.
+'''
+M = [int(i) for i in open('17.txt')]
+n = min([i for i in M if i % 2 == 0])  # минимальному четному элементу из всех элементов последовательности
+B = []
+for i in range(len(M)):
+    for j in range(i+1, len(M)):
+        x, y = M[i], M[j]
+        z = M[M.index(x) + 1]
+        if M.index(y) - M.index(x) == 2:
+            if (x % 2 == 0) != (y % 2 == 0):
+                if z % n == 0:
+                    B.append(x + y)
+print(len(B), min(B))
+'''
+#  0  1  2  3  4
+# [4, 5, 6, 7, 8]
+
+'''
+M = [int(i) for i in open('17.txt')]
+n = min([i for i in M if i % 2 == 0])  # минимальному четному элементу из всех элементов последовательности
+count = 0
+mini = 9999999
+r = ''
+for i in range(len(M) - 2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    if (x % 2 == 0) != (z % 2 == 0):
+        if y % n == 0:
+            count += 1
+            if mini > x + z:
+                mini = x + z
+                r = [x, y]
+print(count, r)
+'''
+
+
+
 
 
 # endregion Урок: ******************************************************************
@@ -216,7 +197,7 @@ print(maxi)
 
 # todo Тип 24 №55641
 '''
-f = open('24.txt').readlines()
+f = open('24.txt').readlines()пш
 li = []
 for j in f:
     st = ''
