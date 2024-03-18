@@ -5,81 +5,165 @@
 
 # region Урок: ******************************************************************
 
-# Дана программа для исполнителя Редактор:
+
+# Определите в прилагаемом файле максимальное количество идущих подряд символов
+# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 3 раз.
+'''
+s = 'xxxxxxxxxxxTxxxxxxxTxxTxxxxxTxxxxTxxxxxxTxxxxxxxTxxxxxxxxxxTxxxxxxx'
+# ['xxxxxxxxxxx', 'xxxxxxx', 'xx', 'xxxxx', 'xxxx', 'xxxxxx', 'xxxxxxx', 'xxxxxxxxxx', 'xxxxxxx']
+# xxxxxxxxxxxTxxxxxxxTxxTxxxxx 28
+# xxxxxxxTxxTxxxxxTxxxx 21
+# xxTxxxxxTxxxxTxxxxxx 20
+# xxxxxTxxxxTxxxxxxTxxxxxxx 25
+# xxxxTxxxxxxTxxxxxxxTxxxxxxxxxx 30
+# xxxxxxTxxxxxxxTxxxxxxxxxxTxxxxxxx 33
+
+s = s.split('T')
+maxi = 0
+for i in range(len(s)-3):
+    # r = s[i] + 'T' + s[i+1] + 'T' + s[i+2] + 'T' + s[i+3]
+    r = 'T'.join(s[i:i+4])
+    maxi = max(maxi, len(r))
+    print(r, len(r))
+print(maxi)
+'''
+
+# Тип 24 №60266
+# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
+# Определите в прилагаемом файле максимальное количество идущих подряд символов
+# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 100 раз.
+'''
+s = open('24.txt').readline().split('T')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'T'.join(s[i:i+101])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+# Ответ: 133
+
+
+# Определите минимальную длину подстроки, содержащую ровно 3 символов T.
+# Для выполнения этого задания следует написать программу.
+'''
+s = 'xxxxxxxxxxxTxxxxxxxTxxTxxxxxTxxxxTxxxxxxTxxxxxxxTxxxxxxxxxxTxxxxxxx'
+# ['xxxxxxxxxxx', 'xxxxxxx', 'xx', 'xxxxx', 'xxxx', 'xxxxxx', 'xxxxxxx', 'xxxxxxxxxx', 'xxxxxxx']
+# TxxxxxxxxxxxTxxxxxxxT 21
+# TxxxxxxxTxxT 12
+# TxxTxxxxxT 10
+# TxxxxxTxxxxT 12
+# TxxxxTxxxxxxT 13
+# TxxxxxxTxxxxxxxT 16
+# TxxxxxxxTxxxxxxxxxxT 20
+# TxxxxxxxxxxTxxxxxxxT 20
+
+s = s.split('T')
+mini = 9999999
+for i in range(len(s)-1):
+    r = 'T' + 'T'.join(s[i:i+2]) + 'T'
+    print(r, len(r))
+    mini = min(mini, len(r))
+print(mini)
+'''
+
+
+# Тип 24 №59794
+# Текстовый файл состоит не более чем из 106 символов латинского алфавита.
+# Определите минимальную длину подстроки, содержащую ровно 110 символов "U".
+# Для выполнения этого задания следует написать программу.
+'''
+s = open('24.txt').readline().split('U')
+mini = 99999
+for i in range(len(s)-108):
+    r = 'U' + 'U'.join(s[i:i+109]) + 'U'
+    mini = min(mini, len(r))
+print(mini)
+'''
+# Ответ: 1765
+
+
 #
-# ПОКА нашлось(01) ИЛИ нашлось(02) ИЛИ нашлось(03)
-#   заменить(01, 30)
-#   заменить(02, 3103)
-#   заменить(03, 1201)
-
-# Известно, что исходная строка начиналась с нуля, а далее содержала только единицы, двойки и тройки.
-# После выполнения данной программы получилась строка, содержащая 31 единицу, 24 двойки и 46 троек.
-# Сколько троек было в исходной строке?
+# № 12476 PRO100 ЕГЭ 29.12.23 (Уровень: Сложный)
+# Текстовый файл состоит из символов P, R, O, E, G – зашифрованное письмо Деду Морозу.
+#
+# Определите в прилагаемом файле максимальное количество идущих подряд символов, среди которых комбинация
+# символов RO встречается ровно 21 раз, а комбинации символов ORO и ROR ни разу не встречаются.
 '''
-for x in range(1, 100):
-    for y in range(1, 100):
-        for z in range(1, 100):
-            strok = '0' + '1' * x + '2' * y + '3' * z
-            while '01' in strok or '02' in strok or '03' in strok:
-                strok = strok.replace('01', '30', 1)
-                strok = strok.replace('02', '3103', 1)
-                strok = strok.replace('03', '1201', 1)
-            if strok.count('1') == 31 and strok.count('2') == 24 and strok.count('3') == 46:
-                print(z)
-                exit()
+s = open('24.txt').readline().split('RO')
+maxi = 0
+for i in range(len(s)-21):
+    r = 'RO'.join(s[i:i+22])
+    if 'ORO' not in r and 'ROR' not in r:
+        maxi = max(maxi, len(r))
+print(maxi)
 '''
-
-
-# Дана программа для Редактора:
-
-# ПОКА нашлось(>1) ИЛИ нашлось(>2) ИЛИ нашлось(>3)
-#    ЕСЛИ нашлось(>1)
-#       ТО заменить(>1,2>)
-#    КОНЕЦ ЕСЛИ
-#    ЕСЛИ нашлось(>2)
-#       ТО заменить(>2,3>)
-#    КОНЕЦ ЕСЛИ
-#    ЕСЛИ нашлось(>3)
-#       ТО заменить(>3,11>)
-#    КОНЕЦ ЕСЛИ
-# КОНЕЦ ПОКА
-
-# На вход программы поступает строка, начинающаяся с символа «>», а затем содержащая 15 цифр 1, 35 цифры 2 и m цифр 3,
-# расположенных в произвольном порядке. Определите минимальное значение m, при котором сумма
-# числовых значений цифр строки, получившейся в результате выполнения программы,
-# будет иметь ровно 3 различных натуральных делителя, не включая единицы и самого значения суммы.
-
-def divisors(x):
-    divisors = set()
-    for j in range(2, int(x**0.5)+1):
-        if x % j == 0:
-            divisors.add(j)
-            divisors.add(x//j)
-    return sorted(divisors)
-
-
-for m in range(0, 1000):
-    s = '>' + '1' * 15 + '2' * 35 + '3' * m
-
-    while '>1' in s or '>2' in s or '>3' in s:
-        if '>1' in s:
-            s = s.replace('>1', '2>', 1)
-        if '>2' in s:
-            s = s.replace('>2', '3>', 1)
-        if '>3' in s:
-            s = s.replace('>3', '11>', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if len(divisors(summa)) == 3:
-        print(m)
 
 # endregion Урок: *******************************************************************
 
 
 # region Разобрать: *************************************************************
 
+
+# todo разобрать Марк № 14100 (Уровень: Средний)
+# (П. Говоров) В файле содержится строка длиной не более 106 из букв A,B,C.
+# Определите в прилагаемом файле максимальную длину подпоследовательности, составленную конкатенацией из
+# следующих подстрок (могут использоваться любое количество раз): ABA, CB, AC, BB, ABC, BCB, BA, AB.
+'''
+s = open('24.txt').readline()
+dp = [0] * len(s)
+prim = ['ABA', 'CB', 'AC', 'BB', 'ABC', 'BCB', 'BA', 'AB']
+
+for i in range(1, len(s)):
+    for j in prim:
+        if i >= len(j) - 1:
+            if s[i - len(j) + 1:i + 1] == j:
+                dp[i] = max(dp[i], dp[i - len(j)] + len(j))
+print(max(dp))
+
+
+# наше решение:
+s = open('24.txt').readline()
+maxi = 0
+for a in "ABA CB AC BB ABC BCB BA AB".split():
+    s = s.replace(a, '*' * len(a))
+s = s.replace('A', ' ').replace('B', ' ').replace('C', ' ')
+print(max([len(x) for x in s.split()]))
+'''
+
+
+# todo Разобрать Марк почему ответ не сходится № 13715 (Уровень: Средний)
+# Текстовый файл состоит из символов A, B, C, D и E.
+#
+# Определите в прилагаемом файле максимальное количество идущих подряд символов,
+# среди которых комбинация символов AB встречается ровно 50 раз.
+'''
+s = open('24.txt').readline().split('AB')
+maxi = 0
+for i in range(len(s)-50):
+    r = 'AB'.join(s[i:i+51])
+    print(len(r), r.count('AB'), r)
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+# todo Придумать как быть с незначащими нулями Марк № 10724 (Уровень: Базовый)
+'''
+s = open('24.txt').readline()
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')[16:]
+for a in alphabet:
+    s = s.replace(a, ' ')
+maxi = 0
+for x in s.split():
+    if x[0] != '0':
+        if maxi < len(x):
+            maxi = len(x)
+            print(maxi, x)
+print(maxi)
+'''
+
 # endregion Разобрать: *************************************************************
 
 
-# Марк = [1.1, 2.1, 3.1, 6.1, 4.1, 5.1, 7.1, 8.1, 9.1, 12.1, 14.1, 15.1, 16.1, 17.1, 22.1, 23.1, 24.1, 25.1]
-# КЕГЭ  = [5.1, 8.1, 9.1, 14.1, 16.1, 23.1]
+# Марк = [1, 2, 3, 6, 4, 5, 7, 8, 9, 12, 14, 15, 16, 17, 22, 23, 24, 25]
+# КЕГЭ  = [5, 8, 9, 14, 16, 23, 24, 25]
 # на следующем уроке:
