@@ -6,182 +6,19 @@
 
 # region Урок: ******************************************************************
 
+# Тип 1 №58468
 
-# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле максимальное количество идущих подряд символов
-# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 3 раз.
-'''
-# ['', 'xxxxxxxxx', 'xxxxxxx', 'xxxxxxxxx', 'xxxx', 'xxxx', 'xxxxxxx', 'xxxxxxxxxxxxxxxxx', '']
-# TxxxxxxxxxTxxxxxxxTxxxxxxxxx 28
-# xxxxxxxxxTxxxxxxxTxxxxxxxxxTxxxx 32
-# xxxxxxxTxxxxxxxxxTxxxxTxxxx 27
-# xxxxxxxxxTxxxxTxxxxTxxxxxxx 27
-# xxxxTxxxxTxxxxxxxTxxxxxxxxxxxxxxxxx 35
-# xxxxTxxxxxxxTxxxxxxxxxxxxxxxxxT 31
-s = 'TxxxxxxxxxTxxxxxxxTxxxxxxxxxTxxxxTxxxxTxxxxxxxTxxxxxxxxxxxxxxxxxT'
-s = s.split('T')
-maxi = 0
-for i in range(len(s)-3):
-    r = 'T'.join(s[i:i+4])
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
+from itertools import permutations
+graph = 'АБ БА АИ ИА БИ ИБ БВ ВБ ВЖ ЖВ ЖБ БЖ ИЖ ЖИ ЖЕ ЕЖ ЕД ДЕ ГД ДГ ЕГ ГЕ ВГ ГВ'
+table = '14 17 18 23 25 26 32 34 38 41 43 47 48 52 56 58 62 65 71 74 81 83 84 85'
+for per in permutations('АБВГДЖЕИ'):
+    new_table = table
+    for i in range(1, 8+1):
+        new_table = new_table.replace(str(i), per[i-1])
+    if set(new_table.split()) == set(graph.split()):
+        print('1 2 3 4 5 6 7 8')
+        print(*per)
 
-# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле минимальное количество идущих подряд символов
-# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 3 раз.
-
-# ['', 'xxxxxxxxx', 'xxxxxxx', 'xxxxxxxxx', 'xxxx', 'xxxx', 'xxxxxxx', 'xxxxxxxxxxxxxxxxx', '']
-# Txxxxxxxxx 10 + 2
-# xxxxxxxxxTxxxxxxx 10 + 2
-# xxxxxxxTxxxxxxxxx 10 + 2
-# xxxxxxxxxTxxxx 10 + 2
-# xxxxTxxxx 9 + 2
-# xxxxTxxxxxxx 9 + 2
-# xxxxxxxTxxxxxxxxxxxxxxxxx 9 + 2
-# xxxxxxxxxxxxxxxxxT 9 + 2
-'''
-s = 'TxxxxxxxxxTxxxxxxxTxxxxxxxxxTxxxxTxxxxTxxxxxxxTxxxxxxxxxxxxxxxxxT'
-s = s.split('T')
-mini = 999999
-for i in range(len(s)-1):
-    r = 'T'.join(s[i:i + 2])
-    mini = min(mini, len(r))
-print(mini + 2)
-'''
-# Ответ: 11
-
-
-# Тип 24 №60266
-# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
-# Определите в прилагаемом файле максимальное количество идущих подряд символов
-# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 100 раз.
-# Для выполнения этого задания следует написать программу.
-'''
-s = open('24.txt').readline().split('T')
-maxi = 0
-for i in range(len(s)-100):
-    r = 'T'.join(s[i:i+101])
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-# Ответ: 133.
-
-
-# Тип 24 №59794
-# Текстовый файл состоит не более чем из 106 символов латинского алфавита.
-# Определите минимальную длину подстроки, содержащую ровно 110 символов "U".
-# Для выполнения этого задания следует написать программу.
-'''
-s = open('24.txt').readline()
-s = s.split('U')
-mini = 999999
-for i in range(len(s)-108):
-    r = 'U'.join(s[i:i+109])
-    mini = min(mini, len(r))
-print(mini + 2)
-'''
-# Ответ: 1765
-
-
-# Тип 24 №33494
-# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z).
-# Определите символ, который чаще всего встречается в файле сразу после буквы E.
-'''
-s = open('24.txt').readline()
-M = []
-for i in range(len(s)-1):
-    if s[i] == 'E':
-        M.append(s[i+1])
-
-R = []
-for a in set(M):
-    R.append([M.count(a), a])
-print(max(R)[1])  # [1596, 'Y']
-'''
-
-
-# Тип 24 №29672
-# Текстовый файл содержит строки различной длины.
-# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
-# Определите количество строк, в которых буква E встречается чаще, чем буква A.
-'''
-s = open('24.txt').readlines()
-cnt = 0
-for x in s:
-    if x.count('E') > x.count('A'):
-        cnt += 1
-print(cnt)
-'''
-# Ответ: 467
-
-
-# Тип 24 №6879
-# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
-# В строках, содержащих менее 25 букв G, нужно определить
-# и вывести максимальное расстояние между одинаковыми буквами в одной строке.
-'''
-s = open('24.txt').readlines()
-alphabet = 'QWERTYUIOPASDFGHJKLZXCVBNM'
-maxi = 0
-for x in s:
-    if x.count('G') < 25:
-        for a in alphabet:
-            maxi = max(maxi, x.rindex(a) - x.index(a))
-print(maxi)
-'''
-
-
-# Тип 24 №35913
-# Текстовый файл содержит строки различной длины.
-# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
-#
-# Необходимо найти строку, содержащую наименьшее количество букв N
-# (если таких строк несколько, надо взять ту, которая находится в файле раньше),
-# и определить, какая буква встречается в этой строке чаще всего.
-# Если таких букв несколько, надо взять ту, которая позже стоит в алфавите.
-'''
-s = open('24.txt').readlines()
-mini = 99999
-r = ''
-for x in s:
-    if mini > x.count('N'):
-        mini = x.count('N')
-        r = x
-
-for a in sorted(set(r)):
-    print(a, r.count(a))
-'''
-
-
-# Тип 24 №55641
-# Текстовый файл содержит строки различной длины, содержащие только заглавные буквы латинского алфавита (ABC…Z).
-# В каждой строке файла определяется буква, которая чаще всего стоит сразу после буквы T, эта буква
-#
-# заносится в отдельный список. Если несколько разных букв встречаются в строке сразу
-# после Т одинаковое максимальное количество раз, в список заносятся все эти буквы.
-# Определите, сколько раз встретится в этом списке самая частая в нём буква.
-'''
-s = open('24.txt').readlines()
-R = []  # буквы, которые в строках х встречаются наибольшее кол-во раз
-for x in s:
-    maxi = 0
-    M = []
-    for i in range(len(x)-1):
-        if x[i] == 'T':
-            M.append(x[i+1])
-    for a in set(M):
-        maxi = max(maxi, M.count(a))
-    for a in set(M):
-        if M.count(a) == maxi:
-            R.append(a)
-
-A = []
-for a in set(R):
-    A.append(R.count(a))
-print(max(A))
-'''
-# Ответ: 85
 
 # endregion Урок: ***************************************************************
 
@@ -191,6 +28,6 @@ print(max(A))
 # endregion Разобрать: *************************************************************
 
 
-# Сева = [2.1, 6.1, 5.1, 8.1, 9.1, 12.1, 14.1, 15.1, 16.1, 17.1, 23.1, 24.1, 25.1]
+# Сева = [1, 2, 6, 5, 8, 9, 12, 14, 15, 16, 17, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
