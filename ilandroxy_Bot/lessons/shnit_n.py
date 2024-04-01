@@ -1,154 +1,225 @@
 # region Домашка: ************************************************************
 
-
 # endregion Домашка: ************************************************************
 
 # region Урок: ************************************************************
-"""
-from string import *
-alphabet = digits + ascii_uppercase
+
+# Теория:
+# Адрес сети = IP адрес узла & Маска
+# IP имеет вид: четыре числа разделенные точками, на каждое из которыех выделено по 1 байту
+# На каждое число выделено по 8 бит, то есть числа в диапазоне: 0 (00000000) и до 255 (11111111)
+
+# Маска имеет длину 32 бита и вид 111111...000, пример: # 11111111.11111111.11100000.00000000
 
 '''
-def convert(number, system):
-    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    result = ''
-    while number > 0:
-        result += alphabet[number % system]
-        number //= system
-    return result[::-1]
-'''
+knot = '.'.join([bin(int(x))[2:].zfill(8) for x in '142.9.227.146'.split('.')])
+mask = '.'.join([bin(int(x))[2:].zfill(8) for x in '255.255.224.0'.split('.')])
 
-def convert(number, system):
-    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    result = ''
-    while number > 0:
-        result = alphabet[number % system] + result
-        number //= system
-    return result
-
-
-print(convert(8, 2))
-"""
-
-# Задание 5
-'''
-def convert(number, system):
-    alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-    result = ''
-    while number > 0:
-        result = alphabet[number % system] + result
-        number //= system
-    return result
-
-
-R = []
-for n in range(1, 1000):
-    s = convert(n, 3)
-    if n % 3 == 0:
-        s += s[-2:]
+address = ''
+for i in range(len(knot)):
+    if knot[i] == '1' and mask[i] == '1':
+        address += '1'
+    elif knot[i] == '.' and mask[i] == '.':
+        address += '.'
     else:
-        x = (n % 3) * 5
-        s += convert(x, 3)
-    r = int(s, 3)
-    if r < 242:
-        R.append(r)
-print(max(R))
+        address += '0'
+
+print(knot, mask, address, sep='\n')
+# 10001110.00001001.11100011.10010010
+# 11111111.11111111.11100000.00000000
+# 10001110.00001001.11100000.00000000
+
+print([int(x, 2) for x in address.split('.')])
+# [142, 9, 224, 0]
 '''
+# Ответ: FBHA
 
 
-# Задание 12
+# Тип 13 №3550
+# По заданным IP-адресу узла и маске определите адрес сети.
+# IP адрес узла: 142.9.227.146
+# Маска: 255.255.224.0
 '''
-for n in range(4, 10000):
-    s = '5' + '2' * n
-    while '72' in s or '522' in s or '2222' in s:
-        if '72' in s:
-            s = s.replace('72', '22', 1)
-        if '522' in s:
-            s = s.replace('522', '25', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-    summa = sum([int(x) for x in s if x.isdigit()])
-    if summa == 63:
-        print(n)
-        break
+from ipaddress import *
+net = ip_network('142.9.227.146/255.255.224.0', 0)
+print(net)  # 142.9.224.0/19, где 19 - число единиц в маске: # 11111111.11111111.11100000.00000000
 '''
+# Ответ: FBHA
 
-# Поиск суммы цифр строки:
-'''
-s = 'ferjikfg12345'
-summa = sum([int(x) for x in s if x.isdigit()])
-print(summa)
-'''
 
-# Задание 9
+# Тип 13 №11308
+# Для узла с IP-адресом 203.155.196.98 адрес сети равен 203.155.192.0.
+# Найдите наибольшее возможное количество единиц в двоичной записи маски подсети.
 '''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'203.155.196.98/{mask}', 0)
+    print(net)
+    # 203.155.192.0/18
+    # 203.155.192.0/19
+    # 203.155.192.0/20
+    # 203.155.192.0/21
+'''
+# Ответ: 21
+
+
+# Тип 13 №15628
+# Для узла с IP-адресом 153.82.140.123 адрес сети равен 153.82.136.0.
+# Определите третий слева байт маски подсети. Ответ запишите в виде десятичного числа.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'153.82.140.123/{mask}', 0)
+    print(net, net.netmask)
+    # 153.82.136.0/21 255.255.248.0
+'''
+# Ответ: 248
+
+
+# Тип 13 №14698
+# Для узла с IP-адресом 93.138.161.94 адрес сети равен 93.138.160.0.
+# Какое наибольшее количество нулей может быть в двоичной записи маски?
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'93.138.161.94/{mask}', 0)
+    print(net, 32-mask)
+    # 93.138.160.0/19 13
+    # 93.138.160.0/20 12
+    # 93.138.160.0/21 11
+    # 93.138.160.0/22 10
+    # 93.138.160.0/23 9
+'''
+# Ответ: 13
+
+
+# Тип 13 №27297
+# Для узла с IP-адресом 76.89.95.123 третий слева байт маски равен 240.
+# Чему равен третий байт адреса сети для этого узла?
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'76.89.95.123/{mask}', 0)
+    print(net, net.netmask)
+    # 76.89.80.0/20 255.255.240.0
+'''
+# Ответ: 80
+
+
+# Тип 13 №28687
+# Для узла с IP-адресом 98.162.71.123 адрес сети равен 98.162.71.96.
+# Чему равен последний (самый правый) байт маски?
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'98.162.71.123/{mask}', 0)
+    print(net, net.netmask)
+    # 98.162.71.96/27 255.255.255.224
+'''
+# Ответ: 224
+
+
+# Тип 13 №60255
+# Сеть задана IP-адресом 192.168.32.160 и маской сети 255.255.255.240.
+# Сколько в этой сети IP-адресов, для которых сумма единиц в двоичной записи IP-адреса чётна?
+'''
+from ipaddress import *
+net = ip_network('192.168.32.160/255.255.255.240', 0)
 cnt = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    if len([x for x in M if M.count(x) == 2]) == 4:  # те числа, которые имеют пару
-        if M.count(max(M)) > 1:
-            cnt += 1
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 2 == 0:
+        cnt += 1
 print(cnt)
 '''
-# Ответ: 88
+# Ответ: 8
 
 
-# Вариант 17
+# Сеть задана IP-адресом 192.168.32.160 и маской сети 255.255.255.240.
+# Сколько в этой сети IP-адресов, для которых сумма единиц в двоичной записи IP-адреса чётна?
+
+
+# Тип 13 №2237
+# Для некоторой подсети используется маска 255.255.255.192.
+# Сколько различных адресов компьютеров теоретически допускает эта маска,
+# если два адреса (адрес сети и широковещательный) не используют?
 '''
-M = [int(x) for x in open('17.txt')]
-A = [x for x in M if abs(x) % 10 == 3 and len(str(abs(x))) == 4]
-cnt = 0
-maxi = 0
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if sum([abs(p) % 10 == 3 for p in [x, y, z]]) <= 2:
-        if (x + y + z) >= min(A):
-            cnt += 1
-            maxi = max(maxi, x + y + z)
-print(cnt, maxi)
-
-
-M = [int(x) for x in open('17.txt')]
-A = [x for x in M if abs(x) % 10 == 3 and len(str(abs(x))) == 4]
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i], M[i+1], M[i+2]
-    if sum([abs(p) % 10 == 3 for p in [x, y, z]]) <= 2:
-        if (x + y + z) >= min(A):
-            R.append(x + y + z)
-print(len(R), max(R))
+from ipaddress import *
+net = ip_network('0.0.0.0/255.255.255.192', 0)
+print(net.num_addresses - 2)
 '''
-# Ответ: 4335 186619
+# Ответ: 62
 
 
-# Вариант 24
-
-# 'xxxxYxxxxxYxxxxxYxxxxxYxxxxxYxxxxxYxxxxx'  не более 3 раз
-# xxxxYxxxxxYxxxxxYxxxxx - максимальное
-
+# Тип 13 №16888
+# Для узла с IP-адресом 98.162.71.94 адрес сети равен 98.162.71.64.
+# Чему равно наименьшее количество возможных адресов в этой сети?
+#
+# Примечание. Адрес сети и широковещательный адрес необходимо учитывать при подсчёте.
 '''
-s = open('24.txt').readline().split('Y')
-maxi = 0
-for i in range(len(s)-150):
-    r = 'Y'.join(s[i:i+151])
-    maxi = max(maxi, len(r))
-print(maxi)
+from ipaddress import *
+for mask in range(32+1):
+    net = ip_network(f'98.162.71.94/{mask}', 0)
+    print(net, net.num_addresses)
+    # 98.162.71.64/26 64
+    # 98.162.71.64/27 32
 '''
-# Ответ: 1605
+# Ответ: 32
 
-# YxxxxxYxxxxxY - минимальное
-# _xxxxx_xxxxx_  .split('Y')
-# _xxxxxYxxxxx_  'Y'.join(s[i:i+2])
-'''
-s = open('24.txt').readline().split('Y')
-mini = 999999
-for i in range(len(s)-148):
-    r = 'Y'.join(s[i:i+149])
-    mini = min(mini, len(r))
-print(mini + 2)
-'''
-# Ответ: 780
 
+# Тип 13 №28548
+# Узлы с IP-адресами 84.77.47.132 и 84.77.48.132 находятся в разных сетях, маски которых одинаковы.
+# Укажите наименьшее возможное значение третьего слева байта этой маски. Ответ запишите в виде десятичного числа
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'84.77.47.132/{mask}', 0)
+    net2 = ip_network(f'84.77.48.132/{mask}', 0)
+    if net1 != net2:
+        print(net1.netmask)
+        # 255.255.240.0
+        # 255.255.248.0
+        # 255.255.252.0
+        # 255.255.254.0
+'''
+# Ответ: 240
+
+
+# Тип 13 №18624
+# Узлы с IP-адресами 98.162.78.139 и 98.162.78.154 находятся в одной сети.
+# Чему равно наибольшее количество возможных единиц в маске этой сети?
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'98.162.78.139/{mask}', 0)
+    net2 = ip_network(f'98.162.78.154/{mask}', 0)
+    if net1 == net2:
+        print(mask)
+        # 24
+        # 25
+        # 26
+        # 27
+'''
+# Ответ: 27
+
+
+# Тип 13 №63062
+# Узлы с IP- адресами 120.91.85.213 и 120.91.89.205 находятся в разных сетях.
+# Укажите наименьшее возможное значение третьего слева байта маски этой сети.
+'''
+from ipaddress import *
+for mask in range(32+1):
+    net1 = ip_network(f'120.91.85.213/{mask}', 0)
+    net2 = ip_network(f'120.91.89.205/{mask}', 0)
+    if net1 != net2:
+        print(net1.netmask)
+        # 255.255.248.0
+        # 255.255.252.0
+        # 255.255.254.0
+        # 255.255.255.0
+        # 255.255.255.128
+'''
+# Ответ: 248
 
 # endregion Урок: ************************************************************
 
@@ -190,6 +261,6 @@ print(max(B))
 
 # endregion Разобрать: *************************************************************
 
-# Никита = [3, 5, 8, 9, 12, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
+# Никита = [3, 5, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
 # КЕГЭ = []
 # на следующем уроке:
