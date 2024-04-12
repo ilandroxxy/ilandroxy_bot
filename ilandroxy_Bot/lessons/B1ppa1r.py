@@ -5,29 +5,54 @@
 
 
 # region Урок: ******************************************************************
-
-# № 12453 (Уровень: Базовый)
-# (Л. Шастин) Леонид составляет коды перестановкой букв слова СОВЕСТЬ.
-# При этом в кодах не должно быть двух стоящих рядом гласных и двух стоящих рядом согласных одновременно.
-# Сколько различных кодов может составить Леонид?
-# Примечание: в этой задаче мягкий знак принять за гласную букву.
 '''
-from itertools import permutations
-cnt = set()
-for s in permutations('СОВЕСТЬ'):
-    slovo = ''.join(s)
-    word = slovo
-    slovo = slovo.replace('Е', 'О').replace('Ь', 'О')
-    slovo = slovo.replace('С', 'В').replace('Т', 'В')
-    if not('ОО' in slovo and 'ВВ' in slovo):
-        print(slovo)
-        cnt.add(word)
-print(len(cnt))
+M = [int(x) for x in open('17.txt')]
+print(len(M))  # 6634
+s = M.copy()
+
+
+flag = True
+mini = min(s)
+while flag:
+    mini = min(s)
+    s.remove(mini)
+    if (mini % 52) == 0:
+        flag = False
+
+print(len(M))  # 5841
+
+cnt = 0
+maxi = 0
+mini = 52
+for j in range(len(M)-2):
+    ost_1 = M[j] % 113
+    ost_2 = M[j+1] % 113
+    ost_3 = M[j+2] % 113
+    summa = ost_3 + ost_2 + ost_1
+    if summa == mini:
+        cnt += 1
+        if (M[j] + M[j+1] + M[j+2]) > maxi:
+            maxi = (M[j] + M[j+1] + M[j+2])
+print(cnt, maxi)
 '''
 
-# ¬(x&79=0)∧(x&31=0→¬(x&А=0))
-def F(x, A):
-    return ((not (x & 79 == 0)) and (x & 31 == 0 <= (not (x & A == 0))))
+import sys
+from functools import *
+
+sys.setrecursionlimit(10000)
+@lru_cache(None)
+def F(st, fin, flag):
+    if st > fin:
+        return 0
+    if st == fin:
+        print(flag)
+        return 1 and flag.count('A') <= 2
+    return  F(st * 2, fin, flag+'B') + F(st * 3, fin, flag+'C')
+
+
+
+print(F(6, 48, ''))
+
 # endregion Урок: ******************************************************************
 
 
