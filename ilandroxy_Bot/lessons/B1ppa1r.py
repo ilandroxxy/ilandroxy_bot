@@ -5,54 +5,90 @@
 
 
 # region Урок: ******************************************************************
+
+#
+# № 15339
+# (М. Ишимов) Текстовый файл состоит из символов латинского
+# алфавита A, B, C, и цифр 6, 7, 8, 9.
+# Определите в прилагаемом файле максимальное количество
+# идущих подряд символов, среди которых никакая буква не стоит
+# рядом с буквой, а цифра – с цифрой.
+# Для выполнения этого задания следует написать программу.
 '''
-M = [int(x) for x in open('17.txt')]
-print(len(M))  # 6634
-s = M.copy()
+s = open('24.txt').readline()
+s = s.replace('B', 'A').replace('C', 'A')
+s = s.replace('7', '6').replace('8', '6').replace('9', '6')
+while 'AA' in s and '66' in s:
+    s = s.replace('AA', 'A A').replace('66', '6 6')
+print(max([len(x) for x in s.split()]))
+'''
+
+# Задание 5 .
+# На вход алгоритма подаётся натуральное число N.
+# Алгоритм строит по нему новое число R следующим образом.
+# 1. Строится троичная запись числа N.
+# 2. Далее эта запись обрабатывается по следующему правилу:
+# а) если число N делится на 3, то к этой записи дописываются две последние троичные
+# цифры;
+# 6) если число N на 3 не делится, то остаток от деления
+# умножается на 5, переводится в троичную запись и дописывается в конец числа.
+# Полученная таким образом запись является троичной записью искомого числа R.
+# 3. Результат переводится в десятичную систему и выводится на экран.
+
+# В ответе запишите это число в десятичной системе счисления.
+'''
+def F(n):
+    s = ''
+    while n > 0:
+        s = s + str(n%3)
+        n = n // 3
+    s = s[::-1]
+    return s
 
 
-flag = True
-mini = min(s)
-while flag:
-    mini = min(s)
-    s.remove(mini)
-    if (mini % 52) == 0:
-        flag = False
+R = []
+for N in range(1, 5000):
+    n = F(N)
+    if N % 3 == 0:
+        n = n + n[-2:]
+    if N % 3 != 0:
+        n = n + F(5*(N % 3))
+    r = int(n, 3)
+    if r > 133:
+        R.append(r)
+print(min(R))
+'''
 
-print(len(M))  # 5841
-
-cnt = 0
-maxi = 0
-mini = 52
-for j in range(len(M)-2):
-    ost_1 = M[j] % 113
-    ost_2 = M[j+1] % 113
-    ost_3 = M[j+2] % 113
-    summa = ost_3 + ost_2 + ost_1
-    if summa == mini:
+'''
+M = [int(i) for i in open('17.txt')]
+a = max([l for l in M if str(l)[-3:] == '121'])
+ans = []
+for j in range(len(M) - 2):
+    x, y, z = M[j], M[j + 1], M[j + 2]
+    cnt = 0
+    if len(str(abs(x))) == 4 and abs(x) % 2 == 0:
         cnt += 1
-        if (M[j] + M[j+1] + M[j+2]) > maxi:
-            maxi = (M[j] + M[j+1] + M[j+2])
-print(cnt, maxi)
+    if len(str(abs(y))) == 4 and abs(y) % 2 == 0:
+        cnt += 1
+    if len(str(abs(z))) == 4 and abs(z) % 2 == 0:
+        cnt += 1
+    if cnt <= 1:
+        if (x + y + z) <= a:
+            ans.append((x + y + z))
+print(len(ans), max(ans))
+
+
+M = [int(i) for i in open('17.txt')]
+a = max([l for l in M if str(l)[-3:] == '121'])
+ans = []
+for j in range(len(M) - 2):
+    x, y, z = M[j], M[j + 1], M[j + 2]
+    if len([p for p in (x, y, z) if len(str(abs(p))) == 4 and abs(p) % 2 == 0]) <= 1:
+        if (x + y + z) <= a:
+            ans.append((x + y + z))
+print(len(ans), max(ans))
 '''
-'''
-import sys
-from functools import *
 
-sys.setrecursionlimit(10000)
-@lru_cache(None)
-def F(st, fin, flag):
-    if st > fin:
-        return 0
-    if st == fin:
-        print(flag)
-        return 1 and flag.count('A') <= 2
-    return  F(st * 2, fin, flag+'B') + F(st * 3, fin, flag+'C')
-
-
-
-print(F(6, 48, ''))
-'''
 
 # endregion Урок: ******************************************************************
 
@@ -65,4 +101,4 @@ print(F(6, 48, ''))
 
 # Никита = [3, 5, 7, 8, 9, 11, 12, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
 # КЕГЭ  = []
-# на следующем уроке: Разобрать 22
+# на следующем уроке:
