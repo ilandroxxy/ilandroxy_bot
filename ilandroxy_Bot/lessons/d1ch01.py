@@ -7,56 +7,6 @@
 # region Урок: ******************************************************************
 
 
-# Тип 24 №27688
-# Текстовый файл состоит не более чем из 10**6 символов X, Y и Z.
-# Определите длину самой длинной последовательности, состоящей из символов Z.
-# Хотя бы один символ Z находится в последовательности.
-'''
-# Вариант 1
-s = open('24.txt').readline()
-cnt = 1  # счетчик для промежуточных последовательностей
-maxi = 0  # счетчик, но для самой большой подходящей последовательности
-for i in range(len(s)-1):
-    if s[i] == 'Z' and s[i+1] == 'Z':
-        cnt += 1
-        maxi = max(maxi, cnt)
-        # if maxi < cnt:
-        #     maxi = cnt
-    else:
-        cnt = 1
-print(maxi)
-
-# Вариант 2
-s = open('24.txt').readline()
-s = s.replace('X', ' ').replace('Y', ' ')
-print(max([len(x) for x in s.split()]))
-
-# Вариант 3
-print(open('24.txt').readline())   # поиск подходящей подпоследовательности через ctrl + F
-print(len('ZZZZZZZ'))
-'''
-# Ответ: 7
-
-
-# Тип 24 №27421
-# Текстовый файл состоит не более чем из 10**6 символов X, Y и Z.
-# Определите максимальное количество идущих подряд символов,
-# среди которых каждые два соседних различны.
-'''
-s = open('24.txt').readline()
-cnt = 1
-maxi = 0
-for i in range(len(s)-1):
-    if s[i] != s[i+1]:
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
-print(maxi)
-'''
-# Ответ: 35
-
-
 # Тип 24 №39253
 # Текстовый файл содержит только заглавные буквы латинского алфавита
 # (ABC…Z). Определите максимальное количество идущих подряд символов,
@@ -72,126 +22,153 @@ print(maxi)
 # Ответ: 354
 
 
-# Тип 24 №48445
-# Текстовый файл содержит только буквы A, C, D, F, O.
-# Определите максимальное количество идущих подряд групп
-# символов вида: согласная + согласная + гласная.
+# Тип 24 №61404
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z). Определите максимальное
+# количество идущих подряд символов, среди которых ровно по одному разу встречаются буквы X и Y.
 '''
 s = open('24.txt').readline()
-s = s.replace('O', 'A')
-s = s.replace('C', 'D').replace('F', 'D')
-s = s.replace('DDA', '*')
-s = s.replace('A', ' ').replace('D', ' ')
-print(max([len(x) for x in s.split()]))
-'''
-# Ответ: 5
-
-# Тип 24 №59848
-# Текстовый файл состоит не более чем из 10**6 символов
-# латинского алфавита. Необходимо найти самую длинную
-# подстроку, которая может являться числом в 24 системе
-# счисления.
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-s = open('24.txt').readline()
-for x in alphabet[24:]:
-    s = s.replace(x, ' ')
-print(max(len(x) for x in s.split()))
-'''
-# Ответ: 40
-
-
-# Тип 24 №58326
-# Текстовый файл состоит не более чем из 10**6 символов
-# арабских цифр (0,1,...,9).
-# Определите максимальное количество идущих подряд цифр,
-# расположенных в строгом убывающем порядке.
-'''
-s = open('24.txt').readline()
-cnt = 1
+s = s.replace('X', 'X ').replace('Y', 'Y ').split()
 maxi = 0
-for i in range(len(s)-1):
-    if int(s[i]) > int(s[i+1]):
-        cnt += 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
+for i in range(len(s)-2):
+    r = s[i] + s[i+1] + s[i+2][:-1]
+    maxi = max(maxi, len(r))
 print(maxi)
 '''
-# Ответ: 8
 
 
-# Тип 24 №46982
-# Текстовый файл содержит только заглавные буквы латинского
-# алфавита (ABC…Z). Определите количество групп из идущих
-# подряд не менее 12 символов, которые начинаются и
-# заканчиваются буквой E и не содержат других букв E
-# (кроме первой и последней) и букв F.
+# Тип 24 №63073
+# Текстовый файл содержит только заглавные буквы латинского алфавита (ABC…Z). Определите максимальное к
+# оличество идущих подряд символов, среди которых каждая из букв C и D встречается не более двух раз.
 '''
 s = open('24.txt').readline()
-s = s.replace('E', 'E E')
-print(len([x for x in s.split() if 'F' not in x and len(x) >= 12]))
-'''
-# Ответ: 9655
+s = s.replace('C', 'C ').replace('D', 'D ').split()
+maxi = 0
+for i in range(len(s)-4):
+    # r = s[i] + s[i+1] + s[i+2] + s[i+3] + s[i+4]
+    r = ''.join(s[i:i+5])[:-1]
+    if r.count('C') == 2 and r.count('D') == 2:
+        maxi = max(maxi, len(r))
+print(maxi)
 
-
-# Тип 24 №57431
-# Текстовый файл состоит из символов, обозначающих прописные
-# буквы латинского алфавита.
 #
-# Определите максимальное количество идущих подряд символов,
-# среди которых никакие две буквы из набора букв A, B и C
-# (с учетом повторений) не записаны подряд.
-'''
 s = open('24.txt').readline()
-for x in 'AB BA BC CB CA AC CC BB AA'.split():
-    s = s.replace(x, '* *')
-print(max([len(x) for x in s.split()]))
-'''
-# Ответ: 82+2 = 84
-
-
-# Тип 24 №36037
-# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
-# Определите максимальное количество идущих подряд символов, среди которых
-# нет подстроки XZZY. Для выполнения этого задания следует написать программу.
-# Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
-'''
-s = open('24.txt').readline()
-s = s.replace('XZZY', 'XZZ ZZY')
-print(max([len(x) for x in s.split()]))
-'''
-# Ответ: 1713
-
-
-# Тип 24 №27699
-# Текстовый файл состоит не более чем из 106 символов L, D и R.
-# Определите максимальную длину цепочки вида LDRLDRLDR...
-# (составленной из фрагментов LDR, последний фрагмент может быть неполным).
-'''
-print(open('24.txt').readline())
-print(len('LDRLDRLDRLDRLDR'))
-'''
-# Ответ: 15
-
-
-# Тип 24 №51993
-# Текстовый файл содержит только буквы A, C, D, F, O. Определите длину самой длинной цепочки символов,
-# которая начинается и заканчивается буквой F, а между двумя последовательными
-# буквами F содержит не более двух букв A и произвольное количество других букв.
-'''
-s = open('24.txt').readline().split('F')
-cnt = 1  # 'F'+'xxxx' + 'F'+'xxxx' + 'F'+'xxxx' + 'F'+'xxxx' + 'F'
+s = s.replace('C', 'C ').replace('D', 'D ').split()
 maxi = 0
-for i in range(len(s)):
-    if s[i].count("A") <= 2:
-        cnt += len(s[i]) + 1
-        maxi = max(maxi, cnt)
-    else:
-        cnt = 1
+for i in range(len(s)-4):
+    r = s[i] + s[i+1] + s[i+2] + s[i+3] + s[i+4][:-1]
+    if r.count('C') == 2 and r.count('D') == 2:
+        maxi = max(maxi, len(r))
 print(maxi)
 '''
-# Ответ: 266
+# Ответ: 253
+
+
+# максимальное количество идущих подряд символов среди которых символ "T' встречается ровно 3 раза
+'''
+s = 'xxxxxxxxxxxxxTxxxxxTxxxxxxxTxxxxxTxxxTxxxxxxxxxxxTxxxxxxxxxxTxxxxxxxxxx'
+# ['xxxxxxxxxxxxx', 'xxxxx', 'xxxxxxx', 'xxxxx', 'xxx', 'xxxxxxxxxxx', 'xxxxxxxxxx', 'xxxxxxxxxx']
+# xxxxxxxxxxxxxTxxxxxTxxxxxxxTxxxxx 33
+# xxxxxTxxxxxxxTxxxxxTxxx 23
+# xxxxxxxTxxxxxTxxxTxxxxxxxxxxx 29
+# xxxxxTxxxTxxxxxxxxxxxTxxxxxxxxxx 32
+# xxxTxxxxxxxxxxxTxxxxxxxxxxTxxxxxxxxxx 37
+s = s.split('T')
+maxi = 0
+for i in range(len(s)-3):
+    # r = s[i] + 'T' + s[i+1] + 'T' + s[i+2] + 'T' + s[i+3]
+    r = 'T'.join(s[i:i+4])
+    print(r, len(r))
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+
+
+# Тип 24 №60266
+# Текстовый файл состоит из символов T, U, V, W, X, Y и Z.
+# Определите в прилагаемом файле максимальное количество идущих подряд символов
+# (длину непрерывной подпоследовательности), среди которых символ T встречается ровно 100 раз.
+'''
+s = open('24.txt').readline().split('T')
+maxi = 0
+for i in range(len(s)-100):
+    r = 'T'.join(s[i:i+101])
+    maxi = max(maxi, len(r))
+print(maxi)
+'''
+# Ответ: 133
+
+
+# минимальное количество идущих подряд символов среди которых символ "T' встречается ровно 3 раза
+'''
+s = 'xxxxxxxxxxxxxTxxxxxTxxxxxxxTxxxxxTxxxTxxxxxxxxxxxTxxxxxxxxxxTxxxxxxxxxx'
+# ['xxxxxxxxxxxxx', 'xxxxx', 'xxxxxxx', 'xxxxx', 'xxx', 'xxxxxxxxxxx', 'xxxxxxxxxx', 'xxxxxxxxxx']
+# TxxxxxxxxxxxxxTxxxxxT 21
+# TxxxxxTxxxxxxxT 15
+# TxxxxxxxTxxxxxT 15
+# TxxxxxTxxxT 11
+# TxxxTxxxxxxxxxxxT 17
+# TxxxxxxxxxxxTxxxxxxxxxxT 24
+# TxxxxxxxxxxTxxxxxxxxxxT 23
+
+s = s.split('T')
+mini = 99999
+for i in range(len(s)-1):
+    r = 'T' + 'T'.join(s[i:i+2]) + 'T'
+    print(r, len(r))
+    mini = min(mini, len(r))
+print(mini)
+
+'''
+
+
+# Тип 24 №59793
+# Текстовый файл состоит не более чем из 106 символов латинского алфавита.
+# Определите минимальную подстроку, содержащую 120 символов "V".
+# Для выполнения этого задания следует написать программу.
+'''
+s = open('24.txt').readline().split('V')
+mini = 999999
+for i in range(len(s)-118):
+    r = 'V' + 'V'.join(s[i:i+119]) + 'V'
+    mini = min(mini, len(r))
+print(mini)
+'''
+# Ответ: 1820
+
+
+# Тип 24 №29672
+# Текстовый файл содержит строки различной длины.
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+# Определите количество строк, в которых буква E встречается чаще, чем буква A.
+'''
+s = open('24.txt').readlines()
+cnt = 0
+for x in s:
+    if x.count('E') > x.count('A'):
+        cnt += 1
+print(cnt)
+'''
+# Ответ: 467
+
+
+# Тип 24 №35998
+# Текстовый файл содержит строки различной длины.
+# Строки содержат только заглавные буквы латинского алфавита (ABC…Z).
+#
+# В строках, содержащих менее 25 букв A, нужно определить и вывести максимальное
+# расстояние между одинаковыми буквами в одной строке.
+
+s = open('24.txt').readlines()
+maxi = 0
+for x in s:
+    if x.count('A') < 25:
+        for a in 'QWERTYUIOPASDFGHJKLZXCVBNM':
+            maxi = max(maxi, x.rindex(a) - x.index(a))
+print(maxi)
+
+
+
+
 
 # endregion Урок: ******************************************************************
 
