@@ -5,269 +5,151 @@
 
 # region Урок: *********************************************************************
 '''
-print('x y z w')
-for x in 0, 1:
-    for y in 0, 1:
-        for z in 0, 1:
-            for w in 0, 1:
-                F = (x and (not y)) or (z == x) or w
+print('n k m l')
+for n in 0, 1:
+    for k in 0, 1:
+        for m in 0, 1:
+            for l in 0, 1:
+                F = (not n) or (k and (not m)) or (l == m)
                 if not F:
-                    print(x, y, z, w)
+                    print(n, k, m, l)
+                    # n k m l
+                    # 1 0 0 1
+                    # 1 0 1 0
+                    # 1 1 1 0
+'''
+import shlex
+
+'''
+for n in range(1, 1000):
+    s = f'{n:b}'
+    if n % 2 == 0:
+        s = '1' + s + '1'
+    else:
+        s += '10'
+    r = int(s, 2)
+    if r > 179:
+        print(n)
+        break
+'''
+
+'''
+from turtle import *
+lt(90)
+tracer(0)
+m = 20
+
+for _ in range(2):
+    fd(12 * m)
+    rt(90)
+    fd(19 * m)
+    rt(90)
+
+up()
+
+fd(4 * m)
+rt(90)
+fd(6 * m)
+lt(90 * m)
+
+down()
+
+color('green')
+
+for _ in range(4):
+    fd(12 * m)
+    rt(90)
+    fd(6 * m)
+    rt(90)
+
+up()
+for x in range(-50, 50):
+    for y in range(-50, 50):
+        goto(x * m, y * m)
+        dot(2, 'red')
+
+
+done()
+'''
+
+'''
+pixels = 1079 * 1919
+colors = 7999   # i -> 13
+print(2**13)
+i = 13
+I = pixels * i  # бит на одну картинку
+I = I * 199
+print(I / 19_999_999)
+'''
+'''
+from itertools import *
+num = 0
+for s in product("АЁРТШ", repeat=5):
+    slovo = ''.join(s)
+    num += 1
+    if slovo.count('А') <= 1 and 'ЁЁ' not in slovo:
+        print(num, slovo)
+        break
 '''
 
 
-# номер 7
-'''
-pixels = 2912 * 480
-colors = 8558
-print(2 ** 14)
-i = 14
-I = pixels * i  # бит
-print((32758 * I) / (2**23))
-'''
-# Ответ: 76416
-
-
-# Номер 9: № 15321
-# (М. Ишимов) Откройте файл электронной таблицы, содержащей в
-# каждой строке четыре натуральных числа. Определите количество строк
-# таблицы, содержащих числа, для которых выполнены оба условия:
-# – максимальное число строки меньше суммы трёх оставшихся чисел;
-# – четыре числа строки можно разбить на две пары чисел с равными суммами.
-# В ответе запишите только число.
+# Определите количество строк таблицы,
+# содержащих числа, для которых выполнены все условия:
+# четыре числа строки можно разбить на две пары чисел с равными суммами
+# максимальное число строки меньше суммы трёх оставшихся чисел
+# сумма чисел в строке чётна
 '''
 from itertools import permutations
 cnt = 0
-for s in open('9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    if M[3] < (M[0] + M[1] + M[2]):
-        if any(R[0] + R[1] == R[2] + R[3] for R in permutations(M)):
-            cnt += 1
+for s in open('9.csv'):
+    M = sorted([int(x) for x in s.split(';')])
+    if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
+        if max(M) < (M[0] + M[1] + M[2]):
+            if sum(M) % 2 == 0:
+                cnt += 1
 print(cnt)
 '''
-# Ответ: 128
 
-
-# Номер 24 № 15339
-# (М. Ишимов) Текстовый файл состоит из символов латинского алфавита A, B, C,
-# и цифр 6, 7, 8, 9.
-# Определите в прилагаемом файле максимальное количество идущих подряд символов,
-# среди которых никакая буква не стоит рядом с буквой, а цифра – с цифрой.
-# Для выполнения этого задания следует написать программу.
 '''
-s = open('24.txt').readline()
-s = s.replace('B', 'A').replace('C', 'A')
-s = s.replace('6', '8').replace('7', '8').replace('9', '8')
-while '88' in s or 'AA' in s:
-    s = s.replace('88', '8 8').replace('AA', 'A A')
-print(max([len(x) for x in s.split()]))
+symbols = 7
+print(2**13)
+i = 14  # 2**13 < 8198 < 2**14
+bit = symbols * i
+print(bit / 8)  # 12.25
+byte = 13
+print((byte * 20240) / (2 ** 10))
 '''
 
-
-# № 14645 Открытый курс "Слово пацана" (Уровень: Средний)
-# (М. Попков) Во входном файле в строчку записаны заглавные буквы английского алфавита.
-# Требуется найти самую длинную последовательность, в которой гласные и
-# согласные буквы чередуются. В ответ запишите длину найденной последовательности.
-# Примечание: Y – гласная буква.
 '''
-import string
-
-alphbaet = string.ascii_uppercase
-
-s = open('24.txt').readline()
-for a in 'AEIOUY':
-    s = s.replace(a, 'A')
-for a in alphbaet:
-    if a not in 'AEIOUY':
-        s = s.replace(a, 'B')
-while 'AA' in s or 'BB' in s:
-    s = s.replace('AA', 'A A').replace('BB', 'B B')
+s = '7' * 47
+while '2222' in s or '7777' in s:
+    if '2222' in s:
+        s = s.replace('2222', '77', 1)
+    else:
+        s = s.replace('7777', '22', 1)
 print(s)
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# Задача № 7174
-# (А. Носкин) Маша составляет семибуквенные слова перестановкой букв слова ГЛУБИНА.
-# Сколько существует слов, в которых буква «Г» расположена после букв «А» и «И»?
-'''
-from itertools import permutations
-cnt = 0
-for p in permutations('ГЛУБИНА'):
-    word = ''.join(p)
-    if word.index('А') < word.index('Г') and word.index('И') < word.index('Г'):
-        cnt += 1
-print(cnt)
 '''
 
 '''
 from ipaddress import *
-net = ip_network('124.8.0.0/255.248.0.0', 0)
-maxi = 0
+net = ip_network('114.179.203.128/255.255.255.192', 0)
+cnt = 0
 for ip in net:
     s = f'{ip:b}'
-    maxi = max(maxi, s.count('0'))
-print(maxi)
-'''
-
-
-# (№ 4199) Ксения составляет слова из букв К, С, Е, Н, И, Я.
-# Каждая гласная буква встречается в слове не более двух раз.
-# Каждая согласная может стоять в слове на первой позиции, либо не встречаться вовсе.
-# Сколько различных слов длиною более двух символов может составить Ксения?
-'''
-from itertools import *
-cnt = 0
-for n in range(3, 7+1):
-    for p in product('КСЕНИЯ', repeat=n):
-        word = ''.join(p)
-        if all(word.count(x) <= 2 for x in 'ЕИЯ'):
-            word = word.replace('Н', 'С').replace('К', 'С')
-            if (word[0] == 'С' and word.count('С') == 1) or ('С' not in word):
-                cnt += 1
-print(cnt)
-'''
-# Ответ: 1059
-
-
-# № 8472 (Уровень: Средний)
-# (В. Рыбальченко) Дано арифметическое выражение: 7Ax0123_100 −1BA64x_100 + x98012C_100
-# В записи чисел переменной x обозначена неизвестная цифра из алфавита 100-ричной
-# системы счисления. Определите наибольшее значение x, при котором значение данного арифметического выражения кратно 21.
-# Найденное значения x укажите в ответе в шестеричной системе счисления.
-'''
-from string import digits, ascii_uppercase
-alphabet = digits + ascii_uppercase
-
-
-def my_int(num: list, base: int):
-    return sum(x*base**i for i, x in enumerate(num[::-1]))
-
-
-def convert(num: int, base: int):
-    result = ''
-    while num > 0:
-        result = alphabet[num % base] + result
-        num //= base
-    return result
-
-
-maxi = 0
-for x in range(0, 100):
-    r = my_int([7, 10, x, 0, 1, 2, 3], 100) - my_int([1, 11, 10, 6, 4, x], 100) + my_int([x, 9, 8, 0, 1, 2, 12], 100)
-    if r % 21 == 0:
-        maxi = max(maxi, int(convert(x, 6)))
-print(maxi)
-'''
-# Ответ: 224
-
-'''
-def my_int(num: list, base: int):
-    result = 0
-    num.reverse()
-    for i in range(len(num)):
-        result += num[i] * base ** i
-    return result
-'''
-
-"""
-# i   0    1    2    3    4
-M = ['a', 'b', 'c', 'd', 'e']
-for i, x in enumerate(M):
-    print(i, x)
-    # 0 a
-    # 1 b
-    # 2 c
-    # 3 d
-    # 4 e
-    
-    
-def my_int(num: list, base: int):
-    return sum(x*base**i for i, x in enumerate(num[::-1]))
-
-
-print(my_int([1, 0, 0, 0], 2))
-"""
-
-
-# № 9904 (Уровень: Сложный)
-# (С. Чайкин) Дано арифметическое выражение:
-# В записи чисел переменными x и y обозначены неизвестная цифра из допустимого алфавита для указанных систем счисления.
-# Определите значения x и y, при которых значение данного арифметического выражения является максимальным.
-# Для найденных значений вычислите частное от деления нацело значения арифметического выражения на сумму
-# x и y и укажите его в ответе в десятичной системе счисления. Основание системы счисления в ответ указывать не нужно.
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-R = []
-for x in range(10, 14):
-    for y in range(9, x):
-        r = int(f'7{alphabet[x]}37{alphabet[y]}', 14) + int(f'9{alphabet[y]}63', x) - int(f'15148', y)
-        R.append([r, r // (x + y)])
-print(max(R)[1])
-
-
-def my_int(num: list, base: int):
-    return sum(x*base**i for i, x in enumerate(num[::-1]))
-
-R = []
-for x in range(10, 14):
-    for y in range(9, x):
-        r = my_int([7, x, 3, 7, y], 14) + my_int([9, y, 6, 3], x) - my_int([1, 5, 1, 4, 8], y)
-        R.append([r, r // (x + y)])
-print(max(R)[1])
-'''
-
-# Вариант PRO100EGE номер 7 (https://kompege.ru/variant?kim=25048321)
-# Номер 17
-'''
-M = [int(x) for x in open('17.txt')]
-A = [x for x in M if str(x)[-3:] == '121']
-R = []
-for i in range(len(M)-2):
-    x, y, z = M[i:i+3]
-    if len([p for p in (x, y, z) if len(str(abs(p))) == 4 and abs(p) % 2 == 0]) <= 1:
-        if (x + y + z) <= max(A):
-            R.append(x + y + z)
-print(len(R), max(R))
-'''
-# Ответ: 5211 20116
-
-
-# КЕГЭ № 858 (Уровень: Базовый)
-# Текстовый файл состоит не более чем из 106 заглавных латинских букв (A..Z).
-# Текст разбит на строки различной длины.
-# Определите количество строк, в которых встречается комбинация F*O,
-# где звёздочка обозначает любой символ.
-'''
-s = open('24.txt').readlines()
-cnt = 0
-for x in s:
-    if any(f'F{a}O' in x for a in 'QWERTYUIOPASSDFGHJKLZXCVBNM'):
+    if s.count('1') % 3 == 0:
         cnt += 1
 print(cnt)
 '''
-# Ответ: 757
 
-
-# КЕГЭ № 6094 /dev/inf 02.2023 (Уровень: Средний) (А. Рогов)
-# Текстовый файл состоит не более чем из 1 200 000 символов X, Y, и Z.
-# Определите максимальное количество идущих подряд пар символов
-# вида согласная + гласная среди которых нет подстроки XYZY.
 '''
-s = open('24.txt').readline()
-s = s.replace('XY', '*').replace('ZY', '+')
-for a in 'XYZ':
-    s = s.replace(a, ' ')
-s = s.replace('*+', '* +')
-print(max([len(x) for x in s.split()]))
+from string import *
+alphabet = digits + ascii_uppercase
+for x in alphabet[:29]:
+    A = int(f'42{x}158', 29)
+    B = int(f'16{x}234', 29)
+    if (A + B) % 28 == 0:
+        print((A + B) // 28)
 '''
-
-
-# На числовой прямой даны два отрезка: C=[152;223].
-# Укажите наименьшую возможную длину такого отрезка A,
-# для которого логическое выражение
-# (¬(x∈A)∧(x∈B))→((x∈B)→¬(x∈C))
-# истинно (т. е. принимает значение 1) при любом значении переменной x.
 '''
 def F(a1, a2, x):
     B = 74 <= x <= 194
@@ -275,43 +157,160 @@ def F(a1, a2, x):
     A = a1 <= x <= a2
     return ((not A) and B) <= (B <= (not C))
 
+
 R = []
-M = [x / 4 for x in range(70 * 4, 230 * 4)]
+M = [x / 4 for x in range(70*4, 225*4)]
 for a1 in M:
     for a2 in M:
         if all(F(a1, a2, x) for x in M):
             R.append(a2 - a1)
 print(min(R))
 '''
-
-
-# Откройте файл электронной таблицы, содержащей в каждой строке
-# четыре натуральных числа. Определите количество строк таблицы,
-# содержащих числа, для которых выполнены все условия:
-#
-# четыре числа строки можно разбить на две пары чисел с равными суммами
-# максимальное число строки меньше суммы трёх оставшихся чисел
-# сумма чисел в строке чётна
 '''
-from itertools import *
+import sys
+sys.setrecursionlimit(10000)
 
-cnt = 0
-for s in open('9.csv'):
-    M = sorted([int(x) for x in s.split(';')])
-    if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
-        if M[3] < M[0] + M[1] + M[2]:
-            cnt += 1
-print(cnt)
+def F(n):
+    if n <= 12:
+        return 1
+    if n > 12:
+        return F(n-1) + n - 2
+
+print(F(2024) - F(2020))
 '''
 
-# Занятие
 '''
-pixels = 1079 * 1919
-print(2**13)
-i = 13
-I = (pixels * i) * 199
-print(I / 19_999_999)
+from functools import *
+
+@lru_cache(None)
+def F(n):
+    if n < 3:
+        return n
+    if n > 2 and n % 2 != 0:
+        return F(n-1) + F(n-2) + 1
+    if n > 2 and n % 2 == 0:
+        return sum([F(i) for i in range(1, n)])
+
+print(F(38))
 '''
+# 9182657279
+
+'''
+from functools import *
+S = set()
+
+@lru_cache(None)
+def F(a, k):
+    if k == 68:
+        S.add(a)
+        return 0
+    return F(a+3, k+1) + F(a-2, k+1)
+
+
+F(1, 0)
+print(len(S))
+'''
+# Ответ: 69
+
+'''
+M = [int(x) for x in open('17.txt')]
+A = [x for x in M if x % 21 == 0]
+R = []
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if x > max(A) or y > max(A):
+        R.append(x + y)
+print(len(R), min(R))
+'''
+
+'''
+def F(a, b):
+    if a >= b:
+        return a == b
+    return F(a+1, b) + F(a * 2, b)
+
+print(F(3, 6) * F(6, 12) * F(12, 16))
+'''
+
+'''
+s = open('24.txt').readline()
+for a in 'AEOU':
+     s = s.replace(a, 'A')
+for a in 'KLMN':
+    s = s.replace(a, 'M')
+while 'MM' in s or 'AA' in s:
+    s = s.replace('MM', 'M M').replace('AA', 'A A')
+print(max([len(x) for x in s.split()]))
+
+
+# Вариант 2
+s = open('24.txt').readline()
+cnt = 1
+maxi = 0
+for i in range(len(s)-1):
+    if (s[i] in 'AEOU' and s[i+1] in 'KLMN') or (s[i+1] in 'AEOU' and s[i] in 'KLMN'):
+        cnt += 1
+        maxi = max(maxi, cnt)
+    else:
+        cnt = 1
+print(maxi)
+'''
+'''
+from fnmatch import *
+for x in range(2024, 10**10, 2024):
+    if fnmatch(str(x), '10*2024?'):
+        print(x // 2024)
+'''
+
+# ABSBDBSADBASBABDSBADBSABDASB
+# A ABSBDBSA ADBA ASBA ABDSBA ADBSA ABDA ASB  maxi = 8
+# ABSBDBSADBASBABDSBADBSABDASB
+# AB BSBDB BSADB BASBAB BDSB BADB BSAB BDASB B maxi = 8
+# ABSBDBSADBASBABDSBADBSABDASB
+# ABSBD DBSAD DBASBABD DSBAD DBSABD DASB maxi = 8
+# ABSBDBSADBASBABDSBADBSABDASB
+'''
+s = open('24.txt').readline()
+maxi = 0
+for a in 'ABCDEFGHIJKLM':
+    s = s.replace(a, f'{a} {a}')
+    maxi = max(maxi, max([len(x) for x in s.split()]))
+    s = s.replace(f'{a} {a}', a)
+
+print(maxi)
+'''
+# Ответ: 322
+
+'''
+def F(a, b):
+    if a <= b or a == 12 or a == 15:
+        return a == b
+    if a % 2 == 0:
+        return F(a // 2, b)
+    if a % 3 == 0:
+        return F(a // 3, b)
+    return F(a - 1, b) 
+
+print(F(19, 1))
+
+'''
+'''
+M = [int(x) for x in open('17.txt')]
+A = [x for x in M if str(x)[-3:] == '538']
+R = []
+for i in range(len(M)-3):
+    x, y, z, w = M[i:i+4]
+    lenght = [len(str(abs(a))) for a in (x, y, z, w)]
+    if 2 <= lenght.count(5) < 4:
+        krat_3 = [a for a in (x, y, z, w) if a % 3 == 0]
+        krat_7 = [a for a in (x, y, z, w) if a % 7 == 0]
+        if len(krat_3) > len(krat_7):
+            if max(A) < (x + y + z + w) < max(A) * 2:
+                R.append(x + y + z + w)
+print(len(R), max(R))
+'''
+
+
 
 # endregion Урок: ******************************************************************
 
@@ -407,7 +406,5 @@ print(count, r)
 # КЕГЭ  = []
 # на следующем уроке:
 
-# if __name__ == "__main__":
-#     print('Файл групповых занятий')
 
 
