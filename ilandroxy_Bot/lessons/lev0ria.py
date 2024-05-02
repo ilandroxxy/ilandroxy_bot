@@ -110,6 +110,42 @@ print(cnt)
 '''
 
 
+
+s = '0123456789'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        num = a+b+c+d+e+f
+                        if num[0] != '0':
+                            if int(num) % 5 == 0:
+                                if len(set(num)) == len(num):
+
+                                    num = num.replace('3', '1').replace('5', '1').replace('7', '1').replace('9', '1')
+                                    num = num.replace('4', '2').replace('6', '2').replace('8', '2').replace('0', '2')
+
+                                    if '11' not in num and '22' not in num:
+                                        cnt += 1
+print(cnt)
+
+
+from itertools import permutations
+cnt = 0
+for s in permutations('0123456789', 6):
+    num = ''.join(s)
+
+    if num[0] != '0':
+        if int(num) % 5 == 0:
+            num = num.replace('3', '1').replace('5', '1').replace('7', '1').replace('9', '1')
+            num = num.replace('4', '2').replace('6', '2').replace('8', '2').replace('0', '2')
+
+            if '11' not in num and '22' not in num:
+                cnt += 1
+print(cnt)
+
 # endregion Урок: ******************************************************************
 
 
