@@ -6,6 +6,28 @@
 
 # region Урок: ******************************************************************
 
+'''
+from itertools import product
+cnt = 0
+for s in product('01234567', repeat=5):
+    slovo = ''.join(s)
+    if slovo[0] != '0':
+        if len(set(slovo)) == 3:
+            if any(p in slovo for p in '000 111 222 333 444 555 666 777'.split()):
+                cnt += 1
+print(cnt)
+
+
+from itertools import product
+cnt = 0
+for s in product('01234567', repeat=5):
+    slovo = ''.join(s)
+    if slovo[0] != '0':
+        if len(set(slovo)) == 3:
+            if any(slovo[i] == slovo[i+1] == slovo[i+2] for i in range(len(s)-2)):
+                cnt += 1
+print(cnt)
+'''
 
 # endregion Урок: ******************************************************************
 
@@ -16,6 +38,6 @@
 # endregion Разобрать: *************************************************************
 
 
-# Дмитрий = [2, 3, 5, 8, 9, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
+# Дмитрий = [1, 2, 3, 4, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
 # КЕГЭ  = []
 # на следующем уроке:
