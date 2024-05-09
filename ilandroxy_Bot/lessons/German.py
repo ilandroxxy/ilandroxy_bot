@@ -7,49 +7,17 @@
 # region Урок: ************************************************************
 
 
+# ¬(((x → y ∧ w) ∧ (z → x ∨ y)) ≡ w)
 
-'''
-# i   0    1    2    3    4
-L = ['a', 'b', 'c', 'd', 'e']
+print('x y z w F')
+for x in 0, 1:
+    for y in 0, 1:
+        for z in 0, 1:
+            for w in 0, 1:
+                F = not(((x <= (y and w)) and (z <= (x or y))) == w)
+                print(x, y, z, w, int(F))
 
-print(L[2])   # c
 
-L.remove('c')   # - удаляет элемент по значению
-print(L)  # ['a', 'b', 'd', 'e']
-
-# x = L.pop(2)  # - забирает элемент по индексу
-# print(x)  # c
-# print(L)  # ['a', 'b', 'd', 'e']
-
-# del L[2]  # - удаляет элемент списка по индексу
-# print(L)  # ['a', 'b', 'd', 'e']
-'''
-
-'''
-print("Hello" + "World")  # HelloWorld
-print("Hello " + "World")  # Hello World
-'''
-
-'''
-print(4 // 2)  # 2
-print(4 / 2)  # 2.0
-'''
-
-'''
-print(len("Hello"))  # 5
-print(len("Hello "))  # 6
-'''
-
-'''
-print(5 > 3)  # True
-print(2 < 1)  # False
-print(True and False)  # False
-print(5 > 3 and 2 < 1)
-'''
-
-x = 28 // (23 % 5)
-y = 27 % x * 3 - 30 % 4 * 2
-print(x + y)
 
 # endregion Урок: ************************************************************
 
