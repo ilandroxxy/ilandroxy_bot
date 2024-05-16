@@ -9,13 +9,14 @@
 
 # ¬(((x → y ∧ w) ∧ (z → x ∨ y)) ≡ w)
 
-print('x y z w F')
+print('x y z w')
 for x in 0, 1:
     for y in 0, 1:
         for z in 0, 1:
             for w in 0, 1:
-                F = not(((x <= (y and w)) and (z <= (x or y))) == w)
-                print(x, y, z, w, int(F))
+                F = (x == (w or y)) or ((w <= z) and (y <= w))
+                if F == 0:
+                    print(x, y, z, w)
 
 
 
