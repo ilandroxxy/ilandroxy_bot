@@ -5,91 +5,78 @@
 
 
 # region Урок: ******************************************************************
-
-# № 16382 ЕГКР 27.04.24 (Уровень: Базовый)
 '''
 import sys
 sys.setrecursionlimit(10000)
 
-from functools import *
-@lru_cache(None)
 def F(n):
-    if n <= 3:
-        return 2025
-    if n > 3:
-        return 3 * (n-1) * F(n-2)
-
-print(F(2027)/F(2023))
+    if n < 3:
+        return 2**1024
+    if n > 2:
+        return 2 * n + 3 + F(n-2)
+print(F(4048) - F(16))
 '''
-#  [Previous line repeated 996 more times]
-# RecursionError: maximum recursion depth exceeded
+
+'''
+x = 3213   # 9
+summa = sum([int(a) for a in str(x) if a.isdigit()])
+print(summa)
+
+summa = sum(map(int, str(x)))
+print(summa)
+'''
+
+
+'''
+def Divisors(x):
+    div = []
+    for j in range(1, int(x ** 0.5) + 1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+
+for x in range(326496, 649632+1):
+    d = Divisors(x)
+    chet = [a for a in d if a % 2 == 0]
+    nechet = [a for a in d if a % 2 != 0]
+    if len(chet) == len(nechet):
+        if len(chet) >= 70 and len(nechet) >= 70:
+            print(x, min([a for a in d if a > 1000]))
+'''
+# Ответ:
+# 450450 1001
+# 589050 1050
+# 630630 1001
 '''
 import sys
 sys.setrecursionlimit(10000)
+
 def F(n):
-    if n < 7:
+    if n < 2:
         return 7
-    if n >= 7 and n % 3 != 0:
-        return 5 - F(n-1)
-    if n >= 7 and n % 3 == 0:
-        return 3 + F(n-1)
+    if n > 1:
+        return 7 * F(n - 2)
 
-print(F(3015))
+
+print(F(12950) / 7**6473)
 '''
 
-'''
+
 def F(n):
-    if n == 3:
-        return 1
-    if n > 3:
-        return 5 * F(n-1) + 6 * G(n-1) - 3*n + 8
+    if n == 0:
+        return 0
+    if n > 0 and n % 2 == 0:
+        return F(n / 2)
+    if n % 2 != 0:
+        return 1 + F(n - 1)
 
-def G(n):
-    if n == 3:
-        return 1
-    if n > 3:
-        return 6 * F(n-1) + 5*G(n-1) + 3
+cnt = 0
+for n in range(1, 1000+1):
+    if F(n) == 3:
+        cnt += 1
+print(cnt)
 
-print(F(9) + G(9))
-'''
-# Ответ: 3312821
-
-
-# № 12779 (Уровень: Средний)
-'''
-def F(n):
-    if n >= 3000:
-        return n
-    if n < 3000:
-        return n + x + F(n+2)
-
-
-for x in range(-1000, 1000):
-    if F(2984) - F(2988) == 5916:
-        print(x)
-'''
-
-# № 16387 ЕГКР 27.04.24 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a >= b or a == 16:
-        return a == b
-    return F(a+1, b) + F(a+2, b) + F(a*3, b)
-
-print(F(2, 9) * F(9, 18))
-'''
-
-
-# № 11841 (Уровень: Базовый)
-'''
-def F(a, b):
-    if a <= b or a == 20:
-        return a == b
-    return F(a-2, b) + F(a-3, b) + F(a // 5, b)
-
-
-print(F(41, 10) * F(10, 5))
-'''
 
 # endregion Урок: ******************************************************************
 
