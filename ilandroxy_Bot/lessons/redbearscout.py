@@ -6,77 +6,42 @@
 
 # region Урок: ******************************************************************
 '''
-import sys
-sys.setrecursionlimit(10000)
+def F(x, A):
+    B = 50 <= x <= 70
+    return (x % A == 0) or (B <= (x % 16 != 0))
 
-def F(n):
-    if n < 3:
-        return 2**1024
-    if n > 2:
-        return 2 * n + 3 + F(n-2)
-print(F(4048) - F(16))
+R = []
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        R.append(A)
+print(max(R))
 '''
-
 '''
-x = 3213   # 9
-summa = sum([int(a) for a in str(x) if a.isdigit()])
-print(summa)
+def F(x):
+    D = 7 <= x <= 68
+    C = 29 <= x <= 100
+    A = a1 <= x <= a2
+    return D <= (((not C) and (not A)) <= (not D))
 
-summa = sum(map(int, str(x)))
-print(summa)
-'''
-
-
-'''
-def Divisors(x):
-    div = []
-    for j in range(1, int(x ** 0.5) + 1):
-        if x % j == 0:
-            div += [j, x // j]
-    return sorted(set(div))
-
-
-for x in range(326496, 649632+1):
-    d = Divisors(x)
-    chet = [a for a in d if a % 2 == 0]
-    nechet = [a for a in d if a % 2 != 0]
-    if len(chet) == len(nechet):
-        if len(chet) >= 70 and len(nechet) >= 70:
-            print(x, min([a for a in d if a > 1000]))
-'''
-# Ответ:
-# 450450 1001
-# 589050 1050
-# 630630 1001
-'''
-import sys
-sys.setrecursionlimit(10000)
-
-def F(n):
-    if n < 2:
-        return 7
-    if n > 1:
-        return 7 * F(n - 2)
-
-
-print(F(12950) / 7**6473)
+M = [i / 4 for i in range(1 * 4, 110 * 4)]
+R = []
+for a1 in M:
+    for a2 in M:
+        if all(F(x) for x in M):
+            R.append(a2-a1)
+print(min(R))
 '''
 
 
-def F(n):
-    if n == 0:
-        return 0
-    if n > 0 and n % 2 == 0:
-        return F(n / 2)
-    if n % 2 != 0:
-        return 1 + F(n - 1)
+#
+# Для узла с IP-адресом 76.89.95.123 третий слева байт маски равен 240.
+# Чему равен третий байт адреса сети для этого узла?
 
-cnt = 0
-for n in range(1, 1000+1):
-    if F(n) == 3:
-        cnt += 1
-print(cnt)
-
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'76.89.95.123/{mask}', 0)
+    print(net, net.netmask)
+    # 76.89.80.0/20 255.255.240.0
 
 # endregion Урок: ******************************************************************
 
@@ -87,5 +52,5 @@ print(cnt)
 
 
 # Тимур = [1, 2, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17, 23, 25]
-# КЕГЭ  = [16, 23]
+# КЕГЭ  = [13, 15, 16, 23, 25]
 # на следующем уроке:
