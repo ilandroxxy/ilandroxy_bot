@@ -6,18 +6,20 @@
 
 # region Урок: ********************************************************************
 
+# todo: Проверить и разобрать, почему не сходится максимальная сумма чисел
+'''
 M = [int(x) for x in open('17.txt')]
-k= []
-l = [a for a in M if str(abs(a))[0] == '8']
+k = []
+l = [x for x in M if len(str(abs(x))) == 5 and str(x)[-1] == '3']
 for i in range(len(M)-2):
     x, y, z = M[i], M[i+1], M[i+2]
-    h = [s for s in (x, y, z) if str(abs(s))[0] == '6']
-    if len(h) <= 1:
-        if (x+y+z) >= max(l):
-            k.append((x + y + z))
-print(len(k), min(k))
-
-
+    n = [a for a in (x, y, z) if str(a)[-1] == '3']
+    if len(n) >= 1:
+    if str(x)[-1] == '3' or str(y)[-1] == '3' or str(z)[-1] == '3':
+        if (x + y + z) <= max(l):
+            k.append(x+y+z)
+print(len(k), max(l))
+'''
 # endregion Урок: ******************************************************************
 
 

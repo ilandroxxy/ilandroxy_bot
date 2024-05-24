@@ -24,85 +24,9 @@ print(maxi)
 
 
 # region Урок: ************************************************************
-
-'''
-# Вариант 1
-s = '0123456'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        for g in s:
-                            num = a + b + c + d + e + f + g
-                            if num[0] != '0':  # if a != '0':
-                                chet = [x for x in num if x in '0246']
-                                if len(chet) == 2:
-                                    cnt += 1
-print(cnt)
-
-# Вариант 2
-from itertools import *
-cnt = 0
-for s in product('0123456', repeat=7):
-    num = ''.join(s)
-    if num[0] != '0': 
-        chet = [x for x in num if x in '0246']
-        if len(chet) == 2:
-            cnt += 1
-print(cnt)
-'''
-
-'''
-from math import prod
-cnt = 0
-for s in open('9.txt'):
-    M = [int(x) for x in s.split()]
-    copied = [x for x in M if M.count(x) == 2]
-    not_copied = sorted([x for x in M if M.count(x) == 1])
-    if len(copied) == 2 and len(not_copied) == 5:
-        print(copied, not_copied)
-        if prod(not_copied[:3]) > prod(copied):
-            cnt += 1
-print(cnt)
-'''
-
-'''
-# Вариант 1
-x = 4*3125**2019 + 3*625**2020 - 2*125**2021 + 25**2022 - 4*5**2023 - 2024
-cnt = 0
-while x > 0:
-    if x % 25 > 10:
-        cnt += 1
-    x //= 25
-print(cnt)
-
-# Вариант 2
-x = 4*3125**2019 + 3*625**2020 - 2*125**2021 + 25**2022 - 4*5**2023 - 2024
-M = []
-while x > 0:
-    M.append(x % 25)
-    x //= 25
-print(len([a for a in M if a > 10]))
-'''
-
-
-'''
-def F(x, A):
-    return (x % A != 0) <= ((x % 28 == 0) <= (x % 49 != 0))
-
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        print(A)
-'''
-# Ответ: 196
-
 '''
 import sys
 sys.setrecursionlimit(10000)
-
 def F(n):
     if n <= 3:
         return 2025
@@ -110,54 +34,107 @@ def F(n):
         return 3 * (n-1) * F(n-2)
 
 print(F(2027) / F(2023))
-
+'''
 # [Previous line repeated 996 more times]
 # RecursionError: maximum recursion depth exceeded
+
+
+# № 16387 ЕГКР 27.04.24 (Уровень: Базовый)
+# A. Прибавить 1
+# B. Прибавить 2
+# C. Умножить на 3
+# Сколько существует программ, для которых при исходном
+# числе 2 результатом является число 18, и при этом траектория
+# вычислений содержит число 9 и не содержит числа 16?
 '''
-# 36905616.0 -> 36905616
+def F(a, b):  # a - старт, b - стоп
+    if a >= b or a == 16:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+print(F(2, 9) * F(9, 18))
+'''
 
 '''
-from functools import *
-
-@lru_cache(None)
-def f(n):
-    if n < 3:
-        return 2
-    if n > 2 and n % 2 == 0:
-        return 2 * f(n-2) - f(n-1) + 2
-    if n > 2 and n % 2 != 0:
-        return 2 * f(n-1) + f(n-2) - 2
-
-print(f(170))
-'''
-# Ответ: 3596910688800
-
-'''
-M = [int(x) for x in open('17.txt')]
-A = [x for x in M if str(x)[-2:] == '21' and len(str(abs(x))) == 5]
-R = []  # Будем складывать суммы пар (то есть искать наибольшую сумму и кол-во пар)
-for i in range(len(M)-1):
-    x, y = M[i], M[i+1]
-    if (x in A and y not in A) or (y in A and x not in A):
-        if (x**2 + y**2) >= max(A) ** 2:
-            R.append(x+y)
-print(len(R), max(R))
-'''
-# Ответ: 74 103365
-
-'''
-s = open('24.txt').readline()
-count = 3
-maxi = 0
-for i in range(len(s)-3):
-    if s[i:i+4] in ('KLMN', 'LMNK', 'MNKL', 'NKLM'):
-        count += 1
-        maxi = max(maxi, count)
+def F(a, b, t):
+    if a > b or len(t) > 5:
+        return 0
+    elif a == b and len(t) <= 5:
+        print(t)
+        return 1
     else:
-        count = 3
-print(maxi)
+        return F(a**2, b, t+'1') + F(a+3, b, t+'2')
+
+
+print(F(1, 25, ''))
 '''
-# Ответ: 182
+
+
+# № 16381 ЕГКР 27.04.24 (Уровень: Базовый)
+# Обозначим через ДЕЛ(n, m)
+# утверждение «натуральное число n делится без остатка на натуральное число m».
+# Для какого наибольшего натурального числа А логическое выражение
+# ¬ДЕЛ(x, А) → (ДЕЛ(x, 28) → ¬ДЕЛ(x, 49))
+# истинно (т.е. принимает значение 1) при любом натуральном
+# значении переменной х?
+'''
+def F(x, A):
+    return (x % A != 0) <= ((x % 28 == 0) <= ((x % 49 != 0)))
+
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
+'''
+
+
+# № 12247 ЕГКР 16.12.23 (Уровень: Базовый)
+'''
+def F(x, A):
+    return (x & A == 0) or (x & 37 != 0) or (x & 12 != 0)
+
+for A in range(1000):
+    if all(F(x, A) for x in range(10000)):
+        print(A)
+'''
+# Ответ: 45
+
+
+# № 14659 Открытый курс "Слово пацана" (Уровень: Базовый)
+# (М. Попков) Заданы два отрезка P = [6, 17] и Q = [13, 28],
+# лежащие на числовой прямой. Также существует отрезок А. Он таков, что формула
+#
+# ((x ∈ A) → (x ∈ P)) ∨ (x ∈ Q)
+#
+# истинна, причем переменная x может принимать любые значения.
+# Какую наибольшую длину может принимать отрезок А?
+# Определите и запишите в ответ целое число.
+
+'''
+def F(x, a1, a2):
+    P = 6 <= x <= 17
+    Q = 13 <= x <= 28
+    A = a1 <= x <= a2
+    return (A <= P) or Q
+
+R = []
+M = [x / 4 for x in range(1 * 4, 50 * 4)]
+for a1 in M:
+    for a2 in M:
+        if all(F(x, a1, a2) for x in M):
+            R.append(a2 - a1)
+print(max(R))
+'''
+
+
+# № 13868 (Уровень: Базовый)
+'''
+from fnmatch import *
+for x in range(2024, 10**10, 2024):
+    if fnmatch(str(x), '112?57*4'):
+        # if sum([int(a) for a in str(x)]) % 2 != 0:
+        if sum(map(int, str(x))) % 2 != 0:
+            print(x, x // 2024)
+'''
 
 # endregion Урок: ************************************************************
 
@@ -168,5 +145,5 @@ print(maxi)
 
 
 # Максим = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 23, 24, 25]
-# КЕГЭ = [16]
+# КЕГЭ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 16, 23, 25]
 # на следующем уроке:
