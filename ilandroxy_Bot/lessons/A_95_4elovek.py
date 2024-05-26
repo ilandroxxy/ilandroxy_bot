@@ -5,93 +5,105 @@
 
 
 # region Урок: ******************************************************************
+
+# № 16382 ЕГКР 27.04.24 (Уровень: Базовый)
 '''
-for n in range(1, 1000):
-    s = bin(n)[2:]
-    if n % 2 == 0:
-        s += '01'
+import sys
+sys.setrecursionlimit(10000)
+def F(n):
+    if n <= 3:
+        return 2025
+    if n > 3:
+        return 3 * (n-1) * F(n-2)
+
+print(F(2027) / F(2023))
+'''
+# Ответ: 36905616
+
+# [Previous line repeated 996 more times]
+# RecursionError: maximum recursion depth exceeded
+
+
+# № 13297 Открытый курс "Слово пацана" (Уровень: Базовый)
+'''
+def F(n):
+    if n == 3:
+        return 1
+    if n > 3:
+        return 5 * F(n-1) + 6 * G(n-1) - 3*n + 8
+
+def G(n):
+    if n == 3:
+        return 1
+    if n > 3:
+        return 6 * F(n-1)+5*G(n-1) + 3
+
+print(F(9) + G(9))
+'''
+# 3312821
+
+# № 7655 Вариант от ChatGPT (Уровень: Средний)
+'''
+from functools import *
+@lru_cache(None)
+def F(n):
+    if n < 2025:
+        return n**2
+    if 2025 <= n < 2050:
+        return 2 * F(n-1) - F(n-2) + n
+    if 2050 <= n <= 2100:
+        return F(n-1) + 2 * F(n-2) + 3 * F(n-3)
+    if n > 2100:
+        return 2 * F(n-1) + F(n-2) + n
+
+print(str(F(2020) + F(2200))[-7:])
+'''
+# 5098903
+
+'''
+def F(a, b):
+    if a > b or a == 16:
+        return 0
+    elif a == b:
+        return 1
     else:
-        s = '1' + s + '1'
-    r = int(s, 2)
-    if r > 156:
-        print(n)
-        break
+        return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+print(F(2, 9) * F(9, 18))
+
+
+def F(a, b):
+    if a >= b or a == 16:
+        return a == b
+    return F(a+1, b) + F(a+2, b) + F(a*3, b)
+
+print(F(2, 9) * F(9, 18))
 '''
 
 '''
-import turtle as t
-t.left(90)
-t.tracer(0)
-l = 20
+def F(a, b):
+    if a < b:
+        return 0
+    elif a == b:
+        return 1
+    else:
+        return F(a-1, b) + F(a-2, b) + F(a//4, b)
 
-for i in range(2):
-    t.forward(13 * l)
-    t.right(90)
-    t.forward(18 * l)
-    t.right(90)
-t.up()
-t.forward(5 * l)
-t.right(90)
-t.forward(9 * l)
-t.left(90)
-t.down()
-for i in range(2):
-    t.forward(11 * l)
-    t.right(90)
-    t.forward(7 * l)
-    t.right(90)
+print(F(26, 20) * F(20, 3))
+'''
+# Ответ: 34749
 
-t.up()
-for x in range(-50, 50):
-    for y in range(-50, 50):
-        t.goto(x * l, y * l)
-        t.dot(2, 'red')
 
-t.done()
-'''
-'''
-s = sorted('ПАРУС')
-num = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    num += 1
-                    if slovo.count('У') <= 1 and 'АА' not in slovo:
-                        print(num, slovo)
-                        exit()
-'''
+def F(x, A):
+    #       ¬ДЕЛ(x, А)   → ( ДЕЛ(x, 28)   →   ¬ДЕЛ(x, 49) )
+    return (x % A != 0) <= ((x % 28 == 0) <= (x % 49 != 0))
 
-'''
-from itertools import *
-cnt = 0
-for s in open('9.txt'):
-    M = sorted([int(x) for x in s.split()])
-    if max(M) < sum(M[:3]):
-        if any(p[0] + p[1] == p[2] + p[3] for p in permutations(M)):
-            cnt += 1
-print(cnt)
-'''
 
-'''
-x = 3*2187**2020 + 3*729**2021 - 2*81**2022 + 27**2023 -4*3**2024 - 2029
-M = []
-while x > 0:
-    M.append(x % 27)
-    x //= 27
-print(len([x for x in M if x > 9]))
-'''
+for A in range(1, 1000):
+    if all(F(x, A) for x in range(1, 10000)):
+        print(A)
 
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:27]:
-    A = int(f'123{x}24', 27)
-    B = int(f'135{x}78', 27)
-    if (A + B) % 26 == 0:
-        print((A + B) // 26)
-'''
+
 
 # endregion Урок: ***************************************************************
 
@@ -102,5 +114,5 @@ for x in alphabet[:27]:
 
 
 # Сева = [1, 2, 3, 4, 6, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 23, 24, 25]
-# КЕГЭ  = []
-# на следующем уроке: 8, 9, 12, 15, 16, 23, 17, 24, 25
+# КЕГЭ  = [16, 15 (без отрезков), 23]
+# на следующем уроке: 8, 9, 12, 17, 24, 25
