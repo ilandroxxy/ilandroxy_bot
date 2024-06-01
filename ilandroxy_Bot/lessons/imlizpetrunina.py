@@ -6,124 +6,164 @@
 
 # region Урок: ******************************************************************
 
-# № 16378 ЕГКР 27.04.24 (Уровень: Базовый)
+# № 16380 ЕГКР 27.04.24 (Уровень: Базовый)
 '''
-maxi = 0
-for n in range(4, 10000):
-    # начинающаяся с цифры «8», а затем содержащая и n цифр «4» (3 < n < 10 000)
-    s = '8' + '4' * n
-    while '11' in s or '444' in s or '8888' in s:
-        if '11' in s:
-            s = s.replace('11', '4', 1)
-        if '444' in s:
-            s = s.replace('444', '88', 1)
-        if '8888' in s:
-            s = s.replace('8888', '1', 1)
-    summa = sum(map(int, s))
-    maxi = max(maxi, summa)
-print(maxi)
+x = 4 * 3125**2019 + 3*625**2020 - 2*125**2021 + 25**2022 - 4*5**2023 - 2024
+M = []
+while x > 0:
+    M.append(x % 25)
+    x //= 25
+print(len([i for i in M if i > 10]))
 '''
 
 
-# № 16323 Открытый вариант 2024 (Уровень: Базовый)
+# № 12923 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
 '''
-s = '8' * 88
-while '1111' in s or '8888' in s:
-    if '1111' in s:
-        s = s.replace('1111', '8', 1)
+x = 3 * 3125 ** 9 + 2 * 625 ** 8 - 4 * 625 ** 7 + 3 * 125 ** 6 - 2 * 25 ** 5 - 2024
+M = []
+while x > 0:
+    M.append(x % 25)
+    x //= 25
+print(len(M))  # 23 - кол-во всех чисел в списке M
+print(M.count(0))  # Сколько значащих нулей содержится в этой записи?
+print(len(M) - M.count(0))  # Сколько значащих чисел не равных нулю
+'''
+
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+print(alphabet[:10])  # ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+print(alphabet[:2])  # ['0', '1']
+for x in alphabet[:27]:
+    A = int(f'123{x}24', 27)
+    B = int(f'135{x}78', 27)
+    if (A + B) % 26 == 0:
+        print((A + B) // 26)
+'''
+# Ответ: 1213206
+
+# Тип 14 №48384
+'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+for x in alphabet[:9]:
+    for y in alphabet[:9]:
+        A = int(f'88{x}4{y}', 9)
+        B = int(f'7{x}44{y}', 11)
+        if (A + B) % 61 == 0:
+            print((A+B) // 61)
+'''
+# 2715
+
+
+# № 13910 (Уровень: Базовый)
+'''
+# print(int('43897539', 37))
+# ValueError: int() base must be >= 2 and <= 36, or 0
+
+# alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+# for i in range(len(alphabet)):
+#     print(i, alphabet[i])
+
+for p in range(31, 37):
+    if int('TH', p) + int('NQ', p) + int('U', p) == int('1L7', p):
+        print(p)
+'''
+
+# № 16371 ЕГКР 27.04.24 (Уровень: Базовый)
+'''
+R = []
+for n in range(1, 1000):
+    s = bin(n)[2:]
+    if n % 3 == 0:
+        s = s + s[-2:]
     else:
-        s = s.replace('8888', '11', 1)
-print(s)
-'''
-# Ответ: 11
-
-
-# № 12921 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
-'''
-for n in range(4, 10000):
-    s = '5' + '2' * n
-    while '52' in s or '2222' in s or '1122' in s:
-        if '52' in s:
-            s = s.replace('52', '11', 1)
-        if '2222' in s:
-            s = s.replace('2222', '5', 1)
-        if '1122' in s:
-            s = s.replace('1122', '25', 1)
-    summa = sum(map(int, s))
-    if summa % 10 == 7:
-        print(n)
-        break
+        x = (n % 3) * 3
+        s = s + bin(x)[2:]
+    r = int(s, 2)
+    if r >= 195:
+        R.append(r)
+print(min(R))
 '''
 
-# № 16374 ЕГКР 27.04.24 (Уровень: Базовый)
-# Сколько существует семизначных семеричных чисел,
-# которые содержат в своей записи ровно две чётные цифры?
+# № 16316 Открытый вариант 2024 (Уровень: Базовый)
 '''
-s = '0123456'
-cnt = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    for f in s:
-                        for g in s:
-                            num = a + b + c + d + e + f + g
-                            if a != '0':
-                                chet = [x for x in num if x in '0246']
-                                if len(chet) == 2:
-                                    cnt += 1
-print(cnt)
-'''
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(num, base):
+    res = ''
+    while num > 0:
+        res += alphabet[num % base]
+        num //= base
+    return res[::-1]  # развернули строку
 
 
-# № 12917 PRO100 ЕГЭ 26.01.24 (Уровень: Базовый)
-# Петя составляет слова путём перестановки букв в слове ПРОСТО.
-# Сколько он сможет составить слов, если запрещено ставить рядом две одинаковые буквы?
-'''
-from itertools import *
 R = []
-for s in permutations('ПРОСТО'):
-    s = ''.join(s)
-    if 'ОО' not in s:
-        R.append(s)
-print(len(set(R)))
+for n in range(1, 1000):
+    s = convert(n, 2)
+    if n % 2 == 0:
+        s = '10' + s
+    else:
+        s = '1' + s + '01'
+    r = int(s, 2)
+    if r > 516:
+        R.append(n)
+print(min(R))
+
+
+# x = 3 * 3125 ** 9 + 2 * 625 ** 8 - 4 * 625 ** 7 + 3 * 125 ** 6 - 2 * 25 ** 5 - 2024
+# print(convert(x, 25).count('0'))
 '''
 
-#
-# № 12786 Открытый курс "Слово пацана" (Уровень: Базовый)
-# (М. Попков) Какое количество 6-буквенных слов вы сможете
-# составить перестановкой букв слова «МАКАКА»?
-# В данной задаче нужно принять подходящими все возможные последовательности,
-# вне зависимости имеет или нет данный набор букв смысловое содержание.
-# При этом необходимо избегать слов с двумя подряд одинаковыми буквами.
+
+# № 13874 (Уровень: Базовый)
 '''
-from itertools import *
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(num, base):
+    res = ''
+    while num > 0:
+        res += alphabet[num % base]
+        num //= base
+    return res[::-1]  # развернули строку
+
+
 R = []
-for s in permutations('МАКАКА'):
-    s = ''.join(s)
-    if 'АА' not in s and 'КК' not in s:
-        R.append(s)
-print(len(set(R)))
+for n in range(1, 1000):
+    s = convert(n, 4)
+    if n % 3 == 0:
+        s = s[-1] + s[1:-1] + s[0] + '1'
+    else:
+        s = s + str(n % 3)
+    r = int(s, 4)
+    if r <= 340:
+        R.append(r)
+print(max(R))
 '''
 
 
-# № 13823 (Уровень: Базовый)
+# № 9828 Основная волна 27.06.23 (Уровень: Средний)
 '''
-s = sorted('МИЗАНТРОП')
-num = 0
-for a in s:
-    for b in s:
-        for c in s:
-            for d in s:
-                for e in s:
-                    slovo = a + b + c + d + e
-                    num += 1
-                    if num % 2 == 0:
-                        if a == 'Н':
-                            if slovo.count('Р') == 2:
-                                print(num, slovo)
+alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
+def convert(num, base):
+    res = ''
+    while num > 0:
+        res += alphabet[num % base]
+        num //= base
+    return res[::-1]  # развернули строку
+
+
+R = []
+for n in range(1, 1000):
+    s = convert(n, 3)
+    if n % 3 == 0:
+        s = '1' + s + '02'
+    else:
+        x = (n % 3) * 4
+        s = s + convert(x, 3)
+    r = int(s, 3)
+    if r < 199:
+        R.append(n)
+print(max(R))
 '''
+
+
 # endregion Урок: ******************************************************************
 
 
@@ -134,5 +174,5 @@ for a in s:
 
 
 # Лиза = [1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 22, 23, 24, 25]
-# КЕГЭ  = [1, 4, 7, 8, 12, 15, 16, 23]
+# КЕГЭ  = [1, 4, 5, 7, 8, 12, 14, 15, 16, 23]
 # на следующем уроке:

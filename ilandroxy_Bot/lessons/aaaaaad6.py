@@ -6,48 +6,14 @@
 
 # region Урок: ******************************************************************
 '''
-def F(x, A):
-    return ((x % 10 == 0) and (x % 26 == 0) and (x >= 300)) <= (A <= x)
-
-R = []
-for A in range(1, 1000):
-    if all(F(x, A) for x in range(1, 10000)):
-        R.append(A)
-print(max(R))
-'''
-
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(num, base):
-    res = ''
-    while num > 0:
-        res = alphabet[num % base] + res
-        num //= base
-    return res
-
 R = []
 for n in range(1, 1000):
-    s = convert(n, 2)
+    s = bin(n)[2:]  # s = f'{n:b}'
     if n % 3 == 0:
         s = s + s[-2:]
     else:
-        x = 3 * (n % 3)
-        s = s + convert(x, 2)
-    r = int(s, 2)
-    if r >= 195:
-        R.append(r)
-print(min(R))
-'''
-
-'''
-R = []
-for n in range(1, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        s = s + f'{3 * (n % 3):b}'
+        x = (n % 3) * 3
+        s = s + f'{x:b}'
     r = int(s, 2)
     if r >= 195:
         R.append(r)
@@ -55,100 +21,95 @@ print(min(R))
 '''
 
 
-# № 13874 (Уровень: Базовый)
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(num, base):
-    res = ''
-    while num > 0:
-        res = alphabet[num % base] + res
-        num //= base
-    return res
+pixels = 1280*960
+I = (920 * 2**13)  # бит
+I = I + I * 0.15
+print(I / pixels)  # 6.133 -> 6
+i = 7
 
-
-R = []
-for n in range(1, 1000, 2):
-    s = convert(n, 4)
-    if n % 3 == 0:
-        s = s[-1] + s[1:-1] + s[0] + '1'
-    else:
-        s += str(n % 3)
-    r = int(s, 4)
-    if r <= 340:
-        R.append(r)
-print(max(R))
+print(2**i)
 '''
-# Ответ 334
+# Ответ: 128
+
 
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(num, base):
-    res = ''
-    while num > 0:
-        res = alphabet[num % base] + res
-        num //= base
-    return res
+from itertools import *
+cnt = 0
+for s in product('0123456', repeat=7):
+    num = ''.join(s)
+    if num[0] != '0':
+        chet = [x for x in num if x in '0246']
+        if len(chet) == 2:
+            cnt += 1
+print(cnt)
+'''
 
 
-x = 4*3125**2019 + 3*625**2020 - 2*125**2021 + 25**2022 -4*5**2023 - 2024
-R = convert(x, 25)
-print(len([a for a in R if a in alphabet[9:]]))
+'''
+import math
+cnt = 0
+for s in open('9.txt'):
+    M = [int(x) for x in s.split()]
+    copied = [x for x in M if M.count(x) == 2]
+    not_copied = sorted([x for x in M if M.count(x) == 1])
+    if len(copied) == 2 and len(not_copied) == 5:
+        if math.prod(not_copied[:3]) > math.prod(copied):
+            cnt += 1
+print(cnt)
+'''
 
+'''
+maxi = 0
+for n in range(4, 10000):
+    s = '8' + '4' * n
+    while '11' in s or '444' in s or '8888' in s:
+        if '11' in s:
+            s = s.replace('11', '4', 1)
+        if '444' in s:
+            s = s.replace('444', '88', 1)
+        if '8888' in s:
+            s = s.replace('8888', '1', 1)
+    summa = sum(map(int, s))
+    if maxi < summa:
+        maxi = summa
+        print(maxi)
+'''
 
-# Вариант 2
-x = 4*3125**2019 + 3*625**2020 - 2*125**2021 + 25**2022 -4*5**2023 - 2024
+'''
+from ipaddress import *
+net = ip_network('112.208.0.0/255.255.128.0', 0)
+cnt = 0
+for ip in net:
+    s = f'{ip:b}'
+    if s.count('1') % 11 == 0:
+        cnt += 1
+print(cnt)
+'''
+
+'''
+x = 4*3125**2019 + 3*625**2020 -2*125**2021 +25**2022 -4*5**2023 - 2024
 M = []
 while x > 0:
     M.append(x % 25)
     x //= 25
-print(len([a for a in M if a > 10]))
+M.reverse()
+print(len([i for i in M if i > 10]))
 '''
 
 
-# № 16261 Джобс 03.05.24 (Уровень: Базовый)
-'''
+M = [int(x) for x in open('17.txt')]
+D = [x for x in M if str(x)[-2:] == '21' and len(str(abs(x))) == 5]
 R = []
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:21]:
-    for y in alphabet[:21]:
-        A = int(f'943697{x}21', 21)
-        B = int(f'2{y}9253', 21)
-        if (A - B) % 20 == 0:
-            R.append([int(x, 21) - int(y, 21), (A - B) // 20])
-print(max(R)[1])
-'''
-# 17394273143
+for i in range(len(M)-1):
+    x, y = M[i:i+2]
+    if (x in D) != (y in D):
+        if (x**2 + y**2) >= max(D) ** 2:
+            R.append(x + y)
+print(len(R), max(R))
 
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for i in range(len(alphabet)):
-    print(i, alphabet[i])
-'''
+# 74 103365
 
-
-# № 13910 (Уровень: Базовый)
-'''
-for p in range(31, 36+1):  # U - 30
-    if int('TH', p) + int('NQ', p) + int('U', p) == int('1L7', p):
-        print(p)
-'''
-# Ответ: 33
-
-
-# 14 № 7085 OpenFIPI (Уровень: Базовый)
-'''
-x = 3 * 625**173 + 4*125**180 + 3*25**157 + 2*5**155 + 156
-M = []
-while x > 0:
-    M.append(x % 25)
-    x //= 25
-
-# Сколько значащих нулей содержится в этой записи?
-print(M.count(0))
-
-# Сколько значащих чисел, кроме нуля содержится в этой записи?
-print(len(M) - M.count(0))
-'''
 
 # endregion Урок: ******************************************************************
 
@@ -159,5 +120,5 @@ print(len(M) - M.count(0))
 
 
 # Лера = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19-21, 22, 23, 24, 25]
-# КЕГЭ  = [5, 14, 15, 16, 23]
-# на следующем уроке: повторять все номера кодом, 7, 11 и теорию игр
+# КЕГЭ  = [5, 8, 12, 14, 15, 16, 23]
+# на следующем уроке: повторять все номера кодом, 7, 11
