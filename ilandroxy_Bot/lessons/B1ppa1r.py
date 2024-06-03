@@ -6,23 +6,29 @@
 
 # region Урок: ******************************************************************
 '''
-from itertools import *
-cnt = 0
-for s in product('01234567', repeat=5):
-    word = ''.join(s)
-    if word[0] != '0':
-        if len(set(word)) == len(word) - 2:
-            if any(x in word for x in '000 111 222 333 444 555 666 777'.split()):
-                cnt += 1
-                print(word)
-print(cnt)
+f = open('26.txt')
+N = int(f.readline())
+M = sorted([int(x) for x in f])
+
+summa1 = sum(M) - sum(M[:2500]) / 2
+# summa2 = sum(M) - sum(M[7500:]) / 2
+summa2 = sum(M) - sum(M[::-1][:2500]) / 2
+print(summa2, summa1)
 '''
-# Ответ: 882
-
-import math
-print(math.modf(1.0))
 
 
+# № 4712 Демоверсия 2023 (Уровень: Базовый)
+'''
+f = open('26.txt')
+N = int(f.readline())
+M = sorted([int(x) for x in f])[::-1]
+
+R = [M.pop(0)]
+for x in M:
+    if x <= R[-1] - 3:
+        R.append(x)
+print(len(R), min(R))
+'''
 
 # endregion Урок: ******************************************************************
 

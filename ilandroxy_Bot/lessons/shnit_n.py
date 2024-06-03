@@ -4,50 +4,69 @@
 
 # region Урок: **************************************************************
 
-
-# № 16388 ЕГКР 27.04.24 (Уровень: Базовый)
+# № 8696 (Уровень: Средний)
 '''
-s = open('24.txt').readline()
-count = 3  # локальный счетчик
-maxi = 0  # глобальный счетчик
-for i in range(len(s)-3):
-    if s[i:i+4] in ('KLMN', 'LMNK', 'MNKL', 'NKLM'):
-        count += 1
-        maxi = max(maxi, count)
-    else:
-        count = 3
-print(maxi)
-'''
-
-# № 16333 Открытый вариант 2024 (Уровень: Базовый)
-'''
-s = open('24.txt').readline()
-s = s.replace('Q', 'R').replace('W', 'R')
-s = s.replace('1', '2').replace('4', '2')
-while '22' in s or 'RR' in s:
-    s = s.replace('RR', 'R R').replace('22', '2 2')
-print(max([len(x) for x in s.split()]))
-'''
-
-# № 10105 Демоверсия 2024 (Уровень: Средний)
-'''
-s = open('24.txt').readline().split('T')
-maxi = 0
-for i in range(len(s)-100):
-    r = 'T'.join(s[i:i+101])
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
+def divisors(x):
+    div = []
+    for j in range(2, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
 
 
-# № 9791 Основная волна 20.06.23 (Уровень: Средний)
+k = 0
+for x in range(1_273_547+1, 10**10):
+    M = sum(divisors(x))
+    if M != 0:
+        if len(divisors(M % 100_000)) == 0:
+            print(x, M)
+            k += 1
+            if k == 5:
+                break
 '''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-s = open('24.txt').readline()
-for x in alphabet[16:]:
-    s = s.replace(x, ' ')
-print(max([len(x) for x in s.split()]))
+
+# 24 {1, 2, 3, 4, 6, 8, 12, 24}
+
+
+# № 8960 Джобс 02.06.2023 (Уровень: Базовый)
 '''
+from fnmatch import *
+
+def divisors(x):
+    div = []
+    for j in range(1, int(x**0.5)+1):
+        if x % j == 0:
+            div += [j, x // j]
+    return sorted(set(div))
+
+k = 0
+for x in range(500_001, 10**10):
+    summa = sum(divisors(x))
+    if fnmatch(str(summa), '*7?'):
+        print(x, summa)
+        k += 1
+        if k == 5:
+            break
+'''
+# Ответ:
+# 500001 666672
+# 500048 968874
+# 500069 500070
+# 500079 666776
+# 500114 750174
+
+
+# № 9076 Danov2306 (Уровень: Базовый)
+from fnmatch import *
+for x in range(2023, 10**9, 2023):
+    if fnmatch(str(x), '20*23'):
+        summa = sum([int(i) for i in str(x)])
+        # summa = sum(map(int, s))
+        if summa % 7 == 0 and summa < 20:
+            print(x)
+
+
+
 # endregion Урок: ************************************************************
 
 

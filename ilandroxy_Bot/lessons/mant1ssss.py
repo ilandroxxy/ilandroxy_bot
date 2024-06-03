@@ -4,107 +4,17 @@
 
 
 # region Урок: ******************************************************************
-
-# t = (50 * 2 ** 23) / (2 * 32000 * 16)
-# I = 4 * 48000 * 24 * t
-# print(I / 2 ** 23)  # 225
-# # 225 / 100 = 2.25
-# print(180 / 2.25)  # 80
-# # Следовательно сократили на 20 %
 '''
-from functools import *
-@lru_cache(None)
-def F(n):
-    if n < 3:
-        return n
-    if n > 2 and n % 2 != 0:
-        return F(n-1) + F(n-2) + 1
-    if n > 2 and n % 2 == 0:
-        return sum([F(i) for i in range(1, n)])
-
-print(F(38))
+s = open('24.txt').readline()
+s = s.replace('B', 'A').replace('C', 'A')
+s = s.replace('AAA', 'AA AA')
+print(max([len(x) for x in s.split()]))
 '''
-
-
-# № 12476 PRO100 ЕГЭ 29.12.23 (Уровень: Сложный)
-# Текстовый файл состоит из символов P, R, O, E, G – зашифрованное письмо Деду Морозу.
-#
-# Определите в прилагаемом файле максимальное количество идущих
-# подряд символов, среди которых комбинация символов RO встречается ровно 21 раз,
-# а комбинации символов ORO и ROR ни разу не встречаются.
-
-s = open('24.txt').readline().split('RO')
-maxi = 0
-for i in range(len(s)-21):
-    r = 'RO'.join(s[i:i+22])
-    if 'ORO' not in r and 'ROR' not in r:
-        maxi = max(maxi, len(r))
-print(maxi)
-
 
 # endregion Урок: *******************************************************************
 
 
 # region Разобрать: *************************************************************
-
-# todo разобрать КЕГЭ № 11636 (Уровень: Сложный)
-
-# todo разобрать Марк № 14100 (Уровень: Средний)
-# (П. Говоров) В файле содержится строка длиной не более 106 из букв A,B,C.
-# Определите в прилагаемом файле максимальную длину подпоследовательности, составленную конкатенацией из
-# следующих подстрок (могут использоваться любое количество раз): ABA, CB, AC, BB, ABC, BCB, BA, AB.
-'''
-s = open('24.txt').readline()
-dp = [0] * len(s)
-prim = ['ABA', 'CB', 'AC', 'BB', 'ABC', 'BCB', 'BA', 'AB']
-
-for i in range(1, len(s)):
-    for j in prim:
-        if i >= len(j) - 1:
-            if s[i - len(j) + 1:i + 1] == j:
-                dp[i] = max(dp[i], dp[i - len(j)] + len(j))
-print(max(dp))
-
-
-# наше решение:
-s = open('24.txt').readline()
-maxi = 0
-for a in "ABA CB AC BB ABC BCB BA AB".split():
-    s = s.replace(a, '*' * len(a))
-s = s.replace('A', ' ').replace('B', ' ').replace('C', ' ')
-print(max([len(x) for x in s.split()]))
-'''
-
-
-# todo Разобрать Марк почему ответ не сходится № 13715 (Уровень: Средний)
-# Текстовый файл состоит из символов A, B, C, D и E.
-#
-# Определите в прилагаемом файле максимальное количество идущих подряд символов,
-# среди которых комбинация символов AB встречается ровно 50 раз.
-'''
-s = open('24.txt').readline().split('AB')
-maxi = 0
-for i in range(len(s)-50):
-    r = 'AB'.join(s[i:i+51])
-    print(len(r), r.count('AB'), r)
-    maxi = max(maxi, len(r))
-print(maxi)
-'''
-
-# todo Придумать как быть с незначащими нулями Марк № 10724 (Уровень: Базовый)
-'''
-s = open('24.txt').readline()
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')[16:]
-for a in alphabet:
-    s = s.replace(a, ' ')
-maxi = 0
-for x in s.split():
-    if x[0] != '0':
-        if maxi < len(x):
-            maxi = len(x)
-            print(maxi, x)
-print(maxi)
-'''
 
 # endregion Разобрать: *************************************************************
 

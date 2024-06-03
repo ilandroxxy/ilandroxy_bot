@@ -5,178 +5,156 @@
 
 
 # region Урок: ******************************************************************
-
-# № 15330 Досрочная волна 2024 (Уровень: Базовый)
 '''
-def F(x, a1, a2):
-    B = 24 <= x <= 90
-    C = 47 <= x <= 115
-    A = a1 <= x <= a2
-    return C <= (((not A) and B) <= (not C))
+s = sorted('ПАРУС')
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    slovo = a + b + c + d + e
+                    num += 1
+                    if slovo.count('У') <= 1:
+                        if 'АА' not in slovo:
+                            print(num, slovo)
+'''
+# 2969
 
 
+# № 11201 (Уровень: Средний)
+# (С. Якунин) Полина составляет слова, переставляя
+# буквы в слове ПАЙТОН. Сколько слов может составить Полина,
+# если известно, что сумма порядковых номеров гласных букв, в каждом из них, равна 6?
+# Буквы нумеруются слева направо, начиная с единицы.
+'''
+s = 'ПАЙТОН'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        slovo = a + b + c + d + e + f
+                        if len(slovo) == len(set(slovo)):
+                            M = [i+1 for i in range(len(slovo)) if slovo[i] in 'АО']
+                            if sum(M) == 6:
+                                cnt += 1
+print(cnt)
+'''
+
+#
+# № 10090 Демоверсия 2024 (Уровень: Базовый)
+# Сколько существует восьмеричных пятизначных чисел, не
+# содержащих в своей записи цифру 1, в которых
+# все цифры различны и никакие две чётные или две нечётные цифры не стоят рядом?
+'''
+s = '01234567'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    num = a + b + c + d + e
+                    if num[0] != '0' and num.count('1') == 0:
+                        if len(num) == len(set(num)):
+                            num = num.replace('0', '2').replace('4', '2').replace('6', '2')
+                            num = num.replace('3', '1').replace('5', '1').replace('7', '1')
+                            if '22' not in num and '11' not in num:
+                                cnt += 1
+print(cnt)
+
+
+s = '01234567'
+s1 = '1357'
+s2 = '0246'
+cnt = 0
+for a in s1:
+    for b in s2:
+        for c in s1:
+            for d in s2:
+                for e in s1:
+                    num = a + b + c + d + e
+                    if num[0] != '0' and num.count('1') == 0:
+                        if len(num) == len(set(num)):
+                            cnt += 1
+for a in s2:
+    for b in s1:
+        for c in s2:
+            for d in s1:
+                for e in s2:
+                    num = a + b + c + d + e
+                    if num[0] != '0' and num.count('1') == 0:
+                        if len(num) == len(set(num)):
+                            cnt += 1
+print(cnt)
+'''
+
+# № 9777 Основная волна 20.06.23 (Уровень: Базовый)
+'''
+s = sorted('КОМПЬЮТЕР')
+num = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    slovo = a + b + c + d + e
+                    num += 1
+                    if num % 2 != 0:
+                        if a != 'Ь':
+                            if slovo.count('К') == 2:
+                                print(num, slovo)
+'''
+
+# № 16374 ЕГКР 27.04.24 (Уровень: Базовый)
+# Сколько существует семизначных семеричных чисел, которые
+# содержат в своей записи ровно две чётные цифры?
+'''
+s = '0123456'
+cnt = 0
+for a in s:
+    for b in s:
+        for c in s:
+            for d in s:
+                for e in s:
+                    for f in s:
+                        for g in s:
+                            num = a + b + c + d + e + f + g
+                            if num[0] != '0':
+                                chet = [x for x in num if x in '0246']
+                                if len(chet) == 2:
+                                    cnt += 1
+print(cnt)
+'''
+
+
+# № 16328 Открытый вариант 2024 (Уровень: Базовый)
+'''
+M = [int(x) for x in open('17.txt')]
+D = [x for x in M if abs(x) % 19 == 0]
 R = []
-M = [x / 4 for x in range(10 * 4, 120 * 4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2-a1)
-print(min(R))
+for i in range(len(M)-1):
+    x, y = M[i], M[i+1]
+    if x % min(D) == 0 or y % min(D) == 0:
+        R.append(x + y)
+print(len(R), max(R))
 '''
 
-# № 12469 (Уровень: Базовый)
 '''
-def F(x, a1, a2):
-    D = 7 <= x <= 68
-    C = 29 <= x <= 100
-    A = a1 <= x <= a2
-    return D <= (((not C) and (not A)) <= (not D))
-
+M = [int(x) for x in open('17.txt')]
+A = [x for x in M if str(x)[-2:] == '13']
 R = []
-M = [x / 4 for x in range(2*4, 120*4)]
-for a1 in M:
-    for a2 in M:
-        if all(F(x, a1, a2) for x in M):
-            R.append(a2 - a1)
-print(min(R))  # 21.75 -> 22
+for i in range(len(M)-2):
+    x, y, z = M[i], M[i+1], M[i+2]
+    D = [p for p in (x, y, z) if len(str(abs(p))) == 3]
+    if len(D) == 2:
+        if (x + y + z) <= max(A):
+            R.append(x + y + z)
+print(len(R), max(R))
 '''
-'''
-maxi = 0
-for n in range(4, 100):
-    s = '8' + '4' * n
-    while '11' in s or '444' in s or '8888' in s:
-        if '11' in s:
-            s = s.replace('11', '4', 1)
-        if '444' in s:
-            s = s.replace('444', '88', 1)
-        if '8888' in s:
-            s = s.replace('8888', '1', 1)
-    summa = sum(map(int, s))
-    maxi = max(maxi, summa)
-print(maxi)
-'''
-
-'''
-s = '8' * 45
-while '1111' in s or '8888' in s:
-    if '1111' in s:
-        s = s.replace('1111', '88', 1)
-    else:
-        s = s.replace('8888', '11', 1)
-print(s)  # 888
-'''
-
-'''
-x = 4*3125**2019 + 3*625**2020 -2*125**2021+25**2022-4*5**2023-2024
-M = []
-while x > 0:
-    M.append(x % 25)
-    x //= 25
-print(len([i for i in M if i > 10]))  # 3030
-'''
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-for x in alphabet[:27]:
-    A = int(f'123{x}24', 27)
-    B = int(f'135{x}78', 27)
-    if (A + B) % 26 == 0:
-        print((A + B) // 26)
-'''
-# 1213206
-
-'''
-from fnmatch import *
-for x in range(98591, 10**10, 98591):
-    if fnmatch(str(x), '5?2*3?3?'):
-        print(x, x // 98591)
-'''
-
-
-# № 13868 (Уровень: Базовый)
-'''
-from fnmatch import *
-for x in range(2024, 10**10, 2024):
-    if fnmatch(str(x), '112?57*4'):
-        summa = sum(map(int, str(x)))
-        if summa % 2 != 0:
-            print(x, x//2024)
-'''
-
-
-# № 12477 PRO100 ЕГЭ 29.12.23 (Уровень: Средний)
-'''
-def prime(x):
-    for j in range(2, x):
-        if x % j == 0:
-            return False
-    return True
-
-from fnmatch import *
-for x in range(10**7):
-    if fnmatch(str(x), '3?1111*'):
-        if prime(x):
-            print(x)
-'''
-
-'''
-R = []
-for n in range(1, 1000):
-    s = f'{n:b}'  # s = bin(n)[2:]
-    if n % 3 == 0:
-        s = s + s[-2:]
-    else:
-        x = (n % 3) * 3
-        s = s + f'{x:b}'
-    r = int(s, 2)
-    if r >= 195:
-        R.append(r)
-print(min(R))
-'''
-
-'''
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(num, base):
-    result = ''
-    while num > 0:
-        result += alphabet[num % base]
-        num //= base
-    return result[::-1]
-
-
-R = []
-for n in range(1, 1000):
-    s = convert(n, 4)
-    if n % 3 == 0:
-        s = s[-1] + s[1:-1] + s[0] + '1'
-    else:
-        s = s + str(n % 3)
-    r = int(s, 4)
-    if r <= 340:
-        R.append(r)
-print(max(R))
-'''
-
-alphabet = sorted('0123456789QWERTYUIOPASDFGHJKLZXCVBNM')
-def convert(num, base):
-    result = ''
-    while num > 0:
-        result += alphabet[num % base]
-        num //= base
-    return result[::-1]
-
-
-for n in range(1, 1000):
-    s = convert(n, 2)
-    print(s)
-    if n % 2 == 0:
-        s = s + s[-2:]
-    else:
-        s = '1' + s + '0'
-    print(s)
-    R = int(s, 2)
-
-    if R < 100:
-        print(n)
 
 # endregion Урок: ***************************************************************
 
@@ -187,5 +165,5 @@ for n in range(1, 1000):
 
 
 # Сева = [1, 2, 3, 4, 6, 5, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 23, 24, 25]
-# КЕГЭ  = [5, 12, 14, 15, 16, 23, 25]
-# на следующем уроке: 8, 9, 17, 24
+# КЕГЭ  = [5, 8, 12, 14, 15, 16, 23, 25]
+# на следующем уроке: 9, 17, 24
